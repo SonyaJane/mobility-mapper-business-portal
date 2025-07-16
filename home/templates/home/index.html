@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-5 text-center">
+    <h1>Welcome to the Mobility Mapper Business Portal</h1>
+    <p class="lead">Join us in making cities more accessible—one business at a time.</p>
+    <a href="{% url 'account_signup' %}" class="btn btn-primary mt-3">Get Started</a>
+</div>
+{% endblock %}
