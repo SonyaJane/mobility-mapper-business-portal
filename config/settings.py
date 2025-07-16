@@ -52,6 +52,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.instagram',
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.twitter',
+    
+    # Custom apps    
+    'accounts',
+    'businesses',
 ]
 
 MIDDLEWARE = [
@@ -97,9 +101,8 @@ AUTHENTICATION_BACKENDS = [
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Core Allauth settings
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # to allow both
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGIN_METHODS = {'username', 'email'}
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
