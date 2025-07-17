@@ -56,6 +56,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.twitter',
     
+    # Crispy forms for better form rendering
+    'crispy_forms',
+    'crispy_bootstrap5',
+
     # Leaflet for admin maps
     'leaflet',
     
@@ -122,6 +126,10 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_SIGNUP_REDIRECT_URL = '/dashboard/'
+
+# Crispy Forms settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
