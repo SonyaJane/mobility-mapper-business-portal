@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-4">Business Dashboard</h1>
+
+  <p>Welcome, {{ user.username }}!</p>
+
+  {% if business %}
+    <h2>Your Business:</h2>
+    <ul>
+      <li><strong>Name:</strong> {{ business.name }}</li>
+      <li><strong>Address:</strong> {{ business.address }}</li>
+      <li><strong>Category:</strong> {{ business.category }}</li>
+      <li><strong>Location (Lat,Lng):</strong> {{ business.location.y }}, {{ business.location.x }}</li>
+    </ul>
+  {% else %}
+    <p>You haven't registered a business yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

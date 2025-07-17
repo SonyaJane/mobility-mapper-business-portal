@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .forms import BusinessRegistrationForm
 from accounts.models import UserProfile
+from .forms import BusinessRegistrationForm
+from .models import Business
 
 @login_required
 def register_business(request):
@@ -27,3 +28,13 @@ def register_business(request):
         form = BusinessRegistrationForm()
 
     return render(request, 'businesses/register_business.html', {'form': form})
+
+
+@login_required
+def business_dashboard(request):
+    try:
+        business = Business.objects.get(owner=request.user)
+    except Business.DoesNotExist:
+        business = None
+
+    return render(request, 'businesses/business_dashboard.html', {'business': business})

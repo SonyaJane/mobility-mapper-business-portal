@@ -35,13 +35,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             {% if user.is_authenticated %}
-                {% if not user_profile.has_business %}
+                {% if not user.userprofile.has_business %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'register_business' %}">Register Business</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard/">Dashboard</a>
+                    <a class="nav-link" href="{% url 'account_dashboard' %}">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'business_dashboard' %}">Business Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
