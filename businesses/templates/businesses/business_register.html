@@ -2,15 +2,16 @@
 
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
 
 <div class="container mt-5">
   <h2>Register Your Business</h2>
 
-	<form method="POST">
+  <form method="POST">
     {% csrf_token %}
     {% crispy form %}
-</form>
+  </form>
 	
 </div>
 
