@@ -11,6 +11,8 @@
 
     {% block corecss %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/OrdnanceSurvey/os-api-branding@latest/os-api-branding.css" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
     {% block extra_css %}
@@ -18,6 +20,8 @@
 
     {% block corejs %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/OrdnanceSurvey/os-api-branding@latest/os-api-branding.js"></script>
     {% endblock %}
     {% block extra_js %}
     {% endblock %}
@@ -63,8 +67,21 @@
     </header>
 
     {% if messages %}
-        <div class="message-container"></div>
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+            {% for message in messages %}
+            {% if 'error' in message.tags %}
+                {% include 'includes/toasts/toast_error.html' %}
+            {% elif 'warning' in message.tags %}
+                {% include 'includes/toasts/toast_warning.html' %}
+            {% elif 'success' in message.tags %}
+                {% include 'includes/toasts/toast_success.html' %}
+            {% else %}
+                {% include 'includes/toasts/toast_info.html' %}
+            {% endif %}
+            {% endfor %}
+        </div>
     {% endif %}
+
 
     {% block page_header %}
     {% endblock %}        
@@ -75,6 +92,14 @@
     </main>
 
     {% block postloadjs %}
+    
+    <script type="text/javascript">
+      document.querySelectorAll('.toast').forEach(function(toastNode) {
+        let toast = bootstrap.Toast.getOrCreateInstance(toastNode); 
+        toast.show();
+      });
+    </script>
+    
     {% endblock %}
 
 </body>

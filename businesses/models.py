@@ -18,6 +18,16 @@ CATEGORY_CHOICES = [
     ('other', 'Other'),
 ]
 
+ACCESSIBILITY_FEATURE_CHOICES = [
+    ('step_free', 'Step-free access'),
+    ('wide_doors', 'Wide doors'),
+    ('accessible_toilet', 'Accessible toilet'),
+    ('hearing_loop', 'Hearing loop'),
+    ('assistance_available', 'Staff assistance available'),
+    ('low_counter', 'Low counter'),
+    ('disabled_parking', 'Disabled parking'),
+]
+
 class Business(models.Model):
     owner = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)

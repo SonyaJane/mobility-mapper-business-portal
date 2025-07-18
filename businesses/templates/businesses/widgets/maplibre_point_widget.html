@@ -1,0 +1,65 @@
+<div id="map" style="height: 400px;"></div>
+<input type="hidden" name="{{ widget.name }}" id="{{ widget.attrs.id }}" value="{{ widget.value|default_if_none:'' }}">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Create a map style object using the ZXY service.
+    const style = {
+        "version": 8,
+        "sources": {
+            "raster-tiles": {
+                "type": "raster",
+                "tiles": ["https://api.os.uk/maps/raster/v1/zxy/Road_3857/{z}/{x}/{y}.png?key={{ widget.OS_MAPS_API_KEY }}"],
+                "tileSize": 256
+            }
+        },
+        "layers": [{
+            "id": "os-maps-zxy",
+            "type": "raster",
+            "source": "raster-tiles"
+        }]
+    };
+
+    const map = new maplibregl.Map({
+      container: 'map',
+      minZoom: 6,
+      maxZoom: 18,
+      style: style,
+      maxBounds: [
+            [ -10.76418, 49.528423 ],
+            [ 1.9134116, 61.331151 ]
+        ],
+      center: [-3, 54.5], // UK center
+      zoom: 5,
+    });
+
+    let marker;
+
+    map.on('click', function (e) {
+      const coords = [e.lngLat.lng, e.lngLat.lat];
+
+      // Add or move the marker
+      if (marker) {
+        marker.setLngLat(coords);
+      } else {
+        marker = new maplibregl.Marker().setLngLat(coords).addTo(map);
+      }
+
+      // Set value in hidden input
+      document.getElementById('{{ widget.attrs.id }}').value = `POINT(${coords[0]} ${coords[1]})`;
+    });
+
+    // If initial value exists, show marker
+    const initial = document.getElementById('{{ widget.attrs.id }}').value;
+    if (initial) {
+      const match = initial.match(/POINT\(([-\d.]+) ([-\d.]+)\)/);
+      if (match) {
+        const lng = parseFloat(match[1]);
+        const lat = parseFloat(match[2]);
+        marker = new maplibregl.Marker().setLngLat([lng, lat]).addTo(map);
+        map.setCenter([lng, lat]);
+        map.setZoom(12);
+      }
+    }
+  });
+</script>

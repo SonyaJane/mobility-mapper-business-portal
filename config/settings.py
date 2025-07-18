@@ -59,9 +59,6 @@ INSTALLED_APPS = [
     # Crispy forms for better form rendering
     'crispy_forms',
     'crispy_bootstrap5',
-
-    # Leaflet for admin maps
-    'leaflet',
     
     # Custom apps 
     'home',   
@@ -96,6 +93,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'accounts.context_processors.user_profile',
+                'config.context_processors.os_api_key',
             ],
         },
     },
@@ -186,3 +184,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+OS_MAPS_API_KEY = config('OS_MAPS_API_KEY')

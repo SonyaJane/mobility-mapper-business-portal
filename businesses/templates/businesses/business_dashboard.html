@@ -11,11 +11,16 @@
     <ul>
       <li><strong>Name:</strong> {{ business.name }}</li>
       <li><strong>Address:</strong> {{ business.address }}</li>
-      <li><strong>Category:</strong> {{ business.category }}</li>
       <li><strong>Location (Lat,Lng):</strong> {{ business.location.y }}, {{ business.location.x }}</li>
+      <li><strong>Category:</strong> {{ business.category }}</li>
+      <li><strong>Tier:</strong> {{ business.tier }}</li>
+      <li><strong>Verified:</strong> {{ business.is_verified|yesno:"Yes,No" }}</li>
     </ul>
+    <a href="{% url 'edit_business' %}" class="btn btn-warning mt-3">Edit Business</a>
+    <a href="{% url 'delete_business' %}" class="btn btn-outline-danger mt-3">Delete Business</a>
   {% else %}
     <p>You haven't registered a business yet.</p>
+    <a href="{% url 'register_business' %}" class="btn btn-primary">Register Now</a>
   {% endif %}
 </div>
 {% endblock %}
