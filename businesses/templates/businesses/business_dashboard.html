@@ -14,8 +14,11 @@
       <li><strong>Location (Lat,Lng):</strong> {{ business.location.y }}, {{ business.location.x }}</li>
       <li><strong>Category:</strong> {{ business.category }}</li>
       <li><strong>Tier:</strong> {{ business.tier }}</li>
-      <li><strong>Verified:</strong> {{ business.is_verified|yesno:"Yes,No" }}</li>
+      <li><strong>Approved:</strong> {{ business.is_approved|yesno:"Yes,No" }}</li>
     </ul>
+    {% if business.verified_by_wheelers %}
+      <p class="text-success fw-bold">✅ Verified by Wheelers</p>
+    {% endif %}
     <a href="{% url 'edit_business' %}" class="btn btn-warning mt-3">Edit Business</a>
     <a href="{% url 'delete_business' %}" class="btn btn-outline-danger mt-3">Delete Business</a>
   {% else %}

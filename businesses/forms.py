@@ -11,7 +11,7 @@ class BusinessRegistrationForm(forms.ModelForm):
     
     class Meta:
         model = Business
-        exclude = ('owner', 'is_verified',)
+        exclude = ('owner', 'is_approved',)
         widgets = {
             'location': MapLibrePointWidget(),
         }
