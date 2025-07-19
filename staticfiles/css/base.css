@@ -36,6 +36,7 @@ body {
 }
 
 .custom-toast {
+    position: relative;
     overflow: visible;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
@@ -93,6 +94,21 @@ body {
 
 .arrow-dark {
     border-bottom-color: #343a40 !important;
+}
+
+/* Map */
+#map {
+    background: #bd582c !important; 
+    height: 400px;
+    width: 400px;
+    min-height: 300px;
+    min-width: 300px;
+    visibility: visible !important;
+}
+
+.maplibregl-canvas {
+    opacity: 1 !important;
+    filter: none !important;
 }
 
 

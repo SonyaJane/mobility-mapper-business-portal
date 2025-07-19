@@ -1,5 +1,5 @@
 from django import forms
-from .models import Business, ACCESSIBILITY_FEATURE_CHOICES
+from .models import Business, WheelerVerification, ACCESSIBILITY_FEATURE_CHOICES
 from .widgets import MapLibrePointWidget
 
 class BusinessRegistrationForm(forms.ModelForm):
@@ -11,7 +11,13 @@ class BusinessRegistrationForm(forms.ModelForm):
     
     class Meta:
         model = Business
-        exclude = ('owner', 'is_approved',)
+        exclude = [
+            'owner',
+            'wheeler_verification_requested',
+            'verified_by_wheelers',
+            'wheeler_verification_notes',
+            'is_approved',
+        ]
         widgets = {
             'location': MapLibrePointWidget(),
         }
@@ -20,3 +26,13 @@ class BusinessRegistrationForm(forms.ModelForm):
         # Store the list as JSON
         data = self.cleaned_data['accessibility_features']
         return list(data)
+
+
+class WheelerVerificationForm(forms.ModelForm):
+    class Meta:
+        model = WheelerVerification
+        fields = ['comments']
+        widgets = {
+            'comments': forms.Textarea(attrs={'rows': 4}),
+        }
+        

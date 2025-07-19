@@ -7,5 +7,5 @@ class UserProfileAdmin(admin.ModelAdmin):
     A table view showing both the user and their has_business status.
     The ability to search by username or email
     """
-    list_display = ('user', 'has_business')
+    list_display = ('user', 'is_wheeler', 'has_business')
     search_fields = ('user__username', 'user__email')

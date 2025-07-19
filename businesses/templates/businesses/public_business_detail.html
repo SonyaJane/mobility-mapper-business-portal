@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-4">
+  <h1>{{ business.name }}</h1>
+
+  {% if business.logo %}
+    <img src="{{ business.logo.url }}" alt="{{ business.name }} Logo" class="img-fluid mb-3" style="max-height: 200px;">
+  {% endif %}
+
+  <p><strong>Category:</strong> {{ business.get_category_display }}</p>
+  <p><strong>Address:</strong> {{ business.address }}</p>
+  <p><strong>Description:</strong> {{ business.description }}</p>
+
+  {% if business.accessibility_features %}
+    <h4>Accessibility Features:</h4>
+    <ul>
+      {% for feature in business.accessibility_features %}
+        <li>{{ feature|capfirst|cut:"_"|title }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if business.verified_by_wheelers %}
+    <div class="alert alert-success">
+      ✅ Verified by Wheelers
+    </div>
+  {% elif business.wheeler_verification_requested %}
+    <div class="alert alert-warning">
+      ⏳ Wheeler Verification Requested
+    </div>
+  {% endif %}
+
+  <div id="public-map" style="height: 400px; width: 400px;"></div>
+
+  <script>
+    const style = {
+      version: 8,
+      sources: {
+        "raster-tiles": {
+          type: "raster",
+          tiles: ["https://api.os.uk/maps/raster/v1/zxy/Road_3857/{z}/{x}/{y}.png?key={{ OS_MAPS_API_KEY }}"],
+          tileSize: 256
+        }
+      },
+      layers: [{
+        id: "os-maps-zxy",
+        type: "raster",
+        source: "raster-tiles"
+      }]
+    };
+
+    const map = new maplibregl.Map({
+      container: 'public-map',
+      style: style,
+      center: [{{ business.location.x }}, {{ business.location.y }}],
+      zoom: 14
+    });
+
+    new maplibregl.Marker()
+      .setLngLat([{{ business.location.x }}, {{ business.location.y }}])
+      .addTo(map);
+  </script>
+
+  {% if request.user.is_authenticated and request.user.userprofile.is_wheeler %}
+    {% if not has_user_verified %}
+        <a href="{% url 'submit_verification' business.pk %}" class="btn btn-outline-primary mt-3">
+        ✅ I've visited - Verify this business
+        </a>
+    {% else %}
+        <p class="text-muted mt-3">✅ You have already verified this business.</p>
+    {% endif %}
+{% endif %}
+
+</div>
+{% endblock %}

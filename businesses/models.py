@@ -1,12 +1,11 @@
 from django.contrib.gis.db import models as geomodels
 from django.db import models
 from django.conf import settings
-
+    
 TIER_CHOICES = [
     ('free', 'Free'),
     ('supporter', 'Supporter'),
     ('featured', 'Featured'),
-    ('partner', 'Premier Partner'),
 ]
 
 CATEGORY_CHOICES = [
@@ -38,6 +37,7 @@ class Business(models.Model):
     logo = models.ImageField(upload_to='business_logos/', blank=True, null=True)
     accessibility_features = models.JSONField(default=list, blank=True)
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, default='free')
+    wheeler_verification_requested = models.BooleanField(default=False)
     verified_by_wheelers = models.BooleanField(default=False) # Indicates if the business premises has been verified by Wheelers
     wheeler_verification_notes = models.TextField(blank=True, null=True)
     is_approved = models.BooleanField(default=False) # Indicates if the business is approved by the admin
@@ -88,3 +88,21 @@ class Business(models.Model):
         }
 
         return feature_name in tier_features.get(self.tier, [])
+    
+    @property
+    def is_wheeler_verified(self):
+        return self.verifications.exists()
+    
+
+class WheelerVerification(models.Model):
+    business = models.ForeignKey('Business', on_delete=models.CASCADE, related_name='verifications')
+    wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verifications_made')
+    date_verified = models.DateTimeField(auto_now_add=True)
+    comments = models.TextField(blank=True, null=True)
+
+    class Meta:
+        unique_together = ('business', 'wheeler')  # prevent double verification
+
+    def __str__(self):
+        return f"{self.wheeler} verified {self.business.name} on {self.date_verified.strftime('%Y-%m-%d')}"
+    

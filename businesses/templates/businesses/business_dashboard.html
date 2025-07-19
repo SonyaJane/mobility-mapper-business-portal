@@ -16,9 +16,18 @@
       <li><strong>Tier:</strong> {{ business.tier }}</li>
       <li><strong>Approved:</strong> {{ business.is_approved|yesno:"Yes,No" }}</li>
     </ul>
-    {% if business.verified_by_wheelers %}
+
+    {% if business.is_wheeler_verified %}
       <p class="text-success fw-bold">✅ Verified by Wheelers</p>
+    {% elif business.wheeler_verification_requested %}
+      <div class="alert alert-warning">⏳ Verification request pending</div>
+    {% else %}
+      <form method="POST" action="{% url 'request_wheeler_verification' business.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-primary">Request Wheeler Verification</button>
+      </form>
     {% endif %}
+
     <a href="{% url 'edit_business' %}" class="btn btn-warning mt-3">Edit Business</a>
     <a href="{% url 'delete_business' %}" class="btn btn-outline-danger mt-3">Delete Business</a>
   {% else %}

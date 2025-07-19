@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
-from django.template.loader import render_to_string
+from django.forms.widgets import TextInput
+
 
 class MapLibrePointWidget(forms.TextInput):
     """A custom widget for rendering a point on a MapLibre map
@@ -11,6 +12,16 @@ class MapLibrePointWidget(forms.TextInput):
     """
     template_name = "businesses/widgets/maplibre_point_widget.html"
 
+    class Media:
+        css = {
+            'all': [
+                'https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.css',
+            ]
+        }
+        js = [
+            'https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.js',
+        ]
+        
     def format_value(self, value):
         if value is None:
             return ''

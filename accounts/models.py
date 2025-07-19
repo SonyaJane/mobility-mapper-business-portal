@@ -6,6 +6,7 @@ from django.dispatch import receiver
 class UserProfile(models.Model):
     """User profile model to extend the User model with additional fields."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_wheeler = models.BooleanField(default=False)
     has_business = models.BooleanField(default=False)
 
     def __str__(self):

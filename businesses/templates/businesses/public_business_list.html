@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+    
+
+
+{% block content %}
+<div class="container-fluid my-4">
+  <div class="row">   
+
+    <!-- Listings Column -->
+    <div class="col-md-6">
+      <h1 class="mb-4">Browse Accessible Businesses</h1>
+
+        <!-- Search & Filter Form -->
+        <form method="get" class="row g-2 mb-4">
+            <div class="col-md-5">
+            <input type="text" name="q" class="form-control" placeholder="Search by name, address, or description..." value="{{ query }}">
+            </div>
+            <div class="col-md-4">
+            <select name="category" class="form-select">
+                <option value="">All Categories</option>
+                {% for key, label in categories %}
+                <option value="{{ key }}" {% if category == key %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
+
+        <!-- Business List -->
+        {% if businesses %}
+            <ul class="list-group">
+            {% for business in businesses %}
+                <li class="list-group-item">
+                <h5 class="mb-1">
+                    <a href="{% url 'public_business_detail' business.pk %}">{{ business.name }}</a>
+                    {% if business.verified_by_wheelers %}
+                    <span class="badge bg-success">✅ Wheeler Verified</span>
+                    {% elif business.wheeler_verification_requested %}
+                    <span class="badge bg-warning text-dark">⏳ Verification Requested</span>
+                    {% endif %}
+                </h5>
+                <p class="mb-1"><strong>Category:</strong> {{ business.get_category_display }}</p>
+                <p class="mb-0"><strong>Address:</strong> {{ business.address }}</p>
+                </li>
+            {% endfor %}
+            </ul>
+
+            <!-- Pagination -->
+            <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if businesses.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}{% if category %}category={{ category }}&{% endif %}page={{ businesses.previous_page_number }}">Previous</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                {% endif %}
+
+                {% for num in businesses.paginator.page_range %}
+                <li class="page-item {% if businesses.number == num %}active{% endif %}">
+                    <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}{% if category %}category={{ category }}&{% endif %}page={{ num }}">{{ num }}</a>
+                </li>
+                {% endfor %}
+
+                {% if businesses.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}{% if category %}category={{ category }}&{% endif %}page={{ businesses.next_page_number }}">Next</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                {% endif %}
+            </ul>
+            </nav>
+        {% else %}
+            <p class="text-muted">No businesses found matching your search criteria.</p>
+        {% endif %}
+    </div>
+
+     <!-- Map Column -->
+    <div class="col-md-6 mb-4">
+      <div id="listings-map" style="height: 600px;"></div>
+    </div>
+
+    {{ geojson|json_script:"business-markers" }}
+
+    <script>
+        const map = new maplibregl.Map({
+        container: 'listings-map',
+        style: {
+        version: 8,
+        sources: {
+            "raster-tiles": {
+            type: "raster",
+            tiles: ["https://api.os.uk/maps/raster/v1/zxy/Road_3857/{z}/{x}/{y}.png?key={{ OS_MAPS_API_KEY }}"],
+            tileSize: 256
+            }
+        },
+        layers: [{
+            id: "os-maps-zxy",
+            type: "raster",
+            source: "raster-tiles"
+        }]
+        },
+        center: [-3, 54.5],
+        zoom: 5
+    });
+
+    const markers = JSON.parse(document.getElementById('business-markers').textContent);
+    
+    markers.forEach(marker => {
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.style.width = '24px';
+        el.style.height = '24px';
+        el.style.borderRadius = '50%';
+        el.style.backgroundColor = marker.verified ? '#28a745' : '#0d6efd';
+
+        new maplibregl.Marker(el)
+        .setLngLat([marker.lng, marker.lat])
+        .setPopup(new maplibregl.Popup({ offset: 25 }).setText(marker.name))
+        .addTo(map);
+    });
+</script>
+{% endblock %}

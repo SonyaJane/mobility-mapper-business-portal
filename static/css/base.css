@@ -96,6 +96,21 @@ body {
     border-bottom-color: #343a40 !important;
 }
 
+/* Map */
+#map {
+    background: #bd582c !important; 
+    height: 400px;
+    width: 400px;
+    min-height: 300px;
+    min-width: 300px;
+    visibility: visible !important;
+}
+
+.maplibregl-canvas {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
 
 @media (max-width: 576px) {
     /* Move toast container down page for smaller screens */

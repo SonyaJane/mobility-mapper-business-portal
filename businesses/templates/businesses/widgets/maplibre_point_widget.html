@@ -1,4 +1,4 @@
-<div id="map" style="height: 400px;"></div>
+<div id="map-{{ widget.attrs.id }}" style="height: 400px; width: 400px;"></div>
 <input type="hidden" name="{{ widget.name }}" id="{{ widget.attrs.id }}" value="{{ widget.value|default_if_none:'' }}">
 
 <script>
@@ -20,8 +20,10 @@
         }]
     };
 
+    const containerId = 'map-{{ widget.attrs.id }}';
+
     const map = new maplibregl.Map({
-      container: 'map',
+      container: containerId,
       minZoom: 6,
       maxZoom: 18,
       style: style,
@@ -42,8 +44,14 @@
       if (marker) {
         marker.setLngLat(coords);
       } else {
-        marker = new maplibregl.Marker().setLngLat(coords).addTo(map);
-      }
+        marker = new maplibregl.Marker({ draggable: true })
+        .setLngLat(coords)
+        .addTo(map)
+        .on('dragend', () => {
+          const lngLat = marker.getLngLat();
+          document.getElementById('{{ widget.attrs.id }}').value = `POINT(${lngLat.lng} ${lngLat.lat})`;
+        });
+      }   
 
       // Set value in hidden input
       document.getElementById('{{ widget.attrs.id }}').value = `POINT(${coords[0]} ${coords[1]})`;
@@ -61,5 +69,21 @@
         map.setZoom(12);
       }
     }
+
+      map.on('load', () => {
+        map.resize();  // critical!
+      });
   });
+
+
 </script>
+
+<style>
+  #map-{{ widget.attrs.id }} {
+    visibility: visible !important;
+  }
+  .maplibregl-canvas {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+</style>
