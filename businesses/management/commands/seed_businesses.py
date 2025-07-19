@@ -1,46 +1,43 @@
-# Run with python manage.py seed_businesses
+# Run with python generate_business_fixture.py
+# python manage.py loaddata fake_businesses_fixture.json
+import json
 import random
-from django.core.management.base import BaseCommand
-from django.contrib.gis.geos import Point
 from faker import Faker
 
-from businesses.models import Business, CATEGORY_CHOICES, TIER_CHOICES
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+# import category choices from businesses.models
+from businesses.models import CATEGORY_CHOICES, TIER_CHOICES, ACCESSIBILITY_FEATURE_CHOICES
 fake = Faker()
 
-class Command(BaseCommand):
-    help = 'Seed the database with fake businesses'
+def generate_businesses(n=10, owner_id=1):
+    businesses = []
+    for i in range(n):
+        lat, lng = fake.latitude(), fake.longitude()
+        features = random.sample(ACCESSIBILITY_FEATURE_CHOICES, k=random.randint(1, 4))
 
-    def handle(self, *args, **kwargs):
-        categories = [c[0] for c in CATEGORY_CHOICES]
-        tiers = [t[0] for t in TIER_CHOICES]
+        businesses.append({
+            "model": "businesses.business",
+            "pk": i + 1,
+            "fields": {
+                "owner": owner_id,
+                "name": fake.company(),
+                "description": fake.paragraph(),
+                "category": random.choice(CATEGORY_CHOICES),
+                "location": f"POINT({lng} {lat})",
+                "address": fake.address(),
+                "logo": "",
+                "accessibility_features": features,
+                "tier": random.choice(TIER_CHOICES),
+                "wheeler_verification_requested": fake.boolean(chance_of_getting_true=30),
+                "verified_by_wheelers": fake.boolean(chance_of_getting_true=20),
+                "wheeler_verification_notes": fake.sentence(),
+                "is_approved": True,
+                "created_at": fake.date_time_this_year().isoformat()
+            }
+        })
+    return businesses
 
-        for i in range(10):
-            # Create a fake user as owner
-            email = fake.unique.email()
-            user = User.objects.create_user(email=email, password="testpass123")
-
-            business = Business.objects.create(
-                owner=user,
-                name=fake.company(),
-                description=fake.text(),
-                category=random.choice(categories),
-                location=Point(
-                    fake.longitude(min_value=-7.6, max_value=1.8),  # UK-ish bounds
-                    fake.latitude(min_value=50.0, max_value=58.6)
-                ),
-                address=fake.address(),
-                tier=random.choice(tiers),
-                is_approved=True,
-                accessibility_features=random.sample(
-                    [
-                        'step_free', 'wide_doors', 'accessible_toilet', 'hearing_loop',
-                        'assistance_available', 'low_counter', 'disabled_parking'
-                    ],
-                    k=random.randint(1, 4)
-                ),
-            )
-
-            self.stdout.write(self.style.SUCCESS(f"Created: {business.name}"))
+if __name__ == "__main__":
+    data = generate_businesses()
+    with open("fake_businesses_fixture.json", "w") as f:
+        json.dump(data, f, indent=2)
+    print("✅ Fixture created: fake_businesses_fixture.json")
