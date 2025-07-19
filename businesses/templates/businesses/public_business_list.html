@@ -116,10 +116,17 @@
         el.style.borderRadius = '50%';
         el.style.backgroundColor = marker.verified ? '#28a745' : '#0d6efd';
 
+        const popupContent = `
+            <strong>${marker.name}</strong><br>
+            ${marker.address}<br>
+            <a href="/business/public/${marker.id}/">View details</a>
+        `;
+
         new maplibregl.Marker(el)
-        .setLngLat([marker.lng, marker.lat])
-        .setPopup(new maplibregl.Popup({ offset: 25 }).setText(marker.name))
-        .addTo(map);
-    });
+            .setLngLat([marker.lng, marker.lat])
+            .setPopup(new maplibregl.Popup({ offset: 25 }).setHTML(popupContent))
+            .addTo(map);
+        });
+        
 </script>
 {% endblock %}

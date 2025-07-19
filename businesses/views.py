@@ -164,7 +164,7 @@ def public_business_list(request):
         )
 
     if category:
-            businesses = businesses.filter(category=category)
+        businesses = businesses.filter(category=category)
 
     categories = [c for c in CATEGORY_CHOICES]
     businesses = businesses.order_by('name')
