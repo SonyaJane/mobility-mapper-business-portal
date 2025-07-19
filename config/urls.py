@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from core.views import proxy_os_tile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +24,5 @@ urlpatterns = [
     path('', include('home.urls')),
     path('business/', include('businesses.urls')),
     path('', include('accounts.urls')),
+    path("tiles/<int:z>/<int:x>/<int:y>.png", proxy_os_tile, name="proxy_os_tile"),
 ]
