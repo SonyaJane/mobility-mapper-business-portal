@@ -1,5 +1,5 @@
 from django import forms
-from .models import Business, WheelerVerification, ACCESSIBILITY_FEATURE_CHOICES
+from .models import Business, WheelerVerification, PricingTier, ACCESSIBILITY_FEATURE_CHOICES
 from .widgets import MapLibrePointWidget
 
 class BusinessRegistrationForm(forms.ModelForm):
@@ -22,6 +22,11 @@ class BusinessRegistrationForm(forms.ModelForm):
             'location': MapLibrePointWidget(),
         }
         
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['pricing_tier'].queryset = PricingTier.objects.filter(is_active=True)
+            self.fields['pricing_tier'].empty_label = "Select a pricing tier"
+            
     def clean_accessibility_features(self):
         # Store the list as JSON
         data = self.cleaned_data['accessibility_features']

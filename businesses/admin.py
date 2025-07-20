@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Business, WheelerVerification
+from .models import Business, WheelerVerification, PricingTier
 from .widgets import MapLibrePointWidget
 
 @admin.register(WheelerVerification)
@@ -26,8 +26,8 @@ class BusinessAdminForm(forms.ModelForm):
 @admin.register(Business)
 class BusinessAdmin(admin.ModelAdmin):
     form = BusinessAdminForm
-    list_display = ('name', 'owner', 'tier', 'category', 'is_approved', 'wheeler_verification_count')
-    list_filter = ('tier', 'category', 'is_approved', 'verified_by_wheelers')
+    list_display = ('name', 'owner', 'pricing_tier', 'category', 'is_approved', 'wheeler_verification_count')
+    list_filter = ('pricing_tier', 'category', 'is_approved', 'verified_by_wheelers')
     search_fields = ('name', 'owner__email')
     inlines = [WheelerVerificationInline]
     
@@ -36,3 +36,9 @@ class BusinessAdmin(admin.ModelAdmin):
 
     wheeler_verification_count.short_description = "Wheeler Verifications"
 
+
+@admin.register(PricingTier)
+class PricingTierAdmin(admin.ModelAdmin):
+    list_display = ("name", "price_per_month", "is_active")
+    list_filter = ("is_active",)
+    search_fields = ("name",)

@@ -1,9 +1,8 @@
-from unicodedata import category
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from accounts.models import UserProfile
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
-from .models import Business, WheelerVerification, CATEGORY_CHOICES
+from .models import Business, WheelerVerification, PricingTier, CATEGORY_CHOICES
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -15,7 +14,8 @@ from django.contrib.gis.geos import GEOSGeometry
 @login_required
 def register_business(request):
     user_profile = UserProfile.objects.get(user=request.user)
-
+    pricing_tiers = PricingTier.objects.filter(is_active=True)
+    
     # Redirect if business already exists
     if user_profile.has_business:
         return redirect('business_dashboard')
@@ -35,7 +35,10 @@ def register_business(request):
     else:
         form = BusinessRegistrationForm()
 
-    return render(request, 'businesses/register_business.html', {'form': form})
+    return render(request, 'businesses/register_business.html', {
+        'form': form,
+        'pricing_tiers': pricing_tiers,
+    })
 
 
 @login_required
