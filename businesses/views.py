@@ -181,6 +181,11 @@ def public_business_list(request):
                 'lat': biz.location.y,
                 'lng': biz.location.x,
                 'verified': biz.verified_by_wheelers,
+                'verification_requested': biz.wheeler_verification_requested,
+                'address': biz.address,
+                'category': biz.category,
+                'category_display': biz.get_category_display(),
+                'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)) if hasattr(biz.accessibility_features, 'values_list') else (biz.accessibility_features if isinstance(biz.accessibility_features, list) else []),
             })
             
     return render(request, 'businesses/public_business_list.html', {

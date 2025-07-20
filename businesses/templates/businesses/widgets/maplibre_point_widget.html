@@ -35,38 +35,46 @@
       zoom: 5,
     });
 
+
     let marker;
 
-    map.on('click', function (e) {
-      const coords = [e.lngLat.lng, e.lngLat.lat];
-
-      // Add or move the marker
+    function setMarker(coords, centerMap = true) {
       if (marker) {
         marker.setLngLat(coords);
       } else {
         marker = new maplibregl.Marker({ draggable: true })
-        .setLngLat(coords)
-        .addTo(map)
-        .on('dragend', () => {
+          .setLngLat(coords)
+          .addTo(map);
+        marker.on('dragend', () => {
           const lngLat = marker.getLngLat();
           document.getElementById('{{ widget.attrs.id }}').value = `POINT(${lngLat.lng} ${lngLat.lat})`;
+          map.setCenter([lngLat.lng, lngLat.lat]);
         });
-      }   
-
-      // Set value in hidden input
+      }
       document.getElementById('{{ widget.attrs.id }}').value = `POINT(${coords[0]} ${coords[1]})`;
+      if (centerMap) {
+        map.setCenter(coords);
+        map.setZoom(12);
+      }
+    }
+
+    map.on('click', function (e) {
+      const coords = [e.lngLat.lng, e.lngLat.lat];
+      setMarker(coords, true);
     });
 
-    // If initial value exists, show marker
+    // If initial value exists, show marker and make it draggable, and center map
     const initial = document.getElementById('{{ widget.attrs.id }}').value;
     if (initial) {
-      const match = initial.match(/POINT\(([-\d.]+) ([-\d.]+)\)/);
+      // Support both 'SRID=4326;POINT (lng lat)' and 'POINT(lng lat)' formats
+      let match = initial.match(/POINT ?\(([-\d.]+) ([-\d.]+)\)/);
+      if (!match) {
+        match = initial.match(/SRID=\d+;POINT ?\(([-\d.]+) ([-\d.]+)\)/);
+      }
       if (match) {
         const lng = parseFloat(match[1]);
         const lat = parseFloat(match[2]);
-        marker = new maplibregl.Marker().setLngLat([lng, lat]).addTo(map);
-        map.setCenter([lng, lat]);
-        map.setZoom(12);
+        setMarker([lng, lat], true);
       }
     }
 

@@ -28,7 +28,7 @@ ACCESSIBILITY_FEATURE_CHOICES = [
 ]
 
 class Business(models.Model):
-    owner = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.OneToOneField('accounts.UserProfile', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)

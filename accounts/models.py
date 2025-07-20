@@ -76,14 +76,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_wheeler = models.BooleanField(default=False)
     has_business = models.BooleanField(default=False)
-    business = models.ForeignKey(
-        'businesses.Business',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='owners',
-        help_text="Business owned by the user (if any)."
-    )
 
     MOBILITY_DEVICE_CHOICES = (
         ('manual_wheelchair', 'Manual Wheelchair'),
