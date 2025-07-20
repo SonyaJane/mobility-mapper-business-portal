@@ -18,12 +18,24 @@
               <div class="card-body">
                 <h5 class="card-title">{{ tier.name }}</h5>
                 <p class="card-text">{{ tier.description }}</p>
-                <p class="card-text"><strong>£{{ tier.price_per_month }} / month</strong></p>
+                <p class="card-text">
+                  <strong>£{{ tier.price_per_month }} / month</strong><br>
+                  {% if tier.price_per_year %}
+                    <small class="text-muted">or £{{ tier.price_per_year }} / year</small>
+                  {% endif %}
+                </p>
               </div>
             </div>
           </div>
         {% endfor %}
       </div>
+    </div>
+  {% endif %}
+
+  {% if pricing_tiers %}
+    <div class="mb-4">
+      <h4>Choose a Billing Option</h4>
+      {{ form.billing_frequency }}
     </div>
   {% endif %}
 

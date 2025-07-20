@@ -7,10 +7,18 @@ class PricingTier(models.Model):
     description = models.TextField(blank=True)
     price_per_month = models.DecimalField(max_digits=6, decimal_places=2)
     stripe_price_id = models.CharField(max_length=100, help_text="The Stripe Price ID for this tier")
+    
+    # annual billing option
+    price_per_year = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    stripe_annual_price_id = models.CharField(max_length=100, blank=True, help_text="The Stripe Price ID for yearly billing")
+
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.name} (£{self.price_per_month}/mo)"
+        prices = [f"£{self.price_per_month}/mo"]
+        if self.price_per_year:
+            prices.append(f"£{self.price_per_year}/yr")
+        return f"{self.name} ({', '.join(prices)})"
 
 
 TIER_CHOICES = [

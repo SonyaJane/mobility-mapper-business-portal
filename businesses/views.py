@@ -25,6 +25,10 @@ def register_business(request):
         if form.is_valid():
             business = form.save(commit=False)
             business.owner = request.user
+            
+            billing_frequency = form.cleaned_data.get('billing_frequency')
+            request.session['billing_frequency'] = billing_frequency
+            
             business.save()
 
             # Update user profile

@@ -3,6 +3,18 @@ from .models import Business, WheelerVerification, PricingTier, ACCESSIBILITY_FE
 from .widgets import MapLibrePointWidget
 
 class BusinessRegistrationForm(forms.ModelForm):
+    BILLING_CHOICES = [
+        ('monthly', 'Monthly'),
+        ('yearly', 'Yearly (Save up to 20%)'),
+    ]
+
+    billing_frequency = forms.ChoiceField(
+        choices=BILLING_CHOICES,
+        widget=forms.RadioSelect,
+        initial='monthly',
+        label="Billing Option"
+    )
+
     accessibility_features = forms.MultipleChoiceField(
         choices=ACCESSIBILITY_FEATURE_CHOICES,
         widget=forms.CheckboxSelectMultiple,
