@@ -16,6 +16,7 @@ class UserProfile(models.Model):
     )
 
     UK_COUNTY_CHOICES = (
+        # England
         ("Bedfordshire", "Bedfordshire"),
         ("Berkshire", "Berkshire"),
         ("Bristol", "Bristol"),
@@ -64,6 +65,57 @@ class UserProfile(models.Model):
         ("West Yorkshire", "West Yorkshire"),
         ("Wiltshire", "Wiltshire"),
         ("Worcestershire", "Worcestershire"),
+        # Wales
+        ("Anglesey", "Anglesey"),
+        ("Brecknockshire", "Brecknockshire"),
+        ("Caernarfonshire", "Caernarfonshire"),
+        ("Cardiganshire", "Cardiganshire"),
+        ("Carmarthenshire", "Carmarthenshire"),
+        ("Clwyd", "Clwyd"),
+        ("Denbighshire", "Denbighshire"),
+        ("Flintshire", "Flintshire"),
+        ("Glamorgan", "Glamorgan"),
+        ("Merionethshire", "Merionethshire"),
+        ("Monmouthshire", "Monmouthshire"),
+        ("Montgomeryshire", "Montgomeryshire"),
+        ("Pembrokeshire", "Pembrokeshire"),
+        ("Powys", "Powys"),
+        ("Radnorshire", "Radnorshire"),
+        ("Swansea", "Swansea"),
+        ("Wrexham", "Wrexham"),
+        # Scotland
+        ("Aberdeen City", "Aberdeen City"),
+        ("Aberdeenshire", "Aberdeenshire"),
+        ("Angus", "Angus"),
+        ("Argyll and Bute", "Argyll and Bute"),
+        ("Clackmannanshire", "Clackmannanshire"),
+        ("Dumfries and Galloway", "Dumfries and Galloway"),
+        ("Dundee City", "Dundee City"),
+        ("East Ayrshire", "East Ayrshire"),
+        ("East Dunbartonshire", "East Dunbartonshire"),
+        ("East Lothian", "East Lothian"),
+        ("East Renfrewshire", "East Renfrewshire"),
+        ("Edinburgh", "Edinburgh"),
+        ("Falkirk", "Falkirk"),
+        ("Fife", "Fife"),
+        ("Glasgow City", "Glasgow City"),
+        ("Highland", "Highland"),
+        ("Inverclyde", "Inverclyde"),
+        ("Midlothian", "Midlothian"),
+        ("Moray", "Moray"),
+        ("North Ayrshire", "North Ayrshire"),
+        ("North Lanarkshire", "North Lanarkshire"),
+        ("Orkney Islands", "Orkney Islands"),
+        ("Perth and Kinross", "Perth and Kinross"),
+        ("Renfrewshire", "Renfrewshire"),
+        ("Scottish Borders", "Scottish Borders"),
+        ("Shetland Islands", "Shetland Islands"),
+        ("South Ayrshire", "South Ayrshire"),
+        ("South Lanarkshire", "South Lanarkshire"),
+        ("Stirling", "Stirling"),
+        ("West Dunbartonshire", "West Dunbartonshire"),
+        ("West Lothian", "West Lothian"),
+        ("Western Isles", "Western Isles"),
     )
     county = models.CharField(
         max_length=64,
@@ -99,8 +151,6 @@ class UserProfile(models.Model):
         help_text="Type of wheeled mobility device (if user is a wheeler)."
     )
 
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
     AGE_GROUP_CHOICES = (
         ("under_18", "Under 18"),
         ("18_24", "18-24"),

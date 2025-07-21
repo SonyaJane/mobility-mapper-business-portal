@@ -9,12 +9,38 @@
   {% if business %}
     <h2>Your Business:</h2>
     <ul>
-      <li><strong>Name:</strong> {{ business.name }}</li>
+      <li><strong>Business Name:</strong> {{ business.business_name }}</li>
       <li><strong>Address:</strong> {{ business.address }}</li>
-      <li><strong>Location (Lat,Lng):</strong> {{ business.location.y }}, {{ business.location.x }}</li>
-      <li><strong>Category:</strong> {{ business.category }}</li>
-      <li><strong>Tier:</strong> {{ business.tier }}</li>
-      <li><strong>Approved:</strong> {{ business.is_approved|yesno:"Yes,No" }}</li>
+      <li><strong>Categories:</strong>
+        {% if business.categories.all %}
+          <ul>
+            {% for cat in business.categories.all %}
+              <li>{{ cat.name }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}None{% endif %}
+      </li>
+      <li><strong>Description:</strong> {{ business.description }}</li>
+      <li><strong>Accessibility Features:</strong>
+        {% if business.accessibility_features.all %}
+          <ul>
+            {% for feature in business.accessibility_features.all %}
+              <li>{{ feature.name }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}None{% endif %}
+      </li>
+      <li><strong>Logo:</strong> {% if business.logo %}<img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" style="max-height: 100px;">{% else %}No logo uploaded{% endif %}</li>
+      <li><strong>Public Email Address:</strong> {{ business.public_email }}</li>
+      <li><strong>Public Phone Number:</strong> {{ business.public_phone }}</li>
+      <li><strong>Website:</strong> <a href="{{ business.website }}" target="_blank">{{ business.website }}</a></li>
+      <li><strong>Social Media:</strong> 
+        {% if business.facebook %}<a href="{{ business.facebook }}" target="_blank">Facebook</a>{% endif %}
+        {% if business.x_twitter %}<a href="{{ business.x_twitter }}" target="_blank">X</a>{% endif %}
+        {% if business.instagram %}<a href="{{ business.instagram }}" target="_blank">Instagram</a>{% endif %}
+      </li>      
+      <li><strong>Tier:</strong> {{ business.pricing_tier.tier if business.pricing_tier else "None" }}</li>
+      <li><strong>Approved by Mobility Mapper:</strong> {{ business.is_approved|yesno:"Yes,No" }}</li>
     </ul>
 
     {% if business.is_wheeler_verified %}

@@ -2,50 +2,194 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-
 {% block content %}
 
 <div class="container mt-5">
-  <h2>Register Your Business</h2>
+  <h2 class="my-3">Register Your Accessible Business</h2>
 
-  {% if pricing_tiers %}
-    <div class="mb-4">
-      <h4>Choose a Pricing Tier</h4>
-      <div class="row">
-        {% for tier in pricing_tiers %}
-          <div class="col-md-4">
-            <div class="card mb-3">
-              <div class="card-body">
-                <h5 class="card-title">{{ tier.name }}</h5>
-                <p class="card-text">{{ tier.description }}</p>
-                <p class="card-text">
-                  <strong>£{{ tier.price_per_month }} / month</strong><br>
-                  {% if tier.price_per_year %}
-                    <small class="text-muted">or £{{ tier.price_per_year }} / year</small>
-                  {% endif %}
-                </p>
-              </div>
+  <form method="POST">
+
+    {% csrf_token %}
+    {{ form.media }} 
+    
+    <!-- Other Form Fields -->
+    {% for field in form.visible_fields %}
+      {% if field.name != 'categories' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' %}
+        {{ field|as_crispy_field }}
+      {% endif %}
+    {% endfor %}
+
+    <!-- Categories (grouped multi-select dropdown) -->
+    <h4 class="mt-4">Select Business Categories</h4>
+    <div class="mb-3">
+      <select name="categories" id="id_categories" class="form-select" multiple size="8">
+        {% for group, choices in form.fields.categories.choices %}
+          <optgroup label="{{ group }}">
+            {% for code, name in choices %}
+              <option value="{{ code }}" {% if form.categories.value and code in form.categories.value %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+          </optgroup>
+        {% endfor %}
+      </select>
+      <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple categories.</small>
+    </div>
+
+    <!-- Accessibility Features -->
+    <h4 class="mt-4">Accessibility Features</h4>
+    <div class="mb-3">
+      {{ form.accessibility_features|as_crispy_field }}
+    </div>
+
+    <!-- Pricing Tiers -->
+    <h4 class="my-4">Choose a Pricing Tier</h4>
+    <input type="hidden" name="pricing_tier" id="selected-pricing-tier" value="{{ form.initial.pricing_tier }}">
+
+    <div class="row" id="pricing-tier-cards">
+      {% for tier in pricing_tiers %}
+        <div class="col-md-4">
+          <div class="card mb-3 pricing-tier-card {% if tier.id|stringformat:"s" == form.pricing_tier.value|stringformat:"s" %} border-primary shadow{% endif %}"
+      data-tier-id="{{ tier.id }}" tabindex="0" style="cursor:pointer;">
+            <div class="card-body">
+              <h5 class="card-title">{{ tier.get_tier_display }}</h5>
+              <p class="card-text" style="white-space:pre-line;">{{ tier.description }}</p>
+              <p class="card-text price-display"
+                data-price-month="{{ tier.price_per_month }}"
+                data-price-year="{{ tier.price_per_year }}">
+                <strong class="price-main">£{{ tier.price_per_month }} / month</strong><br>
+                {% if tier.price_per_year %}
+                  <small class="text-muted price-alt">or £{{ tier.price_per_year }} / year</small>
+                {% endif %}
+              </p>
             </div>
           </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Billing Frequency -->
+    <div class="my-4">
+      <h4>Choose a Billing Frequency</h4>
+      <div class="btn-group mb-3" role="group" aria-label="Billing Frequency" id="billing-frequency-group">
+        {% for frequency in form.billing_frequency %}
+          <input type="radio" class="btn-check" name="billing_frequency" 
+                  id="billing_{{ frequency.data.value }}" 
+                  value="{{ frequency.data.value }}" 
+                  autocomplete="off" {% if frequency.data.value == 'monthly' %} checked{% endif %}>
+          <label class="btn btn-outline-primary {% if frequency.data.value == 'monthly' %}active{% endif %}" 
+                  for="billing_{{ frequency.data.value }}">{{ frequency.data.label }}</label>
         {% endfor %}
       </div>
     </div>
-  {% endif %}
 
-  {% if pricing_tiers %}
-    <div class="mb-4">
-      <h4>Choose a Billing Option</h4>
-      {{ form.billing_frequency }}
-    </div>
-  {% endif %}
-
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.media }}
-    {{ form|crispy }}
     <button type="submit" class="btn btn-primary">Register</button>
   </form>
-	
+
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Billing frequency logic
+  function updatePrices() {
+    const selected = document.querySelector('input[name="billing_frequency"]:checked');
+    console.log(selected);
+    const yearly = selected && selected.value.toLowerCase() === 'yearly';
+
+    document.querySelectorAll('.price-display').forEach(el => {
+      const priceMonth = parseFloat(el.dataset.priceMonth).toFixed(2);
+      const priceYear = parseFloat(el.dataset.priceYear).toFixed(2);
+      const main = el.querySelector('.price-main');
+      const alt = el.querySelector('.price-alt');
+
+      if (yearly && priceYear > 0) {
+        main.textContent = `£${priceYear} / year`;
+        if (alt) alt.textContent = `or £${priceMonth} / month`;
+      } else {
+        main.textContent = `£${priceMonth} / month`;
+        if (alt && priceYear > 0) alt.textContent = `or £${priceYear} / year`;
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.pricing-tier-card');
+    const hiddenInput = document.getElementById('selected-pricing-tier');
+    const billingRadios = document.querySelectorAll('input[name="billing_frequency"]');
+
+    // Card selection logic
+    cards.forEach(card => {
+      card.addEventListener('click', function() {
+        // Clear existing selection
+        cards.forEach(c => c.classList.remove('border-primary', 'shadow'));
+        // Highlight selected card
+        card.classList.add('border-primary', 'shadow');
+        // Set hidden input value to the selected tier ID
+        hiddenInput.value = card.dataset.tierId;
+      });
+
+      // Set default tier if one is initially selected in Django
+      const defaultTierId = hiddenInput.value;
+      if (defaultTierId) {
+        const defaultCard = document.querySelector(`.pricing-tier-card[data-tier-id="${defaultTierId}"]`);
+        if (defaultCard) {
+          defaultCard.classList.add('border-primary', 'shadow');
+        }
+      }
+
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          card.click();
+        }
+      });
+    });
+
+    // Billing frequency listeners
+    function updateBillingActive() {
+      const radios = document.querySelectorAll('input[name="billing_frequency"]');
+      radios.forEach(radio => {
+        const label = document.querySelector(`label[for='${radio.id}']`);
+        if (label) {
+          if (radio.checked) {
+            label.classList.add('active');
+          } else {
+            label.classList.remove('active');
+          }
+        }
+      });
+    }
+
+    billingRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        updatePrices();
+        updateBillingActive();
+      });
+      radio.addEventListener('click', function() {
+        updatePrices();
+        updateBillingActive();
+      });
+    });
+
+    // Also update on click of the label (for accessibility)
+    document.querySelectorAll('#billing-frequency-group label').forEach(label => {
+      label.addEventListener('click', () => {
+        setTimeout(function() {
+          updatePrices();
+          updateBillingActive();
+        }, 10); // Wait for radio to update
+      });
+    });
+    // Initial update
+    updatePrices();
+    updateBillingActive();
+  });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .pricing-tier-card.border-primary {
+    border-width: 2px !important;
+  }
+</style>
 {% endblock %}

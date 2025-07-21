@@ -1,18 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.models import UserProfile
-from .forms import BusinessRegistrationForm, WheelerVerificationForm
-from .models import Business, WheelerVerification, PricingTier, CATEGORY_CHOICES
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.conf import settings
-from django.core.serializers import serialize
-from django.contrib.gis.geos import GEOSGeometry
-
+from accounts.models import UserProfile
+from .forms import BusinessRegistrationForm, WheelerVerificationForm
+from .models import Business, WheelerVerification, PricingTier
 
 @login_required
 def register_business(request):
+    # Get the user profile and active pricing tiers
     user_profile = UserProfile.objects.get(user=request.user)
     pricing_tiers = PricingTier.objects.filter(is_active=True)
     
@@ -24,17 +22,23 @@ def register_business(request):
         form = BusinessRegistrationForm(request.POST)
         if form.is_valid():
             business = form.save(commit=False)
-            business.owner = request.user
-            
+            business.owner = request.user.userprofile
             billing_frequency = form.cleaned_data.get('billing_frequency')
             request.session['billing_frequency'] = billing_frequency
-            
             business.save()
-
+            # Set categories (ManyToMany)
+            category_codes = form.cleaned_data.get('categories', [])
+            from .models import Category
+            categories_qs = Category.objects.filter(code__in=category_codes)
+            business.categories.set(categories_qs)
+            # Set accessibility features (ManyToMany)
+            feature_codes = form.cleaned_data.get('accessibility_features', [])
+            from .models import AccessibilityFeature
+            features_qs = AccessibilityFeature.objects.filter(code__in=feature_codes)
+            business.accessibility_features.set(features_qs)
             # Update user profile
             user_profile.has_business = True
             user_profile.save()
-
             return redirect('business_dashboard')
     else:
         form = BusinessRegistrationForm()
@@ -48,7 +52,7 @@ def register_business(request):
 @login_required
 def business_dashboard(request):
     try:
-        business = Business.objects.get(owner=request.user)
+        business = Business.objects.get(owner=request.user.userprofile)
     except Business.DoesNotExist:
         business = None
 
@@ -62,7 +66,18 @@ def edit_business(request):
     if request.method == 'POST':
         form = BusinessRegistrationForm(request.POST, instance=business)
         if form.is_valid():
-            form.save()
+            business = form.save(commit=False)
+            business.save()
+            # Update categories
+            category_codes = form.cleaned_data.get('categories', [])
+            from .models import Category
+            categories_qs = Category.objects.filter(code__in=category_codes)
+            business.categories.set(categories_qs)
+            # Update accessibility features
+            feature_codes = form.cleaned_data.get('accessibility_features', [])
+            from .models import AccessibilityFeature
+            features_qs = AccessibilityFeature.objects.filter(code__in=feature_codes)
+            business.accessibility_features.set(features_qs)
             messages.success(request, "Business updated successfully.")
             return redirect('business_dashboard')
     else:
@@ -165,16 +180,17 @@ def public_business_list(request):
 
     if query:
         businesses = businesses.filter(
-            Q(name__icontains=query) |
+            Q(business_name__icontains=query) |
             Q(address__icontains=query) |
             Q(description__icontains=query)
         )
 
     if category:
-        businesses = businesses.filter(category=category)
+        businesses = businesses.filter(categories__code=category)
 
-    categories = [c for c in CATEGORY_CHOICES]
-    businesses = businesses.order_by('name')
+    from .models import Category
+    categories = list(Category.objects.all())
+    businesses = businesses.order_by('business_name')
     paginator = Paginator(businesses, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -184,17 +200,15 @@ def public_business_list(request):
         if biz.location:
             geojson.append({
                 'id': biz.id,
-                'name': biz.name,
+                'name': biz.business_name,
                 'lat': biz.location.y,
                 'lng': biz.location.x,
                 'verified': biz.verified_by_wheelers,
                 'verification_requested': biz.wheeler_verification_requested,
                 'address': biz.address,
-                'category': biz.category,
-                'category_display': biz.get_category_display(),
-                'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)) if hasattr(biz.accessibility_features, 'values_list') else (biz.accessibility_features if isinstance(biz.accessibility_features, list) else []),
+                'categories': list(biz.categories.values_list('name', flat=True)),
+                'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
             })
-            
     return render(request, 'businesses/public_business_list.html', {
         'businesses': page_obj,
         'query': query,

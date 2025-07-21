@@ -2,21 +2,53 @@
 
 {% block content %}
 <div class="container my-4">
-  <h1>{{ business.name }}</h1>
+  <h1>{{ business.business_name }}</h1>
 
   {% if business.logo %}
-    <img src="{{ business.logo.url }}" alt="{{ business.name }} Logo" class="img-fluid mb-3" style="max-height: 200px;">
+    <img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" class="img-fluid mb-3" style="max-height: 200px;">
   {% endif %}
 
-  <p><strong>Category:</strong> {{ business.get_category_display }}</p>
+  <p><strong>Categories:</strong>
+    {% if business.categories.all %}
+      <ul>
+        {% for cat in business.categories.all %}
+          <li>{{ cat.name }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}None{% endif %}
+  </p>
   <p><strong>Address:</strong> {{ business.address }}</p>
   <p><strong>Description:</strong> {{ business.description }}</p>
 
-  {% if business.accessibility_features %}
+  {% if business.website %}
+    <p><strong>Website:</strong> <a href="{{ business.website }}" target="_blank">{{ business.website }}</a></p>
+  {% endif %}
+  
+  {% if business.public_email %}
+    <p><strong>Contact Email:</strong> {{ business.public_email }}</p>
+  {% endif %}
+  
+  {% if business.public_phone %}
+    <p><strong>Contact Phone:</strong> {{ business.public_phone }}</p>
+  {% endif %}
+
+  {% if business.facebook %}
+    <p><strong>Facebook:</strong> <a href="{{ business.facebook }}" target="_blank">{{ business.facebook }}</a></p>
+  {% endif %}
+
+  {% if business.x_twitter %}
+    <p><strong>X:</strong> <a href="{{ business.x_twitter }}" target="_blank">{{ business.x_twitter }}</a></p>
+  {% endif %}
+
+  {% if business.instagram %}
+    <p><strong>Instagram:</strong> <a href="{{ business.instagram }}" target="_blank">{{ business.instagram }}</a></p>
+  {% endif %}
+
+  {% if business.accessibility_features.all %}
     <h4>Accessibility Features:</h4>
     <ul>
-      {% for feature in business.accessibility_features %}
-        <li>{{ feature|capfirst|cut:"_"|title }}</li>
+      {% for feature in business.accessibility_features.all %}
+        <li>{{ feature.name }}</li>
       {% endfor %}
     </ul>
   {% endif %}
@@ -31,9 +63,23 @@
     </div>
   {% endif %}
 
-  <div id="public-map" style="height: 400px; width: 400px;"></div>
+  <div id="public-map"></div>
 
-  <script>
+  {% if request.user.is_authenticated and request.user.userprofile.is_wheeler %}
+    {% if not has_user_verified %}
+        <a href="{% url 'submit_verification' business.pk %}" class="btn btn-outline-primary mt-3">
+        ✅ I've visited - Verify this business
+        </a>
+    {% else %}
+        <p class="text-muted mt-3">✅ You have already verified this business.</p>
+    {% endif %}
+{% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
     const style = {
       version: 8,
       sources: {
@@ -61,16 +107,13 @@
       .setLngLat([{{ business.location.x }}, {{ business.location.y }}])
       .addTo(map);
   </script>
+{% endblock %}
 
-  {% if request.user.is_authenticated and request.user.userprofile.is_wheeler %}
-    {% if not has_user_verified %}
-        <a href="{% url 'submit_verification' business.pk %}" class="btn btn-outline-primary mt-3">
-        ✅ I've visited - Verify this business
-        </a>
-    {% else %}
-        <p class="text-muted mt-3">✅ You have already verified this business.</p>
-    {% endif %}
-{% endif %}
-
-</div>
+{% block extra_css %}
+<style>
+  #public-map {
+    height: 400px;
+    width: 100%;
+  }   
+</style>
 {% endblock %}

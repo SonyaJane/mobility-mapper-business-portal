@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Business, WheelerVerification, PricingTier
+from .models import Business, WheelerVerification, PricingTier, Category, AccessibilityFeature
 from .widgets import MapLibrePointWidget
 
 @admin.register(WheelerVerification)
@@ -19,18 +19,23 @@ class BusinessAdminForm(forms.ModelForm):
         model = Business
         fields = '__all__'
         widgets = {
-            'location': MapLibrePointWidget(),  # Use your custom map widget here
-        }    
+            'location': MapLibrePointWidget(),
+        }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Set choices for categories and accessibility_features
+        self.fields['categories'].queryset = Category.objects.all()
+        self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
         
         
 @admin.register(Business)
 class BusinessAdmin(admin.ModelAdmin):
     form = BusinessAdminForm
-    list_display = ('name', 'owner', 'pricing_tier', 'category', 'is_approved', 'wheeler_verification_count')
-    list_filter = ('pricing_tier', 'category', 'is_approved', 'verified_by_wheelers')
-    search_fields = ('name', 'owner__email')
+    list_display = ('business_name', 'business_owner', 'pricing_tier', 'is_approved', 'wheeler_verification_count')
+    list_filter = ('pricing_tier', 'is_approved', 'verified_by_wheelers', 'categories', 'accessibility_features')
+    search_fields = ('business_name', 'business_owner__email')
     inlines = [WheelerVerificationInline]
-    
+
     def wheeler_verification_count(self, obj):
         return obj.verifications.count()
 
@@ -39,6 +44,6 @@ class BusinessAdmin(admin.ModelAdmin):
 
 @admin.register(PricingTier)
 class PricingTierAdmin(admin.ModelAdmin):
-    list_display = ("name", "price_per_month", "is_active")
+    list_display = ("tier", "price_per_month", "is_active")
     list_filter = ("is_active",)
-    search_fields = ("name",)
+    search_fields = ("tier",)

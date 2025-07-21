@@ -3,9 +3,10 @@
     "model": "businesses.pricingtier",
     "pk": 1,
     "fields": {
-      "name": "Free",
-      "description": "- Basic listing on map\n- Category and address",
+      "tier": "free",
+      "description": "- Basic listing on map\n- Business categories \n- Address \n- Opening hours \n- Accessibility features",
       "price_per_month": 0,
+      "price_per_year": 0,
       "is_active": true
     }
   },
@@ -13,9 +14,10 @@
     "model": "businesses.pricingtier",
     "pk": 2,
     "fields": {
-      "name": "Supporter",
-      "description": "- All Free features\n- Upload business logo\n- Link to website\n- Add opening hours\n- Short description",
+      "tier": "supporter",
+      "description": "- All Free features\n- Upload business logo\n- Link to website \n- Social Media links \n- Phone number \n- Email address \n- Short description \n- Special offers",
       "price_per_month": 10,
+      "price_per_year": 100,
       "is_active": true
     }
   },
@@ -23,9 +25,10 @@
     "model": "businesses.pricingtier",
     "pk": 3,
     "fields": {
-      "name": "Featured",
-      "description": "- All Supporter features\n- Highlighted on map (e.g., special pin or border)\n- Appear higher in search results",
+      "tier": "featured",
+      "description": "- All Supporter features\n- Highlighted on map\n- Appear higher in search results\n- Wheeler verification included",
       "price_per_month": 25,
+      "price_per_year": 250,
       "is_active": true
     }
   }

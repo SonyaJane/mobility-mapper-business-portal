@@ -1,0 +1,18 @@
+[
+    {"model": "businesses.accessibilityfeature", "pk": 1, "fields": {"code": "step_free", "name": "Step-free access"}},
+    {"model": "businesses.accessibilityfeature", "pk": 2, "fields": {"code": "wide_doors", "name": "Wide doors"}},
+    {"model": "businesses.accessibilityfeature", "pk": 3, "fields": {"code": "electric_door_opener", "name": "Electric door opener"}},
+    {"model": "businesses.accessibilityfeature", "pk": 4, "fields": {"code": "automatic_door", "name": "Automatic door"}},
+    {"model": "businesses.accessibilityfeature", "pk": 5, "fields": {"code": "ramp", "name": "Ramp"}},
+    {"model": "businesses.accessibilityfeature", "pk": 6, "fields": {"code": "assistance_available", "name": "Staff assistance available"}},
+    {"model": "businesses.accessibilityfeature", "pk": 7, "fields": {"code": "low_counter", "name": "Low counter"}},
+    {"model": "businesses.accessibilityfeature", "pk": 8, "fields": {"code": "accessible_toilet", "name": "Accessible toilet"}},
+    {"model": "businesses.accessibilityfeature", "pk": 9, "fields": {"code": "lift_or_elevator", "name": "Lift (elevator) available"}},
+    {"model": "businesses.accessibilityfeature", "pk": 10, "fields": {"code": "disabled_parking", "name": "Disabled parking spaces"}},
+    {"model": "businesses.accessibilityfeature", "pk": 11, "fields": {"code": "service_animal_friendly", "name": "Service animal friendly"}},
+    {"model": "businesses.accessibilityfeature", "pk": 12, "fields": {"code": "wheelchair_accessible_table", "name": "Wheelchair accessible table"}},
+    {"model": "businesses.accessibilityfeature", "pk": 13, "fields": {"code": "braille_signage", "name": "Braille signage"}},
+    {"model": "businesses.accessibilityfeature", "pk": 14, "fields": {"code": "hearing_loop", "name": "Hearing loop"}},
+    {"model": "businesses.accessibilityfeature", "pk": 15, "fields": {"code": "large_print_menu", "name": "Large print menu"}},
+    {"model": "businesses.accessibilityfeature", "pk": 16, "fields": {"code": "quiet_area", "name": "Quiet area available"}}
+]
