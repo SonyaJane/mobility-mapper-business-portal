@@ -1,3 +1,4 @@
+
 """
 Django settings for config project.
 
@@ -110,6 +111,11 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     
 ]
+
+# Use custom Allauth signup form
+ACCOUNT_FORMS = {
+    'signup': 'accounts.forms.CustomSignupForm',
+}
 
 # Email settings
 # For development purposes, using console backend to print emails to console

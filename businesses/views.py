@@ -22,7 +22,7 @@ def register_business(request):
         form = BusinessRegistrationForm(request.POST)
         if form.is_valid():
             business = form.save(commit=False)
-            business.owner = request.user.userprofile
+            business.business_owner = request.user.userprofile
             billing_frequency = form.cleaned_data.get('billing_frequency')
             request.session['billing_frequency'] = billing_frequency
             business.save()
@@ -51,22 +51,25 @@ def register_business(request):
 
 @login_required
 def business_dashboard(request):
+
     try:
-        business = Business.objects.get(owner=request.user.userprofile)
+        business = Business.objects.get(business_owner=request.user.userprofile)
     except Business.DoesNotExist:
         business = None
 
     return render(request, 'businesses/business_dashboard.html', {'business': business})
 
 
+
 @login_required
 def edit_business(request):
-    business = get_object_or_404(Business, owner=request.user)
+    business = get_object_or_404(Business, business_owner=request.user.userprofile)
 
     if request.method == 'POST':
         form = BusinessRegistrationForm(request.POST, instance=business)
         if form.is_valid():
             business = form.save(commit=False)
+            business.business_owner = request.user.userprofile
             business.save()
             # Update categories
             category_codes = form.cleaned_data.get('categories', [])

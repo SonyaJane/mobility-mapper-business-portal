@@ -4,7 +4,7 @@
 <div class="container my-5">
   <h1 class="mb-4">Business Dashboard</h1>
 
-  <p>Welcome, {{ user.username }}!</p>
+  <p>Welcome, {{ user.first_name }} {{ user.last_name }}!</p>
 
   {% if business %}
     <h2>Your Business:</h2>
@@ -30,16 +30,19 @@
           </ul>
         {% else %}None{% endif %}
       </li>
+      <li><strong>Opening Hours:</strong> {{ business.opening_hours }}</li>
       <li><strong>Logo:</strong> {% if business.logo %}<img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" style="max-height: 100px;">{% else %}No logo uploaded{% endif %}</li>
       <li><strong>Public Email Address:</strong> {{ business.public_email }}</li>
       <li><strong>Public Phone Number:</strong> {{ business.public_phone }}</li>
+      <li><strong>Contact Phone:</strong> {{ business.contact_phone }}</li>
+      <li><strong>Services Offered:</strong> {{ business.services_offered }}</li>
       <li><strong>Website:</strong> <a href="{{ business.website }}" target="_blank">{{ business.website }}</a></li>
       <li><strong>Social Media:</strong> 
-        {% if business.facebook %}<a href="{{ business.facebook }}" target="_blank">Facebook</a>{% endif %}
-        {% if business.x_twitter %}<a href="{{ business.x_twitter }}" target="_blank">X</a>{% endif %}
-        {% if business.instagram %}<a href="{{ business.instagram }}" target="_blank">Instagram</a>{% endif %}
+        {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank">Facebook</a>{% endif %}
+        {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank">X</a>{% endif %}
+        {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank">Instagram</a>{% endif %}
       </li>      
-      <li><strong>Tier:</strong> {{ business.pricing_tier.tier if business.pricing_tier else "None" }}</li>
+      <li><strong>Tier:</strong> {% if business.pricing_tier %}{{ business.pricing_tier.tier }}{% else %}None{% endif %}</li>
       <li><strong>Approved by Mobility Mapper:</strong> {{ business.is_approved|yesno:"Yes,No" }}</li>
     </ul>
 
