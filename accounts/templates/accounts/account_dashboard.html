@@ -4,11 +4,23 @@
   <div class="container my-5">
     <h1 class="mb-4">Your Account</h1>
 
-    <p>Welcome, {{ user.username }}!</p>
+    <p>Welcome, {{ user.first_name }} {{ user.last_name }}!</p>
 
     <ul>
-      <li>Email: {{ user.email }}</li>
-      <li>Joined: {{ user.date_joined|date:"F j, Y" }}</li>
+      <li><strong>Username:</strong> {{ user.username }}</li>
+      <li><strong>Email Address:</strong> {{ user.email }}</li>  
+      {% if user.userprofile.county %}
+        <li><strong>County:</strong> {{ user.userprofile.county }}</li>  
+      {% endif %}
+      <li><strong>Country:</strong> {{ user.userprofile.country }}</li>
+      {% if user.userprofile.is_wheeler %}
+            <li><strong>Mobility Device:</strong> {{ user.userprofile.mobility_device }}</li>
+      {% endif %}
+      {% if user.userprofile.has_business %}
+        {% if user.userprofile.business %}
+          <li><strong>Business Name:</strong> {{ user.userprofile.business.business_name }}</li>
+        {% endif %}
+      {% endif %}
     </ul>
 
     <p>

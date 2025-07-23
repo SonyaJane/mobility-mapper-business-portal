@@ -27,15 +27,9 @@ def register_business(request):
             request.session['billing_frequency'] = billing_frequency
             business.save()
             # Set categories (ManyToMany)
-            category_codes = form.cleaned_data.get('categories', [])
-            from .models import Category
-            categories_qs = Category.objects.filter(code__in=category_codes)
-            business.categories.set(categories_qs)
+            business.categories.set(form.cleaned_data.get('categories', []))
             # Set accessibility features (ManyToMany)
-            feature_codes = form.cleaned_data.get('accessibility_features', [])
-            from .models import AccessibilityFeature
-            features_qs = AccessibilityFeature.objects.filter(code__in=feature_codes)
-            business.accessibility_features.set(features_qs)
+            business.accessibility_features.set(form.cleaned_data.get('accessibility_features', []))
             # Update user profile
             user_profile.has_business = True
             user_profile.save()
@@ -65,6 +59,7 @@ def business_dashboard(request):
 def edit_business(request):
     business = get_object_or_404(Business, business_owner=request.user.userprofile)
 
+    pricing_tiers = PricingTier.objects.filter(is_active=True)
     if request.method == 'POST':
         form = BusinessRegistrationForm(request.POST, instance=business)
         if form.is_valid():
@@ -72,26 +67,23 @@ def edit_business(request):
             business.business_owner = request.user.userprofile
             business.save()
             # Update categories
-            category_codes = form.cleaned_data.get('categories', [])
-            from .models import Category
-            categories_qs = Category.objects.filter(code__in=category_codes)
-            business.categories.set(categories_qs)
+            business.categories.set(form.cleaned_data.get('categories', []))
             # Update accessibility features
-            feature_codes = form.cleaned_data.get('accessibility_features', [])
-            from .models import AccessibilityFeature
-            features_qs = AccessibilityFeature.objects.filter(code__in=feature_codes)
-            business.accessibility_features.set(features_qs)
+            business.accessibility_features.set(form.cleaned_data.get('accessibility_features', []))
             messages.success(request, "Business updated successfully.")
             return redirect('business_dashboard')
     else:
         form = BusinessRegistrationForm(instance=business)
 
-    return render(request, 'businesses/edit_business.html', {'form': form})
+    return render(request, 'businesses/edit_business.html', {
+        'form': form,
+        'pricing_tiers': pricing_tiers,
+    })
 
 
 @login_required
 def delete_business(request):
-    business = get_object_or_404(Business, owner=request.user)
+    business = get_object_or_404(Business, business_owner=request.user.userprofile)
 
     if request.method == 'POST':
         business.delete()

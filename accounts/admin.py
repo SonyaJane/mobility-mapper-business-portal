@@ -12,7 +12,10 @@ class UserProfileInline(admin.StackedInline):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'email', 'is_wheeler', 'has_business')
+    list_display = (
+        'user', 'email', 'country', 'county', 'is_wheeler', 'has_business',
+        'mobility_device', 'age_group', 'created_at', 'updated_at'
+    )
 
     def email(self, obj):
         return obj.user.email
