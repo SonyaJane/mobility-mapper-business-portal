@@ -3,6 +3,18 @@ from .models import Business, WheelerVerification, PricingTier, BILLING_FREQUENC
 from .widgets import MapLibrePointWidget
 
 class BusinessRegistrationForm(forms.ModelForm):
+    facebook_url = forms.URLField(
+        required=False,
+        label="Facebook Page URL"
+    )
+    x_twitter_url = forms.URLField(
+        required=False,
+        label="X (formerly Twitter) Profile URL"
+    )
+    instagram_url = forms.URLField(
+        required=False,
+        label="Instagram Profile URL"
+    )
     categories = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
@@ -38,17 +50,7 @@ class BusinessRegistrationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         from .models import AccessibilityFeature, Category
         self.fields['categories'].queryset = Category.objects.all()
-        # Group categories by group_description for the template
-        categories = Category.objects.all().order_by('group_description', 'name')
-        grouped = {}
-        for cat in categories:
-            group = cat.group_description or 'Other'
-            grouped.setdefault(group, []).append((cat.code, cat.name))
-        self.fields['categories'].choices = [(group, choices) for group, choices in grouped.items()]
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
-        # Flat list for accessibility features multi-select
-        features = AccessibilityFeature.objects.all()
-        self.fields['accessibility_features'].choices = [(feat.code, feat.name) for feat in features]
         self.fields['pricing_tier'].queryset = PricingTier.objects.filter(is_active=True)
         self.fields['pricing_tier'].empty_label = "Select a pricing tier"
         if not self.initial.get('billing_frequency'):
@@ -60,8 +62,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         except PricingTier.DoesNotExist:
             pass
         
-
-
 
 class WheelerVerificationForm(forms.ModelForm):
     class Meta:

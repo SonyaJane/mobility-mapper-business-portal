@@ -4,10 +4,25 @@
 
 {% block content %}
 
-<div class="container mt-5">
+<div class="container my-5">
   <h2 class="my-3">Register Your Accessible Business</h2>
 
   <form method="POST">
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <strong>Please correct the errors below:</strong>
+        <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
 
     {% csrf_token %}
     {{ form.media }} 
@@ -23,21 +38,17 @@
     <h4 class="mt-4">Select Business Categories</h4>
     <div class="mb-3">
       <select name="categories" id="id_categories" class="form-select" multiple size="8">
-        {% for group, choices in form.fields.categories.choices %}
-          <optgroup label="{{ group }}">
-            {% for code, name in choices %}
-              <option value="{{ code }}" {% if form.categories.value and code in form.categories.value %}selected{% endif %}>{{ name }}</option>
-            {% endfor %}
-          </optgroup>
+        {% for category in form.fields.categories.queryset %}
+          <option value="{{ category.pk }}" {% if form.categories.value and category.pk|stringformat:'s' in form.categories.value %}selected{% endif %}>{{ category.name }}</option>
         {% endfor %}
       </select>
-      <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple categories.</small>
+
     </div>
 
     <!-- Accessibility Features -->
     <h4 class="mt-4">Accessibility Features</h4>
     <div class="mb-3">
-      {{ form.accessibility_features|as_crispy_field }}
+      {{ form.accessibility_features }}
     </div>
 
     <!-- Pricing Tiers -->
