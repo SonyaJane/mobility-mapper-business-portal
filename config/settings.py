@@ -19,19 +19,18 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = config('SECRET_KEY')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%4@hn!4ruce%!1sc_e@+)1hj@m^#2e6&*m)91l*gywc*g0kxfz'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1', 'localhost']
 
 SITE_ID = 1
+
+CSRF_TRUSTED_ORIGINS = [   
+    "https://*.herokuapp.com",
+    "http://127.0.0.1:8000"
+]
 
 # Application definition
 
@@ -118,8 +117,17 @@ ACCOUNT_FORMS = {
 }
 
 # Email settings
-# For development purposes, using console backend to print emails to console
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
+ACCOUNT_DEFAULT_FROM_EMAIL = DEFAULT_FROM_EMAIL
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
 
 # Core Allauth settings
 ACCOUNT_LOGIN_METHODS = {'username', 'email'}
