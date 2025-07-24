@@ -1,7 +1,7 @@
-{% extends "account/base_entrance.html" %}
+{% extends "account/base.html" %}
 {% load i18n %}
 {% load allauth account %}
-{% block content %}
+{% block inner_content %}
     {% setvar title_ %}
         {% block title %}{% endblock %}
     {% endsetvar %}
@@ -93,4 +93,4 @@
             {% endslot %}
         {% endelement %}
     {% endif %}
-{% endblock content %}
+{% endblock inner_content %}

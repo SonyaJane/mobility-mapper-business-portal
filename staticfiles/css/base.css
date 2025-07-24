@@ -16,6 +16,13 @@ body {
     text-decoration: none;
 }
 
+.container {
+    --bs-gutter-x: 0;
+}
+
+.allauth-container {
+    --bs-gutter-x: 0;
+}
 .arrow-up {
     width: 0; 
     height: 0; 

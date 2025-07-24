@@ -20,9 +20,9 @@ from core.views import proxy_os_tile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path('business/', include('businesses.urls')),
-    path('', include('accounts.urls')),
     path("tiles/<int:z>/<int:x>/<int:y>.png", proxy_os_tile, name="proxy_os_tile"),
 ]

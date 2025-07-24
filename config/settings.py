@@ -130,7 +130,7 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 
 # Redirects
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/accounts/postlogin/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_SIGNUP_REDIRECT_URL = '/dashboard/'
 

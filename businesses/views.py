@@ -45,7 +45,6 @@ def register_business(request):
 
 @login_required
 def business_dashboard(request):
-
     try:
         business = Business.objects.get(business_owner=request.user.userprofile)
     except Business.DoesNotExist:

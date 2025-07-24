@@ -1,10 +1,11 @@
-{% extends "account/base_entrance.html" %}
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
 {% load i18n %}
 {% load allauth account %}
 {% block head_title %}
     {% translate "Sign In" %}
 {% endblock head_title %}
-{% block content %}
+{% block inner_content %}
     {% element h1 %}
         {% translate "Send me a sign-in code" %}
     {% endelement %}
@@ -15,8 +16,7 @@
     {% element form form=form method="post" action=login_url tags="entrance,login" %}
         {% slot body %}
             {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
+            {{ form|crispy }}            
             {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
@@ -29,4 +29,4 @@
     {% element button href=login_url tags="link" %}
         {% translate "Other sign-in options" %}
     {% endelement %}
-{% endblock content %}
+{% endblock inner_content %}
