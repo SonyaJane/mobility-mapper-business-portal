@@ -55,6 +55,22 @@
 
     <a href="{% url 'edit_business' %}" class="btn btn-warning mt-3">Edit Business</a>
     <a href="{% url 'delete_business' %}" class="btn btn-outline-danger mt-3">Delete Business</a>
+
+    <hr>
+    <h3 class="mt-4">Accessibility Verification Reports</h3>
+    {% if business.verifications.exists %}
+      <ul>
+        {% for verification in business.verifications.all %}
+          <li>
+            <a href="{% url 'verification_report' verification.id %}">
+              Report by {{ verification.wheeler.get_full_name|default:verification.wheeler.username }} on {{ verification.date_verified|date:"F j, Y" }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No verification reports yet.</p>
+    {% endif %}
   {% else %}
     <p>You haven't registered a business yet.</p>
     <a href="{% url 'register_business' %}" class="btn btn-primary">Register Now</a>

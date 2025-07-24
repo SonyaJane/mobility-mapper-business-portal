@@ -1,3 +1,4 @@
+
 from django.urls import path
 from . import views
 
@@ -11,4 +12,5 @@ urlpatterns = [
     path('public/<int:pk>/', views.public_business_detail, name='public_business_detail'),
     path('pending-verifications/', views.pending_verification_requests, name='pending_verification_requests'),
     path('directory/', views.public_business_list, name='public_business_list'),
+    path('verification-report/<int:verification_id>/', views.verification_report, name='verification_report'),
 ]

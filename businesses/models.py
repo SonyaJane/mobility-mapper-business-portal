@@ -162,4 +162,12 @@ class WheelerVerificationPhoto(models.Model):
         return f"Photo for verification {self.verification.id} uploaded at {self.uploaded_at}" 
 
 
+class WheelerVerificationRequest(models.Model):
+    business = models.ForeignKey('Business', on_delete=models.CASCADE, related_name='verification_requests')
+    wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verification_requests_made')
+    requested_at = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+    reviewed = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"Request by {self.wheeler} for {self.business.business_name} ({'Approved' if self.approved else 'Pending'})"

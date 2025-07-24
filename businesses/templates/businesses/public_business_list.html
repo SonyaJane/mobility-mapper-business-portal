@@ -2,7 +2,7 @@
 {% load static %}
     
 {% block content %}
-<div class="container-fluid my-4">
+<div class="container my-5">
   <div class="row">   
 
     <!-- Listings Column -->
@@ -17,8 +17,8 @@
             <div class="col-md-4">
             <select name="category" class="form-select">
                 <option value="">All Categories</option>
-                {% for key, label in categories %}
-                <option value="{{ key }}" {% if category == key %}selected{% endif %}>{{ label }}</option>
+                {% for category_obj in categories %}
+                <option value="{{ category_obj.code }}" {% if category == category_obj.code %}selected{% endif %}>{{ category_obj.name }}</option>
                 {% endfor %}
             </select>
             </div>

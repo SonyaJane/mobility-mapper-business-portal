@@ -2,6 +2,9 @@ from django import forms
 from django.contrib import admin
 from .models import Business, WheelerVerification, PricingTier, Category, AccessibilityFeature
 from .widgets import MapLibrePointWidget
+from .models import WheelerVerificationRequest
+from django.core.mail import send_mail
+from django.conf import settings
 
 @admin.register(WheelerVerification)
 class WheelerVerificationAdmin(admin.ModelAdmin):
@@ -47,3 +50,61 @@ class PricingTierAdmin(admin.ModelAdmin):
     list_display = ("tier", "price_per_month", "is_active")
     list_filter = ("is_active",)
     search_fields = ("tier",)
+
+
+@admin.register(WheelerVerificationRequest)
+class WheelerVerificationRequestAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        # Only send email if approval status changed to True
+        send_email = False
+        if change:
+            old_obj = WheelerVerificationRequest.objects.get(pk=obj.pk)
+            if not old_obj.approved and obj.approved:
+                send_email = True
+        elif obj.approved:
+            send_email = True
+        super().save_model(request, obj, form, change)
+        if send_email and obj.wheeler.email:
+            verification_url = f"{settings.SITE_URL}/businesses/{obj.business.pk}/submit-verification/"
+            send_mail(
+                subject="Your verification request has been approved",
+                message=(
+                    f"Hi {obj.wheeler.get_full_name() or obj.wheeler.username},\n\n"
+                    f"Your request to verify accessibility features for {obj.business.business_name} has been approved.\n\n"
+                    f"You may now proceed with the verification process by visiting the following link:\n{verification_url}\n\n"
+                    f"You can also access the verification form from your dashboard. Look for the 'Submit Verification' button next to the business.\n\n"
+                    f"Thank you!"
+                ),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[obj.wheeler.email],
+                fail_silently=True,
+            )
+    list_display = ('business', 'wheeler', 'requested_at', 'approved', 'reviewed')
+    list_filter = ('approved', 'reviewed', 'business')
+    search_fields = ('business__business_name', 'wheeler__username')
+    actions = ['approve_requests']
+
+    def approve_requests(self, request, queryset):
+        for req in queryset:
+            if not req.approved:
+                req.approved = True
+                req.reviewed = True
+                req.save()
+                # Send notification email to the wheeler
+                if req.wheeler.email:
+                    verification_url = f"{settings.SITE_URL}/businesses/{req.business.pk}/submit-verification/"
+                    send_mail(
+                        subject="Your verification request has been approved",
+                        message=(
+                            f"Hi {req.wheeler.get_full_name() or req.wheeler.username},\n\n"
+                            f"Your request to verify accessibility features for {req.business.business_name} has been approved.\n\n"
+                            f"You may now proceed with the verification process by visiting the following link:\n{verification_url}\n\n"
+                            f"You can also access the verification form from your dashboard. Look for the 'Submit Verification' button next to the business.\n\n"
+                            f"Thank you!"
+                        ),
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[req.wheeler.email],
+                        fail_silently=True,
+                    )
+        self.message_user(request, f"{queryset.count()} request(s) approved and users notified.")
+    approve_requests.short_description = "Approve selected requests and notify users"

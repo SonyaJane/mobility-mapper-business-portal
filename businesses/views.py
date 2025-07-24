@@ -50,7 +50,12 @@ def business_dashboard(request):
     except Business.DoesNotExist:
         business = None
 
-    return render(request, 'businesses/business_dashboard.html', {'business': business})
+    verifications = business.verifications.all() if business else []
+
+    return render(request, 'businesses/business_dashboard.html', {
+        'business': business,
+        'verifications': verifications,
+    })
 
 
 
@@ -119,11 +124,18 @@ def request_wheeler_verification(request, pk):
         return redirect('public_business_detail', pk=pk)
 
     if request.method == 'POST':
-        # Record that this wheeler has requested to verify (could use a separate model if needed)
-        # For now, just allow them to proceed to the verification form
-        request.session[f'wheeler_requested_{business.pk}'] = True
-        messages.success(request, "Request confirmed! You can now submit your verification after visiting the business.")
-        return redirect('submit_verification', pk=business.pk)
+        from .models import WheelerVerificationRequest
+        # Prevent duplicate requests
+        if WheelerVerificationRequest.objects.filter(business=business, wheeler=request.user, approved=False).exists():
+            return render(request, 'businesses/request_submitted.html', {'business': business})
+        else:
+            from django.core.mail import mail_admins
+            WheelerVerificationRequest.objects.create(business=business, wheeler=request.user)
+            mail_admins(
+                subject="New Wheeler Verification Request",
+                message=f"A new request to verify accessibility features has been submitted for {business.business_name} by {request.user.username}. Review and approve in the admin panel.",
+            )
+            return render(request, 'businesses/request_submitted.html', {'business': business})
 
     return render(request, 'businesses/request_wheeler_verification.html', {
         'business': business,
@@ -136,7 +148,6 @@ def request_wheeler_verification(request, pk):
 
 @login_required
 def submit_wheeler_verification(request, pk):
-
     business = get_object_or_404(Business, pk=pk)
     profile = getattr(request.user, 'userprofile', None)
     if not profile or not profile.is_wheeler:
@@ -157,10 +168,10 @@ def submit_wheeler_verification(request, pk):
             verification.mobility_device = request.POST.get('mobility_device')
             verification.save()
 
-            # Save confirmed features and additional features (custom logic, e.g. add notes or update business)
+            # Save confirmed features and additional features
             confirmed = form.cleaned_data.get('confirmed_features')
             additional = form.cleaned_data.get('additional_features')
-            # Optionally, update business with new features
+            # update business with new features
             if additional:
                 for feature in additional:
                     business.accessibility_features.add(feature)
@@ -173,8 +184,8 @@ def submit_wheeler_verification(request, pk):
             for photo in photos:
                 WheelerVerificationPhoto.objects.create(verification=verification, image=photo)
 
-            # Automatically approve if >= 3 verifications
-            if business.verifications.count() >= 3:
+            # Automatically approve if >= 2 verifications
+            if business.verifications.count() >= 2:
                 business.verified_by_wheelers = True
                 business.wheeler_verification_requested = False
                 business.save()
@@ -259,6 +270,26 @@ def pending_verification_requests(request):
         return redirect('home')
 
     businesses = Business.objects.filter(wheeler_verification_requested=True, verified_by_wheelers=False)
+    from .models import WheelerVerificationRequest
+    approved_business_ids = WheelerVerificationRequest.objects.filter(
+        wheeler=request.user,
+        approved=True
+    ).values_list('business_id', flat=True)
     return render(request, 'businesses/pending_verification_requests.html', {
         'businesses': businesses,
+        'approved_business_ids': list(approved_business_ids),
     })
+    
+@login_required
+def verification_report(request, verification_id):
+    verification = get_object_or_404(WheelerVerification, pk=verification_id)
+    # Only allow business owner to view their own business's reports
+    if verification.business.business_owner != request.user.userprofile:
+        messages.error(request, "You do not have permission to view this report.")
+        return redirect('business_dashboard')
+
+    return render(request, 'businesses/verification_report.html', {
+        'verification': verification,
+        'additional_features': [],
+    })
+    

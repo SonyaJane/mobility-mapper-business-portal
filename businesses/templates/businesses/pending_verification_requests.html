@@ -12,7 +12,12 @@
             {{ business.address }}<br>
             <span class="text-muted">Accessibility features: {{ business.accessibility_features.all|join:", " }}</span>
           </div>
-          <a href="{% url 'public_business_detail' business.id %}" class="btn btn-primary">View &amp; Verify</a>
+          <div class="d-flex flex-column">
+            <a href="{% url 'public_business_detail' business.id %}" class="btn btn-primary mb-2">View Business</a>
+            {% if business.id in approved_business_ids %}
+              <a href="{% url 'submit_verification' business.id %}" class="btn btn-success">Submit Verification</a>
+            {% endif %}
+          </div>
         </li>
       {% endfor %}
     </ul>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+  <h2>Request Submitted</h2>
+  <div class="alert alert-info">
+    <strong>Your request to verify accessibility features for <span class="text-primary">{{ business.business_name }}</span> has been submitted.</strong><br>
+    An admin will review your request to ensure you are a genuine wheeler. You will be notified when you are approved to proceed with the verification.
+  </div>
+  <a href="{% url 'public_business_detail' business.pk %}" class="btn btn-primary">Back to Business Details</a>
+</div>
+{% endblock %}
