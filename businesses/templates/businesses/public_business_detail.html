@@ -59,7 +59,10 @@
     </div>
   {% elif business.wheeler_verification_requested %}
     <div class="alert alert-warning">
-      ⏳ Wheeler Verification Requested
+      ⏳ Wheeler Verification Requested<br>
+      <strong>Wheelers:</strong> This business is seeking independent verification of its accessibility features.<br>
+      <span class="text-info">Earn £10 for each verification you complete. The business needs 2 verifications to earn the badge.</span><br>
+      <a href="{% url 'request_wheeler_verification' business.pk %}" class="btn btn-success mt-2">Apply to Verify Accessibility Features</a>
     </div>
   {% endif %}
 
@@ -67,8 +70,8 @@
 
   {% if request.user.is_authenticated and request.user.userprofile.is_wheeler %}
     {% if not has_user_verified %}
-        <a href="{% url 'submit_verification' business.pk %}" class="btn btn-outline-primary mt-3">
-        ✅ I've visited - Verify this business
+        <a href="{% url 'request_wheeler_verification' business.pk %}" class="btn btn-outline-primary mt-3">
+        ✅ I've visited - Request to Verify this business
         </a>
     {% else %}
         <p class="text-muted mt-3">✅ You have already verified this business.</p>

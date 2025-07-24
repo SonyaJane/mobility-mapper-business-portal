@@ -113,6 +113,7 @@ class Business(models.Model):
         return self.business_name
 
 
+
 class WheelerVerification(models.Model):
     """
     Represents a verification of a business by a Wheeler (user).
@@ -123,13 +124,42 @@ class WheelerVerification(models.Model):
     wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verifications_made')
     date_verified = models.DateTimeField(auto_now_add=True)
     comments = models.TextField(blank=True, null=True)
-    
+    mobility_device = models.CharField(
+        max_length=47,
+        choices=getattr(settings, 'MOBILITY_DEVICE_CHOICES', (
+            ('manual_wheelchair', 'Manual Wheelchair'),
+            ('powered_wheelchair', 'Powered Wheelchair'),
+            ('manual_wheelchair_with_powered_front_attachment', 'Manual Wheelchair with Powered Front Attachment'),
+            ('all_terrain_wheelchair', 'All Terrain Wheelchair'),
+            ('mobility_scooter_class_2', 'Mobility Scooter Class 2 (for footpaths)'),
+            ('mobility_scooter_class_3', 'Mobility Scooter Class 3 (for road use)'),
+            ('tricycle', 'Tricycle'),
+            ('handcycle', 'Handcycle'),
+            ('adapted_bicycle', 'Adapted Bicycle'),
+            ('bicycle', 'Bicycle'),
+            ('other', 'Other'),
+        )),
+        blank=True,
+        null=True,
+        help_text="Type of wheeled mobility device used during verification."
+    )
+    # Add any other fields as needed
+
     class Meta:
         unique_together = ('business', 'wheeler')  # prevent double verification
 
     def __str__(self):
         """String representation showing who verified which business and when."""
         return f"{self.wheeler} verified {self.business.name} on {self.date_verified.strftime('%Y-%m-%d')}"
-    
-    
+
+
+class WheelerVerificationPhoto(models.Model):
+    verification = models.ForeignKey(WheelerVerification, on_delete=models.CASCADE, related_name='photos')
+    image = models.ImageField(upload_to='verification_photos/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Photo for verification {self.verification.id} uploaded at {self.uploaded_at}" 
+
+
 

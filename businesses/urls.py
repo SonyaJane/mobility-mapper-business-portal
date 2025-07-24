@@ -9,5 +9,6 @@ urlpatterns = [
     path('<int:pk>/request-wheeler-verification/', views.request_wheeler_verification, name='request_wheeler_verification'),
     path('<int:pk>/verify/', views.submit_wheeler_verification, name='submit_verification'),
     path('public/<int:pk>/', views.public_business_detail, name='public_business_detail'),
+    path('pending-verifications/', views.pending_verification_requests, name='pending_verification_requests'),
     path('directory/', views.public_business_list, name='public_business_list'),
 ]

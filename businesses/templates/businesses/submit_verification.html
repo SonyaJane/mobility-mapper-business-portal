@@ -3,12 +3,53 @@
 
 {% block content %}
 <div class="container mt-5">
-  <h2>Verify: {{ business.name }}</h2>
+  <h2>Verify the accessibility of {{ business.business_name }}</h2>
+  <p><strong>Address:</strong> {{ business.address }}</p>
   <p>Please confirm you've visited this business and share any comments.</p>
 
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form|crispy }}
+    <div class="mb-3">
+      <label><strong>Accessibility features listed by the business:</strong></label>
+      {{ form.confirmed_features }}
+      <small class="form-text text-muted">Tick all features you have confirmed during your visit.</small>
+    </div>
+    <div class="mb-3">
+      <label><strong>Additional accessibility features you found:</strong></label>
+      <div>
+        {% for feature in form.fields.additional_features.queryset %}
+          {% if feature not in form.fields.confirmed_features.queryset %}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="additional_features" value="{{ feature.pk }}" id="addfeat{{ feature.pk }}">
+              <label class="form-check-label" for="addfeat{{ feature.pk }}">{{ feature.name }}</label>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <small class="form-text text-muted">Select any features not listed by the business that you found.</small>
+    </div>
+    <div class="mb-3">
+      <label><strong>Mobility device used during your visit:</strong></label>
+      <div>
+        {% for code, label in request.user.userprofile.MOBILITY_DEVICE_CHOICES %}
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="mobility_device" value="{{ code }}" id="mobdev{{ code }}">
+            <label class="form-check-label" for="mobdev{{ code }}">{{ label }}</label>
+          </div>
+        {% endfor %}
+      </div>
+      <small class="form-text text-muted">Select the device you used to verify this business.</small>
+    </div>
+    <div class="mb-3">
+      <label><strong>Upload photos of accessibility features:</strong></label>
+      <input type="file" name="photos" multiple class="form-control" />
+      <small class="form-text text-muted">You can select multiple photos.</small>
+    </div>
+    <div class="mb-3">
+      <label><strong>Your report/comments:</strong></label>
+      <br>
+      {{ form.comments }}
+    </div>
     <button type="submit" class="btn btn-success">Submit Verification</button>
   </form>
 </div>

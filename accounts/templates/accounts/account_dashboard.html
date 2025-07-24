@@ -26,5 +26,10 @@
     <p>
       <a href="{% url 'account_change_password' %}" class="btn btn-outline-primary">Change Password</a>
     </p>
+    {% if user.userprofile.is_wheeler %}
+      <p>
+        <a href="{% url 'pending_verification_requests' %}" class="btn btn-success">View Businesses Requesting Verification</a>
+      </p>
+    {% endif %}
   </div>
 {% endblock %}

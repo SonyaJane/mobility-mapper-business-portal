@@ -59,6 +59,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'business_dashboard' %}">Business Dashboard</a>
                 </li>
+                {% if user.userprofile.is_wheeler %}
+                <li class="nav-item">
+                    <a class="nav-link text-success" href="{% url 'pending_verification_requests' %}">Verify Businesses</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                 </li>

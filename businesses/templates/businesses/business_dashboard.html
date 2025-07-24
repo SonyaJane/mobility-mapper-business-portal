@@ -50,10 +50,7 @@
     {% elif business.wheeler_verification_requested %}
       <div class="alert alert-warning">⏳ Verification request pending</div>
     {% else %}
-      <form method="POST" action="{% url 'request_wheeler_verification' business.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-primary">Request Wheeler Verification</button>
-      </form>
+      <a href="{% url 'request_wheeler_verification' business.id %}" class="btn btn-outline-primary">Request Wheeler Verification</a>
     {% endif %}
 
     <a href="{% url 'edit_business' %}" class="btn btn-warning mt-3">Edit Business</a>

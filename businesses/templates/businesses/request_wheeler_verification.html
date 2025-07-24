@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Request to Verify Accessibility Features</h2>
+  <p>Business: <strong>{{ business.business_name }}</strong></p>
+  <div class="alert alert-info">
+    <strong>Instructions for Wheelers:</strong><br>
+    By requesting to verify this business, you agree to visit the location in person, take clear photos of the accessibility features, and write a short report about your experience. You will earn £10 for each completed verification. The business needs 2 independent verifications to earn the badge.
+    <ul class="mt-2">
+      <li>Take photos showing you have visited the business and its accessibility features.</li>
+      <li>Write a brief report about your visit and the features you verified.</li>
+      <li>After requesting, you will be able to submit your verification.</li>
+    </ul>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Confirm Request to Verify</button>
+    <a href="{% url 'public_business_detail' business.pk %}" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+</div>
+{% endblock %}

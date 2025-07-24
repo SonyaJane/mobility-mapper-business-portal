@@ -100,52 +100,89 @@ def delete_business(request):
 
 @login_required
 def request_wheeler_verification(request, pk):
-    business = get_object_or_404(Business, pk=pk, owner=request.user)
 
-    if not business.is_wheeler_verified and not business.wheeler_verification_requested:
-        business.wheeler_verification_requested = True
-        business.save()
-        messages.success(request, "Verification request sent.")
-    else:
-        messages.info(request, "Verification already requested or completed.")
+    business = get_object_or_404(Business, pk=pk, is_approved=True)
+    profile = getattr(request.user, 'userprofile', None)
+    if not request.user.is_authenticated or not profile or not profile.is_wheeler:
+        messages.error(request, "Only verified Wheelers can request to verify a business.")
+        return redirect('public_business_detail', pk=pk)
 
-    return redirect('business_dashboard')
+    # Count current verifications
+    verification_count = business.verifications.count()
+    required_verifications = 2
+    cost_per_verification = 20
+    wheeler_share = 10
+
+    # Prevent double-requesting
+    if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
+        messages.info(request, "You have already verified this business.")
+        return redirect('public_business_detail', pk=pk)
+
+    if request.method == 'POST':
+        # Record that this wheeler has requested to verify (could use a separate model if needed)
+        # For now, just allow them to proceed to the verification form
+        request.session[f'wheeler_requested_{business.pk}'] = True
+        messages.success(request, "Request confirmed! You can now submit your verification after visiting the business.")
+        return redirect('submit_verification', pk=business.pk)
+
+    return render(request, 'businesses/request_wheeler_verification.html', {
+        'business': business,
+        'verification_count': verification_count,
+        'required_verifications': required_verifications,
+        'cost_per_verification': cost_per_verification,
+        'wheeler_share': wheeler_share,
+    })
 
 
 @login_required
 def submit_wheeler_verification(request, pk):
-    business = get_object_or_404(Business, pk=pk)
 
-     # Ensure user is a wheeler
+    business = get_object_or_404(Business, pk=pk)
     profile = getattr(request.user, 'userprofile', None)
     if not profile or not profile.is_wheeler:
         messages.error(request, "You must be a verified Wheeler to submit a verification.")
         return redirect('home')
-    
+
     # Prevent double-verifying
     if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
         messages.info(request, "You have already verified this business.")
         return redirect('home')
-    
+
     if request.method == 'POST':
-        form = WheelerVerificationForm(request.POST)
+        form = WheelerVerificationForm(request.POST, request.FILES, business=business)
         if form.is_valid():
             verification = form.save(commit=False)
             verification.business = business
             verification.wheeler = request.user
+            verification.mobility_device = request.POST.get('mobility_device')
             verification.save()
-            
+
+            # Save confirmed features and additional features (custom logic, e.g. add notes or update business)
+            confirmed = form.cleaned_data.get('confirmed_features')
+            additional = form.cleaned_data.get('additional_features')
+            # Optionally, update business with new features
+            if additional:
+                for feature in additional:
+                    business.accessibility_features.add(feature)
+                business.save()
+
+
+            # Handle photo uploads (save to WheelerVerificationPhoto model)
+            photos = request.FILES.getlist('photos')
+            from .models import WheelerVerificationPhoto
+            for photo in photos:
+                WheelerVerificationPhoto.objects.create(verification=verification, image=photo)
+
             # Automatically approve if >= 3 verifications
             if business.verifications.count() >= 3:
                 business.verified_by_wheelers = True
-                # clear the verification request flag
                 business.wheeler_verification_requested = False
                 business.save()
-            
+
             messages.success(request, "Thank you for verifying this business!")
             return redirect('home')
     else:
-        form = WheelerVerificationForm()
+        form = WheelerVerificationForm(business=business)
 
     return render(request, 'businesses/submit_verification.html', {
         'form': form,
@@ -210,4 +247,18 @@ def public_business_list(request):
         'categories': categories,
         'geojson': geojson,
         'OS_MAPS_API_KEY': settings.OS_MAPS_API_KEY,
+    })
+
+
+@login_required
+def pending_verification_requests(request):
+    # Only show to wheelers
+    profile = getattr(request.user, 'userprofile', None)
+    if not profile or not profile.is_wheeler:
+        messages.error(request, "Only verified Wheelers can view pending verification requests.")
+        return redirect('home')
+
+    businesses = Business.objects.filter(wheeler_verification_requested=True, verified_by_wheelers=False)
+    return render(request, 'businesses/pending_verification_requests.html', {
+        'businesses': businesses,
     })
