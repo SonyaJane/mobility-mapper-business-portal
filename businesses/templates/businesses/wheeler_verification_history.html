@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load dict_extras %}
+{% block content %}
+<div class="container my-5">
+  <h2>Your Verification Requests & History</h2>
+  {% if requests %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Business</th>
+          <th>Status</th>
+          <th>Date Requested</th>
+          <th>Date Approved</th>
+          <th>Verification Submitted</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for req in requests %}
+        <tr>
+          <td>{{ req.business.business_name }}</td>
+          <td>
+            {% if req.approved %}
+              <span class="badge bg-success">Approved</span>
+            {% elif req.reviewed %}
+              <span class="badge bg-danger">Rejected</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">Pending</span>
+            {% endif %}
+          </td>
+          <td>{{ req.requested_at|date:"F j, Y" }}</td>
+          <td>{% if req.approved %}{{ req.approved_at|date:"F j, Y" }}{% endif %}</td>
+          <td>
+            {% with submitted=verification_status|get_item:req.id approved=verification_approved|get_item:req.id %}
+              {% if req.approved and submitted and approved %}
+                <span class="badge bg-success">Approved</span>
+              {% elif req.approved and submitted %}
+                <span class="badge bg-info">Submitted (Pending Approval)</span>
+              {% else %}
+                <span class="badge bg-secondary">Not Submitted</span>
+              {% endif %}
+            {% endwith %}
+          </td>
+          <td>
+            {% with submitted=verification_status|get_item:req.id %}
+              {% if req.approved and not submitted %}
+                <a href="{% url 'submit_verification' req.business.id %}" class="btn btn-sm btn-primary">Submit Verification</a>
+              {% endif %}
+            {% endwith %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="alert alert-info">You have not made any verification requests yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

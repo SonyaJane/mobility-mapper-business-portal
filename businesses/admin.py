@@ -8,9 +8,15 @@ from django.conf import settings
 
 @admin.register(WheelerVerification)
 class WheelerVerificationAdmin(admin.ModelAdmin):
-    list_display = ('business', 'wheeler', 'date_verified')
+    list_display = ('business', 'wheeler', 'date_verified', 'approved')
     search_fields = ('business__name', 'wheeler__email')
-    list_filter = ('date_verified',)
+    list_filter = ('date_verified', 'approved')
+    actions = ['approve_verifications']
+
+    def approve_verifications(self, request, queryset):
+        updated = queryset.update(approved=True)
+        self.message_user(request, f"{updated} verification(s) marked as approved.")
+    approve_verifications.short_description = "Approve selected verifications"
 
 class WheelerVerificationInline(admin.TabularInline):
     model = WheelerVerification
@@ -65,7 +71,8 @@ class WheelerVerificationRequestAdmin(admin.ModelAdmin):
             send_email = True
         super().save_model(request, obj, form, change)
         if send_email and obj.wheeler.email:
-            verification_url = f"{settings.SITE_URL}/businesses/{obj.business.pk}/submit-verification/"
+            from django.urls import reverse
+            verification_url = settings.SITE_URL + reverse('submit_verification', args=[obj.business.pk])
             send_mail(
                 subject="Your verification request has been approved",
                 message=(
@@ -92,7 +99,8 @@ class WheelerVerificationRequestAdmin(admin.ModelAdmin):
                 req.save()
                 # Send notification email to the wheeler
                 if req.wheeler.email:
-                    verification_url = f"{settings.SITE_URL}/businesses/{req.business.pk}/submit-verification/"
+                    from django.urls import reverse
+                    verification_url = settings.SITE_URL + reverse('submit_verification', args=[req.business.pk])
                     send_mail(
                         subject="Your verification request has been approved",
                         message=(

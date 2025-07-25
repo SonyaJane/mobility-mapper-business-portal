@@ -32,8 +32,11 @@
             <ul class="list-group">
             {% for business in businesses %}
                 <li class="list-group-item">
-                <h5 class="mb-1">
-                    <a href="{% url 'public_business_detail' business.pk %}">{{ business.name }}</a>
+                <h5 class="mb-1 d-flex align-items-center">
+                    {% if business.logo %}
+                      <img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" class="img-thumbnail me-2" style="max-height: 60px;">
+                    {% endif %}
+                    <a href="{% url 'public_business_detail' business.pk %}">{{ business.business_name }}</a>
                     {% if business.verified_by_wheelers %}
                     <span class="badge bg-success">✅ Wheeler Verified</span>
                     {% elif business.wheeler_verification_requested %}

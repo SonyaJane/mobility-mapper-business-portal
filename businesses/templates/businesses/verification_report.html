@@ -4,7 +4,9 @@
   <h2>Accessibility Verification Report</h2>
   <p><strong>Business:</strong> {{ verification.business.business_name }}</p>
   <p><strong>Address:</strong> {{ verification.business.address }}</p>
-  <p><strong>Verified by:</strong> {{ verification.wheeler.get_full_name|default:verification.wheeler.username }}</p>
+  {% if show_wheeler_name %}
+    <p><strong>Verified by:</strong> {{ verification.wheeler.get_full_name|default:verification.wheeler.username }}</p>
+  {% endif %}
   <p><strong>Date of Verification:</strong> {{ verification.date_verified|date:"F j, Y, g:i a" }}</p>
   <hr>
   <h4>Mobility Device Used</h4>

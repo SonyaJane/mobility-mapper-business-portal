@@ -143,14 +143,14 @@ class WheelerVerification(models.Model):
         null=True,
         help_text="Type of wheeled mobility device used during verification."
     )
-    # Add any other fields as needed
+    approved = models.BooleanField(default=False, help_text="Has this verification been approved by an admin?")
 
     class Meta:
         unique_together = ('business', 'wheeler')  # prevent double verification
 
     def __str__(self):
         """String representation showing who verified which business and when."""
-        return f"{self.wheeler} verified {self.business.name} on {self.date_verified.strftime('%Y-%m-%d')}"
+        return f"{self.wheeler} verified {self.business.business_name} on {self.date_verified.strftime('%Y-%m-%d')}"
 
 
 class WheelerVerificationPhoto(models.Model):

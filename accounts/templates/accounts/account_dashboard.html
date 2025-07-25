@@ -31,6 +31,10 @@
         <a href="{% url 'pending_verification_requests' %}" class="btn btn-success">View Businesses Requesting Verification</a>
       </p>
 
+      <p>
+        <a href="{% url 'wheeler_verification_history' %}" class="btn btn-info">View Your Verification Request History</a>
+      </p>
+
       {% if approved_businesses %}
         <h3 class="mt-5">Businesses You're Approved to Verify</h3>
         <ul class="list-group mb-4">

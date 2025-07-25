@@ -1,4 +1,3 @@
-
 """
 Django settings for config project.
 
@@ -19,6 +18,10 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Media files (uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
@@ -26,6 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1', 'localhost']
 
 SITE_ID = 1
+
+SITE_URL = "http://127.0.0.1:8000" 
 
 CSRF_TRUSTED_ORIGINS = [   
     "https://*.herokuapp.com",
@@ -158,9 +163,6 @@ DATABASES = {
         'PORT': config('DB_PORT', default='5432'),
     }
 }
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {

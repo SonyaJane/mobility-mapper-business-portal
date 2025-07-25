@@ -1,14 +1,24 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="container my-5">
-  <h1 class="mb-4">Business Dashboard</h1>
-
-  <p>Welcome, {{ user.first_name }} {{ user.last_name }}!</p>
+  <div class="row align-items-center">
+    {% if business.logo %}
+      <div class="col-4 text-start">
+        <img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" class="img-fluid mb-3" style="max-height: 200px;">
+      </div>
+      <div class="col-8 text-start">
+    {% else %}
+      <div class="col-12 text-start">
+    {% endif %}
+        <h1 class="mb-4">{{ business.business_name }} Dashboard</h1>
+      </div>
+  </div>
 
   {% if business %}
     <ul>
-      <li><strong>Business Name:</strong> {{ business.business_name }}</li>
+      <li><strong>Business Owner:</strong> {{ user.first_name }} {{ user.last_name }}</li>
       <li><strong>Address:</strong> {{ business.address }}</li>
       <li><strong>Categories:</strong>
         {% if business.categories.all %}
@@ -30,7 +40,6 @@
         {% else %}None{% endif %}
       </li>
       <li><strong>Opening Hours:</strong> {{ business.opening_hours }}</li>
-      <li><strong>Logo:</strong> {% if business.logo %}<img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" style="max-height: 100px;">{% else %}No logo uploaded{% endif %}</li>
       <li><strong>Public Email Address:</strong> {{ business.public_email }}</li>
       <li><strong>Public Phone Number:</strong> {{ business.public_phone }}</li>
       <li><strong>Contact Phone:</strong> {{ business.contact_phone }}</li>
@@ -44,6 +53,8 @@
       <li><strong>Tier:</strong> {% if business.pricing_tier %}{{ business.pricing_tier.tier }}{% else %}None{% endif %}</li>
       <li><strong>Approved by Mobility Mapper:</strong> {{ business.is_approved|yesno:"Yes,No" }}</li>
     </ul>
+
+    <div id="public-map" class="my-4"></div>
 
     {% if business.is_wheeler_verified %}
       <p class="text-success fw-bold">✅ Verified by Wheelers</p>
@@ -75,5 +86,18 @@
     <p>You haven't registered a business yet.</p>
     <a href="{% url 'register_business' %}" class="btn btn-primary">Register Now</a>
   {% endif %}
+
+  
 </div>
+{% endblock %}
+
+{% block extra_js %}
+{{ business_json|json_script:"business-data" }}
+<script type="module">
+  import load_map_business from "{% static 'js/load_map_business.js' %}";
+  document.addEventListener("DOMContentLoaded", function() {
+    const business = JSON.parse(document.getElementById('business-data').textContent);
+    load_map_business("public-map", business);
+  });
+</script>
 {% endblock %}

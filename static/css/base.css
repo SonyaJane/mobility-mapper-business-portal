@@ -111,8 +111,8 @@ body {
 }
 
 /* Map */
-#map {
-    background: #bd582c !important; 
+#map,
+#public-map {
     height: 400px;
     width: 400px;
     min-height: 300px;

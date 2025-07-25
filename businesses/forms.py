@@ -3,6 +3,17 @@ from .models import Business, WheelerVerification, PricingTier, BILLING_FREQUENC
 from .widgets import MapLibrePointWidget
 
 class BusinessRegistrationForm(forms.ModelForm):
+
+    def clean_logo(self):
+        logo = self.cleaned_data.get('logo')
+        if logo:
+            from PIL import Image
+            from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+            if isinstance(logo, (InMemoryUploadedFile, TemporaryUploadedFile)):
+                image = Image.open(logo)
+                if image.width != image.height:
+                    raise forms.ValidationError("Logo must be square (width and height must be equal).")
+        return logo
     facebook_url = forms.URLField(
         required=False,
         label="Facebook Page URL"
@@ -20,12 +31,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         widget=forms.SelectMultiple,
         required=False,
         label="Business Categories"
-    )
-    billing_frequency = forms.ChoiceField(
-        choices=BILLING_FREQUENCY_CHOICES,
-        widget=forms.RadioSelect,
-        initial='monthly',
-        label="Billing Option"
     )
     accessibility_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
@@ -53,8 +58,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
         self.fields['pricing_tier'].queryset = PricingTier.objects.filter(is_active=True)
         self.fields['pricing_tier'].empty_label = "Select a pricing tier"
-        if not self.initial.get('billing_frequency'):
-            self.initial['billing_frequency'] = 'monthly'
         try:
             free_tier = PricingTier.objects.filter(tier__iexact='Free', is_active=True).first()
             if free_tier:

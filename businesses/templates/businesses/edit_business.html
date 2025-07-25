@@ -6,12 +6,26 @@
 {% block content %}
 <div class="container mt-5">
   <h2>Edit Your Business</h2>
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.media }}
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
     <!-- Other Form Fields -->
     {% for field in form.visible_fields %}
-      {% if field.name != 'categories' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' %}
+      {% if field.name != 'categories' and field.name != 'accessibility_features' and field.name != 'pricing_tier' %}
         {{ field|as_crispy_field }}
       {% endif %}
     {% endfor %}
@@ -20,13 +34,13 @@
     <h4 class="mt-4">Select Business Categories</h4>
     <div class="mb-3">
       <select name="categories" id="id_categories" class="form-select" multiple size="8">
-        {% for group, choices in form.fields.categories.choices %}
-          <optgroup label="{{ group }}">
-            {% for code, name in choices %}
-              <option value="{{ code }}" {% if form.categories.value and code in form.categories.value %}selected{% endif %}>{{ name }}</option>
-            {% endfor %}
-          </optgroup>
-        {% endfor %}
+        {% if form.fields.categories.choices %}
+          {% for code, name in form.fields.categories.choices %}
+            <option value="{{ code }}" {% if form.categories.value and code in form.categories.value %}selected{% endif %}>{{ name }}</option>
+          {% endfor %}
+        {% else %}
+          <option disabled>No categories available</option>
+        {% endif %}
       </select>
       <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple categories.</small>
     </div>
@@ -35,16 +49,16 @@
     <h4 class="mt-4">Accessibility Features</h4>
     <div class="mb-3">
       <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
-        {% for code, name in form.fields.accessibility_features.choices %}
-          <option value="{{ code }}" {% if form.accessibility_features.value and code in form.accessibility_features.value %}selected{% endif %}>{{ name }}</option>
-        {% endfor %}
+        {% if form.fields.accessibility_features.choices %}
+          {% for code, name in form.fields.accessibility_features.choices %}
+            <option value="{{ code }}" {% if form.accessibility_features.value and code in form.accessibility_features.value %}selected{% endif %}>{{ name }}</option>
+          {% endfor %}
+        {% else %}
+          <option disabled>No accessibility features available</option>
+        {% endif %}
       </select>
       <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple features.</small>
     </div>
-
-    <!-- Pricing Tiers -->
-    <h4 class="my-4">Choose a Pricing Tier</h4>
-    <input type="hidden" name="pricing_tier" id="selected-pricing-tier" value="{{ form.initial.pricing_tier }}">
 
     <button type="submit" class="btn btn-success">Save Changes</button>
     <a href="{% url 'business_dashboard' %}" class="btn btn-secondary">Cancel</a>

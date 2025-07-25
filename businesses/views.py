@@ -1,4 +1,12 @@
 from django.contrib.auth.decorators import login_required
+
+# Add custom template filter for dictionary access
+from django import template
+register = template.Library()
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
@@ -7,6 +15,7 @@ from django.conf import settings
 from accounts.models import UserProfile
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
 from .models import Business, WheelerVerification, PricingTier
+from .models import WheelerVerificationRequest
 
 @login_required
 def register_business(request):
@@ -52,9 +61,62 @@ def business_dashboard(request):
 
     verifications = business.verifications.all() if business else []
 
+    # For wheelers, show their submitted verifications and approval status
+    user_verifications = None
+    verification_status = None
+    verification_approved = None
+    profile = getattr(request.user, 'userprofile', None)
+    if profile and profile.is_wheeler:
+        from .models import WheelerVerification
+        user_verifications = WheelerVerification.objects.filter(wheeler=request.user)
+        verification_status = {}
+        verification_approved = {}
+        for v in user_verifications:
+            verification_status[v.business.id] = True
+            verification_approved[v.business.id] = v.approved
+
+    # Prepare a JSON-serializable dict for the map JS if business exists
+    business_json = None
+    if business:
+        business_json = {
+            "business_name": business.business_name,
+            "location": {
+                "x": business.location.x,
+                "y": business.location.y,
+            },
+            # Add more fields if needed for JS
+        }
+
     return render(request, 'businesses/business_dashboard.html', {
         'business': business,
+        'business_json': business_json,
         'verifications': verifications,
+        'user_verifications': user_verifications,
+        'verification_status': verification_status,
+        'verification_approved': verification_approved,
+    })
+
+
+@login_required
+def wheeler_verification_history(request):
+    profile = getattr(request.user, 'userprofile', None)
+    if not profile or not profile.is_wheeler:
+        messages.error(request, "Only verified Wheelers can view their verification history.")
+        return redirect('home')
+
+    requests = WheelerVerificationRequest.objects.filter(wheeler=request.user).order_by('-requested_at')
+    # For each request, annotate whether a verification has been submitted and approved
+    verification_status = {}
+    verification_approved = {}
+    from .models import WheelerVerification
+    for req in requests:
+        verification = WheelerVerification.objects.filter(business=req.business, wheeler=req.wheeler).first()
+        verification_status[req.id] = bool(verification)
+        verification_approved[req.id] = verification.approved if verification else False
+    return render(request, 'businesses/wheeler_verification_history.html', {
+        'requests': requests,
+        'verification_status': verification_status,
+        'verification_approved': verification_approved,
     })
 
 
@@ -65,7 +127,7 @@ def edit_business(request):
 
     pricing_tiers = PricingTier.objects.filter(is_active=True)
     if request.method == 'POST':
-        form = BusinessRegistrationForm(request.POST, instance=business)
+        form = BusinessRegistrationForm(request.POST, request.FILES, instance=business)
         if form.is_valid():
             business = form.save(commit=False)
             business.business_owner = request.user.userprofile
@@ -205,12 +267,31 @@ def public_business_detail(request, pk):
     business = get_object_or_404(Business, pk=pk, is_approved=True)
 
     has_user_verified = False
+    has_pending_request = False
     if request.user.is_authenticated and hasattr(request.user, 'userprofile') and request.user.userprofile.is_wheeler:
         has_user_verified = WheelerVerification.objects.filter(business=business, wheeler=request.user).exists()
+        from .models import WheelerVerificationRequest
+        has_pending_request = WheelerVerificationRequest.objects.filter(
+            business=business,
+            wheeler=request.user,
+            approved=False,
+            reviewed=False
+        ).exists()
 
+    # Prepare a JSON-serializable dict for the map JS
+    business_json = {
+        "business_name": business.business_name,
+        "location": {
+            "x": business.location.x,
+            "y": business.location.y,
+        },
+        # Add more fields if needed for JS
+    }
     return render(request, 'businesses/public_business_detail.html', {
         'business': business,
+        'business_json': business_json,
         'has_user_verified': has_user_verified,
+        'has_pending_request': has_pending_request,
         'OS_MAPS_API_KEY': settings.OS_MAPS_API_KEY,
     })
     
@@ -270,14 +351,19 @@ def pending_verification_requests(request):
         return redirect('home')
 
     businesses = Business.objects.filter(wheeler_verification_requested=True, verified_by_wheelers=False)
-    from .models import WheelerVerificationRequest
+    from .models import WheelerVerificationRequest, WheelerVerification
     approved_business_ids = WheelerVerificationRequest.objects.filter(
+        wheeler=request.user,
+        approved=True
+    ).values_list('business_id', flat=True)
+    already_verified_business_ids = WheelerVerification.objects.filter(
         wheeler=request.user,
         approved=True
     ).values_list('business_id', flat=True)
     return render(request, 'businesses/pending_verification_requests.html', {
         'businesses': businesses,
         'approved_business_ids': list(approved_business_ids),
+        'already_verified_business_ids': list(already_verified_business_ids),
     })
     
 @login_required
@@ -288,8 +374,11 @@ def verification_report(request, verification_id):
         messages.error(request, "You do not have permission to view this report.")
         return redirect('business_dashboard')
 
+    # Hide wheeler name if business owner is viewing
+    show_wheeler_name = not (hasattr(request.user, 'userprofile') and verification.business.business_owner == request.user.userprofile)
     return render(request, 'businesses/verification_report.html', {
         'verification': verification,
         'additional_features': [],
+        'show_wheeler_name': show_wheeler_name,
     })
     
