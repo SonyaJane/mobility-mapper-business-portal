@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container mt-5">
   <h2>Edit Your Business</h2>
-  <form method="POST" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data" class="business-registration-form">
     {% csrf_token %}
     {{ form.media }}
     {% if form.errors %}
@@ -25,40 +25,65 @@
     {% endif %}
     <!-- Other Form Fields -->
     {% for field in form.visible_fields %}
-      {% if field.name != 'categories' and field.name != 'accessibility_features' and field.name != 'pricing_tier' %}
+      {% if field.name != 'categories' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' and field.name != 'opening_hours' %}
         {{ field|as_crispy_field }}
       {% endif %}
     {% endfor %}
 
-    <!-- Categories (grouped multi-select dropdown) -->
-    <h4 class="mt-4">Select Business Categories</h4>
+    <!-- Opening Hours Widget -->
     <div class="mb-3">
+      <label class="form-label">Business Hours</label>
+      <small class="text-muted">Set opening and closing times for each day, or mark as closed.</small>
+      <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
+      <table class="table table-bordered" id="opening-hours-table">
+        <thead>
+          <tr><th>Day</th><th>Periods</th><th>Closed</th></tr>
+        </thead>
+        <tbody>
+          {% for day in days_of_week %}
+          <tr data-day="{{ day }}">
+            <td>{{ day }}</td>
+            <td>
+              <div class="periods-container"></div>
+              <button type="button" class="btn btn-sm btn-outline-secondary add-period-btn" data-day="{{ day }}">Add period</button>
+              <button type="button" class="btn btn-sm btn-outline-primary copy-down-btn" data-day="{{ day }}">Copy to next day</button>
+            </td>
+            <td><input type="checkbox" class="closed-checkbox" data-day="{{ day }}"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Categories (grouped multi-select dropdown) -->
+    <div class="mb-3">
+      <label for="id_categories" class="form-label">Business Categories</label>
       <select name="categories" id="id_categories" class="form-select" multiple size="8">
-        {% if form.fields.categories.choices %}
           {% for code, name in form.fields.categories.choices %}
             <option value="{{ code }}" {% if form.categories.value and code in form.categories.value %}selected{% endif %}>{{ name }}</option>
           {% endfor %}
-        {% else %}
-          <option disabled>No categories available</option>
-        {% endif %}
       </select>
-      <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple categories.</small>
     </div>
 
     <!-- Accessibility Features (flat multi-select dropdown) -->
-    <h4 class="mt-4">Accessibility Features</h4>
     <div class="mb-3">
+      <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
       <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
-        {% if form.fields.accessibility_features.choices %}
           {% for code, name in form.fields.accessibility_features.choices %}
             <option value="{{ code }}" {% if form.accessibility_features.value and code in form.accessibility_features.value %}selected{% endif %}>{{ name }}</option>
-          {% endfor %}
-        {% else %}
-          <option disabled>No accessibility features available</option>
-        {% endif %}
+          {% endfor %}        
       </select>
-      <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple features.</small>
     </div>
+
+    <!-- Pricing Tier (crispy field) -->
+
+    <!-- Hidden Pricing Tier and Billing Frequency fields -->
+    {% if form.pricing_tier %}
+      {{ form.pricing_tier.as_hidden }}
+    {% endif %}
+    {% if form.billing_frequency %}
+      {{ form.billing_frequency.as_hidden }}
+    {% endif %}
 
     <button type="submit" class="btn btn-success">Save Changes</button>
     <a href="{% url 'business_dashboard' %}" class="btn btn-secondary">Cancel</a>
@@ -95,6 +120,119 @@
 
 {% block extra_js %}
 {{ block.super }}
+<script>
+// Auto-resize for textareas
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('textarea.auto-resize').forEach(function(textarea) {
+    function resize() {
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+    textarea.addEventListener('input', resize);
+    resize();
+  });
+
+  // Opening hours widget logic (multi-period)
+  const openingHoursField = document.getElementById('id_opening_hours');
+  const table = document.getElementById('opening-hours-table');
+  let initial = {};
+  try {
+    if (openingHoursField.value) {
+      initial = JSON.parse(openingHoursField.value);
+    }
+  } catch (e) {}
+
+  function addPeriod(container, open='', close='') {
+    const periodDiv = document.createElement('div');
+    periodDiv.className = 'input-group mb-1 period-row';
+    periodDiv.innerHTML = `
+      <input type="time" class="form-control open-time" value="${open}">
+      <span class="input-group-text">to</span>
+      <input type="time" class="form-control close-time" value="${close}">
+      <button type="button" class="btn btn-sm btn-outline-danger remove-period-btn" title="Remove">&times;</button>
+    `;
+    periodDiv.querySelector('.remove-period-btn').onclick = function() {
+      periodDiv.remove();
+    };
+    container.appendChild(periodDiv);
+  }
+
+  const rows = Array.from(table.querySelectorAll('tbody tr'));
+  rows.forEach((row, idx) => {
+    const day = row.dataset.day;
+    const container = row.querySelector('.periods-container');
+    // Populate from initial data
+    if (initial[day] && !initial[day].closed && Array.isArray(initial[day].periods)) {
+      initial[day].periods.forEach(period => {
+        addPeriod(container, period.open, period.close);
+      });
+    } else {
+      addPeriod(container);
+    }
+    // Add period button
+    row.querySelector('.add-period-btn').onclick = function() {
+      addPeriod(container);
+    };
+    // Copy down button
+    row.querySelector('.copy-down-btn').onclick = function() {
+      if (idx < rows.length - 1) {
+        const nextRow = rows[idx + 1];
+        const nextContainer = nextRow.querySelector('.periods-container');
+        nextContainer.innerHTML = '';
+        // Copy periods
+        container.querySelectorAll('.period-row').forEach(periodDiv => {
+          const open = periodDiv.querySelector('.open-time').value;
+          const close = periodDiv.querySelector('.close-time').value;
+          if (open && close) {
+            addPeriod(nextContainer, open, close);
+          }
+        });
+        // Copy closed state
+        nextRow.querySelector('.closed-checkbox').checked = row.querySelector('.closed-checkbox').checked;
+        // Trigger display logic
+        nextRow.querySelector('.closed-checkbox').dispatchEvent(new Event('change'));
+      }
+    };
+    // Closed checkbox logic
+    const closedCb = row.querySelector('.closed-checkbox');
+    function togglePeriods() {
+      container.style.display = closedCb.checked ? 'none' : '';
+      row.querySelector('.add-period-btn').style.display = closedCb.checked ? 'none' : '';
+      row.querySelector('.copy-down-btn').style.display = closedCb.checked ? 'none' : '';
+    }
+    closedCb.addEventListener('change', togglePeriods);
+    togglePeriods();
+    // Initial state
+    if (initial[day] && initial[day].closed) {
+      closedCb.checked = true;
+      togglePeriods();
+    }
+  });
+
+  // Serialize table to hidden field before submit
+  table.closest('form').addEventListener('submit', function(e) {
+    const data = {};
+    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
+      const day = row.dataset.day;
+      const closed = row.querySelector('.closed-checkbox').checked;
+      if (closed) {
+        data[day] = {closed: true};
+      } else {
+        const periods = [];
+        row.querySelectorAll('.periods-container .period-row').forEach(periodDiv => {
+          const open = periodDiv.querySelector('.open-time').value;
+          const close = periodDiv.querySelector('.close-time').value;
+          if (open && close) {
+            periods.push({open, close});
+          }
+        });
+        data[day] = {closed: false, periods};
+      }
+    });
+    openingHoursField.value = JSON.stringify(data);
+  });
+});
+</script>
 {% endblock %}
 
 {% block extra_css %}

@@ -28,33 +28,41 @@ def register_business(request):
     if user_profile.has_business:
         return redirect('business_dashboard')
 
+    import json
     if request.method == 'POST':
-        form = BusinessRegistrationForm(request.POST)
+        post_data = request.POST.copy()
+        try:
+            if post_data.get('opening_hours'):
+                json.loads(post_data['opening_hours'])
+        except Exception:
+            post_data['opening_hours'] = ''
+        form = BusinessRegistrationForm(post_data)
         if form.is_valid():
             business = form.save(commit=False)
             business.business_owner = request.user.userprofile
             billing_frequency = form.cleaned_data.get('billing_frequency')
             request.session['billing_frequency'] = billing_frequency
+            business.opening_hours = post_data.get('opening_hours', '')
             business.save()
-            # Set categories (ManyToMany)
             business.categories.set(form.cleaned_data.get('categories', []))
-            # Set accessibility features (ManyToMany)
             business.accessibility_features.set(form.cleaned_data.get('accessibility_features', []))
-            # Update user profile
             user_profile.has_business = True
             user_profile.save()
             return redirect('business_dashboard')
     else:
         form = BusinessRegistrationForm()
 
+    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     return render(request, 'businesses/register_business.html', {
         'form': form,
         'pricing_tiers': pricing_tiers,
+        'days_of_week': days_of_week,
     })
 
 
 @login_required
 def business_dashboard(request):
+    import json
     try:
         business = Business.objects.get(business_owner=request.user.userprofile)
     except Business.DoesNotExist:
@@ -78,6 +86,7 @@ def business_dashboard(request):
 
     # Prepare a JSON-serializable dict for the map JS if business exists
     business_json = None
+    opening_hours_dict = None
     if business:
         business_json = {
             "business_name": business.business_name,
@@ -87,6 +96,14 @@ def business_dashboard(request):
             },
             # Add more fields if needed for JS
         }
+        # Parse opening_hours JSON for server-side table rendering
+        try:
+            if business.opening_hours:
+                opening_hours_dict = json.loads(business.opening_hours)
+            else:
+                opening_hours_dict = None
+        except Exception:
+            opening_hours_dict = None
 
     return render(request, 'businesses/business_dashboard.html', {
         'business': business,
@@ -95,6 +112,7 @@ def business_dashboard(request):
         'user_verifications': user_verifications,
         'verification_status': verification_status,
         'verification_approved': verification_approved,
+        'opening_hours_dict': opening_hours_dict,
     })
 
 
@@ -127,11 +145,22 @@ def edit_business(request):
     business = get_object_or_404(Business, business_owner=request.user.userprofile)
 
     pricing_tiers = PricingTier.objects.filter(is_active=True)
+    import json
     if request.method == 'POST':
-        form = BusinessRegistrationForm(request.POST, request.FILES, instance=business)
+        post_data = request.POST.copy()
+        # Ensure opening_hours is stored as text
+        try:
+            if post_data.get('opening_hours'):
+                # Validate it's valid JSON
+                json.loads(post_data['opening_hours'])
+        except Exception:
+            post_data['opening_hours'] = ''
+        form = BusinessRegistrationForm(post_data, request.FILES, instance=business)
         if form.is_valid():
             business = form.save(commit=False)
             business.business_owner = request.user.userprofile
+            # Store opening_hours as text
+            business.opening_hours = post_data.get('opening_hours', '')
             business.save()
             # Update categories
             business.categories.set(form.cleaned_data.get('categories', []))
@@ -140,11 +169,15 @@ def edit_business(request):
             messages.success(request, "Business updated successfully.")
             return redirect('business_dashboard')
     else:
-        form = BusinessRegistrationForm(instance=business)
+        # Deserialize opening_hours JSON for the form field
+        initial = business.opening_hours if business.opening_hours else ''
+        form = BusinessRegistrationForm(instance=business, initial={'opening_hours': initial})
 
+    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     return render(request, 'businesses/edit_business.html', {
         'form': form,
         'pricing_tiers': pricing_tiers,
+        'days_of_week': days_of_week,
     })
 
 

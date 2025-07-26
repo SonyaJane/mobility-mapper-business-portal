@@ -17,42 +17,67 @@
   </div>
 
   {% if business %}
-    <ul>
-      <li><strong>Business Owner:</strong> {{ user.first_name }} {{ user.last_name }}</li>
-      <li><strong>Address:</strong> {{ business.address }}</li>
-      <li><strong>Categories:</strong>
+
+    <div class="business-details">
+      <div><strong>Business Owner:</strong> {{ user.first_name }} {{ user.last_name }}</div>
+      <div><strong>Address:</strong> {{ business.address }}</div>
+      <div><strong>Categories:</strong>
         {% if business.categories.all %}
-          <ul>
-            {% for cat in business.categories.all %}
-              <li>{{ cat.name }}</li>
-            {% endfor %}
-          </ul>
+          {% for cat in business.categories.all %}
+            <span class="badge bg-secondary me-1">{{ cat.name }}</span>
+          {% endfor %}
         {% else %}None{% endif %}
-      </li>
-      <li><strong>Description:</strong> {{ business.description }}</li>
-      <li><strong>Accessibility Features:</strong>
+      </div>
+      <div><strong>Accessibility Features:</strong>
         {% if business.accessibility_features.all %}
-          <ul>
-            {% for feature in business.accessibility_features.all %}
-              <li>{{ feature.name }}</li>
-            {% endfor %}
-          </ul>
+          {% for feature in business.accessibility_features.all %}
+            <span class="badge bg-info text-dark me-1">{{ feature.name }}</span>
+          {% endfor %}
         {% else %}None{% endif %}
-      </li>
-      <li><strong>Opening Hours:</strong> {{ business.opening_hours }}</li>
-      <li><strong>Public Email Address:</strong> {{ business.public_email }}</li>
-      <li><strong>Public Phone Number:</strong> {{ business.public_phone }}</li>
-      <li><strong>Contact Phone:</strong> {{ business.contact_phone }}</li>
-      <li><strong>Services Offered:</strong> {{ business.services_offered }}</li>
-      <li><strong>Website:</strong> <a href="{{ business.website }}" target="_blank">{{ business.website }}</a></li>
-      <li><strong>Social Media:</strong> 
+      </div>
+
+      <!-- Opening Hours Table (server-side rendering) -->
+      {% if business.opening_hours %}
+        <div class="mt-3 mb-2"><strong>Opening Hours:</strong></div>
+        {% if opening_hours_dict %}
+          <div class="table-responsive">
+            <table class="table table-bordered table-sm w-auto" id="opening-hours-table-dashboard">
+              <tbody>
+                {% for day, info in opening_hours_dict.items %}
+                  <tr>
+                    <td class="px-2"><strong>{{ day }}</strong></td>
+                    <td class="px-2">
+                      {% if info.closed %}
+                        <span class="text-muted">Closed</span>
+                      {% elif info.periods %}
+                        {% for period in info.periods %}
+                          <span>{{ period.open }} - {{ period.close }}</span>{% if not forloop.last %}<br>{% endif %}
+                        {% endfor %}
+                      {% else %}
+                        <span class="text-muted">No hours set</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endif %}
+      {% endif %}
+      <div><strong>Website:</strong> <a href="{{ business.website }}" target="_blank">{{ business.website }}</a></div>
+      <div><strong>Social Media:</strong> 
         {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank">Facebook</a>{% endif %}
         {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank">X</a>{% endif %}
         {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank">Instagram</a>{% endif %}
-      </li>      
-      <li><strong>Tier:</strong> {% if business.pricing_tier %}{{ business.pricing_tier.tier }}{% else %}None{% endif %}</li>
-      <li><strong>Approved by Mobility Mapper:</strong> {{ business.is_approved|yesno:"Yes,No" }}</li>
-    </ul>
+      </div>
+      <div><strong>Public Email Address:</strong> {{ business.public_email }}</div>
+      <div><strong>Public Phone Number:</strong> {{ business.public_phone }}</div>
+      <div><strong>Contact Phone:</strong> {{ business.contact_phone }}</div>
+      <div><strong>Description:</strong> {{ business.description }}</div>
+      <div><strong>Services Offered:</strong> {{ business.services_offered }}</div>
+      <div><strong>Subscription Tier:</strong> {% if business.pricing_tier %}{{ business.pricing_tier.tier }}{% else %}None{% endif %}</div>
+      <div><strong>Business Approved by Mobility Mapper:</strong> {{ business.is_approved|yesno:"Yes,No" }}</div>
+    </div>
 
     <div id="public-map" class="my-4"></div>
 
@@ -100,4 +125,5 @@
     load_map_business("public-map", business);
   });
 </script>
+
 {% endblock %}

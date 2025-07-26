@@ -1,19 +1,62 @@
 from django import forms
 from .models import Business, WheelerVerification, PricingTier, BILLING_FREQUENCY_CHOICES
 from .widgets import MapLibrePointWidget
+from .models import AccessibilityFeature, Category
+from PIL import Image
+from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+
 
 class BusinessRegistrationForm(forms.ModelForm):
+    public_phone = forms.CharField(
+        required=False,
+        label="Public phone number"
+    )
+    contact_phone = forms.CharField(
+        required=False,
+        label="Contact phone number"
+    )
+    public_email = forms.EmailField(
+        required=False,
+        label="Public email address"
+    )
+    services_offered = forms.CharField(
+        required=False,
+        label="Services offered",
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Describe the services your business offers, e.g. delivery, in-store shopping, etc.',
+            'class': 'auto-resize',
+            'rows': 3
+        })
+    )
+    description = forms.CharField(
+        required=False,
+        label="Business description",
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Describe your business, what makes it unique, and any important details for customers.',
+            'class': 'auto-resize',
+            'rows': 3
+        })
+    )
 
-    def clean_logo(self):
-        logo = self.cleaned_data.get('logo')
-        if logo:
-            from PIL import Image
-            from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
-            if isinstance(logo, (InMemoryUploadedFile, TemporaryUploadedFile)):
-                image = Image.open(logo)
-                if image.width != image.height:
-                    raise forms.ValidationError("Logo must be square (width and height must be equal).")
-        return logo
+    opening_hours = forms.CharField(
+        required=False,
+        label="Business Hours",
+        widget=forms.Textarea(attrs={
+            'placeholder': 'e.g. Mon-Fri 9am-5pm; Sat 10am-2pm; Sun closed',
+            'class': 'auto-resize',
+            'rows': 3
+        })
+    )
+
+    special_offers = forms.CharField(
+        required=False,
+        label="Special Offers",
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Describe any special offers or discounts for wheelers.',
+            'class': 'auto-resize',
+            'rows': 3
+        })
+    )
     facebook_url = forms.URLField(
         required=False,
         label="Facebook Page URL"
@@ -30,12 +73,13 @@ class BusinessRegistrationForm(forms.ModelForm):
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
         required=False,
-        label="Business Categories"
+        label="Select Business Categories"
     )
     accessibility_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
-        required=False
+        required=False,
+        label="Select Accessibility Features"
     )
     
     class Meta:
@@ -53,7 +97,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        from .models import AccessibilityFeature, Category
         self.fields['categories'].queryset = Category.objects.all()
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
         self.fields['pricing_tier'].queryset = PricingTier.objects.filter(is_active=True)
@@ -64,6 +107,16 @@ class BusinessRegistrationForm(forms.ModelForm):
                 self.initial['pricing_tier'] = free_tier.pk
         except PricingTier.DoesNotExist:
             pass
+    
+        
+    def clean_logo(self):
+        logo = self.cleaned_data.get('logo')
+        if logo:
+            if isinstance(logo, (InMemoryUploadedFile, TemporaryUploadedFile)):
+                image = Image.open(logo)
+                if image.width != image.height:
+                    raise forms.ValidationError("Logo must be square (width and height must be equal).")
+        return logo
         
 
 class WheelerVerificationForm(forms.ModelForm):

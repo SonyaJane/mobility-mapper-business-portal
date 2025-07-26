@@ -5,6 +5,15 @@
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
+/* Style for crispy form labels in BusinessRegistrationForm */
+.business-registration-form .form-label {
+    font-weight: 600;
+    color: #21548e;
+    font-size: 1.08rem;
+    letter-spacing: 0.01em;
+    margin-bottom: 0.25rem;
+}
+
 .business-logo-img {
   max-width: 100px;
   max-height: 100px;

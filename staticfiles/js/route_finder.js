@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('map:', MAP.map, 'filtered:', filtered);
         if (!MAP.map || !filtered) return;
         filtered.forEach((biz, idx) => {
-        console.log('Rendering marker for business:', biz);
+
         if (biz.location) {
             if (typeof maplibregl === 'undefined') {
             console.error('MapLibre GL JS is not loaded. Markers cannot be rendered.');
@@ -58,89 +58,181 @@ document.addEventListener('DOMContentLoaded', function() {
         li.innerHTML = `            
             <strong>${biz.business_name}</strong><br>
             ${categories}<br>
-            ${biz.address}
+            ${biz.address}<br>
             ${verified}
             `;
         li.style.cursor = 'pointer';
         li.addEventListener('click', function() {
             if (MAP.markers[idx] && MAP.markers[idx].getPopup()) {
-            MAP.markers[idx].togglePopup();
+                MAP.markers[idx].togglePopup();
             }
-            // Show modal with business info
-            showBusinessModal(biz);
+            // Center the map on the business marker and zoom in
+            if (biz.location && MAP.map) {
+                MAP.map.flyTo({ center: [biz.location.lng, biz.location.lat], zoom: 16 });
+            }
+            showBusinessPanel(biz);
         });
         list.appendChild(li);
         });
     }
 
-    // Modal for business info
-    function showBusinessModal(biz) {
-        let modal = document.getElementById('business-info-modal');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'business-info-modal';
-            modal.className = 'modal fade';
-            modal.tabIndex = -1;
-            modal.setAttribute('data-bs-backdrop', 'true');
-            modal.setAttribute('data-bs-keyboard', 'true');
-            modal.innerHTML = `
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body"></div>
-                </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            }
-        
-        // Fill modal content
-        modal.querySelector('.modal-title').textContent = biz.business_name;
-        let categories = biz.categories && biz.categories.length ? biz.categories.join(', ') : '';
-        let accessibility = '';
-        if (biz.accessibility_features && biz.accessibility_features.length) {
-          accessibility = `<br><strong>Accessibility:</strong> ` + biz.accessibility_features.map(f => `<span class="badge accessibility-badge">${f}</span>`).join(' ');
+    function renderOpeningHoursTable(opening_hours) {
+        if (!opening_hours) return '';
+        let oh;
+        try {
+            oh = typeof opening_hours === 'string' ? JSON.parse(opening_hours) : opening_hours;
+        } catch (e) {
+            return '';
         }
-        let phone = biz.public_phone ? `<br><strong>Phone:</strong> ${biz.public_phone}` : '';
-        let public_email = biz.public_email ? `<br><strong>Email:</strong> <a href="mailto:${biz.public_email}">${biz.public_email}</a>` : '';
-        let website = biz.website ? `<br><strong>Website:</strong> <a href="${biz.website}" target="_blank">${biz.website}</a>` : '';
-        let address = biz.address ? `<br><strong>Address:</strong> ${biz.address}` : '';
-        let opening_hours = biz.opening_hours ? `<br><strong>Opening Hours:</strong> ${biz.opening_hours}` : '';
-        let offers = biz.special_offers ? `<br><strong>Offers:</strong> ${biz.special_offers}` : '';
-        let services = biz.services_offered ? `<br><strong>Services Offered:</strong> ${biz.services_offered}` : '';
-        let description = biz.description ? `<br><strong>Description:</strong> ${biz.description}` : '';
-        let logo = biz.logo ? `<br><img src="${biz.logo}" alt="${biz.business_name} Logo" style="max-width:100px;max-height:100px;">` : '';
-        let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<span class="text-success fw-bold">✅ Verified by Wheelers</span><br>` : '';
-        modal.querySelector('.modal-body').innerHTML = `
-        ${logo}
-        <strong>${biz.business_name}</strong><br>
-        ${verified}
-        ${categories}<br>
-        ${address}
-        ${accessibility}
-        ${phone}
-        ${public_email}
-        ${website}
-        ${opening_hours}
-        ${offers}
-        ${services}
-        ${description}
+        let html = `
+            <div class="mt-3 mb-2"><strong>Opening Hours:</strong></div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm w-auto" id="opening-hours-table-dashboard">
+                    <tbody>
         `;
-        // Show modal
-        let bsModal = bootstrap.Modal.getOrCreateInstance(modal);
-        bsModal.show();
-        // Allow closing modal by clicking outside
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-            bsModal.hide();
+        Object.entries(oh).forEach(([day, info]) => {
+            html += `<tr>
+                <td class="px-2"><strong>${day}</strong></td>
+                <td class="px-2">`;
+            if (info.closed) {
+                html += `<span class="text-muted">Closed</span>`;
+            } else if (info.periods && info.periods.length) {
+                html += info.periods.map((p, idx) =>
+                    `<span>${p.open} - ${p.close}</span>${idx < info.periods.length - 1 ? '<br>' : ''}`
+                ).join('');
+            } else {
+                html += `<span class="text-muted">No hours set</span>`;
             }
+            html += `</td></tr>`;
         });
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+        return html;
     }
 
-    // AJAX search businesses
+    // Side panel for business info
+    function showBusinessPanel(biz) {
+        const panel = document.getElementById('business-details-panel');
+        if (!panel) return;
+        let categories = biz.categories && biz.categories.length ? biz.categories.join(', ') : '';
+        let phone = biz.public_phone ? `<i class='bi bi-telephone me-1'></i>${biz.public_phone}` : '';
+        let public_email = biz.public_email ? `<br><i class='bi bi-envelope me-1'></i><a href="mailto:${biz.public_email}">${biz.public_email}</a>` : '';
+        let website = biz.website ? `<i class='bi bi-globe me-1'></i><a href="${biz.website}" target="_blank">${biz.website}</a>` : '';
+        let address = biz.address ? `<i class='bi bi-geo-alt me-1'></i>${biz.address}` : '';
+        let opening_hours = biz.opening_hours ? renderOpeningHoursTable(biz.opening_hours) : '';
+        let offers = biz.special_offers ? `<br><i class='bi bi-tag me-1'></i>${biz.special_offers}` : '';
+        let services = biz.services_offered ? `<br><i class='bi bi-briefcase me-1'></i>${biz.services_offered}` : '';
+        let description = biz.description ? `<br><i class='bi bi-info-circle me-1'></i>${biz.description}` : '';
+        let logo = biz.logo ? `<img src="${biz.logo}" alt="${biz.business_name} Logo" class="business-logo-img">` : '';
+        let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<span class="text-success fw-bold">✅ Verified by Wheelers</span><br>` : '';
+        let accessibility = '';
+        if (biz.accessibility_features && biz.accessibility_features.length) {
+            accessibility = `` + biz.accessibility_features.map(f => `<span class="badge accessibility-badge">${f}</span>`).join(' ');
+        }
+        panel.innerHTML = `
+            <div class="d-flex justify-content-end w-100">
+                <button class="btn btn-light business-panel-close mt-2 me-2" id="close-business-panel">&times;</button>
+            </div>
+            <div class="card border-0">
+                <div class="card-header bg-white border-0 pb-0">
+                    ${logo ? `
+                        <div class="text-center mb-2 business-logo-container">${logo}</div>
+                    ` : ''}
+                    <h4 class="card-title mb-0 text-center">${biz.business_name}</h4>
+                </div>
+                <div class="card-body pt-2">                    
+                    ${categories ? `<div class="mb-2 text-center">${categories}</div>` : ''}
+                    <div class="container-fluid px-0">
+                        ${address ? `
+                        <div class="row mb-1">
+                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-geo-alt'></i></div>
+                            <div class="col ps-2">${biz.address}</div>
+                        </div>` : ''}
+                        ${opening_hours ? `
+                        <div class="row mb-1">
+                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-clock'></i></div>
+                            <div class="col ps-2">${biz.opening_hours}</div>
+                        </div>` : ''}
+                        ${website ? `
+                        <div class="row mb-1">
+                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-globe'></i></div>
+                            <div class="col ps-2"><a href="${biz.website}" target="_blank">${biz.website}</a></div>
+                        </div>` : ''}
+                        ${public_email ? `
+                        <div class="row mb-1">
+                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-envelope'></i></div>
+                            <div class="col ps-2"><a href="mailto:${biz.public_email}">${biz.public_email}</a></div>
+                        </div>` : ''}
+                        ${phone ? `
+                        <div class="row mb-1">
+                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-telephone'></i></div>
+                            <div class="col ps-2">${biz.public_phone}</div>
+                        </div>` : ''}                        
+                        ${description ? `
+                        <div class="row mb-1">
+                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-info-circle'></i></div>
+                            <div class="col ps-2">${biz.description}</div>
+                        </div>` : ''}
+                        ${services ? `
+                        <div class="row mb-1">
+                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-briefcase'></i></div>
+                            <div class="col ps-2">${biz.services_offered}</div>
+                        </div>` : ''}
+                        ${offers ? `
+                        <div class="row mb-1">
+                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-tag'></i></div>
+                            <div class="col ps-2">${biz.special_offers}</div>
+                        </div>` : ''}
+                        ${accessibility ? `
+                        <div class="mb-1">
+                            <p class="fw-bold mb-1 mt-2">Accessibility Features</p>
+                            ${biz.accessibility_features.map(f => `<span class='badge accessibility-badge'>${f}</span>`).join(' ')}
+                            ${verified ? `<div class="my-1">${verified}</div>` : ''}
+                        </div>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+        panel.style.display = 'block';
+        // Overlay for outside click
+        let overlay = document.getElementById('business-panel-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'business-panel-overlay';
+            document.body.appendChild(overlay);
+        }
+        overlay.style.display = 'block';
+        overlay.onclick = function() {
+            panel.style.display = 'none';
+            overlay.style.display = 'none';
+        };
+        document.getElementById('close-business-panel').onclick = function() {
+            panel.style.display = 'none';
+            overlay.style.display = 'none';
+        };
+        // Swipe/drag to close (basic)
+        let startX = null;
+        panel.onmousedown = function(e) { startX = e.clientX; };
+        panel.onmouseup = function(e) {
+            if (startX !== null && e.clientX - startX > 120) {
+                panel.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+            startX = null;
+        };
+        // Touch support
+        panel.ontouchstart = function(e) { if (e.touches.length === 1) startX = e.touches[0].clientX; };
+        panel.ontouchend = function(e) {
+            if (startX !== null && e.changedTouches[0].clientX - startX > 80) {
+                panel.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+            startX = null;
+        };
+    }
     function filterBusinesses() {
         const search = document.getElementById('business-search').value;
         const catId = document.getElementById('category-select').value;

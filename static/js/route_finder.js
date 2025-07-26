@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('map:', MAP.map, 'filtered:', filtered);
         if (!MAP.map || !filtered) return;
         filtered.forEach((biz, idx) => {
-        console.log('Rendering marker for business:', biz);
+
         if (biz.location) {
             if (typeof maplibregl === 'undefined') {
             console.error('MapLibre GL JS is not loaded. Markers cannot be rendered.');
@@ -76,6 +76,43 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function renderOpeningHoursTable(opening_hours) {
+        if (!opening_hours) return '';
+        let oh;
+        try {
+            oh = typeof opening_hours === 'string' ? JSON.parse(opening_hours) : opening_hours;
+        } catch (e) {
+            return '';
+        }
+        let html = `
+            <div class="mt-3 mb-2"><strong>Opening Hours:</strong></div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm w-auto" id="opening-hours-table-dashboard">
+                    <tbody>
+        `;
+        Object.entries(oh).forEach(([day, info]) => {
+            html += `<tr>
+                <td class="px-2"><strong>${day}</strong></td>
+                <td class="px-2">`;
+            if (info.closed) {
+                html += `<span class="text-muted">Closed</span>`;
+            } else if (info.periods && info.periods.length) {
+                html += info.periods.map((p, idx) =>
+                    `<span>${p.open} - ${p.close}</span>${idx < info.periods.length - 1 ? '<br>' : ''}`
+                ).join('');
+            } else {
+                html += `<span class="text-muted">No hours set</span>`;
+            }
+            html += `</td></tr>`;
+        });
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+        return html;
+    }
+
     // Side panel for business info
     function showBusinessPanel(biz) {
         const panel = document.getElementById('business-details-panel');
@@ -85,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let public_email = biz.public_email ? `<br><i class='bi bi-envelope me-1'></i><a href="mailto:${biz.public_email}">${biz.public_email}</a>` : '';
         let website = biz.website ? `<i class='bi bi-globe me-1'></i><a href="${biz.website}" target="_blank">${biz.website}</a>` : '';
         let address = biz.address ? `<i class='bi bi-geo-alt me-1'></i>${biz.address}` : '';
-        let opening_hours = biz.opening_hours ? `<i class='bi bi-clock me-1'></i>${biz.opening_hours}` : '';
+        let opening_hours = biz.opening_hours ? renderOpeningHoursTable(biz.opening_hours) : '';
         let offers = biz.special_offers ? `<br><i class='bi bi-tag me-1'></i>${biz.special_offers}` : '';
         let services = biz.services_offered ? `<br><i class='bi bi-briefcase me-1'></i>${biz.services_offered}` : '';
         let description = biz.description ? `<br><i class='bi bi-info-circle me-1'></i>${biz.description}` : '';
@@ -114,11 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-geo-alt'></i></div>
                             <div class="col ps-2">${biz.address}</div>
                         </div>` : ''}
-                        ${opening_hours ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-clock'></i></div>
-                            <div class="col ps-2">${biz.opening_hours}</div>
-                        </div>` : ''}
+                        ${opening_hours}
                         ${website ? `
                         <div class="row mb-1">
                             <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-globe'></i></div>
