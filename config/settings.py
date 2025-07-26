@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'home',   
     'accounts',
     'businesses',
+    'map',
 ]
 
 MIDDLEWARE = [

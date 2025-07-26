@@ -57,6 +57,9 @@
                     <a class="nav-link" href="{% url 'public_business_list' %}">Browse Accessible Businesses</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'route_finder' %}">Route Finder</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'business_dashboard' %}">Business Dashboard</a>
                 </li>
                 {% if user.userprofile.is_wheeler %}

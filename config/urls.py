@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('business/', include('businesses.urls')),
     path("tiles/<int:z>/<int:x>/<int:y>.png", proxy_os_tile, name="proxy_os_tile"),
+    path('map/', include('map.urls')),
 ]
 
 # Serve media files in development

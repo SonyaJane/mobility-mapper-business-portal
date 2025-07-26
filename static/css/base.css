@@ -120,11 +120,33 @@ body {
     visibility: visible !important;
 }
 
+#route-map {
+    height: 600px;
+    width: 100%;
+    visibility: visible !important;
+}
+
+/* Disable the pulse animation on the location dot */
+.maplibregl-user-location-dot::after,
+.maplibregl-user-location-dot::before {
+    display: none !important;
+}
+
 .maplibregl-canvas {
     opacity: 1 !important;
     filter: none !important;
 }
 
+.accessibility-badge {
+  display: inline-block;
+  background: #21548e;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 10px;
+  margin: 2px 2px 2px 0;
+  font-size: 1em;
+  font-weight: 500;
+}
 
 @media (max-width: 576px) {
     /* Move toast container down page for smaller screens */

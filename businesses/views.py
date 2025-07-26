@@ -14,7 +14,8 @@ from django.core.paginator import Paginator
 from django.conf import settings
 from accounts.models import UserProfile
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
-from .models import Business, WheelerVerification, PricingTier
+from .models import Business, WheelerVerification, PricingTier, Category
+from django.http import JsonResponse
 from .models import WheelerVerificationRequest
 
 @login_required
