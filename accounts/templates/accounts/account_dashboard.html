@@ -1,71 +1,140 @@
 {% extends "base.html" %}
+{% load account_extras %}
+
 
 {% block content %}
-  <div class="container my-5">
-    <h1 class="mb-4">Your Account</h1>
+<div class="dashboard-container mx-1">
 
-    <p>Welcome, {{ user.first_name }} {{ user.last_name }}!</p>
-
-    <ul>
-      <li><strong>Username:</strong> {{ user.username }}</li>
-      <li><strong>Email Address:</strong> {{ user.email }}</li>  
-      {% if user.userprofile.county %}
-        <li><strong>County:</strong> {{ user.userprofile.county }}</li>  
-      {% endif %}
-      <li><strong>Country:</strong> {{ user.userprofile.country }}</li>
-      {% if user.userprofile.is_wheeler %}
-            <li><strong>Mobility Device:</strong> {{ user.userprofile.mobility_device }}</li>
-      {% endif %}
-      {% if user.userprofile.has_business %}
-        {% if user.userprofile.business %}
-          <li><strong>Business Name:</strong> {{ user.userprofile.business.business_name }}</li>
-        {% endif %}
-      {% endif %}
-    </ul>
-
-    <p>
-      <a href="{% url 'account_change_password' %}" class="btn btn-outline-primary">Change Password</a>
-    </p>
-    {% if user.userprofile.is_wheeler %}
-      <p>
-        <a href="{% url 'pending_verification_requests' %}" class="btn btn-success">View Businesses Requesting Verification</a>
-      </p>
-
-      <p>
-        <a href="{% url 'wheeler_verification_history' %}" class="btn btn-info">View Your Verification Request History</a>
-      </p>
-
-      {% if approved_businesses %}
-        <h3 class="mt-5">Businesses You're Approved to Verify</h3>
-        <ul class="list-group mb-4">
-          {% for business in approved_businesses %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <strong>{{ business.business_name }}</strong><br>
-                {{ business.address }}<br>
-                <span class="text-muted">Accessibility features: {{ business.accessibility_features.all|join:", " }}</span>
-              </div>
-              <a href="{% url 'submit_verification' business.id %}" class="btn btn-success">Submit Verification</a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-
-     {% if pending_businesses %}
-       <h3 class="mt-5">Businesses You've Applied to Verify (Awaiting Approval)</h3>
-       <ul class="list-group mb-4">
-         {% for business in pending_businesses %}
-           <li class="list-group-item d-flex justify-content-between align-items-center">
-             <div>
-               <strong>{{ business.business_name }}</strong><br>
-               {{ business.address }}<br>
-               <span class="text-muted">Accessibility features: {{ business.accessibility_features.all|join:", " }}</span>
-             </div>
-             <span class="badge bg-warning text-dark">Pending Admin Approval</span>
-           </li>
-         {% endfor %}
-       </ul>
-     {% endif %}
+  <!-- Dashboard Header -->
+  <div class="row align-items-center mb-4 pt-2">
+    {% if user.userprofile.photo %}
+      <div class="col-md-4 text-center">
+        <img src="{{ user.userprofile.photo.url }}" alt="Profile Photo" class="img-fluid rounded mb-3" style="max-height: 180px; aspect-ratio: 1/1; object-fit: cover;">
+      </div>
+      <div class="col-md-8 text-center">
+    {% else %}
+      <div class="col-12">
     {% endif %}
+        <h1 class="fw-bold">{{ user.first_name }} {{ user.last_name }}</h1>
+        <p class="fs-5 text-muted">Dashboard</p>
+      </div>
   </div>
+
+  <div class="row mb-3 g-3">
+    <!-- Profile Details Card -->
+    <div class="col-md-8">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Profile Details</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
+              <i class="bi bi-person-circle fs-5 me-2 text-primary"></i>
+              <span><strong>Username:</strong> {{ user.username }}</span>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-envelope fs-5 me-2 text-warning"></i>
+              <span><strong>Email Address:</strong> {{ user.email }}</span>
+            </li>
+            {% if user.userprofile.county %}
+            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
+              <i class="bi bi-geo fs-5 me-2 text-danger"></i>
+              <span><strong>County:</strong> {{ user.userprofile.county }}</span>
+            </li>
+            {% endif %}
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-globe fs-5 me-2 text-info"></i>
+              <span><strong>Country:</strong> {{ user.userprofile.country }}</span>
+            </li>
+            {% if user.userprofile.is_wheeler %}
+            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
+              <i class="bi bi-person-wheelchair fs-5 me-2 text-success"></i>
+              <span><strong>Mobility Device:</strong> {{ user.userprofile.mobility_device }}</span>
+            </li>
+            {% endif %}
+            {% if user.userprofile.has_business %}
+              {% if user.userprofile.business %}
+              <li class="list-group-item d-flex align-items-center">
+                <i class="bi bi-building fs-5 me-2 text-secondary"></i>
+                <span><strong>Your Business:</strong> {{ user.userprofile.business.business_name }}</span>
+              </li>
+              {% endif %}
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Actions Card -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Account Actions</h5>
+          <div class="d-flex flex-column gap-2 mb-3">
+            <a href="{% url 'edit_profile' %}" class="btn btn-primary btn-custom-width">Edit Profile</a>
+            <a href="{% url 'account_change_password' %}" class="btn btn-outline-primary btn-custom-width">Change Password</a>
+            {% if verification_reports or approved_businesses %}
+              <a href="{% url 'wheeler_verification_history' %}" class="btn btn-info btn-custom-width">Business Verifications</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if user.userprofile.is_wheeler %}
+  <div class="row mb-3 g-3">
+
+    <!-- Businesses you're approved to verify -->
+    {% comment %}Pre-filter unverified businesses using a custom filter{% endcomment %}
+    {% with unverified_businesses=approved_businesses|dictsort:"id"|filter_unverified:business_verification_status %}
+      {% if unverified_businesses %}
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Businesses you are approved to verify</h5>
+              <ul class="list-group">
+                {% for business in unverified_businesses %}
+                  <li class="list-group-item mt-3" style="border:none;">
+                    <div class="row">
+                      <div class="col-12 col-md-8 mb-4">
+                        <strong>{{ business.business_name }}</strong><br>
+                        {{ business.address }}<br>
+                        <span class="text-muted">Accessibility features: {{ business.accessibility_features.all|join:", " }}</span>
+                      </div>
+                      <div class="col-12 col-md-4 d-flex align-items-center justify-content-md-end justify-content-start">
+                        <a href="{% url 'submit_verification' business.id %}" class="btn btn-success">Start Verification</a>
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Business Verification Instructions -->
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Wheeler Accessibility Verification</h5>
+          <p class="mb-2">As a wheeler, you can help improve accessibility for everyone by verifying the accessibility features of businesses you visit. Your reports help other users find accessible places and encourage businesses to improve their facilities.</p>
+          <ul class="mb-2">
+            <li>For every report you verify, you’ll receive a <strong>£10 Amazon voucher</strong> as a thank you for your contribution.</li>
+            <li>To verify a business, confirm the accessibility features the business claims to have (e.g., step-free entrance, accessible restroom, parking, etc).</li>
+            <li>You must upload photos of these features as evidence. Clear, relevant photos help other users and support your report.</li>
+            <li>Include details about entrances, toilets, parking, and other important features.</li>
+            <li>Your verification will be reviewed by admins before being published.</li>
+            <li>Verified reports help build a trusted, inclusive community and support others in finding accessible businesses.</li>
+          </ul>
+          <a href="{% url 'pending_verification_requests' %}" class="btn btn-success my-2">View Businesses Requesting Verification</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
 {% endblock %}

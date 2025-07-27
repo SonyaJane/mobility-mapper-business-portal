@@ -126,6 +126,7 @@ class UserProfile(models.Model):
     )
     """User profile model to extend the User model with additional fields."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
     is_wheeler = models.BooleanField(default=False)
     has_business = models.BooleanField(default=False)
 
