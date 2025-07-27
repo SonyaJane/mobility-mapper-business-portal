@@ -68,6 +68,13 @@ def business_dashboard(request):
     except Business.DoesNotExist:
         business = None
 
+    # print debug info
+    # print all business attributes
+    if business:
+        for attr, value in business.__dict__.items():
+            if not attr.startswith('_'):
+                print(f"Business {attr}: {value}")
+
     verifications = business.verifications.all() if business else []
 
     # For wheelers, show their submitted verifications and approval status

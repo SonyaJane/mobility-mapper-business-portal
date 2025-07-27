@@ -1,9 +1,55 @@
 
+
 /* Bootstrap icons */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: #333;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* logo font style */
+.logo-font {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -0.6px;
+    color: #bd582c;
+    text-decoration: none;
+}
+
+/* Center contents of base-container using flexbox */
+.base-container {
+  margin-top: 63px; /* Prevent header overlap */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-container {
+    margin-top: 30px;
+}
+
+.list-group-item {
+    padding-left: 0;
+}
 
 /* Style for crispy form labels in BusinessRegistrationForm */
 .business-registration-form .form-label {
@@ -71,19 +117,6 @@
     padding-right: 0 !important;
 }
 
-.business-details-panel .mb-1 { margin-bottom: 0.5rem; }
-.business-details-panel .mb-2 { margin-bottom: 1rem; }
-.business-details-panel .mb-3 { margin-bottom: 1.5rem; }
-
-.business-details-panel .badge.accessibility-badge {
-  background: #5bc0de;
-  color: #fff;
-  border-radius: 12px;
-  padding: 2px 10px;
-  margin: 2px 2px 2px 0;
-  font-size: 0.95em;
-  font-weight: 500;
-}
 /* Overlay for closing business details panel */
 #business-panel-overlay {
   position: fixed;
@@ -110,31 +143,7 @@
   border-left: 1px solid #eee;
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1rem;
-    color: #333;
-}
 
-/* logo font style */
-.logo-font {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 900;
-    font-size: 1.5rem;
-    letter-spacing: -0.6px;
-    color: #bd582c;
-    text-decoration: none;
-}
-
-/* Prevent header overlap */
-.base-container {
-    margin-top: 90px;
-    --bs-gutter-x: 0;
-}
-
-.container {
-    --bs-gutter-x: 0;
-}
 
 .allauth-container {
     --bs-gutter-x: 0;
@@ -220,10 +229,17 @@ body {
 }
 
 /* Map */
-#map,
-#public-map {
+#map {
     height: 400px;
     width: 400px;
+    min-height: 300px;
+    min-width: 300px;
+    visibility: visible !important;
+}
+
+#public-map {
+    height: 100%;
+    width: 100%;
     min-height: 300px;
     min-width: 300px;
     visibility: visible !important;
@@ -251,7 +267,7 @@ body {
   background: #21548e;
   color: #fff;
   border-radius: 5px;
-  padding: 2px 10px;
+  padding: 5px 8px 8px 8px;
   margin: 2px 2px 2px 0;
   font-size: 1em;
   font-weight: 500;
@@ -263,5 +279,18 @@ body {
         top: 90px;
         right: 10px;
         left: 10px;
+    }
+
+}
+
+@media (min-width: 576px) {
+    .dashboard-container {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 768px) {
+    .dashboard-container {
+        max-width: 800px;
     }
 }

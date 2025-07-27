@@ -145,54 +145,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="card-body pt-2">                    
                     ${categories ? `<div class="mb-2 text-center">${categories}</div>` : ''}
-                    <div class="container-fluid px-0">
-                        ${address ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-geo-alt'></i></div>
-                            <div class="col ps-2">${biz.address}</div>
-                        </div>` : ''}
-                        ${opening_hours ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-clock'></i></div>
-                            <div class="col ps-2">${biz.opening_hours}</div>
-                        </div>` : ''}
-                        ${website ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-globe'></i></div>
-                            <div class="col ps-2"><a href="${biz.website}" target="_blank">${biz.website}</a></div>
-                        </div>` : ''}
-                        ${public_email ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-envelope'></i></div>
-                            <div class="col ps-2"><a href="mailto:${biz.public_email}">${biz.public_email}</a></div>
-                        </div>` : ''}
-                        ${phone ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-telephone'></i></div>
-                            <div class="col ps-2">${biz.public_phone}</div>
-                        </div>` : ''}                        
-                        ${description ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-info-circle'></i></div>
-                            <div class="col ps-2">${biz.description}</div>
-                        </div>` : ''}
-                        ${services ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-briefcase'></i></div>
-                            <div class="col ps-2">${biz.services_offered}</div>
-                        </div>` : ''}
-                        ${offers ? `
-                        <div class="row mb-1">
-                            <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-tag'></i></div>
-                            <div class="col ps-2">${biz.special_offers}</div>
-                        </div>` : ''}
-                        ${accessibility ? `
-                        <div class="mb-1">
-                            <p class="fw-bold mb-1 mt-2">Accessibility Features</p>
-                            ${biz.accessibility_features.map(f => `<span class='badge accessibility-badge'>${f}</span>`).join(' ')}
-                            ${verified ? `<div class="my-1">${verified}</div>` : ''}
-                        </div>` : ''}
-                    </div>
+                    ${accessibility ? `
+                    <div class="mb-1">
+                        <p class="fw-bold mb-1 mt-3">Accessibility Features</p>
+                        ${biz.accessibility_features.map(f => `<span class='badge accessibility-badge'>${f}</span>`).join(' ')}
+                        ${verified ? `<div class="my-1">${verified}</div>` : ''}
+                    </div>` : ''}
+                    ${address ? `
+                    <div class="row mt-3 mb-1">
+                        <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-geo-alt'></i></div>
+                        <div class="col ps-2">${biz.address}</div>
+                    </div>` : ''}
+                    ${website ? `
+                    <div class="row mb-1">
+                        <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-globe'></i></div>
+                        <div class="col ps-2"><a href="${biz.website}" target="_blank">${biz.website}</a></div>
+                    </div>` : ''}
+                    ${public_email ? `
+                    <div class="row mb-1">
+                        <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-envelope'></i></div>
+                        <div class="col ps-2"><a href="mailto:${biz.public_email}">${biz.public_email}</a></div>
+                    </div>` : ''}
+                    ${phone ? `
+                    <div class="row mb-1">
+                        <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-telephone'></i></div>
+                        <div class="col ps-2">${biz.public_phone}</div>
+                    </div>` : ''}
+                    ${opening_hours}                      
+                    ${description ? `
+                    <div class="row mb-1">
+                        <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-info-circle'></i></div>
+                        <div class="col ps-2">${biz.description}</div>
+                    </div>` : ''}
+                    ${services ? `
+                    <div class="row mb-1">
+                        <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-briefcase'></i></div>
+                        <div class="col ps-2">${biz.services_offered}</div>
+                    </div>` : ''}
+                    ${offers ? `
+                    <div class="row mb-1">
+                        <div class="col-auto d-flex align-items-center justify-content-end icon-col"><i class='bi bi-tag'></i></div>
+                        <div class="col ps-2">${biz.special_offers}</div>
+                    </div>` : ''}                        
                 </div>
             </div>
         `;
