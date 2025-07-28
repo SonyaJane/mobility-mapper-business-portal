@@ -36,52 +36,123 @@
         
   </head>
   <body>
-    <header class="container-fluid fixed-top bg-light border-bottom shadow-sm">
-    <nav class="navbar navbar-expand-xl navbar-light container">
-        <a class="navbar-brand logo-font" href="{% url 'home' %}">Mobility Mapper</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            {% if user.is_authenticated %}
+    <header class="header-container fixed-top bg-light border-bottom shadow-sm p-0">
+      <!-- Top bar: logo left, page title center, user info right (only on xl and up) -->
+      <div class="d-none d-xl-flex align-items-center justify-content-between px-3 py-2" style="min-height: 56px;">
+        <div class="d-flex align-items-center">
+          <a class="navbar-brand logo-font m-0" href="{% url 'home' %}">Mobility Mapper</a>
+        </div>
+        <div class="flex-grow-1 text-center">
+          <span class="fw-bold fs-5">{% block page_title %}Mobility Mapper{% endblock %}</span>
+        </div>
+        <div class="d-flex align-items-center justify-content-end" style="min-width: 180px;">
+          {% if user.is_authenticated %}
+            <span class="me-2">{{ user.first_name }} {{ user.last_name }}</span>
+            {% if user.userprofile.photo %}
+              <img src="{{ user.userprofile.photo.url }}" alt="Profile Photo" class="rounded-circle" style="width: 36px; height: 36px; object-fit: cover;">
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+      <div class="d-flex flex-row">
+        <!-- Sidebar for large screens -->
+        <nav class="d-none d-xl-block bg-light border-end vh-100 position-fixed" style="width: 260px; z-index: 1050;">
+          <div class="d-flex flex-column align-items-start p-3 h-100">
+            <a class="navbar-brand logo-font mb-4 d-xl-none" href="{% url 'home' %}">Mobility Mapper</a>
+            <ul class="navbar-nav flex-column w-100">
+              {% if user.is_authenticated %}
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_dashboard' %} active{% endif %}" href="{% url 'account_dashboard' %}">
+                    {% if not user.userprofile.has_business %}Your Profile{% else %}Personal Dashboard{% endif %}
+                  </a>
+                </li>
+                {% if user.userprofile.has_business %}
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'business_dashboard' %} active{% endif %}" href="{% url 'business_dashboard' %}">Business Dashboard</a>
+                </li>
+                {% endif %}
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'route_finder' %} active{% endif %}" href="{% url 'route_finder' %}">Route Finder</a>
+                </li>
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'public_business_list' %} active{% endif %}" href="{% url 'public_business_list' %}">Browse Accessible Businesses</a>
+                </li>
+                {% if user.userprofile.is_wheeler %}
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'pending_verification_requests' %} active{% endif %}" href="{% url 'pending_verification_requests' %}">Verify Accessible Businesses</a>
+                </li>
+                {% endif %}
                 {% if not user.userprofile.has_business %}
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'register_business' %} active{% endif %}" href="{% url 'register_business' %}">Register Your Business</a>
+                </li>
+                {% endif %}
+                <li class="nav-item mt-auto">
+                  <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                </li>
+              {% else %}
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_login' %} active{% endif %}" href="{% url 'account_login' %}">Login</a>
+                </li>
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_signup' %} active{% endif %}" href="{% url 'account_signup' %}">Sign Up</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+        <!-- Top navbar for small/medium screens only -->
+        <nav class="navbar navbar-expand-xl navbar-light flex-xl-column flex-grow-1 d-xl-none">
+          <a class="navbar-brand logo-font ms-0 ps-0" href="{% url 'home' %}">Mobility Mapper</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register_business' %}">Register Business</a>
+                  <a class="nav-link" href="{% url 'account_dashboard' %}">
+                    {% if not user.userprofile.has_business %}Your Profile{% else %}Personal Dashboard{% endif %}
+                  </a>
+                </li>
+                {% if user.userprofile.has_business %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'business_dashboard' %}">Business Dashboard</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_dashboard' %}">Account</a>
+                  <a class="nav-link" href="{% url 'route_finder' %}">Route Finder</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'public_business_list' %}">Browse Accessible Businesses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'route_finder' %}">Route Finder</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'business_dashboard' %}">Business Dashboard</a>
+                  <a class="nav-link" href="{% url 'public_business_list' %}">Browse Accessible Businesses</a>
                 </li>
                 {% if user.userprofile.is_wheeler %}
                 <li class="nav-item">
-                    <a class="nav-link text-success" href="{% url 'pending_verification_requests' %}">Verify Businesses</a>
+                  <a class="nav-link" href="{% url 'pending_verification_requests' %}">Verify Accessible Businesses</a>
+                </li>
+                {% endif %}
+                {% if not user.userprofile.has_business %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'register_business' %}">Register Your Business</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                  <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                 </li>
-            {% else %}
+              {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                  <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                  <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
                 </li>
-            {% endif %}
-        </ul>
-        </div>
-    </nav>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
     </header>
+
 
     {% if messages %}
         <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1100;">
