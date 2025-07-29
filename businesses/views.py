@@ -302,84 +302,6 @@ def submit_wheeler_verification(request, pk):
         'form': form,
         'business': business,
     })
-    
-    
-def public_business_detail(request, pk):
-    business = get_object_or_404(Business, pk=pk, is_approved=True)
-    has_user_verified = False
-    has_pending_request = False
-    if request.user.is_authenticated and hasattr(request.user, 'userprofile') and request.user.userprofile.is_wheeler:
-        has_user_verified = WheelerVerification.objects.filter(business=business, wheeler=request.user).exists()
-        from .models import WheelerVerificationRequest
-        has_pending_request = WheelerVerificationRequest.objects.filter(
-            business=business,
-            wheeler=request.user,
-            approved=False,
-            reviewed=False
-        ).exists()
-
-    # Prepare a JSON-serializable dict for the map JS
-    business_json = {
-        "business_name": business.business_name,
-        "location": {
-            "x": business.location.x,
-            "y": business.location.y,
-        },
-        # Add more fields if needed for JS
-    }
-    return render(request, 'businesses/public_business_detail.html', {
-        'business': business,
-        'business_json': business_json,
-        'has_user_verified': has_user_verified,
-        'has_pending_request': has_pending_request,
-        'OS_MAPS_API_KEY': settings.OS_MAPS_API_KEY,
-    })
-    
-    
-def public_business_list(request):
-    query = request.GET.get('q', '')
-    category = request.GET.get('category', '')
-    businesses = Business.objects.filter(is_approved=True)
-
-    if query:
-        businesses = businesses.filter(
-            Q(business_name__icontains=query) |
-            Q(address__icontains=query) |
-            Q(description__icontains=query)
-        )
-
-    if category:
-        businesses = businesses.filter(categories__code=category)
-
-    from .models import Category
-    categories = list(Category.objects.all())
-    businesses = businesses.order_by('business_name')
-    paginator = Paginator(businesses, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    geojson = []
-    for biz in page_obj:
-        if biz.location:
-            geojson.append({
-                'id': biz.id,
-                'name': biz.business_name,
-                'lat': biz.location.y,
-                'lng': biz.location.x,
-                'verified': biz.verified_by_wheelers,
-                'verification_requested': biz.wheeler_verification_requested,
-                'address': biz.address,
-                'categories': list(biz.categories.values_list('name', flat=True)),
-                'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
-            })
-    return render(request, 'businesses/public_business_list.html', {
-        'businesses': page_obj,
-        'query': query,
-        'category': category,
-        'categories': categories,
-        'geojson': geojson,
-        'OS_MAPS_API_KEY': settings.OS_MAPS_API_KEY,
-    })
 
 
 @login_required
@@ -459,7 +381,7 @@ def ajax_search_businesses(request):
     return JsonResponse({'businesses': results})
 
 
-def route_finder(request):
+def accessible_business_search(request):
     businesses = Business.objects.all()
     categories = Category.objects.all()
     accessibility_features = AccessibilityFeature.objects.all()
@@ -487,8 +409,8 @@ def route_finder(request):
             'x_twitter_url': getattr(biz, 'x_twitter_url', ''),
         })
     import json
-    return render(request, 'businesses/route_finder.html', {
+    return render(request, 'businesses/accessible_business_search.html', {
         'categories': categories,
         'accessibility_features': accessibility_features,
-        'routeFinderBusinesses': json.dumps(business_list),
+        'businessesList': json.dumps(business_list),
     })

@@ -72,10 +72,7 @@
                 </li>
                 {% endif %}
                 <li class="nav-item mb-2">
-                  <a class="nav-link{% if request.resolver_match.url_name == 'route_finder' %} active{% endif %}" href="{% url 'route_finder' %}">Route Finder</a>
-                </li>
-                <li class="nav-item mb-2">
-                  <a class="nav-link{% if request.resolver_match.url_name == 'public_business_list' %} active{% endif %}" href="{% url 'public_business_list' %}">Browse Accessible Businesses</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'accessible_business_search' %} active{% endif %}" href="{% url 'accessible_business_search' %}">Accessible Business Search</a>
                 </li>
                 {% if user.userprofile.is_wheeler %}
                 <li class="nav-item mb-2">
@@ -121,10 +118,7 @@
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'route_finder' %}">Route Finder</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'public_business_list' %}">Browse Accessible Businesses</a>
+                  <a class="nav-link" href="{% url 'accessible_business_search' %}">Accessible Business Search</a>
                 </li>
                 {% if user.userprofile.is_wheeler %}
                 <li class="nav-item">

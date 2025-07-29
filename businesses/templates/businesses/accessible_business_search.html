@@ -4,14 +4,18 @@
 {% block page_title %}Accessible Businesses{% endblock %}
 
 {% block content %}
-<div class="content-container my-5">
-  <h1 class="mb-4">Search Accessible Businesses</h1>
+<div class="search-container my-5">
+  <h1 class="mb-4 ms-3">Search Accessible Businesses</h1>
+
+  <!-- Search form -->
   <form id="search-form" class="mb-3">
     <div class="row">
-      <div class="col-md-6 mb-2">
+      <!-- Text search -->
+      <div class="col-md-4 mb-2">
         <input type="text" id="business-search" class="form-control" placeholder="Search for businesses...">
       </div>
-      <div class="col-md-3 mb-2">
+      <!-- Category filter -->
+      <div class="col-md-4 mb-2">
         <select id="category-select" class="form-select">
           <option value="">All Categories</option>
           {% for category in categories %}
@@ -19,7 +23,8 @@
           {% endfor %}
         </select>
       </div>
-      <div class="col-md-3 mb-2">
+      <!-- Accessibility feature filter -->
+      <div class="col-md-4 mb-2">
         <select id="accessibility-select" class="form-select">
           <option value="">All Accessibility Features</option>
           {% for feature in accessibility_features %}
@@ -29,13 +34,17 @@
       </div>
     </div>
   </form>
+
+  <!-- Results section -->
   <div class="row">
 
-    <div class="col-lg-8 col-md-7 mb-4">
+    <!-- Results list -->
+    <div class="col-lg-6 col-md-6 mb-4">
       <ul id="results-list" class="list-group"></ul>
     </div>
 
-    <div class="col-lg-4 col-md-5 mb-4">
+    <!-- Map display -->
+    <div class="col-lg-6 col-md-6 mb-4">
       <div id="route-map"></div>
     </div>
 
@@ -44,6 +53,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<script id="business-data" type="application/json">{{ routeFinderBusinesses|safe }}</script>
-<script type="module" src="{% static 'js/route_finder.js' %}"></script>
+<script id="business-data" type="application/json">{{ businessesList|safe }}</script>
+<script type="module" src="{% static 'js/accessible_business_search.js' %}"></script>
 {% endblock %}

@@ -64,7 +64,8 @@ body {
   }
 }
 
-.content-container {
+.content-container,
+.search-container {
     margin-top: 30px;
     width: 100%;
 }
