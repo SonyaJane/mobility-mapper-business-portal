@@ -14,4 +14,6 @@ urlpatterns = [
     path('directory/', views.public_business_list, name='public_business_list'),
     path('verification-report/<int:verification_id>/', views.verification_report, name='verification_report'),
     path('wheeler-verification-history/', views.wheeler_verification_history, name='wheeler_verification_history'),
+    path('route-finder/', views.route_finder, name='route_finder'),
+    path('ajax/search-businesses/', views.ajax_search_businesses, name='ajax_search_businesses'),
 ]

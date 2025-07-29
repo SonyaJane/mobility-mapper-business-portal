@@ -24,8 +24,8 @@ body {
     padding-right: 0.75rem;
 }
 
-.nav-link.active {
-    color: #bd582c; /* Active link color */
+.navbar-nav .nav-link.active {
+    color: #bd582c; /* Active menu link color */
 }
 
 .row {
@@ -74,6 +74,11 @@ body {
     padding-left: 0;
 }
 
+#results-list.list-group-item{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .btn-custom-width {
     width: 200px;
 }
@@ -95,7 +100,6 @@ body {
 }
 .business-logo-container {
   width: 100%;
-  max-width: 100px;
   height: 100px;
   display: flex;
   align-items: center;
@@ -329,12 +333,12 @@ body {
 
 @media (min-width: 1200px) {
     .content-container {
-        max-width: 1200px;
+        max-width: 1000px;
     }
 }
 
 @media (min-width: 1400px) {
     .content-container {
-        max-width: 1400px;
+        max-width: 1320px;
     }
 }

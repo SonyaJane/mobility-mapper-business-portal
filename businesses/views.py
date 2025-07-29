@@ -1,22 +1,24 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-# Add custom template filter for dictionary access
+from django.db.models import Q
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
+from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.http import require_GET
 from django import template
+
+from accounts.models import UserProfile
+from businesses.models import Business, Category, AccessibilityFeature
+from .forms import BusinessRegistrationForm, WheelerVerificationForm
+from .models import Business, WheelerVerification, PricingTier, Category, WheelerVerificationRequest
+
+# custom template filter for dictionary access
 register = template.Library()
 
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from django.db.models import Q
-from django.core.paginator import Paginator
-from django.conf import settings
-from accounts.models import UserProfile
-from .forms import BusinessRegistrationForm, WheelerVerificationForm
-from .models import Business, WheelerVerification, PricingTier, Category
-from django.http import JsonResponse
-from .models import WheelerVerificationRequest
 
 @login_required
 def register_business(request):
@@ -144,7 +146,6 @@ def wheeler_verification_history(request):
         'verification_status': verification_status,
         'verification_approved': verification_approved,
     })
-
 
 
 @login_required
@@ -280,7 +281,6 @@ def submit_wheeler_verification(request, pk):
                     business.accessibility_features.add(feature)
                 business.save()
 
-
             # Handle photo uploads (save to WheelerVerificationPhoto model)
             photos = request.FILES.getlist('photos')
             from .models import WheelerVerificationPhoto
@@ -306,7 +306,6 @@ def submit_wheeler_verification(request, pk):
     
 def public_business_detail(request, pk):
     business = get_object_or_404(Business, pk=pk, is_approved=True)
-
     has_user_verified = False
     has_pending_request = False
     if request.user.is_authenticated and hasattr(request.user, 'userprofile') and request.user.userprofile.is_wheeler:
@@ -406,7 +405,8 @@ def pending_verification_requests(request):
         'approved_business_ids': list(approved_business_ids),
         'already_verified_business_ids': list(already_verified_business_ids),
     })
-    
+
+
 @login_required
 def verification_report(request, verification_id):
     verification = get_object_or_404(WheelerVerification, pk=verification_id)
@@ -423,3 +423,72 @@ def verification_report(request, verification_id):
         'show_wheeler_name': show_wheeler_name,
     })
     
+
+@require_GET
+def ajax_search_businesses(request):
+    term = request.GET.get('q', '').strip()
+    cat_id = request.GET.get('category')
+    access = request.GET.get('accessibility')
+    qs = Business.objects.all()
+    if term:
+        qs = qs.filter(business_name__icontains=term)
+    if cat_id:
+        qs = qs.filter(categories__id=cat_id)
+    if access:
+        qs = qs.filter(accessibility_features__name=access)
+    results = []
+    for biz in qs.distinct():
+        results.append({
+            'id': biz.id,
+            'business_name': biz.business_name,
+            'categories': list(biz.categories.values_list('name', flat=True)),
+            'address': biz.address,
+            'location': {'lat': biz.location.y, 'lng': biz.location.x} if biz.location else None,
+            'is_wheeler_verified': getattr(biz, 'verified_by_wheelers', False),
+            'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
+            'public_phone': biz.public_phone,
+            'contact_phone': biz.contact_phone,
+            'public_email': biz.public_email,
+            'website': biz.website,
+            'opening_hours': biz.opening_hours,
+            'special_offers': biz.special_offers,
+            'services_offered': biz.services_offered,
+            'description': biz.description,
+            'logo': biz.logo.url if biz.logo else '',
+        })
+    return JsonResponse({'businesses': results})
+
+
+def route_finder(request):
+    businesses = Business.objects.all()
+    categories = Category.objects.all()
+    accessibility_features = AccessibilityFeature.objects.all()
+    business_list = []
+    for biz in businesses:
+        business_list.append({
+            'id': biz.id,
+            'business_name': biz.business_name,
+            'categories': list(biz.categories.values_list('name', flat=True)),
+            'address': biz.address,
+            'location': {'lat': biz.location.y, 'lng': biz.location.x} if biz.location else None,
+            'is_wheeler_verified': getattr(biz, 'verified_by_wheelers', False),
+            'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
+            'public_phone': biz.public_phone,
+            'contact_phone': biz.contact_phone,
+            'public_email': biz.public_email,
+            'website': biz.website,
+            'opening_hours': biz.opening_hours,
+            'special_offers': biz.special_offers,
+            'services_offered': biz.services_offered,
+            'description': biz.description,
+            'logo': biz.logo.url if biz.logo else '',
+            'facebook_url': getattr(biz, 'facebook_url', ''),
+            'instagram_url': getattr(biz, 'instagram_url', ''),
+            'x_twitter_url': getattr(biz, 'x_twitter_url', ''),
+        })
+    import json
+    return render(request, 'businesses/route_finder.html', {
+        'categories': categories,
+        'accessibility_features': accessibility_features,
+        'routeFinderBusinesses': json.dumps(business_list),
+    })

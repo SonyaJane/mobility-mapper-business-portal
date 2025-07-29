@@ -1,5 +1,4 @@
 
-
 /* Bootstrap icons */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
@@ -25,7 +24,7 @@ body {
 }
 
 .navbar-nav .nav-link.active {
-    color: #bd582c; /* Active link color */
+    color: #bd582c; /* Active menu link color */
 }
 
 .row {
@@ -70,8 +69,24 @@ body {
     width: 100%;
 }
 
+/* Accessible Business Search Page */
+
+/* Highlight single business when accordion is open */
+#results-list > li.single-visible {
+  border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+  border-radius: var(--bs-list-group-border-radius, 0.5rem);
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  margin: 4px;
+}
+
 .list-group-item {
     padding-left: 0;
+}
+
+#results-list .list-group-item{
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .btn-custom-width {
@@ -95,7 +110,6 @@ body {
 }
 .business-logo-container {
   width: 100%;
-  max-width: 100px;
   height: 100px;
   display: flex;
   align-items: center;
@@ -329,12 +343,12 @@ body {
 
 @media (min-width: 1200px) {
     .content-container {
-        max-width: 1200px;
+        max-width: 1000px;
     }
 }
 
 @media (min-width: 1400px) {
     .content-container {
-        max-width: 1400px;
+        max-width: 1320px;
     }
 }
