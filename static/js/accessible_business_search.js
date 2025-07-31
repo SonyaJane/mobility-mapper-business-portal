@@ -1,6 +1,19 @@
 import load_map from './load_map.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Clear search box when X button is clicked
+    const clearSearchBtn = document.getElementById('clear-search');
+    const businessSearchInput = document.getElementById('business-search');
+    if (clearSearchBtn && businessSearchInput) {
+        clearSearchBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            businessSearchInput.value = '';
+            if (typeof filterBusinesses === 'function') {
+                filterBusinesses();
+            }
+            businessSearchInput.focus();
+        });
+    }
     // Arrow toggle for results list
     const resultsListWrapper = document.getElementById('results-list-wrapper');
     const resultsToggle = document.getElementById('results-toggle');
@@ -72,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const list = document.getElementById('results-list');
     list.innerHTML = '';
     // Toggle mobile filters visibility
-    const mobileFilters = document.querySelector('.d-md-none.mb-2');
+    const mobileFilters = document.getElementById('mobile-filters');
     const resultsWrapper = document.getElementById('results-list-wrapper');
     const searchInput = document.getElementById('business-search');
     if (filtered.length > 0) {
@@ -85,17 +98,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const li = document.createElement('li');
             li.className = 'list-group-item';
             let categories = biz.categories && biz.categories.length ? biz.categories.join(', ') : '';
-            let address = biz.address ? `<div class="mb-2">${biz.address}</div>` : '';
-            let logo = biz.logo ? `<img src="${biz.logo}" alt="${biz.business_name} Logo" class="business-logo-img">` : '';
-            let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<span class="text-success fw-bold">✅ Verified by Wheelers</span><br>` : '';
-            li.innerHTML = `            
-                ${logo 
-                    ? `<div class="mb-2 d-flex align-items-center">${logo}<h5 class="ms-2">${biz.business_name}</h5></div>` 
-                    : `<h5 class="mb-2">${biz.business_name}</h5>`
-                }
-                ${categories ? `<div class="mb-2">${categories}</div>` : ''}
+            let address = biz.address ? `<div>${biz.address}</div>` : '';
+            let logo = biz.logo ? `<img src="${biz.logo}" alt="${biz.business_name} Logo" class="business-logo-img me-2">` : '';
+            let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<div class="mt-2"><span class="text-success fw-bold">✅ Verified by Wheelers</span></div>` : '';
+            li.innerHTML = `
+                <div class="mb-1 d-flex justify-content-between w-100">
+                    <div class="d-flex align-items-center flex-shrink-1">
+                        ${logo ? `${logo}` : ``}
+                        <h5 class="mb-0 business">${biz.business_name}</h5>
+                    </div>
+                    <i class="bi bi-chevron-down fs-6 toggle-arrow" aria-label="Expand business details"></i>
+                </div>
+                ${categories ? `<div class="mb-1 category">${categories}</div>` : ''}
                 ${address}
-                <div class="mb-2">${verified}</div>
+                ${verified}
             `;
             li.style.cursor = 'pointer';
             // Accordion info panel
@@ -104,6 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
             infoPanel.style.display = 'none';
             infoPanel.innerHTML = renderBusinessAccordion(biz);
             li.appendChild(infoPanel);
+            // Get the arrow icon element
+            const arrowIcon = li.querySelector('.toggle-arrow');
             li.addEventListener('click', function(e) {
                 e.stopPropagation();
                 // Center the map on the business marker and zoom in
@@ -114,20 +132,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (infoPanel.classList.contains('show')) {
                     infoPanel.classList.remove('show');
                     infoPanel.style.display = 'none';
+                    if (arrowIcon) {
+                        arrowIcon.classList.remove('bi-chevron-up');
+                        arrowIcon.classList.add('bi-chevron-down');
+                    }
                     // Show all results again and remove highlight
                     allResults.forEach(result => {
                         result.style.display = '';
                         result.classList.remove('single-visible');
                     });
                 } else {
-                    // Close any other open panels
+                    // Close any other open panels and reset arrows
                     const openPanels = document.querySelectorAll('.accordion-collapse.show');
                     openPanels.forEach(panel => {
                         panel.classList.remove('show');
                         panel.style.display = 'none';
                     });
+                    const allArrows = document.querySelectorAll('.toggle-arrow');
+                    allArrows.forEach(icon => {
+                        icon.classList.remove('bi-chevron-up');
+                        icon.classList.add('bi-chevron-down');
+                    });
                     infoPanel.classList.add('show');
                     infoPanel.style.display = 'block';
+                    if (arrowIcon) {
+                        arrowIcon.classList.remove('bi-chevron-down');
+                        arrowIcon.classList.add('bi-chevron-up');
+                    }
                     // Hide all other results except this one, and add highlight
                     allResults.forEach(result => {
                         result.classList.remove('single-visible');
@@ -176,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let offers = biz.special_offers ? `<i class='bi bi-tag fs-5 me-2 text-success'></i>${biz.special_offers}` : '';
         let opening_hours = biz.opening_hours ? renderOpeningHoursTable(biz.opening_hours) : '';        
         return `
-            <div class=\"accordion-body mb-3\">
+            <div class=\"accordion-body mt-2 mb-1\">
                 ${accessibility ? `<div class=\"mb-1\">${accessibility}</div>` : ''}
                 ${website ? `<div class=\"mb-1\">${website}</div>` : ''}
                 ${(facebook || instagram || x_twitter) ? `<div class=\"mb-1 d-flex flex-row align-items-center\"><i class='bi bi-share fs-5 me-2 text-success'></i>${facebook}${instagram}${x_twitter}</div>` : ''}
@@ -200,9 +231,9 @@ document.addEventListener('DOMContentLoaded', function() {
             return '';
         }
         let html = `
-            <div class="mt-3 mb-2"><strong>Opening Hours:</strong></div>
+            <div class="my-2"><strong>Opening Hours:</strong></div>
             <div class="table-responsive">
-                <table class="table table-bordered table-sm w-auto" id="opening-hours-table-dashboard">
+                <table class="table table-bordered table-sm w-auto mb-0" id="opening-hours-table-dashboard">
                     <tbody>
         `;
         Object.entries(oh).forEach(([day, info]) => {
@@ -233,10 +264,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const search = document.getElementById('business-search').value;
         // Use mobile panel selects if visible, otherwise desktop
         let catId, access;
-        const mobileFilters = document.querySelector('.d-md-none.mb-2');
+        const mobileFilters = document.getElementById('mobile-filters');
         if (mobileFilters && mobileFilters.style.display !== 'none') {
-            catId = document.getElementById('category-select-mobile-panel').value;
-            access = document.getElementById('accessibility-select-mobile-panel').value;
+            const catSelect = document.getElementById('category-select-mobile-panel');
+            catId = catSelect.value;
+            // If the value is empty or matches the label, treat as 'all'
+            if (!catId || catSelect.options[catSelect.selectedIndex].text === 'Category' || catSelect.options[catSelect.selectedIndex].text === 'All Categories') {
+                catId = '';
+            }
+            const accessSelect = document.getElementById('accessibility-select-mobile-panel');
+            access = accessSelect.value;
+            if (!access || accessSelect.options[accessSelect.selectedIndex].text === 'Accessibility') {
+                access = '';
+            }
         } else {
             catId = document.getElementById('category-select').value;
             access = document.getElementById('accessibility-select').value;
@@ -254,23 +294,20 @@ document.addEventListener('DOMContentLoaded', function() {
             // Render markers and results
             renderMarkers(businesses);
             renderResults(businesses);
-            if (typeof showTipIfNeeded === 'function') {
-                showTipIfNeeded();
-            }
         });
     }
 
     document.getElementById('business-search').addEventListener('input', filterBusinesses);
-    document.getElementById('category-select').addEventListener('change', function() { filterBusinesses(); showTipIfNeeded(); });
-    document.getElementById('accessibility-select').addEventListener('change', function() { filterBusinesses(); showTipIfNeeded(); });
+    document.getElementById('category-select').addEventListener('change', function() { filterBusinesses(); });
+    document.getElementById('accessibility-select').addEventListener('change', function() { filterBusinesses(); });
     // Add listeners for mobile panel filter selects
     const catMobilePanel = document.getElementById('category-select-mobile-panel');
     const accessMobilePanel = document.getElementById('accessibility-select-mobile-panel');
     if (catMobilePanel) {
-        catMobilePanel.addEventListener('change', function() { filterBusinesses(); showTipIfNeeded(); });
+        catMobilePanel.addEventListener('change', function() { filterBusinesses(); });
     }
     if (accessMobilePanel) {
-        accessMobilePanel.addEventListener('change', function() { filterBusinesses(); showTipIfNeeded(); });
+        accessMobilePanel.addEventListener('change', function() { filterBusinesses(); });
     }
     filterBusinesses();
     

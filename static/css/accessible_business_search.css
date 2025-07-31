@@ -7,7 +7,6 @@
   height: calc(100vh - 62px);
 }   
 
-
 #results-list-wrapper.hide-results {
   transform: translateX(-100%);
 }
@@ -39,7 +38,6 @@
   border-radius: var(--bs-list-group-border-radius, 0.5rem);
   background: #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  margin: 4px;
 }
 
 .list-group-item {
@@ -56,6 +54,18 @@
   max-height: 100px;
   object-fit: contain;
   border-radius: 8px;
+}
+
+.business {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: midnightblue
+}
+
+.category {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #555;
 }
 
 /* Map attribution overlay styles */
@@ -107,7 +117,6 @@
   #mobile-filters {
     position: sticky;
     top: 0;
-    padding-top: 0.5rem;
     z-index: 1001;
   }
 
