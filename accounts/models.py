@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class UserProfile(models.Model):
+    hide_results_tip = models.BooleanField(default=False, help_text="Hide the results tip message in business search.")
     COUNTRY_CHOICES = (
         ("UK", "United Kingdom"),
         ("Other", "Other"),

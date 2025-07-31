@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.conf import settings
 
 def proxy_os_tile(request, z, x, y):
-    print(f"Tile request: z={z}, x={x}, y={y}")    
+    print(f"OS tile request: z={z}, x={x}, y={y}")
     # Limit the maximum zoom level to 20
     max_zoom = 20
     if z > max_zoom:

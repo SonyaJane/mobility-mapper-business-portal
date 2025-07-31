@@ -59,6 +59,7 @@ def register_business(request):
         'form': form,
         'pricing_tiers': pricing_tiers,
         'days_of_week': days_of_week,
+        'page_title': 'Register Your Business',
     })
 
 
@@ -122,6 +123,7 @@ def business_dashboard(request):
         'verification_status': verification_status,
         'verification_approved': verification_approved,
         'opening_hours_dict': opening_hours_dict,
+        'page_title': 'Business Dashboard',
     })
 
 
@@ -145,6 +147,7 @@ def wheeler_verification_history(request):
         'requests': requests,
         'verification_status': verification_status,
         'verification_approved': verification_approved,
+        'page_title': 'Your Verification History',
     })
 
 
@@ -186,6 +189,7 @@ def edit_business(request):
         'form': form,
         'pricing_tiers': pricing_tiers,
         'days_of_week': days_of_week,
+        'page_title': 'Edit Your Business',
     })
 
 
@@ -204,7 +208,7 @@ def delete_business(request):
         messages.success(request, "Business deleted successfully.")
         return redirect('business_dashboard')
 
-    return render(request, 'businesses/delete_business_confirm.html', {'business': business})
+    return render(request, 'businesses/delete_business_confirm.html', {'business': business, 'page_title': 'Delete Your Business'})
 
 
 @login_required
@@ -247,6 +251,7 @@ def request_wheeler_verification(request, pk):
         'required_verifications': required_verifications,
         'cost_per_verification': cost_per_verification,
         'wheeler_share': wheeler_share,
+        'page_title': 'Request Wheeler Verification',
     })
 
 
@@ -301,6 +306,7 @@ def submit_wheeler_verification(request, pk):
     return render(request, 'businesses/submit_verification.html', {
         'form': form,
         'business': business,
+        'page_title': 'Submit Wheeler Verification',
     })
 
 
@@ -326,6 +332,7 @@ def pending_verification_requests(request):
         'businesses': businesses,
         'approved_business_ids': list(approved_business_ids),
         'already_verified_business_ids': list(already_verified_business_ids),
+        'page_title': 'Pending Verification Requests',
     })
 
 
@@ -343,6 +350,7 @@ def verification_report(request, verification_id):
         'verification': verification,
         'additional_features': [],
         'show_wheeler_name': show_wheeler_name,
+        'page_title': 'Verification Report',
     })
     
 
@@ -382,7 +390,29 @@ def ajax_search_businesses(request):
 
 
 def accessible_business_search(request):
+    # Handle POST for 'Don't show this TIP again'
+    user_profile = None
+    if request.user.is_authenticated:
+        from accounts.models import UserProfile
+        user_profile = UserProfile.objects.get(user=request.user)
+        if request.method == 'POST' and request.POST.get('dont_show_tip'):
+            user_profile.hide_results_tip = True
+            user_profile.save()
+
+    # Get search parameters
+    term = request.GET.get('q', '').strip()
+    cat_id = request.GET.get('category')
+    access = request.GET.get('accessibility')
+
+    # Filter businesses if searching
     businesses = Business.objects.all()
+    if term:
+        businesses = businesses.filter(business_name__icontains=term)
+    if cat_id:
+        businesses = businesses.filter(categories__id=cat_id)
+    if access:
+        businesses = businesses.filter(accessibility_features__name=access)
+
     categories = Category.objects.all()
     accessibility_features = AccessibilityFeature.objects.all()
     business_list = []
@@ -408,9 +438,17 @@ def accessible_business_search(request):
             'instagram_url': getattr(biz, 'instagram_url', ''),
             'x_twitter_url': getattr(biz, 'x_twitter_url', ''),
         })
+
+    # Only show tip if user has searched and not dismissed
+    show_results_tip = bool(term) and user_profile and not user_profile.hide_results_tip
+    if show_results_tip:
+        from django.contrib import messages
+        messages.info(request, "TIP: Tap on a business to show more information. Tap it again to collapse.")
+
     import json
     return render(request, 'businesses/accessible_business_search.html', {
         'categories': categories,
         'accessibility_features': accessibility_features,
         'businessesList': json.dumps(business_list),
+        'page_title': 'Accessible Business Search',
     })

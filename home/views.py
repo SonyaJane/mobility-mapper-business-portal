@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 
 def index(request):
     """ Returns the index page """
-    return render(request, 'home/index.html')
+    return render(request, 'home/index.html', {'page_title': 'Home'})
 
 def test_toasts(request):
     messages.info(request, "Informational message.")

@@ -1,32 +1,35 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/accessible_business_search.css' %}">
+{% endblock %}
+
 {% block page_title %}Accessible Businesses{% endblock %}
 
 {% block content %}
-<div class="search-container my-5">
-  <h1 class="mb-4 ms-3">Search Accessible Businesses</h1>
+<div class="search-container">
 
   <!-- Search form -->
-  <form id="search-form" class="mb-3">
+  <form id="search-form" class="my-1 my-md-2">
     <div class="row">
       <!-- Text search -->
-      <div class="col-md-4 mb-2">
-        <input type="text" id="business-search" class="form-control" placeholder="Search for businesses...">
+      <div class="col-md-4 px-1 ps-md-2 pe-md-1">
+        <input type="text" id="business-search" class="form-control" placeholder="Search for accessible businesses">
       </div>
-      <!-- Category filter -->
-      <div class="col-md-4 mb-2">
+      <!-- Category filter (md and up) -->
+      <div class="col-md-4 mb-2 px-md-1 d-none d-md-block">
         <select id="category-select" class="form-select">
-          <option value="">All Categories</option>
+          <option value="">Filter Categories</option>
           {% for category in categories %}
             <option value="{{ category.id }}">{{ category.name }}</option>
           {% endfor %}
         </select>
       </div>
-      <!-- Accessibility feature filter -->
-      <div class="col-md-4 mb-2">
+      <!-- Accessibility feature filter (md and up) -->
+      <div class="col-md-4 mb-2 ps-md-1 pe-md-2 d-none d-md-block">
         <select id="accessibility-select" class="form-select">
-          <option value="">All Accessibility Features</option>
+          <option value="">Filter Accessibility Features</option>
           {% for feature in accessibility_features %}
             <option value="{{ feature.name }}">{{ feature.name }}</option>
           {% endfor %}
@@ -36,19 +39,35 @@
   </form>
 
   <!-- Results section -->
-  <div class="row">
-
-    <!-- Results list -->
-    <div class="col-lg-6 col-md-6 mb-4">
+  <div id="map-results-container" class="position-relative p-0">
+    
+    <div id="map"></div>
+    
+    <div id="results-list-wrapper" class="pb-2 px-1">
+      <!-- Mobile filters: always present, hidden by default, JS toggles visibility -->
+      <div id="mobile-filters" class="d-md-none mb-2" style="display:none;">
+        <select id="category-select-mobile-panel" class="form-select mb-2">
+          <option value="">All Categories</option>
+          {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+        <select id="accessibility-select-mobile-panel" class="form-select mb-2">
+          <option value="">All Accessibility Features</option>
+          {% for feature in accessibility_features %}
+            <option value="{{ feature.name }}">{{ feature.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button id="results-toggle" type="button" aria-label="Hide results" class="btn btn-light arrow-toggle">
+        <i class="bi bi-arrow-left-circle fs-3"></i>
+      </button>
       <ul id="results-list" class="list-group"></ul>
     </div>
 
-    <!-- Map display -->
-    <div class="col-lg-6 col-md-6 mb-4">
-      <div id="route-map"></div>
-    </div>
-
+    
   </div>
+
 </div>
 {% endblock %}
 

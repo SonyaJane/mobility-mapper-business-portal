@@ -13,7 +13,7 @@ def edit_profile(request):
             return redirect('account_dashboard')
     else:
         form = UserProfileForm(instance=profile)
-    return render(request, 'accounts/edit_profile.html', {'form': form})
+    return render(request, 'accounts/edit_profile.html', {'form': form, 'page_title': 'Edit Profile'})
 
 
 @login_required
@@ -54,6 +54,7 @@ def dashboard_view(request):
         'pending_businesses': pending_businesses,
         'business_verification_status': business_verification_status,
         'verification_reports': verification_reports,
+        'page_title': 'Personal Dashboard',
     })
 
 @login_required

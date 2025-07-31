@@ -1,5 +1,3 @@
-
-
 /* Bootstrap icons */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
@@ -70,126 +68,6 @@ body {
     width: 100%;
 }
 
-.list-group-item {
-    padding-left: 0;
-}
-
-#results-list.list-group-item{
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.btn-custom-width {
-    width: 200px;
-}
-
-/* Style for crispy form labels in BusinessRegistrationForm */
-.business-registration-form .form-label {
-    font-weight: 600;
-    color: #21548e;
-    font-size: 1.08rem;
-    letter-spacing: 0.01em;
-    margin-bottom: 0.25rem;
-}
-
-.business-logo-img {
-  max-width: 100px;
-  max-height: 100px;
-  object-fit: contain;
-  border-radius: 8px;
-}
-.business-logo-container {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-.business-panel-close {
-  font-size: 1.5rem;
-  line-height: 1;
-  padding: 0.25rem 0.75rem;
-  border-radius: 50%;
-  box-shadow: none;
-  border: none;
-}
-.business-details-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 400px;
-  height: 100vh;
-  background: #fff;
-  box-shadow: -2px 0 16px rgba(0,0,0,0.18);
-  z-index: 1050;
-  overflow-y: auto;
-  padding: 2rem 1.5rem 1.5rem 1.5rem;
-  border-left: 1px solid #eee;
-  transition: box-shadow 0.2s, right 0.3s;
-}
-.business-details-panel h4 {
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-.business-details-panel .fw-bold {
-  font-weight: 600;
-}
-.business-details-panel hr {
-  margin: 1.2rem 0;
-  border-top: 1px solid #e5e5e5;
-}
-
-/* Icon column for business panel info rows */
-.icon-col {
-    width: 2em;
-    padding-right: 0 !important;
-}
-
-/* Overlay for closing business details panel */
-#business-panel-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1049;
-  background: rgba(0,0,0,0.01);
-  display: none;
-}
-/* Side panel for business details */
-.business-details-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 400px;
-  height: 100vh;
-  background: #fff;
-  box-shadow: -2px 0 8px rgba(0,0,0,0.15);
-  z-index: 1050;
-  overflow-y: auto;
-  padding: 1rem 1.5rem 1.5rem 1.5rem;
-  border-left: 1px solid #eee;
-}
-
-.allauth-container {
-    --bs-gutter-x: 0;
-}
-.arrow-up {
-    width: 0; 
-    height: 0; 
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent; 
-    border-bottom: 10px solid black;
-    position: absolute;
-    top: -10px;
-    right: 36px;
-}
-
-/* Toasts */
-.message-container {
     position: fixed;
     top: 72px;
     right: 15px;
@@ -274,12 +152,6 @@ body {
     visibility: visible !important;
 }
 
-#route-map {
-    height: 600px;
-    width: 100%;
-    visibility: visible !important;
-}
-
 /* Disable the pulse animation on the location dot */
 .maplibregl-user-location-dot::after,
 .maplibregl-user-location-dot::before {
@@ -312,6 +184,56 @@ body {
 
 }
 
+@media (max-width: 767.98px) {
+
+  #mobile-filters {
+    position: sticky;
+    top: 0;
+    z-index: 1010;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    padding-top: 0.5rem;
+  }
+
+/* Results list overlays bottom half of screen on mobile */
+  #results-list-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background: #fff;
+    z-index: 1000;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.12);
+    overflow-y: auto;
+    padding-bottom: 1.5rem;
+    transition: height 0.2s;
+    width: 100%;
+  }
+  #map-results-container {
+    position: relative;
+    min-height: 100vh;
+  }
+}
+
+/* Show white background for results-list-wrapper when results are visible */
+#results-list-wrapper.results-visible {
+  background: #fff;
+}
+/* Map attribution overlay styles */
+.map-attribution {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(255,255,255,0.8);
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
 @media (min-width: 576px) {
     .content-container,
     .heaver {
@@ -323,6 +245,10 @@ body {
     .content-container {
         max-width: 800px;
     }
+    #results-list-wrapper {
+        width: 50%;
+    }
+
 }
 
 @media (min-width: 992px) {
