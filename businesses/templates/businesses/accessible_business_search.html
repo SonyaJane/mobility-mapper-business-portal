@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
+
 <link rel="stylesheet" href="{% static 'css/accessible_business_search.css' %}">
 {% endblock %}
 
@@ -10,9 +11,10 @@
 {% block content %}
 <div class="search-container">
 
-  <!-- Search form -->
+  <!-- Business search form -->
   <form id="search-form" class="my-1 my-md-2">
     <div class="row">
+
       <!-- Text search -->
       <div class="col-md-4 px-1 ps-md-2 pe-md-1">
         <div class="position-relative">
@@ -22,59 +24,47 @@
           </button>
         </div>
       </div>
-      <!-- Category filter (md and up) -->
-      <div class="col-md-4 mb-2 px-md-1 d-none d-md-block">
-        <select id="category-select" class="form-select">
-          <option value="">Filter Categories</option>
-          {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.name }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <!-- Accessibility feature filter (md and up) -->
+
+      <!-- Accessibility features filter (md and up only) -->
       <div class="col-md-4 mb-2 ps-md-1 pe-md-2 d-none d-md-block">
-        <select id="accessibility-select" class="form-select">
-          <option value="">Filter Accessibility Features</option>
+        <div>
+          <select id="accessibility-select" class="form-select">
+            {% for feature in accessibility_features %}
+              <option value="{{ feature.name }}">{{ feature.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <!-- map and search results section -->
+  <div id="map-results-container">
+    
+    <!-- Map container -->
+    <div id="map"></div>
+
+    <!-- Search results list wrapper -->
+    <div id="results-list-wrapper" class="pb-2 px-1 hide">
+
+      <!-- Mobile accessibility filter - hidden on md+ -->
+      <div id="mobile-filters" class="d-md-none pb-2 pt-1">          
+        <select id="accessibility-select-mobile-panel" class="form-select flex-grow-1" multiple>
           {% for feature in accessibility_features %}
             <option value="{{ feature.name }}">{{ feature.name }}</option>
           {% endfor %}
         </select>
       </div>
-    </div>
-  </form>
 
-  <!-- Results section -->
-  <div id="map-results-container" class="position-relative p-0">
-    
-    <div id="map"></div>
-    
-    <div id="results-list-wrapper" class="pb-2 px-1">
-      <!-- Mobile filters: always present, hidden by default, JS toggles visibility -->
-      <div id="mobile-filters" class="d-md-none pb-2 pt-1" style="display:none;">
-        <div class="d-flex align-items-center gap-2">
-          <select id="category-select-mobile-panel" class="form-select flex-grow-1">
-            <option value="">Category</option>
-            {% for category in categories %}
-              <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-          </select>
-          <select id="accessibility-select-mobile-panel" class="form-select flex-grow-1">
-            <option value="">Accessibility</option>
-            {% for feature in accessibility_features %}
-              <option value="{{ feature.name }}">{{ feature.name }}</option>
-            {% endfor %}
-          </select>
-          <button type="button" id="toggle-map-view" class="btn btn-outline-secondary ms-2" aria-label="Toggle map view">
-            <i class="bi bi-map fs-5"></i>
-          </button>
-        </div>
-      </div>
-      <button id="results-toggle" type="button" aria-label="Hide results" class="btn btn-light arrow-toggle">
-        <i class="bi bi-arrow-left-circle fs-3"></i>
+      {% comment %} Toggle map view button {% endcomment %}
+      <button type="button" id="toggle-map-view" class="btn btn-outline-secondary ms-2" aria-label="Toggle map view">
+        View results on map
+        <i class="bi bi-map fs-5"></i>
       </button>
+
       <ul id="results-list" class="list-group"></ul>
     </div>
-
     
   </div>
 
@@ -82,6 +72,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script id="business-data" type="application/json">{{ businessesList|safe }}</script>
 <script type="module" src="{% static 'js/accessible_business_search.js' %}"></script>
 {% endblock %}

@@ -31,6 +31,10 @@ body {
   margin-right: 0;
 }
 
+.hide {
+  visibility: hidden !important;
+}
+
 /* logo font style */
 .logo-font {
     font-family: 'Open Sans', sans-serif;

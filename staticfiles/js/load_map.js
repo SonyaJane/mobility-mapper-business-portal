@@ -45,12 +45,9 @@ export default function load_map(containerId) {
       minZoom: 0,
       maxZoom: 20,
       style: style,
-      center: [-3.2, 55.0], // UK center
+      center: [-4.350224, 54.272122], // UK center
       zoom: 4,
-      // maxBounds: [
-      //   [ -10.76418, 49.528423 ],
-      //   [ 1.9134116, 61.331151 ]
-      // ], // UK bounds
+      // we'll manage bounds dynamically based on zoom
       attributionControl: false // disable default, we'll add our own
     });
 
@@ -63,17 +60,24 @@ export default function load_map(containerId) {
       ]
     }), 'bottom-right');
 
-
-    // Print current zoom level in the console whenever it changes
-    MAP.map.on('zoom', function() {
-        console.log('Current zoom level:', MAP.map.getZoom());
-    });
-
     // Add navigation control (zoom +/- and compass)
     const navControl = new maplibregl.NavigationControl({
       visualizePitch: false
     });
     MAP.map.addControl(navControl, 'top-right');
+
+    // Dynamic bounds: world for OSM tiles (<6), UK for OS tiles (>=6)
+    const osmBounds = [[-13, 44], [4, 63]];
+    const osBounds = [[ -10.76418, 49.528423 ],[ 1.9134116, 61.331151 ]];
+    // Set initial bounds
+    MAP.map.setMaxBounds(MAP.map.getZoom() >= 6 ? osBounds : osmBounds);
+    MAP.map.on('zoomend', () => {
+        if (MAP.map.getZoom() >= 6) {
+            MAP.map.setMaxBounds(osBounds);
+        } else {
+            MAP.map.setMaxBounds(osmBounds);
+        }
+    });
 
     // Add geolocation control to the map
     const geolocateControl = new maplibregl.GeolocateControl({

@@ -358,16 +358,28 @@ def verification_report(request, verification_id):
 def ajax_search_businesses(request):
     term = request.GET.get('q', '').strip()
     cat_id = request.GET.get('category')
-    access = request.GET.get('accessibility')
+    # allow multiple accessibility filters
+    access = request.GET.getlist('accessibility')
     qs = Business.objects.all()
     if term:
-        qs = qs.filter(business_name__icontains=term)
+        qs = qs.filter(
+            Q(business_name__icontains=term) |
+            Q(description__icontains=term) |
+            Q(categories__name__icontains=term) |
+            Q(categories__tags__contains=[term])
+        )
     if cat_id:
         qs = qs.filter(categories__id=cat_id)
     if access:
-        qs = qs.filter(accessibility_features__name=access)
+        # filter businesses matching any of the selected features
+        qs = qs.filter(accessibility_features__name__in=access).distinct()
     results = []
     for biz in qs.distinct():
+        # Determine logo URL: if the stored name is a full URL, use it; otherwise use media URL
+        if biz.logo and hasattr(biz.logo, 'name') and biz.logo.name.startswith('http'):
+            logo_url = biz.logo.name
+        else:
+            logo_url = biz.logo.url if biz.logo else ''
         results.append({
             'id': biz.id,
             'business_name': biz.business_name,
@@ -384,7 +396,7 @@ def ajax_search_businesses(request):
             'special_offers': biz.special_offers,
             'services_offered': biz.services_offered,
             'description': biz.description,
-            'logo': biz.logo.url if biz.logo else '',
+            'logo': logo_url,
         })
     return JsonResponse({'businesses': results})
 
@@ -401,17 +413,22 @@ def accessible_business_search(request):
 
     # Get search parameters
     term = request.GET.get('q', '').strip()
-    cat_id = request.GET.get('category')
-    access = request.GET.get('accessibility')
+    # support multiple accessibility filters
+    access_list = request.GET.getlist('accessibility')
 
     # Filter businesses if searching
     businesses = Business.objects.all()
     if term:
-        businesses = businesses.filter(business_name__icontains=term)
-    if cat_id:
-        businesses = businesses.filter(categories__id=cat_id)
-    if access:
-        businesses = businesses.filter(accessibility_features__name=access)
+        businesses = businesses.filter(
+            Q(business_name__icontains=term) |
+            Q(description__icontains=term) |
+            Q(categories__name__icontains=term) |
+            Q(categories__tags__contains=[term])
+        )
+    if access_list:
+        # require businesses to have all selected accessibility features
+        for feature in access_list:
+            businesses = businesses.filter(accessibility_features__name=feature)
 
     categories = Category.objects.all()
     accessibility_features = AccessibilityFeature.objects.all()
@@ -438,12 +455,6 @@ def accessible_business_search(request):
             'instagram_url': getattr(biz, 'instagram_url', ''),
             'x_twitter_url': getattr(biz, 'x_twitter_url', ''),
         })
-
-    # Only show tip if user has searched and not dismissed
-    show_results_tip = bool(term) and user_profile and not user_profile.hide_results_tip
-    if show_results_tip:
-        from django.contrib import messages
-        messages.info(request, "TIP: Tap on a business to show more information. Tap it again to collapse.")
 
     import json
     return render(request, 'businesses/accessible_business_search.html', {

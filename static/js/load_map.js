@@ -60,18 +60,6 @@ export default function load_map(containerId) {
       ]
     }), 'bottom-right');
 
-
-    // Print current zoom level in the console whenever it changes
-    MAP.map.on('zoom', function() {
-        const zoomLevel = MAP.map.getZoom();
-        const center = MAP.map.getCenter();
-        console.log('Current zoom level:', zoomLevel);
-        console.log('Map center:', center.lng.toFixed(6), center.lat.toFixed(6));
-        // map bounds:
-        const bounds = MAP.map.getBounds();
-        console.log('Map bounds:', bounds);
-    });
-
     // Add navigation control (zoom +/- and compass)
     const navControl = new maplibregl.NavigationControl({
       visualizePitch: false

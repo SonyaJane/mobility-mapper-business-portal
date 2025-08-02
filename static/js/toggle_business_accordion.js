@@ -1,0 +1,52 @@
+export default function toggleBusinessAccordion(li, infoPanel, arrowIcon, biz) {
+    // Get all results in the list
+    const allResults = document.querySelectorAll('#results-list > li');
+
+    // If the clicked panel is already open, close it
+    if (infoPanel.classList.contains('show')) {
+        infoPanel.classList.remove('show');
+        infoPanel.classList.add('hide');
+        // Reset the arrow icon to down
+        if (arrowIcon) {
+            arrowIcon.classList.remove('bi-chevron-up');
+            arrowIcon.classList.add('bi-chevron-down');
+        }
+        // Show all results again and remove highlight class
+        allResults.forEach(result => {
+            result.classList.remove('hide');
+            result.classList.remove('single-visible');
+        });
+    } else { 
+        // If the clicked panel is not open, open it
+        // First, close any other open panels and remove their highlights
+        const openPanels = document.querySelectorAll('.accordion-collapse.show');
+        openPanels.forEach(panel => {
+            panel.classList.remove('show');
+            panel.classList.remove('single-visible');
+            panel.classList.add('hide');
+        });
+        // Reset all arrow icons to down
+        const allArrows = document.querySelectorAll('.toggle-arrow');
+        allArrows.forEach(icon => {
+            icon.classList.remove('bi-chevron-up');
+            icon.classList.add('bi-chevron-down');
+        });
+        // Now open the clicked panel
+        infoPanel.classList.remove('hide');
+        infoPanel.classList.add('show');
+        // Set the arrow icon to up
+        if (arrowIcon) {
+            arrowIcon.classList.remove('bi-chevron-down');
+            arrowIcon.classList.add('bi-chevron-up');
+        }
+        // Hide all other results except this one, and add highlight
+        allResults.forEach(result => {
+            result.classList.remove('single-visible');
+            if (result !== li) {
+                result.classList.add('hide');
+            } else {
+                result.classList.add('single-visible');
+            }
+        });
+    }
+}
