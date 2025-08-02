@@ -43,8 +43,8 @@ class AccessibilityFeature(models.Model):
     """
     Represents an accessibility feature (e.g., Step-free access).
     """
-    code = models.CharField(max_length=30, unique=True)
-    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -54,11 +54,12 @@ class Category(models.Model):
     """
     Represents a business category (e.g., Café, Retail Store).
     """
-    code = models.CharField(max_length=30, unique=True)
+    code = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=100)
     group_code = models.CharField(max_length=30, blank=True, null=True, help_text="Group code for category grouping (e.g. 'retail', 'food_drink')")
     group_description = models.CharField(max_length=200, blank=True, null=True, help_text="Description of the group (e.g. 'Retail', 'Food & Drink')")
-
+    tags = models.JSONField(default=list, blank=True)
+    
     def __str__(self):
         return f"{self.name} ({self.group_description})" if self.group_description else self.name
 

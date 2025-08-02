@@ -4,7 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class UserProfile(models.Model):
-    hide_results_tip = models.BooleanField(default=False, help_text="Hide the results tip message in business search.")
     COUNTRY_CHOICES = (
         ("UK", "United Kingdom"),
         ("Other", "Other"),
@@ -178,6 +177,9 @@ class UserProfile(models.Model):
 # Automatically create/update UserProfile when User is saved
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
+    # Skip auto-creation when loading fixtures (raw=True)
+    if kwargs.get('raw', False):
+        return
     if created:
         UserProfile.objects.create(user=instance)
     else:

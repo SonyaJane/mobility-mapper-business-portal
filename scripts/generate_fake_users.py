@@ -1,21 +1,30 @@
 # Run the script: python scripts/generate_fake_users.py
-# Load the generated fixture: python manage.py loaddata fixtures/fake_users_fixture.json
+# python manage.py flush
+# python manage.py loaddata .\fixtures\accessibility_features.json
+# python manage.py loaddata .\fixtures\business_categories.json
+# python manage.py loaddata .\fixtures\pricing_tiers.json
+# Load the generated fixture: 
+# python manage.py loaddata fixtures/fake_users_fixture.json
+# python manage.py createsuperuser
+
+# This script generates fake user profiles and businesses for testing purposes.
 
 import os
 import django
 import sys
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-django.setup()
-
 import json
 import random
+import geojson
+
 from faker import Faker
 from datetime import timezone
 from django.contrib.auth.hashers import make_password
 from shapely.geometry import shape, Point
-import geojson
+
+# Ensure project root is on PYTHONPATH and Django is set up before importing models
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+django.setup()
 
 from accounts.models import UserProfile
 from businesses.models import Business, TIER_CHOICES
@@ -35,8 +44,8 @@ profiles = []
 fixture = []
 
 
-# 10 fake wheeler users (is_wheeler=True, has_business=False, mobility_device set)
-for i in range(10):
+# 2 fake wheeler users (is_wheeler=True, has_business=False, mobility_device set)
+for i in range(2):
     username = f"wheeler_user_{i+1}"
     email = fake.email()
     password = make_password("testpass123")
@@ -166,7 +175,8 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
     # Billing frequency
     billing_frequency = random.choice(["monthly", "yearly"])
     # Logo (simulate file path)
-    logo_path = None  # Or use a static test image if desired
+    # Generate a placeholder logo URL for each business
+    logo_path = fake.image_url(width=400, height=400)
     # Social media URLs
     website = fake.url()
     facebook_url = f"https://facebook.com/{fake.slug()}"
@@ -207,7 +217,7 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             "special_offers": special_offers,
             "facebook_url": facebook_url,
             "instagram_url": instagram_url,
-            "twitter_url": twitter_url,
+            "x_twitter_url": twitter_url,
             "pricing_tier": pricing_tier_pk,
             "billing_frequency": billing_frequency,
             "wheeler_verification_requested": fake.boolean(),

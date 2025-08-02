@@ -20,16 +20,18 @@ class UserProfileForm(forms.ModelForm):
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
         if photo:
+            # Validate that file is a valid image
             try:
                 img = Image.open(photo)
-                if img.width != img.height:
-                    raise forms.ValidationError('Profile photo must be square (width and height must match).')
             except Exception:
                 raise forms.ValidationError('Invalid image file.')
+            # Ensure the image is square
+            if img.width != img.height:
+                raise forms.ValidationError('Profile photo must be square (width and height must match).')
         return photo
     class Meta:
         model = UserProfile
+        # Exclude system-managed flags; users cannot edit is_wheeler or has_business
         fields = [
-            'country', 'county', 'photo', 'is_wheeler', 'has_business',
-            'mobility_device', 'age_group'
+            'country', 'county', 'photo', 'mobility_device', 'age_group'
         ]

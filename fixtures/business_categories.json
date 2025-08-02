@@ -1,83 +1,7599 @@
 [
-  {"model": "businesses.category", "pk": 1, "fields": {"code": "butcher", "name": "Butcher", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 2, "fields": {"code": "bakery", "name": "Bakery", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 3, "fields": {"code": "grocery_convenience", "name": "Grocery & Convenience", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 4, "fields": {"code": "supermarket", "name": "Supermarket", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 5, "fields": {"code": "specialist_food", "name": "Specialist Food Shop", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 6, "fields": {"code": "pharmacy_chemist", "name": "Pharmacy or Chemist", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 7, "fields": {"code": "clothing", "name": "Clothing", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 8, "fields": {"code": "footwear", "name": "Footwear", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 9, "fields": {"code": "homewares", "name": "Homewares", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 10, "fields": {"code": "furniture", "name": "Furniture", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 11, "fields": {"code": "electronics_electricals", "name": "Electronics & Electricals", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 12, "fields": {"code": "books", "name": "Books", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 13, "fields": {"code": "stationery", "name": "Stationery", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 14, "fields": {"code": "newsagent", "name": "Newsagent", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 16, "fields": {"code": "pet_shop", "name": "Pet Shop", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 15, "fields": {"code": "garden_centre", "name": "Garden Centre", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 81, "fields": {"code": "diy", "name": "DIY Store", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 17, "fields": {"code": "aquatics", "name": "Aquatics", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 18, "fields": {"code": "sporting_outdoor", "name": "Sporting Goods & Outdoor", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 19, "fields": {"code": "tobacco_vape_lottery", "name": "Tobacco, Vape & Lottery Outlet", "group_code": "retail", "group_description": "Retail"}},
-  {"model": "businesses.category", "pk": 20, "fields": {"code": "cafe_coffee_shop", "name": "Café & Coffee Shop", "group_code": "food_drink", "group_description": "Food & Drink"}},
-  {"model": "businesses.category", "pk": 21, "fields": {"code": "pub_bar_wine", "name": "Pub, Bar & Wine Bar", "group_code": "food_drink", "group_description": "Food & Drink"}},
-  {"model": "businesses.category", "pk": 22, "fields": {"code": "takeaway", "name": "Takeaway", "group_code": "food_drink", "group_description": "Food & Drink"}},
-  {"model": "businesses.category", "pk": 23, "fields": {"code": "fast_food", "name": "Fast Food", "group_code": "food_drink", "group_description": "Food & Drink"}},
-  {"model": "businesses.category", "pk": 24, "fields": {"code": "ice_cream_dessert", "name": "Ice-Cream Parlour & Dessert Shop", "group_code": "food_drink", "group_description": "Food & Drink"}},
-  {"model": "businesses.category", "pk": 25, "fields": {"code": "restaurant", "name": "Restaurant", "group_code": "food_drink", "group_description": "Food & Drink"}},
-  {"model": "businesses.category", "pk": 26, "fields": {"code": "hotel", "name": "Hotel", "group_code": "accommodation", "group_description": "Accommodation"}},
-  {"model": "businesses.category", "pk": 27, "fields": {"code": "tea_room", "name": "Tea Room", "group_code": "accommodation", "group_description": "Accommodation"}},
-  {"model": "businesses.category", "pk": 28, "fields": {"code": "guesthouse", "name": "Guesthouse", "group_code": "accommodation", "group_description": "Accommodation"}},
-  {"model": "businesses.category", "pk": 29, "fields": {"code": "hostel", "name": "Hostel", "group_code": "accommodation", "group_description": "Accommodation"}},
-  {"model": "businesses.category", "pk": 30, "fields": {"code": "holiday_park_caravan", "name": "Holiday Park & Caravan Site", "group_code": "accommodation", "group_description": "Accommodation"}},
-  {"model": "businesses.category", "pk": 31, "fields": {"code": "bed_and_breakfast", "name": "Bed and Breakfast", "group_code": "accommodation", "group_description": "Accommodation"}},
-  {"model": "businesses.category", "pk": 32, "fields": {"code": "self_catering", "name": "Self-catering Cottage/Apartment", "group_code": "accommodation", "group_description": "Accommodation"}},
-  {"model": "businesses.category", "pk": 33, "fields": {"code": "gp_surgery", "name": "GP Surgery", "group_code": "health_wellbeing", "group_description": "Health & Wellbeing"}},
-  {"model": "businesses.category", "pk": 34, "fields": {"code": "optician", "name": "Optician", "group_code": "health_wellbeing", "group_description": "Health & Wellbeing"}},
-  {"model": "businesses.category", "pk": 35, "fields": {"code": "dentist", "name": "Dentist", "group_code": "health_wellbeing", "group_description": "Health & Wellbeing"}},
-  {"model": "businesses.category", "pk": 36, "fields": {"code": "physiotherapy_clinic", "name": "Physiotherapy Clinic", "group_code": "health_wellbeing", "group_description": "Health & Wellbeing"}},
-  {"model": "businesses.category", "pk": 37, "fields": {"code": "chiropractic_clinic", "name": "Chiropractic Clinic", "group_code": "health_wellbeing", "group_description": "Health & Wellbeing"}},
-  {"model": "businesses.category", "pk": 38, "fields": {"code": "hospital_urgent_care", "name": "Hospital & Urgent Care Centre", "group_code": "health_wellbeing", "group_description": "Health & Wellbeing"}},
-  {"model": "businesses.category", "pk": 39, "fields": {"code": "mental_health", "name": "Mental Health Service", "group_code": "health_wellbeing", "group_description": "Health & Wellbeing"}},
-  {"model": "businesses.category", "pk": 40, "fields": {"code": "support_charity", "name": "Support/Disability Charity Hub", "group_code": "health_wellbeing", "group_description": "Health & Wellbeing"}},
-  {"model": "businesses.category", "pk": 41, "fields": {"code": "bank_building_society", "name": "Bank & Building Society", "group_code": "financial", "group_description": "Financial"}},
-  {"model": "businesses.category", "pk": 42, "fields": {"code": "credit_union", "name": "Credit Union", "group_code": "financial", "group_description": "Financial"}},
-  {"model": "businesses.category", "pk": 43, "fields": {"code": "post_office", "name": "Post Office", "group_code": "financial", "group_description": "Financial"}},
-  {"model": "businesses.category", "pk": 44, "fields": {"code": "bureau_de_change", "name": "Bureau de Change", "group_code": "financial", "group_description": "Financial"}},
-  {"model": "businesses.category", "pk": 45, "fields": {"code": "lawyer_solicitor", "name": "Lawyer & Solicitor", "group_code": "legal", "group_description": "Legal"}},
-  {"model": "businesses.category", "pk": 46, "fields": {"code": "accountant_tax", "name": "Accountant & Tax Adviser", "group_code": "professional_services", "group_description": "Professional Services"}},
-  {"model": "businesses.category", "pk": 47, "fields": {"code": "estate_letting_agent", "name": "Estate & Letting Agent", "group_code": "professional_services", "group_description": "Professional Services"}},
-  {"model": "businesses.category", "pk": 48, "fields": {"code": "insurance_broker", "name": "Insurance Broker", "group_code": "professional_services", "group_description": "Professional Services"}},
-  {"model": "businesses.category", "pk": 49, "fields": {"code": "travel_agent", "name": "Travel Agent & Tour Operator", "group_code": "professional_services", "group_description": "Professional Services"}},
-  {"model": "businesses.category", "pk": 50, "fields": {"code": "recruitment_agency", "name": "Recruitment Agency", "group_code": "professional_services", "group_description": "Professional Services"}},
-  {"model": "businesses.category", "pk": 51, "fields": {"code": "architect_surveyor", "name": "Architect & Surveyor", "group_code": "professional_services", "group_description": "Professional Services"}},
-  {"model": "businesses.category", "pk": 52, "fields": {"code": "hair_barber", "name": "Hair Salon & Barber", "group_code": "personal_care", "group_description": "Personal Care"}},
-  {"model": "businesses.category", "pk": 53, "fields": {"code": "beauty_spa", "name": "Beauty Salon & Spa", "group_code": "personal_care", "group_description": "Personal Care"}},
-  {"model": "businesses.category", "pk": 54, "fields": {"code": "nail_bar", "name": "Nail Bar", "group_code": "personal_care", "group_description": "Personal Care"}},
-  {"model": "businesses.category", "pk": 55, "fields": {"code": "massage_holistic", "name": "Massage & Holistic Therapy", "group_code": "personal_care", "group_description": "Personal Care"}},
-  {"model": "businesses.category", "pk": 56, "fields": {"code": "tattoo_piercing", "name": "Tattoo & Piercing Studio", "group_code": "personal_care", "group_description": "Personal Care"}},
-  {"model": "businesses.category", "pk": 57, "fields": {"code": "gym", "name": "Gym", "group_code": "leisure_fitness", "group_description": "Leisure & Fitness"}},
-  {"model": "businesses.category", "pk": 58, "fields": {"code": "swimming_pool", "name": "Swimming Pool", "group_code": "leisure_fitness", "group_description": "Leisure & Fitness"}},
-  {"model": "businesses.category", "pk": 59, "fields": {"code": "yoga_pilates", "name": "Yoga & Pilates Studio", "group_code": "leisure_fitness", "group_description": "Leisure & Fitness"}},
-  {"model": "businesses.category", "pk": 60, "fields": {"code": "cinema", "name": "Cinema", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 61, "fields": {"code": "theatre", "name": "Theatre", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 62, "fields": {"code": "museum", "name": "Museum", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 63, "fields": {"code": "art_gallery", "name": "Art Gallery", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 64, "fields": {"code": "library", "name": "Library", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 65, "fields": {"code": "music_venue_club", "name": "Music Venue & Club", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 66, "fields": {"code": "comedy_club", "name": "Comedy Club", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 67, "fields": {"code": "bingo_hall", "name": "Bingo Hall", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 68, "fields": {"code": "amusement_arcade", "name": "Amusement Arcade", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 69, "fields": {"code": "trampoline_park", "name": "Trampoline Park", "group_code": "arts_culture_entertainment", "group_description": "Arts, Culture & Entertainment"}},
-  {"model": "businesses.category", "pk": 70, "fields": {"code": "nursery_daycare", "name": "Nursery & Day Care", "group_code": "childcare", "group_description": "Childcare"}},
-  {"model": "businesses.category", "pk": 71, "fields": {"code": "after_school_club", "name": "After-School Club & Holiday Club", "group_code": "childcare", "group_description": "Childcare"}},
-  {"model": "businesses.category", "pk": 72, "fields": {"code": "cycle_hire", "name": "Cycle Hire Station", "group_code": "transport_mobility", "group_description": "Transport & Mobility"}},
-  {"model": "businesses.category", "pk": 73, "fields": {"code": "petrol_ev", "name": "Petrol Station & EV Charging Point", "group_code": "transport_mobility", "group_description": "Transport & Mobility"}},
-  {"model": "businesses.category", "pk": 74, "fields": {"code": "car_dealership", "name": "Car Dealership", "group_code": "transport_mobility", "group_description": "Transport & Mobility"}},
-  {"model": "businesses.category", "pk": 75, "fields": {"code": "vehicle_service_mot", "name": "Vehicle Servicing & MOT Garage", "group_code": "transport_mobility", "group_description": "Transport & Mobility"}},
-  {"model": "businesses.category", "pk": 76, "fields": {"code": "tyre_exhaust", "name": "Tyre Fitter & Exhaust Centre", "group_code": "transport_mobility", "group_description": "Transport & Mobility"}},
-  {"model": "businesses.category", "pk": 77, "fields": {"code": "mobility_equipment", "name": "Mobility Equipment Supplier", "group_code": "transport_mobility", "group_description": "Transport & Mobility"}},
-  {"model": "businesses.category", "pk": 78, "fields": {"code": "funeral_crematoria", "name": "Funeral Director & Crematorium", "group_code": "trades_services", "group_description": "Trades & Services"}},
-  {"model": "businesses.category", "pk": 79, "fields": {"code": "equestrian_centre", "name": "Equestrian Centre", "group_code": "outdoors_recreation", "group_description": "Outdoors & Recreation"}},
-  {"model": "businesses.category", "pk": 80, "fields": {"code": "other", "name": "Other", "group_code": "other", "group_description": "Other"}}
+  {
+    "model": "businesses.category",
+    "pk": 1,
+    "fields": {
+      "code": "butcher",
+      "name": "Butcher",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "meat",
+        "beef",
+        "pork",
+        "lamb",
+        "sausages",
+        "poultry",
+        "chicken",
+        "turkey",
+        "game",
+        "bacon",
+        "ham",
+        "food",
+        "local",
+        "fresh"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 2,
+    "fields": {
+      "code": "bakery",
+      "name": "Bakery",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "bread",
+        "pastries",
+        "cakes",
+        "local",
+        "fresh",
+        "food",
+        "baked_goods",
+        "artisan",
+        "sourdough",
+        "croissants",
+        "baguettes",
+        "rolls",
+        "buns",
+        "cookies",
+        "biscuits",
+        "patisserie",
+        "desserts",
+        "tarts",
+        "pies",
+        "baking"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 3,
+    "fields": {
+      "code": "grocery",
+      "name": "Grocery",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "groceries",
+        "snacks",
+        "drinks",
+        "food",
+        "household",
+        "cleaning",
+        "personal_care",
+        "baby_products",
+        "fresh_produce",
+        "frozen_food",
+        "canned",
+        "dairy",
+        "meat",
+        "bakery",
+        "tinned",
+        "vegetables",
+        "fruits",
+        "shop",
+        "local",
+        "shopping"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 4,
+    "fields": {
+      "code": "convenience",
+      "name": "Convenience Store",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "groceries",
+        "snacks",
+        "drinks",
+        "food",
+        "shopping",
+        "convenience"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 5,
+    "fields": {
+      "code": "supermarket",
+      "name": "Supermarket",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "groceries",
+        "food",
+        "drinks",
+        "household",
+        "cleaning",
+        "personal_care",
+        "fresh_produce",
+        "frozen_food",
+        "canned_goods",
+        "snacks",
+        "beverages",
+        "dairy",
+        "meat",
+        "bakery",
+        "vegetables",
+        "fruits",
+        "organic",
+        "local",
+        "bulk_items",
+        "household_supplies",
+        "pet_food",
+        "baby_products",
+        "alcohol",
+        "tobacco"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 6,
+    "fields": {
+      "code": "specialist_food",
+      "name": "Specialist Food Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "gourmet",
+        "organic",
+        "local",
+        "food"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 7,
+    "fields": {
+      "code": "pharmacy",
+      "name": "Pharmacy",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "healthcare",
+        "medication",
+        "prescriptions",
+        "wellness",
+        "personal_care",
+        "beauty",
+        "cosmetics",
+        "first_aid",
+        "vitamins",
+        "supplements",
+        "herbal_remedies",
+        "medical_equipment",
+        "diabetes_supplies",
+        "incontinence_products",
+        "orthopedic_supports",
+        "chemist"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 8,
+    "fields": {
+      "code": "clothing",
+      "name": "Clothing",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "fashion",
+        "apparel",
+        "garments",
+        "shopping",
+        "clothes",
+        "attire",
+        "outfits",
+        "wardrobe",
+        "dress",
+        "casual_wear",
+        "tops",
+        "bottoms",
+        "trousers",
+        "shirts"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 9,
+    "fields": {
+      "code": "footwear",
+      "name": "Footwear",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "shoes",
+        "boots",
+        "sandals",
+        "sneakers",
+        "trainers",
+        "footwear",
+        "fashion",
+        "laces",
+        "heels",
+        "flats"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 10,
+    "fields": {
+      "code": "homewares",
+      "name": "Homewares",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "home",
+        "decor",
+        "furniture",
+        "appliances",
+        "bedding",
+        "textiles",
+        "utensils",
+        "cookware",
+        "dinnerware",
+        "lighting",
+        "storage",
+        "organization",
+        "kitchenware",
+        "bathroom",
+        "furnishings",
+        "accessories",
+        "household_items",
+        "interior_design"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 11,
+    "fields": {
+      "code": "furniture",
+      "name": "Furniture",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "furniture",
+        "home",
+        "decor",
+        "tables",
+        "chairs",
+        "wood",
+        "laminate"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 12,
+    "fields": {
+      "code": "electronics",
+      "name": "Electronics",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "gadgets",
+        "devices",
+        "appliances",
+        "computers",
+        "phones",
+        "tablets",
+        "audio",
+        "video",
+        "televisions",
+        "cameras",
+        "accessories",
+        "gaming",
+        "smart_home",
+        "wearables",
+        "electronics"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 13,
+    "fields": {
+      "code": "electricals",
+      "name": "Electricals",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "appliances",
+        "gadgets",
+        "devices",
+        "lighting",
+        "wiring",
+        "cables",
+        "plugs",
+        "switches",
+        "outlets",
+        "power_supplies",
+        "batteries",
+        "tools",
+        "equipment",
+        "home_automation",
+        "smart_home"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 14,
+    "fields": {
+      "code": "books",
+      "name": "Books",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "literature",
+        "novels",
+        "fiction",
+        "non-fiction",
+        "textbooks",
+        "bookstore",
+        "reading",
+        "education",
+        "literary",
+        "poetry",
+        "bestsellers"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 15,
+    "fields": {
+      "code": "stationery",
+      "name": "Stationery",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "office_supplies",
+        "writing",
+        "paper",
+        "notebooks",
+        "pens",
+        "pencils",
+        "art_supplies",
+        "crafts",
+        "school_supplies",
+        "organizers",
+        "calendars",
+        "planners",
+        "envelopes",
+        "labels",
+        "sticky_notes",
+        "folders",
+        "binders",
+        "desk_accessories",
+        "stationery"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 16,
+    "fields": {
+      "code": "newsagent",
+      "name": "Newsagent",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "newspapers",
+        "magazines",
+        "snacks",
+        "drinks",
+        "stationery",
+        "confectionery",
+        "news",
+        "household_supplies"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 17,
+    "fields": {
+      "code": "pet_shop",
+      "name": "Pet Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "pets",
+        "animals",
+        "pet_supplies",
+        "food",
+        "toys",
+        "grooming",
+        "aquarium",
+        "reptile",
+        "bird",
+        "fish",
+        "cat",
+        "dog"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 18,
+    "fields": {
+      "code": "garden_centre",
+      "name": "Garden Centre",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "plants",
+        "flowers",
+        "gardening",
+        "outdoor",
+        "landscaping",
+        "tools",
+        "soil",
+        "fertilizers",
+        "seeds",
+        "pots",
+        "furniture",
+        "garden_supplies"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 19,
+    "fields": {
+      "code": "diy",
+      "name": "DIY Store",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "tools",
+        "hardware",
+        "home_improvement",
+        "building_materials",
+        "paint",
+        "lumber",
+        "plumbing",
+        "electrical",
+        "gardening",
+        "outdoor_living",
+        "fixtures",
+        "fittings"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 20,
+    "fields": {
+      "code": "florist",
+      "name": "Florist",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "flowers",
+        "bouquets",
+        "arrangements",
+        "gifts",
+        "weddings",
+        "events",
+        "plants"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 21,
+    "fields": {
+      "code": "optical",
+      "name": "Optical Store",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "eyewear",
+        "glasses",
+        "contact_lenses",
+        "sunglasses",
+        "optometry",
+        "vision_care",
+        "frames",
+        "lenses",
+        "prescriptions",
+        "eye_tests"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 22,
+    "fields": {
+      "code": "jewellery",
+      "name": "Jewellery",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "jewelry",
+        "accessories",
+        "rings",
+        "necklaces",
+        "bracelets",
+        "earrings",
+        "watches",
+        "gems",
+        "precious_metals"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 23,
+    "fields": {
+      "code": "watch",
+      "name": "Watch Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "watches",
+        "timepieces",
+        "accessories"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 24,
+    "fields": {
+      "code": "musical_instruments",
+      "name": "Musical Instruments",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "instruments",
+        "music"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 25,
+    "fields": {
+      "code": "aquatics",
+      "name": "Aquatics",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "aquarium",
+        "fish",
+        "aquatic_plants",
+        "aquarist",
+        "ponds",
+        "water_gardening",
+        "aquatic_life"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 26,
+    "fields": {
+      "code": "sports_equipment",
+      "name": "Sports Equipment",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "sports_equipment",
+        "fitness",
+        "exercise",
+        "athletics",
+        "outdoor_sports",
+        "indoor_sports",
+        "sportswear",
+        "activewear",
+        "sports_accessories"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 27,
+    "fields": {
+      "code": "outdoor",
+      "name": "Outdoor & Leisure",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "outdoor_equipment",
+        "camping",
+        "hiking",
+        "fishing",
+        "cycling",
+        "climbing",
+        "water_sports"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 28,
+    "fields": {
+      "code": "tobacco_vape_lottery",
+      "name": "Tobacco, Vape & Lottery",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "tobacco",
+        "vape",
+        "lottery",
+        "cigarettes",
+        "cigars",
+        "e-cigarettes",
+        "vaping",
+        "lottery_tickets",
+        "gambling"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 29,
+    "fields": {
+      "code": "cafe",
+      "name": "Café",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "coffee",
+        "tea",
+        "snacks",
+        "pastries",
+        "beverages",
+        "casual_dining"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 30,
+    "fields": {
+      "code": "coffee_shop",
+      "name": "Coffee Shop",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "coffee",
+        "espresso",
+        "latte",
+        "cappuccino",
+        "tea",
+        "pastries",
+        "snacks",
+        "beverages",
+        "caffeine",
+        "café",
+        "barista",
+        "coffeehouse",
+        "coffeeshop"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 31,
+    "fields": {
+      "code": "pub",
+      "name": "Pub",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "beer",
+        "ale",
+        "lager",
+        "drinks",
+        "social",
+        "local",
+        "public_house",
+        "bar",
+        "wine",
+        "spirits",
+        "food"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 32,
+    "fields": {
+      "code": "bar",
+      "name": "Bar",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "cocktails",
+        "drinks",
+        "spirits",
+        "beer",
+        "wine",
+        "nightlife",
+        "music",
+        "social"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 33,
+    "fields": {
+      "code": "wine_bar",
+      "name": "Wine Bar",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "wine",
+        "red_wine",
+        "white_wine",
+        "rosé",
+        "sparkling",
+        "bar",
+        "social"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 34,
+    "fields": {
+      "code": "takeaway",
+      "name": "Takeaway",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "takeaway",
+        "food_to_go",
+        "takeout",
+        "snacks",
+        "convenience"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 35,
+    "fields": {
+      "code": "fast_food",
+      "name": "Fast Food",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "fast_food",
+        "burgers",
+        "fries",
+        "chicken",
+        "takeaway",
+        "snacks",
+        "convenience"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 36,
+    "fields": {
+      "code": "ice_cream_dessert",
+      "name": "Ice-Cream Parlour & Dessert Shop",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "ice_cream",
+        "desserts",
+        "sweets",
+        "snacks",
+        "beverages"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 37,
+    "fields": {
+      "code": "restaurant",
+      "name": "Restaurant",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "dining",
+        "cuisine",
+        "food",
+        "drinks",
+        "social"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 38,
+    "fields": {
+      "code": "tea_shop",
+      "name": "Tea Shop",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "tea",
+        "beverages",
+        "snacks",
+        "pastries",
+        "relaxation",
+        "social"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 39,
+    "fields": {
+      "code": "tea_room",
+      "name": "Tea Room",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "tea",
+        "beverages",
+        "snacks",
+        "pastries",
+        "relaxation",
+        "social"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 40,
+    "fields": {
+      "code": "ice_cream",
+      "name": "Ice-Cream Parlour",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "ice_cream",
+        "desserts",
+        "sweets",
+        "snacks",
+        "beverages"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 41,
+    "fields": {
+      "code": "dessert",
+      "name": "Dessert Shop",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "ice_cream",
+        "desserts",
+        "sweets",
+        "snacks",
+        "beverages"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 42,
+    "fields": {
+      "code": "hotel",
+      "name": "Hotel",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "lodging",
+        "stay",
+        "rooms",
+        "amenities",
+        "hospitality",
+        "travel",
+        "tourism",
+        "vacation",
+        "business_travel",
+        "holiday",
+        "bed"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 43,
+    "fields": {
+      "code": "motel",
+      "name": "Motel",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "lodging",
+        "stay",
+        "rooms",
+        "amenities",
+        "hospitality",
+        "travel",
+        "tourism",
+        "vacation",
+        "holiday",
+        "bed"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 44,
+    "fields": {
+      "code": "guesthouse",
+      "name": "Guesthouse",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "lodging",
+        "stay",
+        "rooms",
+        "amenities",
+        "hospitality",
+        "travel",
+        "tourism",
+        "vacation",
+        "holiday",
+        "bed"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 45,
+    "fields": {
+      "code": "hostel",
+      "name": "Hostel",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "budget",
+        "shared_rooms",
+        "backpacker",
+        "dormitory",
+        "travel",
+        "youth_hostel",
+        "holiday",
+        "bed"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 46,
+    "fields": {
+      "code": "holiday_park",
+      "name": "Holiday Park",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "lodging",
+        "stay",
+        "rooms",
+        "amenities",
+        "hospitality",
+        "travel",
+        "tourism",
+        "vacation",
+        "holiday",
+        "bed"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 47,
+    "fields": {
+      "code": "caravan_park",
+      "name": "Caravan Park",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "stay",
+        "amenities",
+        "hospitality",
+        "travel",
+        "tourism",
+        "vacation",
+        "camping",
+        "caravan",
+        "motorhome",
+        "holiday"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 48,
+    "fields": {
+      "code": "bed_and_breakfast",
+      "name": "Bed and Breakfast",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "lodging",
+        "stay",
+        "rooms",
+        "amenities",
+        "hospitality",
+        "travel",
+        "tourism",
+        "vacation",
+        "holiday",
+        "breakfast",
+        "bnb",
+        "guest_house",
+        "bed"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 49,
+    "fields": {
+      "code": "self_catering",
+      "name": "Self-catering Holiday Accommodation",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "lodging",
+        "stay",
+        "rooms",
+        "amenities",
+        "hospitality",
+        "travel",
+        "tourism",
+        "vacation",
+        "bed",
+        "self_catering",
+        "holiday",
+        "holiday_home",
+        "vacation_rental"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 50,
+    "fields": {
+      "code": "healthcare_clinic",
+      "name": "Healthcare Clinic",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "health",
+        "medical",
+        "clinic",
+        "wellbeing",
+        "healthcare",
+        "patient_care",
+        "checkups",
+        "vaccinations",
+        "treatment",
+        "consultation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 51,
+    "fields": {
+      "code": "optician",
+      "name": "Optician",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "vision",
+        "eye_care",
+        "glasses",
+        "contact_lenses",
+        "eye_tests",
+        "optometry",
+        "sunglasses",
+        "frames",
+        "lenses",
+        "prescriptions",
+        "optical"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 52,
+    "fields": {
+      "code": "dentist",
+      "name": "Dentist",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "dental",
+        "teeth",
+        "oral_health",
+        "checkups",
+        "cleaning",
+        "cavities",
+        "fillings",
+        "extractions",
+        "braces"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 53,
+    "fields": {
+      "code": "physiotherapy_clinic",
+      "name": "Physiotherapy Clinic",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "physiotherapy",
+        "rehabilitation",
+        "physical_therapy",
+        "injury",
+        "exercise",
+        "wellbeing",
+        "mobility",
+        "sports_injury",
+        "manual_therapy"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 54,
+    "fields": {
+      "code": "chiropractic_clinic",
+      "name": "Chiropractic Clinic",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "chiropractic",
+        "spine",
+        "back_pain",
+        "adjustments",
+        "manual_therapy",
+        "wellbeing",
+        "holistic",
+        "pain_management",
+        "posture",
+        "alignment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 55,
+    "fields": {
+      "code": "hospital",
+      "name": "Hospital",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "hospital",
+        "medical",
+        "healthcare",
+        "treatment",
+        "patient_care",
+        "wellbeing",
+        "surgery",
+        "rehabilitation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 56,
+    "fields": {
+      "code": "emergency_hospital",
+      "name": "Emergency Hospital",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "hospital",
+        "emergency",
+        "urgent_care",
+        "medical",
+        "healthcare",
+        "treatment",
+        "patient_care",
+        "wellbeing",
+        "surgery",
+        "rehabilitation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 57,
+    "fields": {
+      "code": "mental_health",
+      "name": "Mental Health Service",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "mental_health",
+        "therapy",
+        "counseling",
+        "psychology",
+        "wellbeing",
+        "support",
+        "stress_management",
+        "anxiety",
+        "depression",
+        "mindfulness"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 58,
+    "fields": {
+      "code": "charity",
+      "name": "Charity",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "charity",
+        "nonprofit",
+        "donation",
+        "volunteering",
+        "community_support",
+        "social_cause",
+        "fundraising",
+        "philanthropy",
+        "aid",
+        "welfare"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 59,
+    "fields": {
+      "code": "gp_surgery",
+      "name": "GP Surgery",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "health",
+        "medical",
+        "doctor",
+        "clinic",
+        "wellbeing",
+        "primary_care",
+        "family_doctor",
+        "general_practitioner",
+        "healthcare",
+        "patient_care",
+        "checkups",
+        "vaccinations",
+        "treatment",
+        "consultation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 60,
+    "fields": {
+      "code": "bank",
+      "name": "Bank",
+      "group_code": "financial",
+      "group_description": "Financial",
+      "tags": [
+        "banking",
+        "finance",
+        "loans",
+        "savings",
+        "investments",
+        "accounts",
+        "financial_services",
+        "credit_cards",
+        "debit_cards",
+        "branch"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 61,
+    "fields": {
+      "code": "building_society",
+      "name": "Building Society",
+      "group_code": "financial",
+      "group_description": "Financial",
+      "tags": [
+        "building_society",
+        "finance",
+        "loans",
+        "savings",
+        "investments",
+        "accounts",
+        "financial_services",
+        "branch"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 62,
+    "fields": {
+      "code": "credit_union",
+      "name": "Credit Union",
+      "group_code": "financial",
+      "group_description": "Financial",
+      "tags": [
+        "credit_union",
+        "finance",
+        "loans",
+        "savings",
+        "investments",
+        "accounts",
+        "financial_services",
+        "branch"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 63,
+    "fields": {
+      "code": "post_office",
+      "name": "Post Office",
+      "group_code": "financial",
+      "group_description": "Financial",
+      "tags": [
+        "post_office",
+        "savings",
+        "investments",
+        "branch",
+        "stamps",
+        "mail",
+        "parcels",
+        "postal_services",
+        "stationery"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 64,
+    "fields": {
+      "code": "bureau_de_change",
+      "name": "Bureau de Change",
+      "group_code": "financial",
+      "group_description": "Financial",
+      "tags": [
+        "bureau_de_change",
+        "currency_exchange",
+        "foreign_exchange",
+        "travel_money",
+        "cash_exchange",
+        "forex",
+        "international_currency",
+        "money_transfer"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 65,
+    "fields": {
+      "code": "lawyer_solicitor",
+      "name": "Lawyer & Solicitor",
+      "group_code": "legal",
+      "group_description": "Legal",
+      "tags": [
+        "lawyer",
+        "solicitor",
+        "legal_advice",
+        "law_firm",
+        "court_representation",
+        "notary",
+        "legal_services"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 66,
+    "fields": {
+      "code": "accountant_tax",
+      "name": "Accountant & Tax Adviser",
+      "group_code": "professional_services",
+      "group_description": "Professional Services",
+      "tags": [
+        "accounting",
+        "tax",
+        "finance",
+        "business_advice",
+        "consulting",
+        "financial_planning",
+        "bookkeeping"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 67,
+    "fields": {
+      "code": "estate_agent",
+      "name": "Estate Agent",
+      "group_code": "professional_services",
+      "group_description": "Professional Services",
+      "tags": [
+        "property",
+        "sales",
+        "homes",
+        "houses",
+        "apartments",
+        "real_estate",
+        "buy",
+        "sell",
+        "valuation",
+        "market",
+        "estate"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 68,
+    "fields": {
+      "code": "letting_agent",
+      "name": "Letting Agent",
+      "group_code": "professional_services",
+      "group_description": "Professional Services",
+      "tags": [
+        "property",
+        "rental",
+        "tenancy",
+        "homes",
+        "houses",
+        "apartments",
+        "real_estate",
+        "landlord",
+        "tenant",
+        "lease",
+        "letting"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 69,
+    "fields": {
+      "code": "insurance_broker",
+      "name": "Insurance Broker",
+      "group_code": "professional_services",
+      "group_description": "Professional Services",
+      "tags": [
+        "insurance",
+        "broker",
+        "coverage",
+        "policies",
+        "claims",
+        "risk_management"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 70,
+    "fields": {
+      "code": "travel_agent",
+      "name": "Travel Agent & Tour Operator",
+      "group_code": "professional_services",
+      "group_description": "Professional Services",
+      "tags": [
+        "travel",
+        "tourism",
+        "vacation",
+        "packages",
+        "itineraries",
+        "bookings"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 71,
+    "fields": {
+      "code": "recruitment_agency",
+      "name": "Recruitment Agency",
+      "group_code": "professional_services",
+      "group_description": "Professional Services",
+      "tags": [
+        "recruitment",
+        "employment",
+        "staffing",
+        "job_search",
+        "candidates",
+        "HR"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 72,
+    "fields": {
+      "code": "architect",
+      "name": "Architect",
+      "group_code": "professional_services",
+      "group_description": "Professional Services",
+      "tags": [
+        "architecture",
+        "design",
+        "planning",
+        "construction",
+        "building"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 73,
+    "fields": {
+      "code": "building_surveyor",
+      "name": "Building Surveyor",
+      "group_code": "professional_services",
+      "group_description": "Professional Services",
+      "tags": [
+        "surveying",
+        "planning",
+        "construction",
+        "building"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 74,
+    "fields": {
+      "code": "hair_salon",
+      "name": "Hair Salon",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "hair",
+        "styling",
+        "cuts",
+        "grooming",
+        "salon"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 75,
+    "fields": {
+      "code": "barber",
+      "name": "Barber",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "hair",
+        "barber",
+        "styling",
+        "cuts",
+        "grooming",
+        "salon"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 76,
+    "fields": {
+      "code": "beauty_salon",
+      "name": "Beauty Salon",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "beauty",
+        "relaxation",
+        "treatments",
+        "skincare",
+        "wellness"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 77,
+    "fields": {
+      "code": "nail_bar",
+      "name": "Nail Bar",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "nails",
+        "manicure",
+        "pedicure",
+        "nail_art",
+        "grooming",
+        "beauty"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 78,
+    "fields": {
+      "code": "massage",
+      "name": "Massage",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "massage",
+        "therapy",
+        "relaxation",
+        "wellbeing",
+        "stress_relief",
+        "treatment",
+        "pain_relief"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 79,
+    "fields": {
+      "code": "holistic_therapy",
+      "name": "Holistic Therapy",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "therapy",
+        "relaxation",
+        "wellbeing",
+        "holistic",
+        "stress_relief"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 80,
+    "fields": {
+      "code": "tattoo_piercing",
+      "name": "Tattoo & Piercing",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "tattoo",
+        "piercing",
+        "body_art",
+        "ink",
+        "design",
+        "grooming",
+        "aesthetics"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 81,
+    "fields": {
+      "code": "spa",
+      "name": "Spa",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "spa",
+        "relaxation",
+        "wellness",
+        "treatments",
+        "beauty"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 82,
+    "fields": {
+      "code": "fitness_centre",
+      "name": "Fitness Centre",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "gym",
+        "health",
+        "exercise",
+        "workout",
+        "fitness",
+        "training",
+        "wellbeing",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 83,
+    "fields": {
+      "code": "health_club",
+      "name": "Health Club",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "health",
+        "exercise",
+        "workout",
+        "fitness",
+        "training",
+        "wellbeing",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 84,
+    "fields": {
+      "code": "fitness",
+      "name": "Fitness Centre",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "gym",
+        "health",
+        "exercise",
+        "workout",
+        "fitness",
+        "training",
+        "wellbeing",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 85,
+    "fields": {
+      "code": "sports_centre",
+      "name": "Sports Centre",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "sports",
+        "fitness",
+        "exercise",
+        "training",
+        "leisure",
+        "wellbeing",
+        "athletics"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 86,
+    "fields": {
+      "code": "dance_studio",
+      "name": "Dance Studio",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "dance",
+        "fitness",
+        "exercise",
+        "training",
+        "leisure",
+        "wellbeing",
+        "arts"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 87,
+    "fields": {
+      "code": "yoga_studio",
+      "name": "Yoga Studio",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "yoga",
+        "fitness",
+        "exercise",
+        "training",
+        "leisure",
+        "wellbeing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 88,
+    "fields": {
+      "code": "pilates_studio",
+      "name": "Pilates Studio",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "pilates",
+        "fitness",
+        "exercise",
+        "training",
+        "leisure",
+        "wellbeing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 89,
+    "fields": {
+      "code": "martial_arts_studio",
+      "name": "Martial Arts Studio",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "martial_arts",
+        "fitness",
+        "exercise",
+        "training",
+        "leisure",
+        "wellbeing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 90,
+    "fields": {
+      "code": "leisure_centre",
+      "name": "Leisure Centre",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "leisure",
+        "fitness",
+        "exercise",
+        "training",
+        "wellbeing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 91,
+    "fields": {
+      "code": "gym",
+      "name": "Gym",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "gym",
+        "fitness",
+        "exercise",
+        "training",
+        "wellbeing",
+        "weightlifting",
+        "cardio"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 92,
+    "fields": {
+      "code": "swimming_pool",
+      "name": "Swimming Pool",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "swimming",
+        "water",
+        "pool",
+        "fitness",
+        "exercise",
+        "training",
+        "leisure",
+        "wellbeing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 93,
+    "fields": {
+      "code": "athletics_track",
+      "name": "Athletics Track & Field",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "athletics",
+        "track",
+        "field",
+        "running",
+        "fitness",
+        "exercise",
+        "training",
+        "leisure",
+        "wellbeing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 94,
+    "fields": {
+      "code": "climbing_wall",
+      "name": "Climbing Wall & Centre",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "climbing",
+        "fitness",
+        "exercise",
+        "training",
+        "leisure",
+        "wellbeing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 95,
+    "fields": {
+      "code": "bowling_alley",
+      "name": "Bowling Alley",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "bowling",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 96,
+    "fields": {
+      "code": "golf_course",
+      "name": "Golf Course",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "golf",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 97,
+    "fields": {
+      "code": "driving_range",
+      "name": "Driving Range",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "golf",
+        "training",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 98,
+    "fields": {
+      "code": "cinema",
+      "name": "Cinema",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "movies",
+        "films",
+        "theater",
+        "entertainment",
+        "screening",
+        "cinematography"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 99,
+    "fields": {
+      "code": "theatre",
+      "name": "Theatre",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "theatre",
+        "performances",
+        "plays",
+        "drama",
+        "entertainment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 100,
+    "fields": {
+      "code": "museum",
+      "name": "Museum",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "museum",
+        "exhibits",
+        "culture",
+        "artifacts",
+        "education"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 101,
+    "fields": {
+      "code": "art_gallery",
+      "name": "Art Gallery",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "art",
+        "gallery",
+        "exhibits",
+        "culture",
+        "paintings"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 102,
+    "fields": {
+      "code": "library",
+      "name": "Library",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "library",
+        "books",
+        "reading",
+        "education",
+        "borrowing",
+        "literature"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 103,
+    "fields": {
+      "code": "live_music_venue",
+      "name": "Live Music Venue",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "music",
+        "live",
+        "performance",
+        "entertainment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 104,
+    "fields": {
+      "code": "comedy_club",
+      "name": "Comedy Club",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "comedy",
+        "live",
+        "performance",
+        "entertainment",
+        "funny",
+        "standup"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 105,
+    "fields": {
+      "code": "bingo_hall",
+      "name": "Bingo Hall",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "bingo",
+        "games",
+        "entertainment",
+        "social",
+        "fun",
+        "leisure",
+        "community",
+        "gambling"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 106,
+    "fields": {
+      "code": "amusement_arcade",
+      "name": "Amusement Arcade",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "arcade",
+        "games",
+        "entertainment",
+        "fun",
+        "leisure",
+        "gaming",
+        "social",
+        "gambling"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 107,
+    "fields": {
+      "code": "trampoline_park",
+      "name": "Trampoline Park",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "trampoline",
+        "park",
+        "leisure",
+        "fitness",
+        "fun",
+        "entertainment",
+        "exercise",
+        "jumping"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 108,
+    "fields": {
+      "code": "childcare",
+      "name": "Childcare & Nursery",
+      "group_code": "childcare",
+      "group_description": "Childcare",
+      "tags": [
+        "childcare",
+        "nursery",
+        "preschool",
+        "early_years",
+        "education",
+        "children",
+        "daycare",
+        "toddler",
+        "infant",
+        "learning",
+        "development",
+        "care"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 109,
+    "fields": {
+      "code": "nursery",
+      "name": "Nursery",
+      "group_code": "childcare",
+      "group_description": "Childcare",
+      "tags": [
+        "nursery",
+        "childcare",
+        "preschool",
+        "early_years",
+        "education",
+        "children",
+        "daycare",
+        "toddler",
+        "infant",
+        "learning",
+        "development",
+        "care"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 110,
+    "fields": {
+      "code": "after_school_club",
+      "name": "After-School Club",
+      "group_code": "childcare",
+      "group_description": "Childcare",
+      "tags": [
+        "after_school_club",
+        "childcare",
+        "afterschool",
+        "children"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 111,
+    "fields": {
+      "code": "cycle_hire",
+      "name": "Cycle Hire Station",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "cycle_hire",
+        "bicycle",
+        "bike_rental",
+        "transportation",
+        "mobility",
+        "sustainability",
+        "cycling",
+        "rental",
+        "bikes"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 112,
+    "fields": {
+      "code": "bike_shop",
+      "name": "Bike Shop",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "bike_shop",
+        "bicycle",
+        "cycling",
+        "transportation",
+        "mobility",
+        "repair",
+        "accessories",
+        "bike",
+        "bikes",
+        "cycling_accessories",
+        "cycling_gear",
+        "tyres",
+        "helmets",
+        "inner_tube",
+        "lights",
+        "locks"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 113,
+    "fields": {
+      "code": "petrol_station",
+      "name": "Petrol Station",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "petrol_station",
+        "fuel",
+        "gas_station",
+        "convenience",
+        "petrol",
+        "diesel"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 114,
+    "fields": {
+      "code": "electric_vehicle_charging",
+      "name": "Electric Vehicle Charging Point",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "electric_vehicle_charging",
+        "ev_charging",
+        "sustainability",
+        "electric_vehicle",
+        "charging_station"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 115,
+    "fields": {
+      "code": "car_dealership",
+      "name": "Car Dealership",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "car_dealership",
+        "automotive",
+        "vehicles",
+        "sales",
+        "cars",
+        "new_cars",
+        "used_cars",
+        "dealership",
+        "showroom"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 116,
+    "fields": {
+      "code": "vehicle_repair",
+      "name": "Vehicle Repair Garage",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "vehicle_repair",
+        "garage",
+        "mechanic",
+        "automotive",
+        "service",
+        "maintenance",
+        "repair",
+        "inspection",
+        "diagnostics",
+        "tuning",
+        "car"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 117,
+    "fields": {
+      "code": "vehicle_service_mot",
+      "name": "Vehicle Servicing & MOT Garage",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "vehicle_service_mot",
+        "servicing",
+        "mot",
+        "garage",
+        "automotive",
+        "vehicle",
+        "maintenance",
+        "repair",
+        "inspection",
+        "testing",
+        "safety_check"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 118,
+    "fields": {
+      "code": "tyre_exhaust",
+      "name": "Tyre Fitter & Exhaust Centre",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "tyre_exhaust",
+        "tyres",
+        "exhausts",
+        "fitting",
+        "automotive",
+        "vehicle",
+        "repair",
+        "service",
+        "wheel_alignment",
+        "wheel_balancing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 119,
+    "fields": {
+      "code": "mobility_equipment",
+      "name": "Mobility Equipment Supplier",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "mobility_equipment",
+        "supplies",
+        "accessibility",
+        "disability",
+        "aids",
+        "wheelchairs",
+        "scooters",
+        "mobility_scooter",
+        "walking_aids"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 120,
+    "fields": {
+      "code": "funeral_director",
+      "name": "Funeral Director",
+      "group_code": "trades_services",
+      "group_description": "Trades & Services",
+      "tags": [
+        "funeral",
+        "cremation",
+        "services",
+        "bereavement",
+        "death",
+        "memorial",
+        "coffin",
+        "funeral_services",
+        "burial",
+        "funeral_planning"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 121,
+    "fields": {
+      "code": "crematorium",
+      "name": "Crematorium",
+      "group_code": "trades_services",
+      "group_description": "Trades & Services",
+      "tags": [
+        "funeral",
+        "cremation",
+        "services",
+        "bereavement",
+        "death",
+        "memorial",
+        "ashes",
+        "cremation_services",
+        "urn"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 122,
+    "fields": {
+      "code": "equestrian_centre",
+      "name": "Equestrian Centre",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "equestrian_centre",
+        "horses",
+        "riding",
+        "stables",
+        "outdoors",
+        "recreation",
+        "horse_riding"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 123,
+    "fields": {
+      "code": "dry_cleaner",
+      "name": "Dry Cleaner",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "dry_cleaning",
+        "clothes",
+        "cleaning",
+        "garments",
+        "laundry"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 124,
+    "fields": {
+      "code": "laundry_service",
+      "name": "Laundry Service",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "laundry",
+        "washing",
+        "ironing",
+        "clothes",
+        "cleaning"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 125,
+    "fields": {
+      "code": "shoe_repair",
+      "name": "Shoe Repair",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "shoe_repair",
+        "shoes",
+        "boots",
+        "leather",
+        "repair",
+        "footwear",
+        "heel",
+        "sole",
+        "rehealing",
+        "resoling",
+        "cobbler",
+        "cobbler_service",
+        "shoe_care",
+        "shoe_service"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 126,
+    "fields": {
+      "code": "cobbler",
+      "name": "Cobbler",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "cobbler",
+        "shoes",
+        "boots",
+        "leather",
+        "repair",
+        "shoe_repair",
+        "footwear",
+        "heel",
+        "sole",
+        "rehealing",
+        "resoling"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 127,
+    "fields": {
+      "code": "tailor",
+      "name": "Tailor",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "tailor",
+        "clothing",
+        "suits",
+        "dresses",
+        "repair",
+        "sewing",
+        "alterations",
+        "custom_clothing",
+        "bespoke",
+        "tailoring",
+        "modifications",
+        "adjustments",
+        "hem",
+        "fit",
+        "dressmaker"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 128,
+    "fields": {
+      "code": "clothing_alterations",
+      "name": "Clothing Alterations",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "alterations",
+        "clothing",
+        "repair",
+        "sewing",
+        "tailoring",
+        "tailor",
+        "modifications",
+        "adjustments",
+        "hem",
+        "fit"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 129,
+    "fields": {
+      "code": "photocopying_shop",
+      "name": "Photocopying Shop",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "photocopying",
+        "documents",
+        "business_cards",
+        "flyers",
+        "posters",
+        "photocopier",
+        "copies"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 130,
+    "fields": {
+      "code": "printing_shop",
+      "name": "Printing Shop",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "printing",
+        "documents",
+        "business_cards",
+        "flyers",
+        "posters",
+        "brochures",
+        "banners"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 131,
+    "fields": {
+      "code": "delicatessen",
+      "name": "Delicatessen",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "delicatessen",
+        "meats",
+        "cheese",
+        "gourmet",
+        "food",
+        "deli"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 132,
+    "fields": {
+      "code": "wine_merchant",
+      "name": "Wine Merchant",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "wine",
+        "alcohol",
+        "drinks",
+        "beverages",
+        "red_wine",
+        "white_wine",
+        "sparkling_wine",
+        "champagne",
+        "rose"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 133,
+    "fields": {
+      "code": "off_licence",
+      "name": "Off-Licence",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "off-licence",
+        "alcohol",
+        "drinks",
+        "beverages",
+        "liquor",
+        "spirits",
+        "wine",
+        "beer",
+        "cider",
+        "bottle_shop",
+        "liquor_store"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 134,
+    "fields": {
+      "code": "brewery",
+      "name": "Brewery",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "brewery",
+        "beer",
+        "alcohol",
+        "drinks"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 135,
+    "fields": {
+      "code": "distillery",
+      "name": "Distillery",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "distillery",
+        "spirits",
+        "alcohol",
+        "drinks",
+        "liquor"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 136,
+    "fields": {
+      "code": "language_school",
+      "name": "Language School",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "language_school",
+        "education",
+        "learning",
+        "courses",
+        "language",
+        "tutoring",
+        "language_classes",
+        "foreign_language",
+        "language_learning"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 137,
+    "fields": {
+      "code": "tutoring_centre",
+      "name": "Tutoring Centre",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "tutoring",
+        "education",
+        "learning",
+        "courses"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 138,
+    "fields": {
+      "code": "child_play_centre",
+      "name": "Child Play Centre",
+      "group_code": "childcare",
+      "group_description": "Childcare",
+      "tags": [
+        "play_centre",
+        "children",
+        "fun",
+        "activities",
+        "indoor_play",
+        "play_area",
+        "playground",
+        "family_friendly"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 139,
+    "fields": {
+      "code": "soft_play",
+      "name": "Soft Play",
+      "group_code": "childcare",
+      "group_description": "Childcare",
+      "tags": [
+        "soft_play",
+        "children",
+        "fun",
+        "activities",
+        "indoor_play",
+        "play_area",
+        "playground",
+        "family_friendly"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 140,
+    "fields": {
+      "code": "mini_golf",
+      "name": "Mini Golf",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "mini_golf",
+        "golf",
+        "fun",
+        "leisure",
+        "putt_putt",
+        "adventure_golf",
+        "themed_golf",
+        "family_friendly",
+        "recreation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 141,
+    "fields": {
+      "code": "adventure_golf",
+      "name": "Adventure Golf",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "adventure_golf",
+        "golf",
+        "fun",
+        "leisure",
+        "mini_golf",
+        "putt_putt",
+        "themed_golf"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 142,
+    "fields": {
+      "code": "senior_centre",
+      "name": "Senior Centre",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "senior_centre",
+        "seniors",
+        "community",
+        "activities",
+        "support",
+        "care",
+        "elderly",
+        "social_services",
+        "community_support",
+        "social_care"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 143,
+    "fields": {
+      "code": "day_centre",
+      "name": "Day Centre",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "day_centre",
+        "seniors",
+        "community",
+        "activities",
+        "support",
+        "care",
+        "elderly",
+        "social_services",
+        "community_support",
+        "social_care"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 144,
+    "fields": {
+      "code": "postbox",
+      "name": "Postbox",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "postbox",
+        "mail",
+        "delivery",
+        "collection",
+        "postal_service",
+        "letters"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 145,
+    "fields": {
+      "code": "parcel_locker",
+      "name": "Parcel Locker",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "parcel_locker",
+        "parcels",
+        "delivery",
+        "mail",
+        "pickup",
+        "collection",
+        "automated_locker",
+        "self_service"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 146,
+    "fields": {
+      "code": "atm",
+      "name": "ATM",
+      "group_code": "financial",
+      "group_description": "Financial",
+      "tags": [
+        "atm",
+        "bank",
+        "money",
+        "withdrawal",
+        "cash_machine",
+        "cash_dispenser",
+        "automated_teller_machine",
+        "cashpoint",
+        "banking"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 147,
+    "fields": {
+      "code": "cashpoint",
+      "name": "Cashpoint",
+      "group_code": "financial",
+      "group_description": "Financial",
+      "tags": [
+        "cashpoint",
+        "bank",
+        "money",
+        "withdrawal",
+        "cash_machine",
+        "cash_dispenser",
+        "automated_teller_machine",
+        "atm",
+        "banking"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 148,
+    "fields": {
+      "code": "hardware_store",
+      "name": "Hardware Store",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "hardware",
+        "tools",
+        "diy",
+        "building_materials",
+        "home_improvement",
+        "nails",
+        "nuts",
+        "bolts",
+        "screws",
+        "saws",
+        "hammers",
+        "drills",
+        "screwdrivers",
+        "ladders",
+        "paint",
+        "brushes"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 149,
+    "fields": {
+      "code": "craft_store",
+      "name": "Craft Store",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "crafts",
+        "art_supplies",
+        "hobbies",
+        "diy",
+        "materials",
+        "crafting",
+        "scrapbooking",
+        "knitting",
+        "painting",
+        "drawing",
+        "beading",
+        "sewing",
+        "embroidery",
+        "model_building",
+        "crafting_supplies",
+        "arts_and_crafts",
+        "wool",
+        "paint",
+        "canvas",
+        "brushes",
+        "glue",
+        "scissors"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 150,
+    "fields": {
+      "code": "toy_shop",
+      "name": "Toy Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "toys",
+        "children",
+        "games",
+        "gifts",
+        "play",
+        "educational_toys",
+        "puzzles",
+        "games",
+        "action_figures",
+        "dolls",
+        "board_games",
+        "stuffed_animals",
+        "lego",
+        "model_kits",
+        "arts_and_crafts",
+        "outdoor_toys",
+        "remote_control_cars",
+        "building_sets",
+        "stuffed_toys",
+        "playsets"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 151,
+    "fields": {
+      "code": "party_shop",
+      "name": "Party Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "party",
+        "decorations",
+        "balloons",
+        "gifts",
+        "celebration",
+        "events",
+        "banners",
+        "costumes",
+        "party_supplies",
+        "themed_decorations",
+        "party_favours",
+        "celebration",
+        "birthday",
+        "streamers",
+        "party_poppers"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 152,
+    "fields": {
+      "code": "camera_shop",
+      "name": "Camera Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "camera",
+        "photography",
+        "equipment",
+        "accessories",
+        "cameras",
+        "lenses",
+        "tripods",
+        "photographic_supplies",
+        "photo_equipment",
+        "dslr",
+        "mirrorless",
+        "film_cameras",
+        "digital_cameras",
+        "camera_accessories",
+        "film"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 153,
+    "fields": {
+      "code": "record_shop",
+      "name": "Record Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "music",
+        "records",
+        "vinyl",
+        "cds",
+        "audio"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 154,
+    "fields": {
+      "code": "pet_groomer",
+      "name": "Pet Groomer",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "pets",
+        "grooming",
+        "animals",
+        "care",
+        "pet_grooming"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 155,
+    "fields": {
+      "code": "dog_walker",
+      "name": "Dog Walker",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "dogs",
+        "pets",
+        "walking",
+        "animals",
+        "care",
+        "dog_walking",
+        "exercise"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 156,
+    "fields": {
+      "code": "pet_sitter",
+      "name": "Pet Sitter",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "pets",
+        "sitting",
+        "animals",
+        "care",
+        "dog_sitting",
+        "cat_sitting",
+        "pet_care",
+        "pet_sitting",
+        "feeding",
+        "companionship",
+        "dog_walking"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 157,
+    "fields": {
+      "code": "shoe_shop",
+      "name": "Shoe Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "shoes",
+        "footwear",
+        "fashion",
+        "boots",
+        "sandals",
+        "sneakers",
+        "trainers",
+        "high_heels",
+        "loafers",
+        "slippers",
+        "heels"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 158,
+    "fields": {
+      "code": "gift_shop",
+      "name": "Gift Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "gifts",
+        "souvenirs",
+        "cards",
+        "decor",
+        "presents"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 159,
+    "fields": {
+      "code": "antique_shop",
+      "name": "Antique Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "antiques",
+        "collectibles",
+        "vintage",
+        "furniture",
+        "decor",
+        "historical"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 160,
+    "fields": {
+      "code": "charity_shop",
+      "name": "Charity Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "thrift",
+        "second_hand",
+        "charity",
+        "clothing",
+        "goods",
+        "donations"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 161,
+    "fields": {
+      "code": "pawn_shop",
+      "name": "Pawn Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "pawn",
+        "loans",
+        "second_hand",
+        "goods",
+        "jewelry"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 162,
+    "fields": {
+      "code": "tattoo_studio",
+      "name": "Tattoo Studio",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "tattoo",
+        "body_art",
+        "ink",
+        "design"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 163,
+    "fields": {
+      "code": "piercing_studio",
+      "name": "Piercing Studio",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "piercing",
+        "body_art",
+        "jewelry",
+        "aesthetics",
+        "body_modification",
+        "body_piercing",
+        "ear_piercing",
+        "nose_piercing",
+        "lip_piercing",
+        "eyebrow_piercing",
+        "tongue_piercing",
+        "septum_piercing",
+        "body_jewelry"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 164,
+    "fields": {
+      "code": "dog_groomer",
+      "name": "Dog Groomer",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "dogs",
+        "grooming",
+        "pets",
+        "care",
+        "canine",
+        "dog_grooming",
+        "dog_care"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 165,
+    "fields": {
+      "code": "cat_groomer",
+      "name": "Cat Groomer",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "cats",
+        "grooming",
+        "pets",
+        "care",
+        "feline",
+        "cat_grooming",
+        "cat_care"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 166,
+    "fields": {
+      "code": "laundrette",
+      "name": "Laundrette",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "laundry",
+        "washing",
+        "self_service",
+        "clothes",
+        "cleaning",
+        "laundromat",
+        "coin_operated",
+        "self_service_laundry"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 167,
+    "fields": {
+      "code": "community_centre",
+      "name": "Community Centre",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "community",
+        "events",
+        "activities",
+        "meetings",
+        "canolfan",
+        "local",
+        "social",
+        "centre"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 168,
+    "fields": {
+      "code": "youth_centre",
+      "name": "Youth Centre",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "youth",
+        "community",
+        "activities",
+        "events",
+        "teenagers",
+        "young_people",
+        "recreation",
+        "social"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 169,
+    "fields": {
+      "code": "recycling_centre",
+      "name": "Recycling Centre",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "recycling",
+        "waste",
+        "environment",
+        "sustainability",
+        "glass",
+        "paper",
+        "plastic",
+        "bottles",
+        "bottle_bank"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 170,
+    "fields": {
+      "code": "tip",
+      "name": "Tip",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "tip",
+        "waste",
+        "dump",
+        "recycling",
+        "environment",
+        "disposal",
+        "garbage",
+        "rubbish"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 171,
+    "fields": {
+      "code": "car_wash",
+      "name": "Car Wash",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "car",
+        "wash",
+        "cleaning",
+        "automotive",
+        "vehicle"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 172,
+    "fields": {
+      "code": "dog_kennel",
+      "name": "Dog Kennel",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "dogs",
+        "kennel",
+        "boarding",
+        "pets"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 173,
+    "fields": {
+      "code": "cattery",
+      "name": "Cattery",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "cats",
+        "boarding",
+        "pets",
+        "cat_hotel",
+        "cat_boarding",
+        "cattery"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 174,
+    "fields": {
+      "code": "dog_training",
+      "name": "Dog Training",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "dogs",
+        "training",
+        "pets",
+        "care",
+        "behaviour",
+        "obedience"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 175,
+    "fields": {
+      "code": "cat_training",
+      "name": "Cat Training",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "cats",
+        "training",
+        "pets",
+        "care",
+        "behaviour"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 176,
+    "fields": {
+      "code": "music_school",
+      "name": "Music School",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "music",
+        "school",
+        "education",
+        "learning",
+        "courses",
+        "instruments",
+        "grade",
+        "music_theory",
+        "performance"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 177,
+    "fields": {
+      "code": "driving_school",
+      "name": "Driving School",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "driving",
+        "school",
+        "education",
+        "learning",
+        "courses",
+        "driving_lessons",
+        "learn_to_drive"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 178,
+    "fields": {
+      "code": "swimming_school",
+      "name": "Swimming School",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "swimming",
+        "school",
+        "education",
+        "learning",
+        "courses",
+        "swim"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 179,
+    "fields": {
+      "code": "cookery_school",
+      "name": "Cookery School",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "cookery",
+        "school",
+        "education",
+        "learning",
+        "courses",
+        "cooking",
+        "culinary",
+        "gastronomy",
+        "baking"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 180,
+    "fields": {
+      "code": "art_school",
+      "name": "Art School",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "art",
+        "school",
+        "education",
+        "learning",
+        "courses",
+        "painting",
+        "drawing",
+        "sculpture"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 181,
+    "fields": {
+      "code": "drama_school",
+      "name": "Drama School",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "drama",
+        "school",
+        "education",
+        "learning",
+        "courses",
+        "acting",
+        "performance",
+        "theatre",
+        "theater",
+        "performance_art",
+        "theatrical",
+        "acting_classes"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 182,
+    "fields": {
+      "code": "science_centre",
+      "name": "Science Centre",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "science",
+        "centre",
+        "education",
+        "learning",
+        "exhibits",
+        "interactive",
+        "hands_on",
+        "experimentation",
+        "discovery",
+        "technology",
+        "innovation",
+        "experiments",
+        "education"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 183,
+    "fields": {
+      "code": "planetarium",
+      "name": "Planetarium",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "planetarium",
+        "space",
+        "education",
+        "learning",
+        "exhibits",
+        "astronomy",
+        "planets"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 184,
+    "fields": {
+      "code": "aquarium",
+      "name": "Aquarium",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "aquarium",
+        "fish",
+        "marine_life",
+        "exhibits",
+        "education",
+        "wildlife",
+        "conservation",
+        "aquatic",
+        "ocean",
+        "family",
+        "leisure",
+        "sea",
+        "sea_life"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 185,
+    "fields": {
+      "code": "zoo",
+      "name": "Zoo",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "zoo",
+        "animals",
+        "exhibits",
+        "education",
+        "wildlife",
+        "conservation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 186,
+    "fields": {
+      "code": "theme_park",
+      "name": "Theme Park",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "theme_park",
+        "rides",
+        "entertainment",
+        "fun",
+        "leisure",
+        "amusement",
+        "attractions",
+        "thrill_rides",
+        "family_friendly",
+        "adventure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 187,
+    "fields": {
+      "code": "water_park",
+      "name": "Water Park",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "water_park",
+        "slides",
+        "entertainment",
+        "fun",
+        "leisure",
+        "swimming",
+        "water_activities",
+        "splashing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 188,
+    "fields": {
+      "code": "escape_room",
+      "name": "Escape Room",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "escape_room",
+        "games",
+        "entertainment",
+        "fun",
+        "leisure",
+        "puzzles",
+        "team_building",
+        "adventure",
+        "mystery",
+        "immersive",
+        "themed",
+        "experiential",
+        "problem_solving",
+        "collaboration",
+        "strategy"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 189,
+    "fields": {
+      "code": "laser_tag",
+      "name": "Laser Tag",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "laser_tag",
+        "games",
+        "entertainment",
+        "fun",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 190,
+    "fields": {
+      "code": "paintball",
+      "name": "Paintball Centre",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "paintball",
+        "games",
+        "entertainment",
+        "fun",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 191,
+    "fields": {
+      "code": "roller_rink",
+      "name": "Roller Rink",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "roller_skating",
+        "rink",
+        "leisure",
+        "fitness",
+        "fun"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 192,
+    "fields": {
+      "code": "ice_rink",
+      "name": "Ice Rink",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "ice_skating",
+        "rink",
+        "leisure",
+        "fitness",
+        "fun",
+        "ice"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 193,
+    "fields": {
+      "code": "vr_arcade",
+      "name": "VR Arcade",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "virtual_reality",
+        "arcade",
+        "games",
+        "entertainment",
+        "technology"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 194,
+    "fields": {
+      "code": "board_game_cafe",
+      "name": "Board Game Café",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "board_games",
+        "cafe",
+        "games",
+        "social",
+        "food",
+        "drink",
+        "play",
+        "entertainment",
+        "leisure",
+        "fun"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 195,
+    "fields": {
+      "code": "makerspace",
+      "name": "Makerspace",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "makerspace",
+        "fab_lab",
+        "workshop",
+        "technology",
+        "crafts",
+        "learning",
+        "innovation",
+        "creativity",
+        "3D_printing",
+        "electronics",
+        "woodworking",
+        "metalworking",
+        "textiles",
+        "prototyping"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 196,
+    "fields": {
+      "code": "pottery_studio",
+      "name": "Pottery Studio",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "pottery",
+        "ceramics",
+        "studio",
+        "art",
+        "crafts",
+        "clay",
+        "handcrafted",
+        "handmade",
+        "sculpture"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 197,
+    "fields": {
+      "code": "glassblowing_studio",
+      "name": "Glassblowing Studio",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "glassblowing",
+        "studio",
+        "art",
+        "crafts",
+        "glass",
+        "blowing",
+        "handcrafted",
+        "handmade"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 198,
+    "fields": {
+      "code": "candle_shop",
+      "name": "Candle Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "candles",
+        "shop",
+        "scented",
+        "decor",
+        "gifts",
+        "fragrant",
+        "home_decor",
+        "aromatherapy",
+        "wax"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 199,
+    "fields": {
+      "code": "perfume_shop",
+      "name": "Perfume Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "perfume",
+        "fragrance",
+        "shop",
+        "beauty",
+        "gifts",
+        "scents"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 200,
+    "fields": {
+      "code": "comic_book_store",
+      "name": "Comic Book Store",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "comics",
+        "books",
+        "graphic_novels",
+        "collectibles",
+        "shop",
+        "entertainment",
+        "superheroes",
+        "manga",
+        "anime",
+        "graphic_novels",
+        "comic_books"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 201,
+    "fields": {
+      "code": "magic_shop",
+      "name": "Magic Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "magic",
+        "tricks",
+        "shop",
+        "entertainment",
+        "gifts",
+        "illusion",
+        "magician",
+        "magic_accessories",
+        "magic_kits"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 202,
+    "fields": {
+      "code": "costume_shop",
+      "name": "Costume Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "costumes",
+        "fancy_dress",
+        "shop",
+        "party",
+        "gifts",
+        "theatrical",
+        "theatre",
+        "masquerade",
+        "halloween",
+        "accessories",
+        "cosplay",
+        "cosplay_accessories",
+        "dress_up"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 203,
+    "fields": {
+      "code": "wedding_dress_shop",
+      "name": "Wedding Dress Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "wedding",
+        "dress",
+        "bridal",
+        "shop",
+        "fashion",
+        "gowns",
+        "wedding_dresses",
+        "wedding_gowns",
+        "wedding_accessories",
+        "bridal_accessories",
+        "accessories",
+        "bridesmaid_dresses"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 204,
+    "fields": {
+      "code": "bridal_boutique",
+      "name": "Bridal Boutique",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "bridal",
+        "boutique",
+        "wedding",
+        "dress",
+        "fashion",
+        "gowns",
+        "accessories",
+        "wedding_accessories",
+        "wedding_dresses",
+        "wedding_gowns",
+        "bridesmaid_dresses"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 205,
+    "fields": {
+      "code": "lingerie_shop",
+      "name": "Lingerie Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "lingerie",
+        "shop",
+        "fashion",
+        "underwear",
+        "knickers",
+        "bras",
+        "intimates",
+        "sleepwear",
+        "nightwear",
+        "hosiery",
+        "tights",
+        "sexy"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 206,
+    "fields": {
+      "code": "maternity_wear",
+      "name": "Maternity Wear",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "maternity",
+        "wear",
+        "shop",
+        "fashion",
+        "pregnancy",
+        "clothing",
+        "expecting_mothers",
+        "maternity_clothes"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 207,
+    "fields": {
+      "code": "surf_shop",
+      "name": "Surf Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "surf",
+        "shop",
+        "beach",
+        "sports",
+        "fashion",
+        "boards",
+        "surfboards",
+        "surfing",
+        "water_sports",
+        "beachwear",
+        "swimwear",
+        "surf_gear",
+        "surf_accessories",
+        "surf_equipment",
+        "surf_clothing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 208,
+    "fields": {
+      "code": "skate_shop",
+      "name": "Skate Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "skate",
+        "shop",
+        "sports",
+        "fashion",
+        "boards",
+        "skateboards"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 209,
+    "fields": {
+      "code": "outdoor_adventure_store",
+      "name": "Outdoor Adventure Store",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "outdoor",
+        "adventure",
+        "shop",
+        "sports",
+        "equipment",
+        "camping",
+        "hiking",
+        "climbing",
+        "fishing",
+        "hunting",
+        "outdoor_gear",
+        "backpacking",
+        "camping_gear",
+        "outdoor_clothing",
+        "sportswear",
+        "outdoor_equipment",
+        "recreation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 210,
+    "fields": {
+      "code": "fishing_tackle_shop",
+      "name": "Fishing Tackle Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "fishing",
+        "tackle",
+        "shop",
+        "sports",
+        "equipment",
+        "fish",
+        "bait",
+        "angling",
+        "fishing_rod",
+        "bait",
+        "reels",
+        "lures",
+        "fishing_line",
+        "hooks",
+        "fishing_gear"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 211,
+    "fields": {
+      "code": "hunting_supplies",
+      "name": "Hunting Supplies",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "hunting",
+        "supplies",
+        "shop",
+        "sports",
+        "equipment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 212,
+    "fields": {
+      "code": "pool_hall",
+      "name": "Pool Hall",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "pool",
+        "billiards",
+        "games",
+        "leisure",
+        "social"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 213,
+    "fields": {
+      "code": "snooker_club",
+      "name": "Snooker Club",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "snooker",
+        "club",
+        "games",
+        "leisure",
+        "social"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 214,
+    "fields": {
+      "code": "shooting_range",
+      "name": "Shooting Range",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "shooting",
+        "range",
+        "sports",
+        "leisure",
+        "firearms",
+        "target_practice",
+        "recreation",
+        "outdoor_sports",
+        "gun_safety",
+        "guns"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 215,
+    "fields": {
+      "code": "archery_range",
+      "name": "Archery Range",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "archery",
+        "range",
+        "sports",
+        "leisure",
+        "bow_and_arrow",
+        "target_practice",
+        "archery_equipment",
+        "recreation",
+        "outdoor_sports",
+        "arrows",
+        "bows",
+        "shooting",
+        "target"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 216,
+    "fields": {
+      "code": "observatory",
+      "name": "Observatory",
+      "group_code": "education",
+      "group_description": "Education",
+      "tags": [
+        "observatory",
+        "space",
+        "science",
+        "education",
+        "exhibits",
+        "astronomy",
+        "stars",
+        "telescope",
+        "cosmos"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 217,
+    "fields": {
+      "code": "butterfly_house",
+      "name": "Butterfly House",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "butterflies",
+        "house",
+        "nature",
+        "exhibits",
+        "education",
+        "insects",
+        "wildlife",
+        "conservation",
+        "animals",
+        "entomology"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 218,
+    "fields": {
+      "code": "bird_sanctuary",
+      "name": "Bird Sanctuary",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "birds",
+        "sanctuary",
+        "nature",
+        "exhibits",
+        "education",
+        "wildlife",
+        "conservation",
+        "animals",
+        "ornithology"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 219,
+    "fields": {
+      "code": "reptile_house",
+      "name": "Reptile House",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "reptiles",
+        "house",
+        "nature",
+        "exhibits",
+        "education",
+        "zoo",
+        "wildlife",
+        "animals"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 220,
+    "fields": {
+      "code": "farm_shop",
+      "name": "Farm Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "farm",
+        "shop",
+        "local",
+        "food",
+        "produce"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 221,
+    "fields": {
+      "code": "pick_your_own_farm",
+      "name": "Pick-Your-Own Farm",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "pick_your_own",
+        "farm",
+        "local",
+        "food",
+        "produce",
+        "agriculture"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 222,
+    "fields": {
+      "code": "vineyard",
+      "name": "Vineyard",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "vineyard",
+        "wine",
+        "grapes",
+        "tourism",
+        "drinks",
+        "local_produce",
+        "winery",
+        "tasting",
+        "local_wine",
+        "agriculture"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 223,
+    "fields": {
+      "code": "orchard",
+      "name": "Orchard",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "orchard",
+        "fruit",
+        "farm",
+        "local",
+        "produce"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 224,
+    "fields": {
+      "code": "brewery_taproom",
+      "name": "Brewery Taproom",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "brewery",
+        "taproom",
+        "beer",
+        "drinks",
+        "tourism"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 225,
+    "fields": {
+      "code": "distillery_visitor_centre",
+      "name": "Distillery Visitor Centre",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "distillery",
+        "visitor_centre",
+        "spirits",
+        "drinks",
+        "tourism"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 226,
+    "fields": {
+      "code": "cheese_shop",
+      "name": "Cheese Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "cheese",
+        "shop",
+        "food",
+        "dairy",
+        "gourmet"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 227,
+    "fields": {
+      "code": "chocolate_shop",
+      "name": "Chocolate Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "chocolate",
+        "shop",
+        "food",
+        "sweets",
+        "gourmet"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 228,
+    "fields": {
+      "code": "fudge_shop",
+      "name": "Fudge Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "fudge",
+        "shop",
+        "food",
+        "sweets",
+        "gourmet"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 229,
+    "fields": {
+      "code": "tea_emporium",
+      "name": "Tea Emporium",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "tea",
+        "emporium",
+        "shop",
+        "drinks",
+        "gourmet"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 230,
+    "fields": {
+      "code": "spice_shop",
+      "name": "Spice Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "spices",
+        "shop",
+        "food",
+        "gourmet"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 231,
+    "fields": {
+      "code": "asian_supermarket",
+      "name": "Asian Supermarket",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "asian",
+        "supermarket",
+        "food",
+        "groceries",
+        "international"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 232,
+    "fields": {
+      "code": "international_food_market",
+      "name": "International Food Market",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "international",
+        "food",
+        "market",
+        "groceries",
+        "world_cuisine"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 233,
+    "fields": {
+      "code": "farmers_market",
+      "name": "Farmers Market",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "farmers",
+        "market",
+        "local",
+        "food",
+        "produce",
+        "meat",
+        "dairy",
+        "vegetables",
+        "home_made",
+        "baked_goods",
+        "crafts",
+        "jams",
+        "milk",
+        "honey",
+        "eggs",
+        "raw_milk",
+        "local_produce"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 234,
+    "fields": {
+      "code": "pop_up_shop",
+      "name": "Pop-up Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "pop_up",
+        "shop",
+        "temporary",
+        "retail",
+        "gifts"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 235,
+    "fields": {
+      "code": "christmas_market",
+      "name": "Christmas Market",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "christmas",
+        "market",
+        "seasonal",
+        "gifts",
+        "food",
+        "drinks",
+        "festive",
+        "gifts",
+        "holiday",
+        "winter",
+        "crafts",
+        "decorations",
+        "handmade",
+        "local"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 236,
+    "fields": {
+      "code": "flea_market",
+      "name": "Flea Market",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "flea",
+        "market",
+        "second_hand",
+        "goods",
+        "antiques",
+        "collectibles"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 237,
+    "fields": {
+      "code": "auction_house",
+      "name": "Auction House",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "auction",
+        "house",
+        "goods",
+        "antiques",
+        "collectibles",
+        "bidding"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 238,
+    "fields": {
+      "code": "car_boot_sale",
+      "name": "Car Boot Sale",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "car_boot",
+        "sale",
+        "second_hand",
+        "goods",
+        "market",
+        "bargains",
+        "flea_market"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 239,
+    "fields": {
+      "code": "antique_fair",
+      "name": "Antique Fair",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "antique",
+        "fair",
+        "goods",
+        "collectibles",
+        "market",
+        "vintage",
+        "furniture",
+        "old"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 240,
+    "fields": {
+      "code": "street_food_market",
+      "name": "Street Food Market",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "street_food",
+        "market",
+        "food",
+        "drinks",
+        "culture"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 241,
+    "fields": {
+      "code": "ice_cream_van",
+      "name": "Ice Cream Van",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "ice_cream",
+        "lollies",
+        "ice_lollies",
+        "soft_serve",
+        "van",
+        "food",
+        "desserts",
+        "sweets",
+        "mobile"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 242,
+    "fields": {
+      "code": "post_office_depot",
+      "name": "Post Office Sorting Depot",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "post_office",
+        "sorting",
+        "mail",
+        "parcels",
+        "delivery"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 243,
+    "fields": {
+      "code": "parcel_collection_point",
+      "name": "Parcel Collection Point",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "parcel",
+        "collection",
+        "delivery",
+        "locker",
+        "amazon",
+        "collect+"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 244,
+    "fields": {
+      "code": "hearing_aid_centre",
+      "name": "Hearing Aid Centre",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "hearing",
+        "aids",
+        "clinic",
+        "deafness",
+        "hearing_loss",
+        "deaf",
+        "hearing_test",
+        "hearing_aid",
+        "hard_of_hearing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 245,
+    "fields": {
+      "code": "mobility_scooter_hire",
+      "name": "Mobility Scooter Hire",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "mobility",
+        "scooter",
+        "hire",
+        "accessibility",
+        "disability",
+        "mobility_aid",
+        "scooter_hire",
+        "scooter_rental"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 246,
+    "fields": {
+      "code": "wheelchair_hire",
+      "name": "Wheelchair Hire",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "wheelchair",
+        "hire",
+        "accessibility",
+        "disability",
+        "mobility"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 247,
+    "fields": {
+      "code": "key_cutting_shop",
+      "name": "Key Cutting Shop",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "key_cutting",
+        "shop",
+        "keys",
+        "security",
+        "locks",
+        "duplication",
+        "cutting"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 248,
+    "fields": {
+      "code": "locksmith_shop",
+      "name": "Locksmith Shop",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "locksmith",
+        "shop",
+        "locks",
+        "security",
+        "keys"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 249,
+    "fields": {
+      "code": "watch_repair_shop",
+      "name": "Watch Repair Shop",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "watch",
+        "repair",
+        "shop",
+        "clocks"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 250,
+    "fields": {
+      "code": "ironing_service",
+      "name": "Ironing Service",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "ironing",
+        "service",
+        "clothes",
+        "laundry"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 251,
+    "fields": {
+      "code": "dressmaker",
+      "name": "Dressmaker",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "dressmaker",
+        "clothing",
+        "tailor",
+        "sewing",
+        "alterations",
+        "fashion",
+        "custom_design",
+        "bespoke",
+        "apparel",
+        "garments",
+        "repair",
+        "textiles"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 252,
+    "fields": {
+      "code": "haberdashery",
+      "name": "Haberdashery",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "haberdashery",
+        "sewing",
+        "crafts",
+        "supplies",
+        "fabric",
+        "notions",
+        "buttons",
+        "trimmings",
+        "embellishments",
+        "crafting"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 253,
+    "fields": {
+      "code": "upholstery_shop",
+      "name": "Upholstery Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "upholstery",
+        "shop",
+        "furniture",
+        "repair",
+        "home",
+        "decor",
+        "interior_design",
+        "furnishings",
+        "textiles",
+        "cushions"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 254,
+    "fields": {
+      "code": "curtain_blind_shop",
+      "name": "Curtain/Blind Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "curtains",
+        "blinds",
+        "shop",
+        "home",
+        "decor",
+        "window",
+        "interior_design",
+        "furnishings",
+        "textiles",
+        "drapes",
+        "shades"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 255,
+    "fields": {
+      "code": "carpet_shop",
+      "name": "Carpet Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "carpet",
+        "shop",
+        "flooring",
+        "home",
+        "decor",
+        "rugs"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 256,
+    "fields": {
+      "code": "tile_shop",
+      "name": "Tile Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "tile",
+        "shop",
+        "flooring",
+        "home",
+        "bathroom",
+        "kitchen",
+        "tiles",
+        "ceramic",
+        "porcelain",
+        "decor",
+        "renovation",
+        "interior_design"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 257,
+    "fields": {
+      "code": "fireplace_shop",
+      "name": "Fireplace Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "fireplace",
+        "shop",
+        "home",
+        "heating",
+        "lounge",
+        "decor",
+        "mantel"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 258,
+    "fields": {
+      "code": "stove_shop",
+      "name": "Stove Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "stove",
+        "shop",
+        "home",
+        "heating",
+        "appliances",
+        "cooking",
+        "kitchen"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 259,
+    "fields": {
+      "code": "kitchen_showroom",
+      "name": "Kitchen Showroom",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "kitchen",
+        "showroom",
+        "home",
+        "design",
+        "interior",
+        "sink",
+        "cabinets",
+        "countertops",
+        "tiles"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 260,
+    "fields": {
+      "code": "bathroom_showroom",
+      "name": "Bathroom Showroom",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "bathroom",
+        "showroom",
+        "home",
+        "design",
+        "fixtures",
+        "fittings",
+        "plumbing",
+        "renovation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 261,
+    "fields": {
+      "code": "builders_merchant",
+      "name": "Builders Merchant",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "builders",
+        "merchant",
+        "building",
+        "materials",
+        "trade",
+        "construction",
+        "hardware",
+        "supplies"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 262,
+    "fields": {
+      "code": "timber_yard",
+      "name": "Timber Yard",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "timber",
+        "yard",
+        "wood",
+        "building",
+        "materials",
+        "construction",
+        "lumber",
+        "woodworking"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 263,
+    "fields": {
+      "code": "tool_hire_centre",
+      "name": "Tool Hire Centre",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "tool",
+        "hire",
+        "equipment",
+        "building",
+        "DIY",
+        "tools",
+        "construction",
+        "home_improvement"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 264,
+    "fields": {
+      "code": "plant_hire_centre",
+      "name": "Plant Hire Centre",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "plant",
+        "hire",
+        "equipment",
+        "building",
+        "machinery",
+        "construction",
+        "heavy_equipment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 265,
+    "fields": {
+      "code": "car_hire_centre",
+      "name": "Car Hire Centre",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "car",
+        "hire",
+        "automotive",
+        "vehicles",
+        "cars",
+        "rental",
+        "car_hire",
+        "vehicle_hire"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 266,
+    "fields": {
+      "code": "van_hire_centre",
+      "name": "Van Hire Centre",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "van",
+        "hire",
+        "automotive",
+        "vehicles",
+        "vans",
+        "commercial_vans",
+        "light_vehicles",
+        "van_hire",
+        "commercial_transport"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 267,
+    "fields": {
+      "code": "motorhome_hire_centre",
+      "name": "Motorhome Hire Centre",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "motorhome",
+        "hire",
+        "automotive",
+        "vehicles",
+        "motorhomes",
+        "campervan",
+        "rv",
+        "recreational_vehicle",
+        "motorhome_hire"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 268,
+    "fields": {
+      "code": "scooter_hire_centre",
+      "name": "Scooter Hire Centre",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "scooter",
+        "hire",
+        "automotive",
+        "vehicles"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 269,
+    "fields": {
+      "code": "taxi_office",
+      "name": "Taxi Office",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "taxi",
+        "office",
+        "transport",
+        "mobility",
+        "car"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 270,
+    "fields": {
+      "code": "coach_station",
+      "name": "Coach Station",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "coach",
+        "station",
+        "transport",
+        "mobility",
+        "public_transport",
+        "coach_services"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 271,
+    "fields": {
+      "code": "bus_station",
+      "name": "Bus Station",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "bus",
+        "station",
+        "transport",
+        "mobility",
+        "public_transport",
+        "bus_tickets",
+        "commuter",
+        "public_transportation",
+        "bus_services",
+        "local_transport"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 272,
+    "fields": {
+      "code": "train_ticket_office",
+      "name": "Train Station Ticket Office",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "train",
+        "station",
+        "ticket",
+        "office",
+        "transport",
+        "mobility",
+        "railway",
+        "commuter",
+        "public_transport",
+        "train_tickets",
+        "rail_tickets",
+        "train_services"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 273,
+    "fields": {
+      "code": "airport_info_desk",
+      "name": "Airport Information Desk",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "airport",
+        "information",
+        "desk",
+        "travel",
+        "transport",
+        "mobility",
+        "air_travel",
+        "aviation",
+        "customer_service",
+        "passenger_service",
+        "information_desk"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 274,
+    "fields": {
+      "code": "ferry_terminal",
+      "name": "Ferry Terminal",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "ferry",
+        "terminal",
+        "travel",
+        "transport",
+        "mobility",
+        "ferries",
+        "boats",
+        "water_transport",
+        "maritime",
+        "nautical",
+        "passenger_transport"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 275,
+    "fields": {
+      "code": "marina_office",
+      "name": "Marina Office",
+      "group_code": "transport_mobility",
+      "group_description": "Transport & Mobility",
+      "tags": [
+        "marina",
+        "office",
+        "boats",
+        "water",
+        "travel",
+        "maritime",
+        "nautical"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 276,
+    "fields": {
+      "code": "sailing_club",
+      "name": "Sailing Club",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "sailing",
+        "club",
+        "water",
+        "sports",
+        "boats",
+        "yachting",
+        "recreation",
+        "outdoor",
+        "maritime",
+        "nautical",
+        "team_sport",
+        "individual_sport",
+        "water_sports"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 277,
+    "fields": {
+      "code": "rowing_club",
+      "name": "Rowing Club",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "rowing",
+        "club",
+        "water",
+        "sports",
+        "fitness",
+        "paddling",
+        "recreation",
+        "outdoor"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 278,
+    "fields": {
+      "code": "canoe_kayak_club",
+      "name": "Canoe/Kayak Club",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "canoe",
+        "kayak",
+        "club",
+        "water",
+        "sports",
+        "fitness",
+        "paddling",
+        "recreation",
+        "outdoor",
+        "adventure",
+        "exploration",
+        "team_sport",
+        "individual_sport",
+        "water_sports",
+        "canoeing",
+        "kayaking"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 279,
+    "fields": {
+      "code": "boxing_gym",
+      "name": "Boxing Gym",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "boxing",
+        "gym",
+        "fitness",
+        "sports",
+        "training",
+        "exercise"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 280,
+    "fields": {
+      "code": "personal_training_studio",
+      "name": "Personal Training Studio",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "personal_training",
+        "studio",
+        "fitness",
+        "health",
+        "wellbeing",
+        "exercise",
+        "fitness",
+        "nutrition",
+        "weightlifting",
+        "strength_training",
+        "cardio",
+        "one-to-one",
+        "group_training"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 281,
+    "fields": {
+      "code": "tanning_salon",
+      "name": "Tanning Salon",
+      "group_code": "personal_care",
+      "group_description": "Personal Care",
+      "tags": [
+        "tanning",
+        "salon",
+        "beauty",
+        "skin",
+        "tanning_bed",
+        "sunless_tanning",
+        "spray_tan",
+        "self_tanning"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 282,
+    "fields": {
+      "code": "osteopath_clinic",
+      "name": "Osteopath Clinic",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "osteopath",
+        "clinic",
+        "health",
+        "wellbeing",
+        "treatment",
+        "therapy",
+        "muscluskeletal",
+        "muscles",
+        "bones"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 283,
+    "fields": {
+      "code": "walk_in_centre",
+      "name": "Walk-in Centre",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "walk_in",
+        "centre",
+        "clinic",
+        "health",
+        "medical",
+        "first_aid",
+        "urgent_care",
+        "non_emergency",
+        "healthcare",
+        "treatment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 284,
+    "fields": {
+      "code": "sexual_health_clinic",
+      "name": "Sexual Health Clinic",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "sexual_health",
+        "clinic",
+        "health",
+        "medical",
+        "std_testing",
+        "sti_testing",
+        "testing",
+        "contraception",
+        "reproductive_health",
+        "condoms",
+        "sexual_health_services",
+        "sexual_health_support"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 285,
+    "fields": {
+      "code": "family_planning_clinic",
+      "name": "Family Planning Clinic",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "family_planning",
+        "clinic",
+        "health",
+        "medical",
+        "reproductive_health",
+        "contraception",
+        "sexual_health",
+        "family_health",
+        "parenting_support",
+        "condoms",
+        "pill",
+        "fertility",
+        "pregnancy"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 286,
+    "fields": {
+      "code": "hospital_outpatients",
+      "name": "Hospital Outpatients",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "hospital",
+        "outpatients",
+        "clinic",
+        "health",
+        "medical",
+        "treatment",
+        "outpatient_care",
+        "follow_up",
+        "consultation",
+        "specialist",
+        "healthcare",
+        "ambulatory_care",
+        "non_emergency",
+        "medical_care"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 287,
+    "fields": {
+      "code": "hospital_ae",
+      "name": "Hospital A&E",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "hospital",
+        "ae",
+        "emergency",
+        "clinic",
+        "health",
+        "accident",
+        "emergency_department",
+        "trauma",
+        "critical_care",
+        "urgent_care",
+        "medical_emergency"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 288,
+    "fields": {
+      "code": "hospice",
+      "name": "Hospice",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "hospice",
+        "care",
+        "health",
+        "wellbeing",
+        "palliative",
+        "end_of_life",
+        "support",
+        "compassion",
+        "elderly",
+        "terminal_illness"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 289,
+    "fields": {
+      "code": "care_home",
+      "name": "Care Home",
+      "group_code": "health_wellbeing",
+      "group_description": "Health & Wellbeing",
+      "tags": [
+        "care_home",
+        "care",
+        "health",
+        "wellbeing",
+        "elderly",
+        "residential",
+        "nursing",
+        "palliative",
+        "end_of_life"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 290,
+    "fields": {
+      "code": "wildlife_rescue_centre",
+      "name": "Wildlife Rescue Centre",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "wildlife",
+        "rescue",
+        "centre",
+        "animals",
+        "conservation",
+        "nature",
+        "rehabilitation",
+        "sanctuary",
+        "education"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 291,
+    "fields": {
+      "code": "safari_park",
+      "name": "Safari Park",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "safari",
+        "park",
+        "animals",
+        "entertainment",
+        "wildlife",
+        "zoo",
+        "attraction",
+        "family",
+        "children",
+        "fun",
+        "outdoors",
+        "recreation",
+        "nature",
+        "adventure",
+        "exploration",
+        "safari_ride"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 292,
+    "fields": {
+      "code": "heritage_railway",
+      "name": "Heritage Railway",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "heritage",
+        "railway",
+        "trains",
+        "entertainment",
+        "history",
+        "attraction"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 293,
+    "fields": {
+      "code": "steam_railway",
+      "name": "Steam Railway",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "steam",
+        "railway",
+        "trains",
+        "entertainment",
+        "heritage",
+        "history",
+        "attraction"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 294,
+    "fields": {
+      "code": "model_village",
+      "name": "Model Village",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "model",
+        "village",
+        "miniature",
+        "entertainment",
+        "attraction",
+        "family",
+        "children",
+        "fun"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 295,
+    "fields": {
+      "code": "miniature_railway",
+      "name": "Miniature Railway",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "miniature",
+        "railway",
+        "trains",
+        "entertainment",
+        "model",
+        "ride",
+        "family",
+        "children",
+        "fun",
+        "amusement",
+        "attraction",
+        "leisure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 296,
+    "fields": {
+      "code": "maze",
+      "name": "Maze",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "maze",
+        "garden",
+        "entertainment",
+        "outdoors",
+        "family",
+        "fun",
+        "adventure",
+        "activities",
+        "puzzle",
+        "exploration",
+        "game"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 297,
+    "fields": {
+      "code": "adventure_park",
+      "name": "Adventure Park",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "adventure",
+        "park",
+        "entertainment",
+        "outdoors",
+        "family",
+        "fun",
+        "adventure",
+        "activities"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 298,
+    "fields": {
+      "code": "go_kart_track",
+      "name": "Go-Kart Track",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "go_kart",
+        "track",
+        "racing",
+        "leisure",
+        "driving",
+        "go_karting",
+        "motorsport",
+        "karting",
+        "racing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 299,
+    "fields": {
+      "code": "ski_slope",
+      "name": "Ski Slope",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "ski",
+        "slope",
+        "winter_sports",
+        "leisure",
+        "skiing",
+        "snowboarding",
+        "winter",
+        "sports"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 300,
+    "fields": {
+      "code": "snowboard_park",
+      "name": "Snowboard Park",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "snowboard",
+        "park",
+        "winter_sports",
+        "leisure",
+        "snowboarding"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 301,
+    "fields": {
+      "code": "ice_climbing_wall",
+      "name": "Ice Climbing Wall",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "ice_climbing",
+        "wall",
+        "winter_sports",
+        "leisure",
+        "climbing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 302,
+    "fields": {
+      "code": "mountain_bike_park",
+      "name": "Mountain Bike Park",
+      "group_code": "leisure_fitness",
+      "group_description": "Leisure & Fitness",
+      "tags": [
+        "mountain_bike",
+        "park",
+        "cycling",
+        "leisure",
+        "outdoors",
+        "biking",
+        "trails",
+        "mountain_biking",
+        "bike_park",
+        "bicycle",
+        "outdoor_sports",
+        "adventure"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 303,
+    "fields": {
+      "code": "horse_riding_school",
+      "name": "Horse Riding School",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "horse_riding",
+        "school",
+        "horses",
+        "outdoors",
+        "equestrian",
+        "riding",
+        "training",
+        "lessons",
+        "horsemanship",
+        "stables",
+        "riding_lessons",
+        "equestrian_school",
+        "horse_training"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 304,
+    "fields": {
+      "code": "riding_stables",
+      "name": "Riding Stables",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "riding",
+        "stables",
+        "horses",
+        "outdoors",
+        "equestrian",
+        "stable",
+        "horse"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 305,
+    "fields": {
+      "code": "falconry_centre",
+      "name": "Falconry Centre",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "falconry",
+        "centre",
+        "birds",
+        "outdoors",
+        "raptors",
+        "aviary",
+        "birds_of_prey",
+        "rehabilitation",
+        "nature",
+        "animals",
+        "conservation",
+        "education",
+        "wildlife"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 306,
+    "fields": {
+      "code": "alpaca_farm",
+      "name": "Alpaca Farm",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "alpaca",
+        "farm",
+        "animals",
+        "outdoors"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 307,
+    "fields": {
+      "code": "llama_trekking_centre",
+      "name": "Llama Trekking Centre",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "llama",
+        "trekking",
+        "centre",
+        "animals",
+        "outdoors",
+        "nature"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 308,
+    "fields": {
+      "code": "reindeer_farm",
+      "name": "Reindeer Farm",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "reindeer",
+        "farm",
+        "animals",
+        "outdoors",
+        "nature",
+        "deer",
+        "wildlife",
+        "farming",
+        "education",
+        "santa",
+        "christmas"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 309,
+    "fields": {
+      "code": "ostrich_farm",
+      "name": "Ostrich Farm",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "ostrich",
+        "farm",
+        "animals",
+        "outdoors",
+        "nature",
+        "education",
+        "birds",
+        "exotic",
+        "farming"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 310,
+    "fields": {
+      "code": "butterfly_farm",
+      "name": "Butterfly Farm",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "butterfly",
+        "farm",
+        "insects",
+        "outdoors",
+        "nature",
+        "conservation",
+        "education",
+        "wildlife",
+        "entomology",
+        "butterflies",
+        "insectarium"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 311,
+    "fields": {
+      "code": "falconry_display",
+      "name": "Falconry Display",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "falconry",
+        "display",
+        "birds",
+        "outdoors",
+        "raptors",
+        "aviary",
+        "birds_of_prey",
+        "rehabilitation",
+        "nature",
+        "animals",
+        "conservation",
+        "education",
+        "wildlife",
+        "birdwatching",
+        "falconry_show"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 312,
+    "fields": {
+      "code": "bird_of_prey_centre",
+      "name": "Bird of Prey Centre",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "bird_of_prey",
+        "centre",
+        "birds",
+        "outdoors",
+        "conservation",
+        "education",
+        "wildlife",
+        "raptors",
+        "aviary",
+        "birds_of_prey",
+        "birdwatching",
+        "falconry",
+        "rehabilitation",
+        "nature",
+        "animals"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 313,
+    "fields": {
+      "code": "wildlife_park",
+      "name": "Wildlife Park",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "wildlife",
+        "park",
+        "animals",
+        "outdoors",
+        "conservation",
+        "nature",
+        "education",
+        "habitat"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 314,
+    "fields": {
+      "code": "nature_reserve_visitor_centre",
+      "name": "Nature Reserve Visitor Centre",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "nature_reserve",
+        "visitor_centre",
+        "wildlife",
+        "outdoors",
+        "conservation",
+        "education",
+        "trails",
+        "hiking",
+        "environment",
+        "nature",
+        "wildlife"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 315,
+    "fields": {
+      "code": "forestry_commission_visitor_centre",
+      "name": "Forestry Commission Visitor Centre",
+      "group_code": "outdoors_recreation",
+      "group_description": "Outdoors & Recreation",
+      "tags": [
+        "forestry_commission",
+        "visitor_centre",
+        "forest",
+        "outdoors",
+        "nature",
+        "wildlife",
+        "conservation",
+        "recreation",
+        "education",
+        "trails",
+        "hiking",
+        "picnicking",
+        "environment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 316,
+    "fields": {
+      "code": "national_trust_property",
+      "name": "National Trust Property",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "national_trust",
+        "property",
+        "heritage",
+        "culture",
+        "attraction",
+        "tourism"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 317,
+    "fields": {
+      "code": "english_heritage_property",
+      "name": "English Heritage Property",
+      "group_code": "arts_culture_entertainment",
+      "group_description": "Arts, Culture & Entertainment",
+      "tags": [
+        "english_heritage",
+        "property",
+        "heritage",
+        "culture",
+        "historical",
+        "landmark",
+        "attraction",
+        "tourism",
+        "preservation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 318,
+    "fields": {
+      "code": "tourist_information_centre",
+      "name": "Tourist Information Centre",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "tourist_information",
+        "centre",
+        "travel",
+        "visitors",
+        "tourism",
+        "local_info",
+        "maps",
+        "guides",
+        "attractions",
+        "events",
+        "accommodation",
+        "transport",
+        "sightseeing",
+        "exploration",
+        "local_culture",
+        "visitor_services"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 319,
+    "fields": {
+      "code": "coach_tour_office",
+      "name": "Coach Tour Office",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "coach_tour",
+        "office",
+        "travel",
+        "visitors",
+        "tours",
+        "sightseeing",
+        "excursions",
+        "guided_tours",
+        "day_trips",
+        "coach",
+        "transport",
+        "holiday",
+        "vacation",
+        "tourism",
+        "exploration"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 320,
+    "fields": {
+      "code": "glamping_site",
+      "name": "Glamping Site",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "glamping",
+        "site",
+        "camping",
+        "accommodation",
+        "outdoors",
+        "luxury"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 321,
+    "fields": {
+      "code": "boutique_hotel",
+      "name": "Boutique Hotel",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "boutique",
+        "hotel",
+        "accommodation",
+        "luxury",
+        "unique",
+        "stylish",
+        "rooms",
+        "holiday",
+        "vacation"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 322,
+    "fields": {
+      "code": "serviced_apartment",
+      "name": "Serviced Apartment",
+      "group_code": "accommodation",
+      "group_description": "Accommodation",
+      "tags": [
+        "serviced",
+        "apartment",
+        "accommodation",
+        "self_catering",
+        "short_term_rental",
+        "holiday_apartment",
+        "corporate_rental",
+        "business_travel",
+        "extended_stay",
+        "vacation_rental",
+        "furnished_apartment",
+        "temporary_accommodation",
+        "luxury_apartment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 323,
+    "fields": {
+      "code": "mot_test_centre",
+      "name": "MOT Test Centre",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "mot",
+        "test",
+        "car",
+        "vehicle",
+        "garage",
+        "inspection",
+        "maintenance",
+        "automotive",
+        "repair"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 324,
+    "fields": {
+      "code": "car_valeting_service",
+      "name": "Car Valeting Service",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "car",
+        "valeting",
+        "cleaning",
+        "vehicle",
+        "detailing",
+        "wash",
+        "polishing",
+        "interior_cleaning",
+        "exterior_cleaning",
+        "detailing_service",
+        "car_wash",
+        "valeting_service",
+        "vaccuming",
+        "waxing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 325,
+    "fields": {
+      "code": "removals_company",
+      "name": "Removals Company",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "removals",
+        "moving",
+        "company",
+        "transport",
+        "relocation",
+        "furniture",
+        "packing",
+        "storage",
+        "decluttering",
+        "house_removals",
+        "office_removals"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 326,
+    "fields": {
+      "code": "storage_facility",
+      "name": "Storage Facility",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "storage",
+        "self_storage",
+        "facility",
+        "units",
+        "warehouse",
+        "secure",
+        "containers",
+        "lockers",
+        "moving",
+        "decluttering",
+        "temporary_storage",
+        "long_term_storage",
+        "short_term_storage"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 327,
+    "fields": {
+      "code": "auctioneer",
+      "name": "Auctioneer",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "auctioneer",
+        "auction",
+        "sales",
+        "goods",
+        "bidding",
+        "property",
+        "real_estate",
+        "antiques",
+        "collectibles",
+        "valuations"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 328,
+    "fields": {
+      "code": "estate_sales",
+      "name": "Estate Sales",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "estate_sale",
+        "sales",
+        "property",
+        "real_estate",
+        "liquidation",
+        "auction"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 329,
+    "fields": {
+      "code": "house_clearance_service",
+      "name": "House Clearance Service",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "house_clearance",
+        "service",
+        "removals",
+        "goods",
+        "decluttering",
+        "cleaning",
+        "disposal",
+        "rubbish_removal",
+        "waste_removal",
+        "property_clearance"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 330,
+    "fields": {
+      "code": "skip_hire",
+      "name": "Skip Hire",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "skip",
+        "hire",
+        "waste",
+        "removal",
+        "disposal",
+        "rubbish",
+        "construction",
+        "renovation",
+        "demolition",
+        "waste_management"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 331,
+    "fields": {
+      "code": "recycling_point",
+      "name": "Recycling Point",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "recycling",
+        "point",
+        "waste",
+        "drop_off",
+        "sustainability",
+        "reuse",
+        "environment",
+        "recycling_bin",
+        "recycling_facility",
+        "recycling_station",
+        "recycling_drop_off"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 332,
+    "fields": {
+      "code": "bottle_bank",
+      "name": "Bottle Bank",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "bottle_bank",
+        "recycling",
+        "glass",
+        "waste",
+        "drop_off",
+        "sustainability",
+        "reuse",
+        "environment",
+        "recycling_point",
+        "bottle_bank",
+        "glass_recycling",
+        "glass_collection",
+        "glass_recycling_point",
+        "glass_recycling_bin",
+        "glass_recycling_facility",
+        "glass_recycling_station"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 333,
+    "fields": {
+      "code": "charity_furniture_shop",
+      "name": "Charity Furniture Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "charity",
+        "furniture",
+        "shop",
+        "second_hand",
+        "donations",
+        "sustainability",
+        "reuse",
+        "upcycling",
+        "local",
+        "community",
+        "affordable",
+        "furniture_recycling",
+        "home_decor",
+        "home_furnishings"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 334,
+    "fields": {
+      "code": "community_fridge",
+      "name": "Community Fridge",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "community",
+        "fridge",
+        "food",
+        "sharing",
+        "sustainability",
+        "local",
+        "food_waste",
+        "food_security",
+        "food_distribution",
+        "community_support",
+        "food_rescue",
+        "food_sharing"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 335,
+    "fields": {
+      "code": "food_bank",
+      "name": "Food Bank",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "food_bank",
+        "community",
+        "food",
+        "charity",
+        "support",
+        "donations",
+        "aid",
+        "emergency",
+        "crisis",
+        "hunger",
+        "poverty",
+        "food_security",
+        "community_support"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 336,
+    "fields": {
+      "code": "repair_cafe",
+      "name": "Repair Café",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "repair",
+        "cafe",
+        "community",
+        "fixing",
+        "upcycling",
+        "sustainability",
+        "repair",
+        "reuse",
+        "recycling"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 337,
+    "fields": {
+      "code": "tool_library",
+      "name": "Tool Library",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "tool",
+        "library",
+        "community",
+        "borrowing",
+        "tools",
+        "equipment",
+        "maintenance",
+        "repair",
+        "DIY",
+        "home_improvement",
+        "gardening"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 338,
+    "fields": {
+      "code": "toy_library",
+      "name": "Toy Library",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "toy",
+        "library",
+        "community",
+        "borrowing",
+        "children",
+        "play",
+        "toys",
+        "educational",
+        "learning"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 339,
+    "fields": {
+      "code": "community_garden",
+      "name": "Community Garden",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "community",
+        "garden",
+        "plants",
+        "outdoor",
+        "vegetables",
+        "fruits",
+        "plants",
+        "gardening",
+        "local",
+        "green_space",
+        "horticulture",
+        "sustainability",
+        "biodiversity",
+        "nature",
+        "recreation",
+        "environment"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 340,
+    "fields": {
+      "code": "allotment_association",
+      "name": "Allotment Association",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "allotment",
+        "association",
+        "community",
+        "gardening",
+        "vegetables",
+        "fruits",
+        "plants",
+        "outdoor",
+        "local",
+        "plot",
+        "land",
+        "gardens",
+        "horticulture"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 341,
+    "fields": {
+      "code": "agricultural_cooperative_shop",
+      "name": "Agricultural Cooperative Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "farmers",
+        "cooperative",
+        "shop",
+        "agriculture",
+        "farm",
+        "farm_supplies",
+        "livestock",
+        "seeds",
+        "fertilizers",
+        "tools",
+        "equipment",
+        "hardware",
+        "clothing",
+        "feed",
+        "agriculture",
+        "equine",
+        "horse"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 342,
+    "fields": {
+      "code": "village_shop",
+      "name": "Village Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "village",
+        "shop",
+        "local",
+        "groceries",
+        "convenience",
+        "snacks",
+        "drinks"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 343,
+    "fields": {
+      "code": "corner_shop",
+      "name": "Corner Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "corner",
+        "shop",
+        "local",
+        "groceries",
+        "convenience",
+        "snacks",
+        "drinks",
+        "essentials",
+        "quick",
+        "convenient",
+        "neighborhood"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 344,
+    "fields": {
+      "code": "fish_and_chip_shop",
+      "name": "Fish & Chip Shop",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "fish_and_chip",
+        "shop",
+        "food",
+        "takeaway",
+        "fish",
+        "chips",
+        "battered",
+        "fried",
+        "traditional",
+        "comfort_food",
+        "snack",
+        "fast_food",
+        "British",
+        "takeout",
+        "meal",
+        "potatoes"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 345,
+    "fields": {
+      "code": "pie_and_mash_shop",
+      "name": "Pie & Mash Shop",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "pie_and_mash",
+        "shop",
+        "food",
+        "takeaway",
+        "pie",
+        "mash",
+        "traditional",
+        "comfort_food",
+        "savory",
+        "meat",
+        "vegetarian",
+        "gravy",
+        "pastry",
+        "potatoes",
+        "lunch",
+        "snack",
+        "fast_food",
+        "Bristish"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 346,
+    "fields": {
+      "code": "kebab_shop",
+      "name": "Kebab Shop",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "kebab",
+        "shop",
+        "food",
+        "takeaway",
+        "fast_food",
+        "grill",
+        "doner",
+        "shawarma",
+        "wrap",
+        "lamb",
+        "chicken",
+        "vegetarian",
+        "pita",
+        "salad"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 347,
+    "fields": {
+      "code": "curry_house",
+      "name": "Curry House",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "curry",
+        "house",
+        "food",
+        "takeaway",
+        "indian",
+        "spices",
+        "naan",
+        "biryani",
+        "tandoori",
+        "vindaloo",
+        "masala",
+        "cumin",
+        "coriander",
+        "turmeric",
+        "ginger",
+        "chili",
+        "coconut_milk",
+        "lentils",
+        "vegetarian",
+        "meat",
+        "rice",
+        "samosa",
+        "spicy"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 348,
+    "fields": {
+      "code": "chinese_takeaway",
+      "name": "Chinese Takeaway",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "chinese",
+        "takeaway",
+        "food",
+        "takeout",
+        "asian",
+        "noodles",
+        "rice",
+        "wok",
+        "dumplings",
+        "spring_rolls",
+        "soy_sauce",
+        "sweet_and_sour",
+        "stir_fry"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 349,
+    "fields": {
+      "code": "pizza_takeaway",
+      "name": "Pizza Takeaway",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "pizza",
+        "takeaway",
+        "food",
+        "fast_food",
+        "takeout",
+        "cheese",
+        "pepperoni",
+        "crust",
+        "toppings",
+        "slice",
+        "hot",
+        "fresh"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 350,
+    "fields": {
+      "code": "sandwich_bar",
+      "name": "Sandwich Bar",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "sandwich",
+        "bar",
+        "food",
+        "lunch",
+        "snack",
+        "takeaway",
+        "fresh",
+        "healthy",
+        "quick",
+        "convenient",
+        "on_the_go",
+        "grab_and_go",
+        "meal"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 351,
+    "fields": {
+      "code": "soup_kitchen",
+      "name": "Soup Kitchen",
+      "group_code": "community",
+      "group_description": "Community",
+      "tags": [
+        "soup",
+        "kitchen",
+        "community",
+        "charity",
+        "food",
+        "support",
+        "help",
+        "homeless",
+        "meal",
+        "nourishment",
+        "warmth",
+        "compassion"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 352,
+    "fields": {
+      "code": "soup_and_salad_bar",
+      "name": "Soup & Salad Bar",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "soup",
+        "salad",
+        "bar",
+        "food",
+        "lunch",
+        "healthy",
+        "fresh",
+        "light",
+        "nutritious"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 353,
+    "fields": {
+      "code": "juice_bar",
+      "name": "Juice Bar",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "juice",
+        "bar",
+        "beverage",
+        "health",
+        "fruit",
+        "drink",
+        "healthy",
+        "refreshing",
+        "blend",
+        "nutrition"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 354,
+    "fields": {
+      "code": "smoothie_bar",
+      "name": "Smoothie Bar",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "smoothie",
+        "bar",
+        "beverage",
+        "health",
+        "fruit",
+        "drink",
+        "healthy",
+        "refreshing",
+        "blend",
+        "nutrition",
+        "snack",
+        "vitamins",
+        "energy",
+        "wellness"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 355,
+    "fields": {
+      "code": "bubble_tea_shop",
+      "name": "Bubble Tea Shop",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "bubble_tea",
+        "shop",
+        "beverage",
+        "drink",
+        "tea",
+        "tapioca",
+        "boba",
+        "sweet",
+        "milk"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 356,
+    "fields": {
+      "code": "milkshake_bar",
+      "name": "Milkshake Bar",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "milkshake",
+        "bar",
+        "beverage",
+        "drink",
+        "shake",
+        "milk",
+        "sweet"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 357,
+    "fields": {
+      "code": "ice_cream_parlour",
+      "name": "Ice Cream Parlour",
+      "group_code": "food_drink",
+      "group_description": "Food & Drink",
+      "tags": [
+        "ice_cream",
+        "parlour",
+        "dessert",
+        "sweet",
+        "treat",
+        "ice",
+        "cream",
+        "frozen",
+        "food",
+        "snack",
+        "refreshment",
+        "gelato",
+        "sorbet",
+        "frozen_yogurt",
+        "cone",
+        "cup",
+        "sundae",
+        "toppings",
+        "waffle",
+        "sprinkles",
+        "chocolate"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 358,
+    "fields": {
+      "code": "sofa_shop",
+      "name": "Sofa Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "sofa",
+        "shop",
+        "furniture",
+        "home",
+        "living_room",
+        "seating",
+        "chair",
+        "recliner",
+        "couch"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 359,
+    "fields": {
+      "code": "flooring_shop",
+      "name": "Flooring Shop",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "flooring",
+        "shop",
+        "home",
+        "decor",
+        "hardwood",
+        "laminate",
+        "vinyl",
+        "tiles",
+        "renovation",
+        "tiles",
+        "carpet",
+        "flooring_materials"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 360,
+    "fields": {
+      "code": "phone_repair",
+      "name": "Phone Repair",
+      "group_code": "services",
+      "group_description": "Services",
+      "tags": [
+        "phone",
+        "repair",
+        "electronics",
+        "mobile",
+        "smartphone",
+        "device"
+      ]
+    }
+  },
+  {
+    "model": "businesses.category",
+    "pk": 361,
+    "fields": {
+      "code": "plant_nursery",
+      "name": "Plant Nursery",
+      "group_code": "retail",
+      "group_description": "Retail",
+      "tags": [
+        "plants",
+        "nursery",
+        "garden",
+        "greenery",
+        "flora",
+        "outdoor"
+      ]
+    }
+  }
 ]
