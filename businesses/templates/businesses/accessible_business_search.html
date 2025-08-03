@@ -43,13 +43,18 @@
   <div id="map-results-container">
     
     <!-- Map container -->
-    <div id="map"></div>
+    <div id="map">
+      <!-- Button to show list view (initially hidden) -->
+      <button id="show-list-view-btn" class="btn btn-outline-secondary hide" aria-label="Show list view">
+        <i class="bi bi-list fs-5 pe-2"></i> Show list view 
+      </button>
+    </div>
 
     <!-- Search results list wrapper -->
     <div id="results-list-wrapper" class="pb-2 px-1 hide">
 
       <!-- Mobile accessibility filter - hidden on md+ -->
-      <div id="mobile-filters" class="d-md-none pb-2 pt-1">          
+      <div id="mobile-filters" class="d-md-none pb-1 pt-0">          
         <select id="accessibility-select-mobile-panel" class="form-select flex-grow-1" multiple>
           {% for feature in accessibility_features %}
             <option value="{{ feature.name }}">{{ feature.name }}</option>
@@ -57,13 +62,12 @@
         </select>
       </div>
 
-      {% comment %} Toggle map view button {% endcomment %}
-      <button type="button" id="toggle-map-view" class="btn btn-outline-secondary ms-2" aria-label="Toggle map view">
-        View results on map
-        <i class="bi bi-map fs-5"></i>
+      {% comment %} Show map view button {% endcomment %}
+      <button type="button" id="show-map-view-btn" class="btn btn-outline-secondary" aria-label="Show map view">
+        <i class="bi bi-map fs-5 pe-2"></i> View results on map    
       </button>
 
-      <ul id="results-list" class="list-group"></ul>
+      <ul id="results-list" class="list-group pt-1"></ul>
     </div>
     
   </div>

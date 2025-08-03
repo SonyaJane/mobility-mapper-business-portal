@@ -1,3 +1,4 @@
+import renderMarkers from './render_markers.js';
 import load_map from './load_map.js';
 import filterBusinesses from './filter_businesses.js';
 import syncSelects from './sync_selects.js';
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         removeItemButton: true,
         shouldSort: false,
         placeholder: true,
-        placeholderValue: 'Filter by Accessibility Features'
+        placeholderValue: 'Click to filter by accessibility Features'
     }).passedElement.element.addEventListener('change', filterBusinesses);
     }
 
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         removeItemButton: true,
         shouldSort: false,
         placeholder: true,
-        placeholderValue: 'Filter by Accessibility Features',
+        placeholderValue: 'Tap to filter by accessibility features',
         position: 'bottom'
     }).passedElement.element.addEventListener('change', filterBusinesses);
     }
@@ -56,6 +57,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultsListWrapper = document.getElementById('results-list-wrapper');
     const resultsToggle = document.getElementById('results-toggle');
     let resultsHidden = false;
+
+    // Wire up list view and map view buttons
+    const mapViewBtn = document.getElementById('show-map-view-btn');
+    const listViewBtn = document.getElementById('show-list-view-btn');
+    
+    mapViewBtn.addEventListener('click', () => {
+        // Show markers and hide list
+        if (window.filteredBusinesses) renderMarkers(window.filteredBusinesses);
+        resultsListWrapper.classList.add('hide');
+        // show list view button on map                
+        listViewBtn.classList.remove('hide');
+    });
+
+    listViewBtn.addEventListener('click', () => {
+        // show results list
+        resultsListWrapper.classList.remove('hide');
+        // hide listview button
+        listViewBtn.classList.add('hide');
+    });
+
+
+    // Hide/show results arrow
     if (resultsToggle) {
         resultsToggle.addEventListener('click', function() {
             resultsHidden = !resultsHidden;

@@ -18,6 +18,12 @@ export default function renderResultsList(filtered) {
         // create list items for each returned business
         filtered.forEach((biz, idx) => {
             const li = document.createElement('li');
+            // Tag list item with the business ID and coordinates for popup lookup
+            li.setAttribute('data-id', biz.id);
+            if (biz.location) {
+                li.setAttribute('data-lat', biz.location.lat);
+                li.setAttribute('data-lng', biz.location.lng);
+            }
             li.className = 'list-group-item';
             let categories = biz.categories && biz.categories.length ? biz.categories.join(', ') : '';
             let address = biz.address ? `<div>${biz.address}</div>` : '';

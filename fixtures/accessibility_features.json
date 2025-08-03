@@ -47,7 +47,7 @@
     {"model": "businesses.accessibilityfeature", "pk": 46, "fields": {"code": "non_slip_flooring", "name": "Non-slip flooring or surfaces"}},
     {"model": "businesses.accessibilityfeature", "pk": 47, "fields": {"code": "adjustable_height_mirrors", "name": "Adjustable-height mirrors"}},
     {"model": "businesses.accessibilityfeature", "pk": 48, "fields": {"code": "handrails_corridors", "name": "Handrails throughout corridors"}},
-    {"model": "businesses.accessibilityfeature", "pk": 49, "fields": {"code": "transfer_aids", "name": "Transfer aids (e.g., transfer boards, hoists)"}},
+    {"model": "businesses.accessibilityfeature", "pk": 49, "fields": {"code": "transfer_aids", "name": "Transfer aids (boards, hoists)"}},
     {"model": "businesses.accessibilityfeature", "pk": 50, "fields": {"code": "accessible_sinks_faucets", "name": "Wheelchair-accessible sinks and taps"}},
     {"model": "businesses.accessibilityfeature", "pk": 51, "fields": {"code": "adjustable_examination_beds", "name": "Height-adjustable examination beds or furniture"}},
     {"model": "businesses.accessibilityfeature", "pk": 52, "fields": {"code": "wheelchair_lifts", "name": "Wheelchair lifts (platform lifts, stairlifts)"}},

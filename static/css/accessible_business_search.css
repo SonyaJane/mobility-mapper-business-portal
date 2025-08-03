@@ -97,6 +97,50 @@
   z-index: 1000;
 }
 
+.choices__inner,
+.choices__input {
+  background-color: #fff;
+  font-size: 1rem;
+  color: var(--bs-body-color);
+  font-weight: 600;
+}
+/* Only show dropdown arrow when no items are selected */
+.choices__inner {
+  position: relative;
+  padding-right: 2rem; /* make room for arrow */
+}
+.choices__inner:not(:has(.choices__item))::after {
+    content: "";
+    height: 0;
+    width: 0;
+    border-style: solid;
+    border-color: #333 transparent transparent;
+    border-width: 5px;
+    position: absolute;
+    right: 11.5px;
+    top: 50%;
+    margin-top: -2.5px;
+    pointer-events: none
+}
+
+.choices__list--multiple .choices__item {
+  font-size: 1rem;
+}
+
+/* hide placeholder if there is at least one selected option */
+.choices__list--multiple:not(:empty) + .choices__input--cloned {
+    display: none;
+}
+
+#show-list-view-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;  
+  background-color: #fff;
+  /* Add box shadow */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
 
 /* Media Queries */
 @media (max-width: 559.98px) {

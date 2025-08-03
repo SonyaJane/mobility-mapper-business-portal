@@ -37,8 +37,9 @@ export default function filterBusinesses() {
     .then(response => response.json())
     .then(data => {
         businesses = data.businesses || [];
-        // Render markers and results
-        //renderMarkers(businesses);
+        // Store the latest results globally for toggling markers
+        window.filteredBusinesses = businesses;
+        // Render results list
         renderResultsList(businesses);
     });
 }
