@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // Hide/show results arrow
+    // Hide/show results arrow for md and up
     if (resultsToggle) {
         resultsToggle.addEventListener('click', function() {
             resultsHidden = !resultsHidden;
@@ -93,5 +93,36 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Show detailed info overlay when clicking 'Show more info' in popup
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.show-more-info')) {
+            e.preventDefault();
+            const id = e.target.getAttribute('data-id');
+            const listItem = document.querySelector(`#results-list li[data-id="${id}"]`);
+            const overlay = document.getElementById('info-overlay');
+            const body = document.getElementById('info-overlay-body');
+            if (listItem && overlay && body) {
+                // Build overlay content: popup portion + accordion details
+                // Clone list item and remove toggle arrow
+                const clone = listItem.cloneNode(true);
+                const arrowIcon = clone.querySelector('.toggle-arrow');
+                if (arrowIcon) arrowIcon.remove();
+                let content = clone.innerHTML;
+                // Append accordion panel content
+                const panel = listItem.querySelector('.accordion-collapse');
+                if (panel) {
+                    content += panel.innerHTML;
+                }
+                body.innerHTML = content;
+                overlay.classList.remove('hide');
+            }
+        }
+        // Close overlay
+        if (e.target.matches('#info-overlay-close')) {
+            const overlay = document.getElementById('info-overlay');
+            if (overlay) overlay.classList.add('hide');
+        }
+    });
     
 });

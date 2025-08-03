@@ -23,6 +23,7 @@
             <i class="bi bi-x fs-5 text-secondary"></i>
           </button>
         </div>
+
       </div>
 
       <!-- Accessibility features filter (md and up only) -->
@@ -48,6 +49,15 @@
       <button id="show-list-view-btn" class="btn btn-outline-secondary hide" aria-label="Show list view">
         <i class="bi bi-list fs-5 pe-2"></i> Show list view 
       </button>
+
+        <!-- Overlay for detailed business info -->
+      <div id="info-overlay" class="info-overlay hide">
+        <div class="info-overlay-content">
+          <button id="info-overlay-close" class="info-overlay-close" aria-label="Close overlay">×</button>
+          <div id="info-overlay-body"></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Search results list wrapper -->
