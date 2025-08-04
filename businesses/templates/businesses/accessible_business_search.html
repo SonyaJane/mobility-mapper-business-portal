@@ -9,47 +9,29 @@
 {% block page_title %}Accessible Businesses{% endblock %}
 
 {% block content %}
-<div class="search-container">
+<div class="search-container row">
 
-  <!-- Business search form -->
-  <form id="search-form" class="my-1 my-md-2">
-    <div class="row">
+  <!-- text search and map container (LHS in md+) -->
+  <div id="search-map" class="col-md-6 p-0 d-flex flex-column">
 
-      <!-- Text search -->
-      <div class="col-md-6 px-1 ps-md-2 pe-md-1">
-        <div class="position-relative">
-          <input type="text" id="business-search" class="form-control pr-5" placeholder="Search for accessible businesses">
-          <button type="button" id="clear-search" class="btn btn-link position-absolute top-50 end-0 translate-middle-y px-2" style="right: 0.5rem; z-index: 2;" aria-label="Clear search">
-            <i class="bi bi-x fs-5 text-secondary"></i>
-          </button>
-        </div>
-
-      </div>
-
-      <!-- Accessibility features filter (md and up only) -->
-      <div id="accessibility-filter" class="col-md-6 ps-md-1 d-none d-md-block">
-        <select id="accessibility-select" class="form-select flex-grow-1" multiple>
-          {% for feature in accessibility_features %}
-            <option value="{{ feature.name }}">{{ feature.name }}</option>
-          {% endfor %}
-        </select>
-      </div>
-
+    <!-- Text search -->
+    <div id="text-search" class="p-1">
+      <input type="text" id="business-search" class="form-control pr-5" placeholder="Search for accessible businesses">
+      <button type="button" id="clear-search" class="btn btn-link position-absolute top-50 end-0 translate-middle-y px-2" style="right: 0.5rem; z-index: 2;" aria-label="Clear search">
+        <i class="bi bi-x fs-5 text-secondary"></i>
+      </button>
     </div>
-  </form>
 
-  <!-- map and search results section -->
-  <div id="map-results-container">
-    
     <!-- Map container -->
     <div id="map">
+
       <!-- Button to show list view (initially hidden) -->
-      <button id="show-list-view-btn" class="btn btn-outline-secondary hide" aria-label="Show list view">
+      <button id="show-list-view-btn" class="btn btn-outline-secondary hide d-md-none" aria-label="Show list view">
         <i class="bi bi-list fs-5 pe-2"></i> Show list view 
       </button>
 
         <!-- Overlay for detailed business info -->
-      <div id="info-overlay" class="info-overlay hide">
+      <div id="info-overlay" class="info-overlay hide d-md-none">
         <div class="info-overlay-content">
           <button id="info-overlay-close" class="info-overlay-close" aria-label="Close overlay">×</button>
           <div id="info-overlay-body"></div>
@@ -58,12 +40,18 @@
 
     </div>
 
-    <!-- Search results list wrapper -->
-    <div id="results-list-wrapper" class="pb-2 px-1 hide">
+  </div>
 
-      <!-- Mobile accessibility filter - hidden on md+ -->
-      <div id="mobile-filters" class="d-md-none pb-1 pt-0">          
-        <select id="accessibility-select-mobile-panel" class="form-select flex-grow-1" multiple>
+  <!-- search results section - (RHS in md+, overlays on mobile)-->
+  <div id="results-container" class="hide col-md-6 p-0">
+        
+    <!-- Search results list wrapper -->
+    {% comment %} <div id="results-list-wrapper" class="pb-2 px-1 hide"> {% endcomment %}
+
+    <!-- Accessibility features filter -->   
+    <div class="sticky-top bg-white d-flex flex-column p-1 pb-0">  
+      <div id="accessibility-filters" class="pb-1">          
+        <select id="accessibility-select" class="form-select flex-grow-1" multiple>
           {% for feature in accessibility_features %}
             <option value="{{ feature.name }}">{{ feature.name }}</option>
           {% endfor %}
@@ -74,12 +62,11 @@
       <button type="button" id="show-map-view-btn" class="btn btn-outline-secondary d-md-none" aria-label="Show map view">
         <i class="bi bi-map fs-5 pe-2"></i> View results on map    
       </button>
+    </div> 
 
-      <ul id="results-list" class="list-group pt-1 pt-md-0"></ul>
-    </div>
-    
+    <ul id="results-list" class="list-group p-1 pt-0"></ul>
   </div>
-
+    
 </div>
 {% endblock %}
 

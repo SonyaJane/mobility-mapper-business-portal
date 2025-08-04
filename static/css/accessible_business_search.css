@@ -7,15 +7,7 @@
   height: calc(100vh - 62px);
 }
 
-#map-results-container {
-  flex: 1;
-  position: relative;
-}
-
 #map {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   min-height: 300px;
@@ -51,7 +43,7 @@
   transition: right 0.3s;
 }
 
-#mobile-filters {
+#accessibility-filters {
   background-color: #fff;
 }
 
@@ -195,34 +187,17 @@
 
 /* Mobile: Make map-results-container fill remaining space below search form and header */
 @media (max-width: 767.98px) {
-  .search-container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #map-results-container {
-    position: relative;
-    height: 100%;
-    width: 100%;
-  }
   
-  #results-list-wrapper {
+  #results-container {
     position: absolute;
-    top: 0;
+    top: 54px;
+    bottom: 0;    /* fill to bottom of parent */
     left: 0;
-    height: 100%;
-    width: 100%;
+    width: 100%;  
     background: #fff;
     z-index: 1000;
     overflow-y: auto;
   }
-
-  #mobile-filters {
-    position: sticky;
-    top: 0;
-    z-index: 1001;
-  }
-
 }
 
 /* Tablet Styles */
@@ -247,17 +222,17 @@
 
 /* Desktop: side-by-side layout */
 @media (min-width: 768px) {
-  #map-results-container {
+
+  #text-search {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+  }
+  #results-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 100%;
+    overflow-y: auto;
   }
-  #map {
-    position: relative;
-    width: 50%;
-    height: 100%;
-    min-height: 0;
-  }
+
   #results-list-wrapper {
     position: relative;
     width: 50%;

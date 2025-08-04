@@ -1,22 +1,19 @@
 import renderBusinessAccordion from './render_business_accordion.js';
 import toggleBusinessAccordion from './toggle_business_accordion.js';
 
-export default function renderResultsList(filtered) {
-    // Renders additional biz info in accordion
+export default function renderResultsList(businesses) {
     const list = document.getElementById('results-list');
     list.innerHTML = '';
-    // Toggle mobile filter, and results visibility
-    const mobileFilters = document.getElementById('mobile-filters');
-    const resultsWrapper = document.getElementById('results-list-wrapper');
+    // Show results-container div
+    const resultsContainer = document.getElementById('results-container');
     const searchInput = document.getElementById('business-search');
-    if (filtered.length > 0) {
-        mobileFilters.classList.remove('hide');
-        if (resultsWrapper) {
-            resultsWrapper.classList.add('results-visible');
-            resultsWrapper.classList.remove('hide');
+    if (businesses.length > 0) {
+        if (resultsContainer) {
+            resultsContainer.classList.add('results-visible');
+            resultsContainer.classList.remove('hide');
         }
         // create list items for each returned business
-        filtered.forEach((biz, idx) => {
+        businesses.forEach((biz, idx) => {
             const li = document.createElement('li');
             // Tag list item with the business ID and coordinates for popup lookup
             li.setAttribute('data-id', biz.id);
@@ -59,20 +56,19 @@ export default function renderResultsList(filtered) {
             });
             list.appendChild(li);
         });
-    } else {
-        if (mobileFilters) mobileFilters.style.display = '';
-        if (resultsWrapper) {
+    } else { // No businesses found
+        if (resultsContainer) {
             if (searchInput && searchInput.value.trim().length > 0) {
-                resultsWrapper.classList.add('results-visible');
-                resultsWrapper.style.display = '';
-                // Only show 'No results found' if user has entered search text
+                // Only show no results found if search input has text
+                resultsContainer.classList.add('results-visible');
+                resultsContainer.classList.remove('hide'); 
                 const noResults = document.createElement('li');
                 noResults.className = 'list-group-item text-center text-muted';
                 noResults.textContent = 'No results found.';
                 list.appendChild(noResults);
             } else {
-                resultsWrapper.classList.remove('results-visible');
-                resultsWrapper.style.display = 'none';
+                resultsContainer.classList.remove('results-visible');
+                resultsContainer.classList.add('hide');
             }
         }
     }
