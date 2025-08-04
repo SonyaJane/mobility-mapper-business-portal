@@ -36,6 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Sync selects across desktop and mobile views    
     syncSelects(['accessibility-select', 'accessibility-select-mobile', 'accessibility-select-mobile-panel']);
 
+    // Initial random results on md+ when no input yet
+    if (window.matchMedia('(min-width: 768px)').matches) {
+        filterBusinesses();
+    }
+
     // Clear search box when X button is clicked
     const clearSearchBtn = document.getElementById('clear-search');
     const businessSearchInput = document.getElementById('business-search');
