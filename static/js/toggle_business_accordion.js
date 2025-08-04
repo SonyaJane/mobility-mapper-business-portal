@@ -1,7 +1,11 @@
 export default function toggleBusinessAccordion(li, infoPanel, arrowIcon, biz) {
     // Get all results in the list
     const allResults = document.querySelectorAll('#results-list > li');
-
+    // Find the marker for this business by coordinates
+    const highlightMarker = MAP.markers.find(m => {
+        const pt = m.getLngLat();
+        return pt.lng === biz.location.lng && pt.lat === biz.location.lat;
+    });
     // If the clicked panel is already open, close it
     if (infoPanel.classList.contains('show')) {
         infoPanel.classList.remove('show');
@@ -16,6 +20,12 @@ export default function toggleBusinessAccordion(li, infoPanel, arrowIcon, biz) {
             result.classList.remove('hide');
             result.classList.remove('single-visible');
         });
+        // Remove any marker highlight when closing
+        if (Array.isArray(MAP.markers)) {
+            MAP.markers.forEach(marker => {
+                marker.getElement().classList.remove('highlighted-marker');
+            });
+        }
     } else { 
         // If the clicked panel is not open, open it
         // First, close any other open panels and remove their highlights
@@ -48,5 +58,18 @@ export default function toggleBusinessAccordion(li, infoPanel, arrowIcon, biz) {
                 result.classList.add('single-visible');
             }
         });
+        // On desktop, fly to and highlight the corresponding marker
+        if (window.matchMedia('(min-width: 768px)').matches && biz.location && MAP.map && Array.isArray(MAP.markers)) {
+            // Center and zoom map on business location
+            MAP.map.flyTo({ center: [biz.location.lng, biz.location.lat], zoom: 16 });
+            // Clear previous marker highlights
+            MAP.markers.forEach(marker => {
+                marker.getElement().classList.remove('highlighted-marker');
+            });
+            if (highlightMarker) {
+                highlightMarker.getElement().classList.add('highlighted-marker');
+            }
+        }
+        // 
     }
 }

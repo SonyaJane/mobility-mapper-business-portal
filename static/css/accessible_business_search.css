@@ -177,6 +177,14 @@
   cursor: pointer;
 }
 
+/* Highlighted map marker when a business accordion opens */
+.maplibregl-marker.highlighted-marker svg g[fill] {
+  fill: #bd582c;
+}   
+.maplibregl-marker svg g[fill] {
+  fill: cornflowerblue;
+} 
+
 @media (max-width: 559.98px) {
 
   /* Fit results on small screens */
