@@ -12,18 +12,39 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('business-search').addEventListener('input', filterBusinesses);
 
     const accessibilitySelect = document.getElementById('accessibility-select');
+    let accessibilityChoices;
     if (accessibilitySelect) {
-        new Choices(accessibilitySelect, {
+        accessibilityChoices = new Choices(accessibilitySelect, {
             removeItemButton: true,
             shouldSort: false,
             placeholder: true,
-        placeholderValue: 'Filter by accessibility Features'
-    }).passedElement.element.addEventListener('change', filterBusinesses);
+            placeholderValue: 'Filter by accessibility Features'
+        });
+        // rerun filter when selection changes
+        accessibilityChoices.passedElement.element.addEventListener('change', filterBusinesses);
+        // Show/hide the clear-all button based on selection count
+        const clearAccessBtn = document.getElementById('clear-accessibility');
+        if (clearAccessBtn) {
+            accessibilityChoices.passedElement.element.addEventListener('change', () => {
+                const hasSelected = accessibilityChoices.getValue(true).length > 0;
+                clearAccessBtn.classList.remove('hide', !hasSelected);
+            });
+        }
     }
 
     // Initial random results on md+ when no input yet
     if (window.matchMedia('(min-width: 768px)').matches) {
         filterBusinesses();
+    }
+    // Clear all accessibility selections when clear button is clicked
+    const clearAccessBtn = document.getElementById('clear-accessibility');
+    if (clearAccessBtn && accessibilityChoices) {
+        clearAccessBtn.addEventListener('click', () => {
+            accessibilityChoices.removeActiveItems();
+            filterBusinesses();
+            // hide clear button after clearing selections
+            clearAccessBtn.classList.add('hide');
+        });
     }
 
     // Clear search box when X button is clicked

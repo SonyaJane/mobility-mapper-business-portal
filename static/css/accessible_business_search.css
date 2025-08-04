@@ -18,8 +18,17 @@
   line-height: 2.3;
 }
 
+#clear-search {
+  z-index: 2;
+}
+
+
 #accessibility-filter {
   z-index: 400;
+}
+
+#accessibility-filters .choices {
+  margin-bottom: 0;
 }
 
 #results-list-wrapper.hide-results {
@@ -102,7 +111,8 @@
   color: var(--bs-body-color);
   font-weight: 600;
 }
-/* Only show dropdown arrow when no items are selected */
+
+/* Show a dropdown arrow in the choices selection box when no items are selected */
 .choices__inner {
   position: relative;
   padding-right: 2rem; /* make room for arrow */
