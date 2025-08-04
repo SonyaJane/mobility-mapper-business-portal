@@ -5,8 +5,6 @@
   position: fixed;
   width: 100%;
   height: calc(100vh - 62px);
-  display: flex;
-  flex-direction: column;
 }
 
 #map-results-container {
@@ -23,6 +21,14 @@
   min-height: 300px;
   background-color: bisque;
 }   
+
+#business-search {
+  line-height: 2.3;
+}
+
+#accessibility-filter {
+  z-index: 400;
+}
 
 #results-list-wrapper.hide-results {
   transform: translateX(-100%);
@@ -244,6 +250,7 @@
   #map-results-container {
     display: flex;
     flex-direction: row;
+    height: 100%;
   }
   #map {
     position: relative;

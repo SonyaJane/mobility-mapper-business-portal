@@ -41,5 +41,9 @@ export default function filterBusinesses() {
         window.filteredBusinesses = businesses;
         // Render results list
         renderResultsList(businesses);
+        // Resize the map after the list sidebar toggles to keep the centre consistent
+        if (window.MAP && window.MAP.map) {
+            window.MAP.map.resize();
+        }   
     });
 }

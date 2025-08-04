@@ -48,19 +48,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const resultsWrapper = document.getElementById('results-list-wrapper');
             if (resultsWrapper) {
                 resultsWrapper.classList.add('hide');
-            }            
+            // remove markers from map
+            renderMarkers([]);            
             businessSearchInput.focus();
-        });
+            }
+    });
     }
 
-    // Arrow toggle for results list
-    const resultsListWrapper = document.getElementById('results-list-wrapper');
-    const resultsToggle = document.getElementById('results-toggle');
-    let resultsHidden = false;
+    // Mobile view toggle
 
     // Wire up list view and map view buttons
     const mapViewBtn = document.getElementById('show-map-view-btn');
     const listViewBtn = document.getElementById('show-list-view-btn');
+    const resultsListWrapper = document.getElementById('results-list-wrapper');
     
     mapViewBtn.addEventListener('click', () => {
         // Show markers and hide list
@@ -76,23 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // hide listview button
         listViewBtn.classList.add('hide');
     });
-
-
-    // Hide/show results arrow for md and up
-    if (resultsToggle) {
-        resultsToggle.addEventListener('click', function() {
-            resultsHidden = !resultsHidden;
-            if (resultsHidden) {
-                resultsListWrapper.classList.add('hide-results');
-                resultsToggle.setAttribute('aria-label', 'Show results');
-                resultsToggle.innerHTML = '<i class="bi bi-arrow-right-circle fs-3"></i>';
-            } else {
-                resultsListWrapper.classList.remove('hide-results');
-                resultsToggle.setAttribute('aria-label', 'Hide results');
-                resultsToggle.innerHTML = '<i class="bi bi-arrow-left-circle fs-3"></i>';
-            }
-        });
-    }
 
     // Show detailed info overlay when clicking 'Show more info' in popup
     document.addEventListener('click', function(e) {
@@ -123,6 +106,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const overlay = document.getElementById('info-overlay');
             if (overlay) overlay.classList.add('hide');
         }
+    });
+
+    MAP.map.on('load', () => {
+        MAP.map.resize();
     });
     
 });

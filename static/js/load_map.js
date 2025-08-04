@@ -87,4 +87,9 @@ export default function load_map(containerId) {
       showAccuracyCircle: false,
     });
     MAP.map.addControl(geolocateControl);
+
+    let mapAttrb = document.querySelector('.maplibregl-ctrl-attrib');
+    if (mapAttrb) {
+        mapAttrb.classList.remove('maplibregl-compact-show');
+    }
 }
