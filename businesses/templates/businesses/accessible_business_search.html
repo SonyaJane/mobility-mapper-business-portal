@@ -15,7 +15,7 @@
   <div id="search-map" class="col-md-6 p-0 d-flex flex-column">
 
     <!-- Text search -->
-    <div id="text-search" class="p-1 position-relative">
+    <div id="text-search" class="p-1 pe-md-0 position-relative">
       <input type="text" id="business-search" class="form-control pr-5" placeholder="Search for accessible businesses">
       <button type="button" id="clear-search" class="btn btn-link position-absolute top-50 end-0 translate-middle-y px-2" aria-label="Clear search">
         <i class="bi bi-x fs-5 text-secondary"></i>
@@ -46,8 +46,9 @@
   <div id="results-container" class="hide col-md-6 p-0">
         
     <!-- Accessibility features filter -->   
-    <div class="sticky-top bg-white d-flex flex-column p-1 pb-0">  
-      <div id="accessibility-filters" class="pb-1 position-relative">  
+    <div class="sticky-top bg-white d-flex flex-column p-1 pt-0 pt-md-1">  
+      
+      <div id="accessibility-filters" class="pb-1 pb-md-0 position-relative">  
         <select id="accessibility-select" class="form-select flex-grow-1" multiple>
             {% for feature in accessibility_features %}
               <option value="{{ feature.name }}">{{ feature.name }}</option>
