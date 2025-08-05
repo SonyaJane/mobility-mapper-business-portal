@@ -1,8 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pending_verification_requests.css' %}">
+{% endblock %}
+
+{% block page_title %}Businesses Requesting Wheeler Verification{% endblock %}
+
 {% block content %}
-<div class="content-container mt-5">
-  <h2>Businesses Requesting Wheeler Verification</h2>
-  <p>These businesses have requested verification of their accessibility features. You can help verify them and earn £10 per verification.</p>
+<div class="content-container">
+  <h4>Businesses Requesting Wheeler Verification</h4>
+  <p>The following businesses have requested verification of their accessibility features. You can help verify them and receive a £10 Amazon voucher per verification.</p>
   {% if businesses %}
     <ul class="list-group">
       {% for business in businesses %}

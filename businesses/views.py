@@ -292,8 +292,8 @@ def submit_wheeler_verification(request, pk):
             for photo in photos:
                 WheelerVerificationPhoto.objects.create(verification=verification, image=photo)
 
-            # Automatically approve if >= 2 verifications
-            if business.verifications.count() >= 2:
+            # Automatically approve if >= 3 verifications
+            if business.verifications.count() >= 3:
                 business.verified_by_wheelers = True
                 business.wheeler_verification_requested = False
                 business.save()
@@ -373,6 +373,24 @@ def ajax_search_businesses(request):
     if access:
         # filter businesses matching any of the selected features
         qs = qs.filter(accessibility_features__name__in=access).distinct()
+    # Attempt to filter by map viewport bounds, suppress any errors
+    try:
+        min_lat = request.GET.get('min_lat')
+        min_lng = request.GET.get('min_lng')
+        max_lat = request.GET.get('max_lat')
+        max_lng = request.GET.get('max_lng')
+        if min_lat and min_lng and max_lat and max_lng:
+            min_lat_f, max_lat_f = float(min_lat), float(max_lat)
+            min_lng_f, max_lng_f = float(min_lng), float(max_lng)
+            qs = qs.filter(
+                location__y__gte=min_lat_f,
+                location__y__lte=max_lat_f,
+                location__x__gte=min_lng_f,
+                location__x__lte=max_lng_f
+            )
+    except Exception:
+        # If spatial lookup fails (e.g., unsupported backend), ignore bounds filter
+        pass
     results = []
     for biz in qs.distinct():
         # Determine logo URL: if the stored name is a full URL, use it; otherwise use media URL

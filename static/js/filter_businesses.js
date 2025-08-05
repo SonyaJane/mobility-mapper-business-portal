@@ -33,11 +33,38 @@ export default function filterBusinesses() {
     access.forEach(feature => params.append('accessibility', feature)); 
 
     let businesses = [];
-    // Fetch businesses based on search and accessibility filters
+    // Include map viewport bounds if map is initialized
+    if (window.MAP && window.MAP.map) {
+        const bounds = window.MAP.map.getBounds();
+        const sw = bounds.getSouthWest();
+        const ne = bounds.getNorthEast();
+        params.append('min_lat', sw.lat);
+        params.append('min_lng', sw.lng);
+        params.append('max_lat', ne.lat);
+        params.append('max_lng', ne.lng);
+    }
+    // Fetch businesses based on search, accessibility filters, and map bounds
     fetch(`/business/ajax/search-businesses/?${params.toString()}`)
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Server returned ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         businesses = data.businesses || [];
+        // Client-side bounds filter: only keep businesses within current map viewport
+        if (window.MAP && window.MAP.map && businesses.length > 0) {
+            const bounds = window.MAP.map.getBounds();
+            const sw = bounds.getSouthWest();
+            const ne = bounds.getNorthEast();
+            businesses = businesses.filter(b => {
+                const loc = b.location;
+                if (!loc) return false;
+                return loc.lat >= sw.lat && loc.lat <= ne.lat
+                    && loc.lng >= sw.lng && loc.lng <= ne.lng;
+            });
+        }
         // On md+ screens with no search or accessibility filters, randomise initial list
         const isDesktop = window.matchMedia('(min-width: 768px)').matches;
         if (!search && access.length === 0 && isDesktop) {
@@ -55,5 +82,14 @@ export default function filterBusinesses() {
         if (isDesktop) {
             renderMarkers(businesses);
         }        
+    })
+    .catch(err => {
+        console.error('Search failed', err);
+        // Clear results list and markers on error
+        renderResultsList([]);
+        if (window.MAP && window.MAP.map) {
+            window.MAP.map.resize();
+            renderMarkers([]);
+        }
     });
 }

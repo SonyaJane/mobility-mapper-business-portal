@@ -83,8 +83,8 @@ for i in range(2):
     profiles.append(profile)
     user_profiles_without_business.append(user_pk)
 
-# 10 fake business users (is_wheeler=False, has_business=True, mobility_device=None)
-for i in range(10):
+# 100 fake business users (is_wheeler=False, has_business=True, mobility_device=None)
+for i in range(100):
     username = f"business_user_{i+1}"
     email = fake.email()
     password = make_password("testpass123")
@@ -176,26 +176,91 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
     billing_frequency = random.choice(["monthly", "yearly"])
     # Logo (simulate file path)
     # Generate a placeholder logo URL for each business
-    logo_path = fake.image_url(width=400, height=400)
+    if random.random() < 0.5:
+        logo_path = fake.image_url(width=400, height=400)
+    else:
+        logo_path = ''
+    # Website: 80% chance of having a website
+    if random.random() < 0.8:
+        website = fake.url()
+    else:
+        website = ''
     # Social media URLs
-    website = fake.url()
-    facebook_url = f"https://facebook.com/{fake.slug()}"
-    instagram_url = f"https://instagram.com/{fake.slug()}"
-    twitter_url = f"https://twitter.com/{fake.slug()}"
+    if random.random() < 0.6:            
+        facebook_url = f"https://facebook.com/{fake.slug()}"
+    else:
+        facebook_url = ''
+    if random.random() < 0.5:
+        instagram_url = f"https://instagram.com/{fake.slug()}"
+    else:
+        instagram_url = ''
+    if random.random() < 0.5:
+        x_twitter_url = f"https://x.com/{fake.slug()}"
+    else:
+        x_twitter_url = ''
     # Phones/emails
-    public_phone = fake.phone_number()
+    if random.random() < 0.75:
+        public_phone = fake.phone_number()
+    else:
+        public_phone = ''
     contact_phone = fake.phone_number()
-    public_email = fake.company_email()
+    if random.random() < 0.5:
+        public_email = fake.company_email()
+    else:
+        public_email = ''
     # Services/offers
-    services_offered = fake.sentence(nb_words=6)
-    special_offers = fake.sentence(nb_words=8)
-    # Opening hours
-    opening_hours = "Mon-Fri 09:00-17:00"  # Simple static example
+    if random.random() < 0.5:
+        services_offered = fake.sentence(nb_words=6)
+    else:
+        services_offered = ''
+    # Special offers: 50% chance of having special offers
+    if random.random() < 0.5:
+        special_offers = fake.sentence(nb_words=8)
+    else:
+        special_offers = ''
+    # Opening hours: 10% chance no hours submitted
+    if random.random() < 0.1:
+        opening_hours = ''
+    else:
+        # Build JSON opening hours for each day
+        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        opening_hours_dict = {}
+        for day in days:
+            # 90% chance business is open
+            if random.random() < 0.9:
+                # 30% of open days split into a morning and afternoon period
+                if random.random() < 0.3:
+                    opening_hours_dict[day] = [
+                        {"start": "09:00", "end": "13:00"},
+                        {"start": "14:00", "end": "17:00"}
+                    ]
+                else:
+                    opening_hours_dict[day] = [{"start": "09:00", "end": "17:00"}]
+            else:
+                opening_hours_dict[day] = []
+        opening_hours = json.dumps(opening_hours_dict)
     # Choose 1 category most of the time, 2 occasionally
     if random.random() < 0.8:
         categories = [random.choice(category_choices)]
     else:
         categories = random.sample(category_choices, k=2)
+
+    verified_by_wheelers = fake.boolean()
+    if verified_by_wheelers:
+        # If verified, set a random note
+        wheeler_verification_notes = fake.sentence()
+    else:
+        wheeler_verification_notes = ''
+    
+    if verified_by_wheelers:
+        wheeler_verification_requested = False
+    else:
+        # 50% chance of requesting verification
+        if random.random() < 0.5:
+            wheeler_verification_requested = True
+        else:
+            wheeler_verification_requested = False
+
     businesses.append({
         "model": "businesses.business",
         "pk": idx+1,
@@ -217,12 +282,12 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             "special_offers": special_offers,
             "facebook_url": facebook_url,
             "instagram_url": instagram_url,
-            "x_twitter_url": twitter_url,
+            "x_twitter_url": x_twitter_url,
             "pricing_tier": pricing_tier_pk,
             "billing_frequency": billing_frequency,
-            "wheeler_verification_requested": fake.boolean(),
-            "verified_by_wheelers": fake.boolean(),
-            "wheeler_verification_notes": fake.sentence(),
+            "wheeler_verification_requested": wheeler_verification_requested,
+            "verified_by_wheelers": verified_by_wheelers,
+            "wheeler_verification_notes": wheeler_verification_notes,
             "is_approved": True,
             "created_at": str(fake.date_time_this_decade(tzinfo=timezone.utc)),
         }

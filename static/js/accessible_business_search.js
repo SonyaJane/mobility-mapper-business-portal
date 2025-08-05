@@ -2,6 +2,7 @@ import renderMarkers from './render_markers.js';
 import load_map from './load_map.js';
 import filterBusinesses from './filter_businesses.js';
 
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Load map
@@ -9,7 +10,23 @@ document.addEventListener('DOMContentLoaded', function() {
     load_map(mapContainer);
 
     // Listen for search input 
-    document.getElementById('business-search').addEventListener('input', filterBusinesses);
+    // On desktop: real-time filtering; on mobile: wait for Search button
+    const searchInput = document.getElementById('business-search');
+    if (window.matchMedia('(min-width: 768px)').matches) {
+        searchInput.addEventListener('input', filterBusinesses);
+    } else {
+        const searchBtn = document.getElementById('search-btn');
+        if (searchBtn) {
+            searchBtn.addEventListener('click', () => filterBusinesses());
+        }
+    }
+
+    // listen for map panning or zoom changes to trigger filtering only on desktop
+    if (window.MAP && window.MAP.map && window.matchMedia('(min-width: 768px)').matches) {
+        // Only re-filter once the user finishes dragging (panning) or zooming on larger screens
+        window.MAP.map.on('dragend', filterBusinesses);
+        window.MAP.map.on('zoomend', filterBusinesses);
+    }
 
     const accessibilitySelect = document.getElementById('accessibility-select');
     let accessibilityChoices;
@@ -117,10 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const overlay = document.getElementById('info-overlay');
             if (overlay) overlay.classList.add('hide');
         }
-    });
-
-    MAP.map.on('load', () => {
-        MAP.map.resize();
     });
     
 });

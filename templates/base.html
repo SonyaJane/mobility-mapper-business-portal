@@ -103,15 +103,15 @@
           </div>
         </nav>
         <!-- Top navbar for small/medium screens only -->
-        <nav class="navbar navbar-expand-xl navbar-light flex-xl-column flex-grow-1 d-xl-none">
+        <nav class="navbar navbar-expand-xl bg-light navbar-light flex-xl-column flex-grow-1 d-xl-none">
           <a class="navbar-brand logo-font ms-0 ps-0" href="{% url 'home' %}">Mobility Mapper</a>
           <div class="flex-grow-1 text-center">
             <span class="fs-5 d-none d-md-inline">{{ page_title|default:'Mobility Mapper' }}</span>
           </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <button class="navbar-toggler box-shadow" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="collapse navbar-collapse py-3" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               {% if user.is_authenticated %}
                 <li class="nav-item">
