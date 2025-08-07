@@ -75,26 +75,28 @@ class BusinessRegistrationForm(forms.ModelForm):
     categories = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
-        required=False,
-        label="Select Business Categories"
+        label=mark_safe(
+            "Business Categories*<br><small>Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</small>"
+        ),
+        required=False
     )
     other_category = forms.CharField(
         required=False,
-        label=mark_safe("Other Category*<br>If your category isn't listed, type it here and it will be added to our database."),
+        label=mark_safe("Other Category*<br><small>If your category isn't listed, type it here and it will be added to our database.</small>"),
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a new category here'})
     )
     accessibility_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
-        required=False,
+        required=True,
         label="Select Accessibility Features"
     )
     location = forms.CharField(
         widget=MapLibrePointWidget(),
         label=mark_safe(
-            "Business Location*<br>Find your business location on the map, zoom in for accuracy, and then click directly on your building or area to place a marker."
+            "Business Location*<br><small>Find your business location on the map, zoom in for accuracy, and then click directly on your building or area to place a marker.</small>"
         ),
-        required=False,
+        required=True,
     )
 
     class Meta:
@@ -151,21 +153,37 @@ class BusinessRegistrationForm(forms.ModelForm):
                     raise forms.ValidationError("Logo must be square (width and height must be equal).")
         return logo
 
+    def clean_categories(self):
+        # Remove the special '__other__' marker from posted category values
+        raw = self.data.getlist('categories') if hasattr(self.data, 'getlist') else self.data.get('categories', [])
+        # Ensure we have a list
+        if isinstance(raw, str):
+            raw = [raw]
+        selected_ids = [val for val in raw if val != '__other__']
+        # Convert to Category instances
+        categories = Category.objects.filter(pk__in=selected_ids)
+        # If no real categories and no other_category provided, error
+        other = self.data.get('other_category', '').strip()
+        if not categories and not other:
+            raise forms.ValidationError('Select at least one category or enter an Other category.')
+        return categories
+
     def save(self, commit=True):
+        # Save instance and m2m, then handle 'Other' category
         instance = super().save(commit=False)
-        # handle 'Other' category
-        other_cat = self.cleaned_data.get('other_category')
-        if other_cat:
-            # slugify the category name to create a URL-friendly string
-            slug = slugify(other_cat)
-            # create or get the category object
-            category, created = Category.objects.get_or_create(
-                code=slug,
-                defaults={'name': other_cat}
-            )
-            instance.categories.add(category)
         if commit:
             instance.save()
+            # Save m2m relationships for categories and accessibility_features
+            self.save_m2m()
+            # Handle 'Other' entry by adding new Category
+            other_cat = self.cleaned_data.get('other_category')
+            if other_cat:
+                slug = slugify(other_cat)
+                category, created = Category.objects.get_or_create(
+                    code=slug,
+                    defaults={'name': other_cat}
+                )
+                instance.categories.add(category)
         return instance
 
 

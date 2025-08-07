@@ -46,8 +46,16 @@ def register_business(request):
             request.session['billing_frequency'] = billing_frequency
             business.opening_hours = post_data.get('opening_hours', '')
             business.save()
-            business.categories.set(form.cleaned_data.get('categories', []))
-            business.accessibility_features.set(form.cleaned_data.get('accessibility_features', []))
+            # Persist categories and accessibility features
+            form.save_m2m()
+            # Handle custom 'Other' category text
+            other_cat = form.cleaned_data.get('other_category')
+            if other_cat:
+                from django.template.defaultfilters import slugify
+                from .models import Category
+                slug = slugify(other_cat)
+                category_obj, created = Category.objects.get_or_create(code=slug, defaults={'name': other_cat})
+                business.categories.add(category_obj)
             user_profile.has_business = True
             user_profile.save()
             return redirect('business_dashboard')
@@ -55,10 +63,19 @@ def register_business(request):
         form = BusinessRegistrationForm()
 
     days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    # Determine selected values to preserve on form error
+    if request.method == 'POST':
+        selected_categories = request.POST.getlist('categories')
+        selected_accessibility_features = request.POST.getlist('accessibility_features')
+    else:
+        selected_categories = []
+        selected_accessibility_features = []
     return render(request, 'businesses/register_business.html', {
         'form': form,
         'pricing_tiers': pricing_tiers,
         'days_of_week': days_of_week,
+        'selected_categories': selected_categories,
+        'selected_accessibility_features': selected_accessibility_features,
         'page_title': 'Register Your Business',
     })
 
@@ -170,6 +187,10 @@ def edit_business(request):
     import json
     if request.method == 'POST':
         post_data = request.POST.copy()
+        # Remove '__other__' marker so categories field validation passes
+        if post_data.getlist('categories'):
+            cleaned = [c for c in post_data.getlist('categories') if c != '__other__']
+            post_data.setlist('categories', cleaned)
         # Ensure opening_hours is stored as text
         try:
             if post_data.get('opening_hours'):
@@ -184,10 +205,19 @@ def edit_business(request):
             # Store opening_hours as text
             business.opening_hours = post_data.get('opening_hours', '')
             business.save()
-            # Update categories
-            business.categories.set(form.cleaned_data.get('categories', []))
-            # Update accessibility features
-            business.accessibility_features.set(form.cleaned_data.get('accessibility_features', []))
+            # Persist categories and accessibility features
+            form.save_m2m()
+            # Handle custom 'Other' category text
+            other_cat = form.cleaned_data.get('other_category')
+            if other_cat:
+                from django.template.defaultfilters import slugify
+                from .models import Category
+                slug = slugify(other_cat)
+                category_obj, created = Category.objects.get_or_create(
+                    code=slug,
+                    defaults={'name': other_cat}
+                )
+                business.categories.add(category_obj)
             messages.success(request, "Business updated successfully.")
             return redirect('business_dashboard')
     else:
@@ -196,10 +226,20 @@ def edit_business(request):
         form = BusinessRegistrationForm(instance=business, initial={'opening_hours': initial})
 
     days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    # Determine selected values for pre-selecting in template
+    if request.method == 'POST':
+        selected_categories = request.POST.getlist('categories')
+        selected_accessibility_features = request.POST.getlist('accessibility_features')
+    else:
+        # initial render: use instance categories and features
+        selected_categories = [str(pk) for pk in business.categories.values_list('pk', flat=True)]
+        selected_accessibility_features = [str(pk) for pk in business.accessibility_features.values_list('pk', flat=True)]
     return render(request, 'businesses/edit_business.html', {
         'form': form,
         'pricing_tiers': pricing_tiers,
         'days_of_week': days_of_week,
+        'selected_categories': selected_categories,
+        'selected_accessibility_features': selected_accessibility_features,
         'page_title': 'Edit Your Business',
     })
 

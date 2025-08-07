@@ -70,7 +70,7 @@
                 <td class="align-middle"><a href="tel:{{ business.contact_phone }}" class="text-decoration-none">{{ business.contact_phone }}</a></td>
               </tr>
               <tr>
-                <td class="align-middle ps-3"><i class="bi bi-share fs-5 me-2 text-info"></i><strong>Social Media:</strong></td>
+                <td class="align-middle ps-3"><i class="bi bi-share fs-6 me-2 text-info"></i><strong>Social Media:</strong></td>
                 <td class="align-middle">
                   {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2"><i class="bi bi-facebook text-primary"></i></a>{% endif %}
                   {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2"><i class="bi bi-twitter-x text-dark"></i></a>{% endif %}
@@ -116,13 +116,12 @@
               </tr>
             </tbody>
             </table>
-          </div>
-          </div>
+          </div>          
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
   <div class="row mb-3 g-3 d-flex align-items-stretch">  
     <!-- Accessibility Features Card -->
     <div class="col-12 col-sm-6">
@@ -237,12 +236,5 @@
 
 {% block extra_js %}
 {{ business_json|json_script:"business-data" }}
-<script type="module">
-  import load_map_business from "{% static 'js/load_map_business.js' %}";
-  document.addEventListener("DOMContentLoaded", function() {
-    const business = JSON.parse(document.getElementById('business-data').textContent);
-    load_map_business("public-map", business);
-  });
-</script>
-
+<script type="module" src="{% static 'js/business_dashboard.js' %}"></script>
 {% endblock %}

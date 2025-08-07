@@ -1,39 +1,106 @@
-
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 {% load static %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/edit_business.css' %}">
+{% endblock %}
+
+{% block page_title %}Edit Business{% endblock %}
 
 {% block content %}
-<div class="content-container mt-5">
-  <h2>Edit Your Business</h2>
+
+<div class="content-container p-3">
+  <h4 class="mb-2">Edit your business</h4>
+  <p class="mt-1">The details you enter below will appear in the public search results on the <a href="{% url 'accessible_business_search' %}" class="link-body-emphasis">Search for Accessible Businesses</a> page. Therefore, the more complete and accurate your listing, the better potential customers can find and choose your business.</p>
+
   <form method="POST" enctype="multipart/form-data" class="business-registration-form">
-    {% csrf_token %}
-    {{ form.media }}
     {% if form.errors %}
       <div class="alert alert-danger">
+        <strong>Please correct the errors below:</strong>
         <ul>
-          {% for field in form %}
-            {% for error in field.errors %}
+        {% for field in form %}
+          {% for error in field.errors %}
+            {% if field.name == 'categories' or field.name == 'accessibility_features' %}
+              <li>
+                <strong>{{ field.label }}</strong><br>
+                {{ error }}
+              </li>
+            {% else %}
               <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-            {% endfor %}
+            {% endif %}
           {% endfor %}
-          {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
         </ul>
       </div>
     {% endif %}
+
+    {% csrf_token %}
+    {{ form.media }}
+
     <!-- Other Form Fields -->
     {% for field in form.visible_fields %}
-      {% if field.name != 'categories' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' and field.name != 'opening_hours' %}
+      {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' and field.name != 'opening_hours' and field.name != 'special_offers' %}
         {{ field|as_crispy_field }}
       {% endif %}
     {% endfor %}
 
+    <!-- Categories (grouped multi-select dropdown) -->
+    <div class="mb-3">
+      <label for="id_categories" class="form-label">
+        Business Categories*
+        <br>
+        <small>Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</small>
+      </label>
+      {% regroup form.fields.categories.queryset by group_description as grouped_categories %}
+      {% with selected=selected_categories %}
+      <select name="categories" id="id_categories" class="form-select" multiple size="8">
+        {% for group in grouped_categories %}
+          {% if group.grouper %}
+          <optgroup label="{{ group.grouper }}">
+            {% for category in group.list %}
+              <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+          </optgroup>
+          {% endif %}
+        {% endfor %}
+        <optgroup label="Other">
+          {# include categories with no group_description #}
+          {% for group in grouped_categories %}
+            {% if not group.grouper %}
+              {% for category in group.list %}
+                <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected %}selected{% endif %}>{{ category.name }}</option>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+          <option value="__other__" {% if '__other__' in selected %}selected{% endif %}>Other</option>
+        </optgroup>
+        </select>
+      {% endwith %}
+      <div id="other-category-field" class="my-3" style="display: none;">
+        {{ form.other_category|as_crispy_field }}
+      </div>
+    </div>
+
+    <!-- Accessibility Features (flat multi-select dropdown) -->
+    <div class="mb-3">
+      <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
+      <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
+        {% for code, name in form.fields.accessibility_features.choices %}
+          <option value="{{ code }}" {% if code|stringformat:'s' in selected_accessibility_features %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
     <!-- Opening Hours Widget -->
     <div class="mb-3">
-      <label class="form-label">Business Hours</label>
-      <small class="text-muted">Set opening and closing times for each day, or mark as closed.</small>
+      <label class="form-label">
+        Business Hours<br>
+        <small class="form-text text-muted">Set opening and closing times for each day, or mark as closed.</small>
+      </label>
       <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
       <table class="table table-bordered" id="opening-hours-table">
         <thead>
@@ -55,27 +122,14 @@
       </table>
     </div>
 
-    <!-- Categories (grouped multi-select dropdown) -->
+    <!-- Special Offers -->
     <div class="mb-3">
-      <label for="id_categories" class="form-label">Business Categories</label>
-      <select name="categories" id="id_categories" class="form-select" multiple size="8">
-          {% for code, name in form.fields.categories.choices %}
-            <option value="{{ code }}" {% if form.categories.value and code in form.categories.value %}selected{% endif %}>{{ name }}</option>
-          {% endfor %}
-      </select>
+      <label for="id_special_offers" class="form-label">
+        Special Offers for Wheelers<br>
+        <small class="form-text text-muted">Add any discounts or promotions specifically for Wheelers to encourage customers to come to your business.</small><br>
+      </label>
+      {{ form.special_offers }}
     </div>
-
-    <!-- Accessibility Features (flat multi-select dropdown) -->
-    <div class="mb-3">
-      <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
-      <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
-          {% for code, name in form.fields.accessibility_features.choices %}
-            <option value="{{ code }}" {% if form.accessibility_features.value and code in form.accessibility_features.value %}selected{% endif %}>{{ name }}</option>
-          {% endfor %}        
-      </select>
-    </div>
-
-    <!-- Pricing Tier (crispy field) -->
 
     <!-- Hidden Pricing Tier and Billing Frequency fields -->
     {% if form.pricing_tier %}
@@ -119,123 +173,5 @@
 {% endblock %}
 
 {% block extra_js %}
-{{ block.super }}
-<script>
-// Auto-resize for textareas
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('textarea.auto-resize').forEach(function(textarea) {
-    function resize() {
-      textarea.style.height = 'auto';
-      textarea.style.height = textarea.scrollHeight + 'px';
-    }
-    textarea.addEventListener('input', resize);
-    resize();
-  });
-
-  // Opening hours widget logic (multi-period)
-  const openingHoursField = document.getElementById('id_opening_hours');
-  const table = document.getElementById('opening-hours-table');
-  let initial = {};
-  try {
-    if (openingHoursField.value) {
-      initial = JSON.parse(openingHoursField.value);
-    }
-  } catch (e) {}
-
-  function addPeriod(container, open='', close='') {
-    const periodDiv = document.createElement('div');
-    periodDiv.className = 'input-group mb-1 period-row';
-    periodDiv.innerHTML = `
-      <input type="time" class="form-control open-time" value="${open}">
-      <span class="input-group-text">to</span>
-      <input type="time" class="form-control close-time" value="${close}">
-      <button type="button" class="btn btn-sm btn-outline-danger remove-period-btn" title="Remove">&times;</button>
-    `;
-    periodDiv.querySelector('.remove-period-btn').onclick = function() {
-      periodDiv.remove();
-    };
-    container.appendChild(periodDiv);
-  }
-
-  const rows = Array.from(table.querySelectorAll('tbody tr'));
-  rows.forEach((row, idx) => {
-    const day = row.dataset.day;
-    const container = row.querySelector('.periods-container');
-    // Populate from initial data
-    if (initial[day] && !initial[day].closed && Array.isArray(initial[day].periods)) {
-      initial[day].periods.forEach(period => {
-        addPeriod(container, period.open, period.close);
-      });
-    } else {
-      addPeriod(container);
-    }
-    // Add period button
-    row.querySelector('.add-period-btn').onclick = function() {
-      addPeriod(container);
-    };
-    // Copy down button
-    row.querySelector('.copy-down-btn').onclick = function() {
-      if (idx < rows.length - 1) {
-        const nextRow = rows[idx + 1];
-        const nextContainer = nextRow.querySelector('.periods-container');
-        nextContainer.innerHTML = '';
-        // Copy periods
-        container.querySelectorAll('.period-row').forEach(periodDiv => {
-          const open = periodDiv.querySelector('.open-time').value;
-          const close = periodDiv.querySelector('.close-time').value;
-          if (open && close) {
-            addPeriod(nextContainer, open, close);
-          }
-        });
-        // Copy closed state
-        nextRow.querySelector('.closed-checkbox').checked = row.querySelector('.closed-checkbox').checked;
-        // Trigger display logic
-        nextRow.querySelector('.closed-checkbox').dispatchEvent(new Event('change'));
-      }
-    };
-    // Closed checkbox logic
-    const closedCb = row.querySelector('.closed-checkbox');
-    function togglePeriods() {
-      container.style.display = closedCb.checked ? 'none' : '';
-      row.querySelector('.add-period-btn').style.display = closedCb.checked ? 'none' : '';
-      row.querySelector('.copy-down-btn').style.display = closedCb.checked ? 'none' : '';
-    }
-    closedCb.addEventListener('change', togglePeriods);
-    togglePeriods();
-    // Initial state
-    if (initial[day] && initial[day].closed) {
-      closedCb.checked = true;
-      togglePeriods();
-    }
-  });
-
-  // Serialize table to hidden field before submit
-  table.closest('form').addEventListener('submit', function(e) {
-    const data = {};
-    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-      const day = row.dataset.day;
-      const closed = row.querySelector('.closed-checkbox').checked;
-      if (closed) {
-        data[day] = {closed: true};
-      } else {
-        const periods = [];
-        row.querySelectorAll('.periods-container .period-row').forEach(periodDiv => {
-          const open = periodDiv.querySelector('.open-time').value;
-          const close = periodDiv.querySelector('.close-time').value;
-          if (open && close) {
-            periods.push({open, close});
-          }
-        });
-        data[day] = {closed: false, periods};
-      }
-    });
-    openingHoursField.value = JSON.stringify(data);
-  });
-});
-</script>
-{% endblock %}
-
-{% block extra_css %}
-{{ block.super }}
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script type="module" src="{% static 'js/edit_business.js' %}"></script>
 {% endblock %}
