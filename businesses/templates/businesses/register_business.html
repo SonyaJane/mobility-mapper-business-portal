@@ -2,12 +2,18 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/register_business.css' %}">
+{% endblock %}
+
 {% block page_title %}Register Your Acessible Business{% endblock %}
 
 {% block content %}
 
-<div class="content-container my-5">
-  <h2 class="my-3">Register Your Accessible Business</h2>
+<div class="content-container">
+  <h4 class="my-3">Register Your Accessible Business</h4>
+  <p class="mt-1">The details you enter below will appear in the public search results on the <a href="{% url 'accessible_business_search' %}" class="link-body-emphasis">Search for Accessible Businesses</a> page. Therefore, the more complete and accurate your listing, the better potential customers can find and choose your business.</p>
+  <p>After registering, you can request verification of your business's accessibility features via your business profile. Wheelers can then apply to carry out the verification. Once verified, your business will display a special badge in search results to indicate trusted, accessible locations.</p>
 
   <form method="POST" enctype="multipart/form-data" class="business-registration-form">
     {% if form.errors %}
@@ -31,14 +37,51 @@
     
     <!-- Other Form Fields -->
     {% for field in form.visible_fields %}
-      {% if field.name != 'categories' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' and field.name != 'opening_hours' and field.name != 'special_offers' %}
+      {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' and field.name != 'opening_hours' and field.name != 'special_offers' %}
         {{ field|as_crispy_field }}
       {% endif %}
     {% endfor %}
 
+    <!-- Categories (grouped multi-select dropdown) -->
+    <div class="mb-3">
+      <label for="id_categories" class="form-label">
+        Categories<br>
+        Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.
+      </label>
+      {% regroup form.fields.categories.queryset by group_description as grouped_categories %}
+      <select name="categories" id="id_categories" class="form-select" multiple size="8">
+        {% for group in grouped_categories %}
+          <optgroup label="{{ group.grouper|default:'Other' }}">
+            {% for category in group.list %}
+              <option value="{{ category.pk }}" {% if form.categories.value and category.pk|stringformat:'s' in form.categories.value %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+          </optgroup>
+        {% endfor %}
+        <optgroup label="Other">
+          <option value="__other__" {% if form.categories.value and '__other__' in form.categories.value %}selected{% endif %}>Other</option>
+        </optgroup>
+      </select>
+      <div id="other-category-field" class="my-3" style="display: none;">
+        {{ form.other_category|as_crispy_field }}
+      </div>
+    </div>
+
+    <!-- Accessibility Features -->
+    <div class="mb-3">
+      <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
+      <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
+        {% for feature in form.fields.accessibility_features.queryset %}
+          <option value="{{ feature.pk }}" {% if form.accessibility_features.value and feature.pk|stringformat:'s' in form.accessibility_features.value %}selected{% endif %}>{{ feature.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
     <!-- Opening Hours Widget -->
     <div class="mb-3">
-      <label class="form-label">Business Hours</label>
+      <label class="form-label">
+        Business Hours<br>
+        <small class="form-text text-muted">Set opening and closing times for each day, or mark as closed.</small>
+      </label>
       <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
       <table class="table table-bordered" id="opening-hours-table">
         <thead>
@@ -51,35 +94,22 @@
             <td>
               <div class="periods-container"></div>
               <button type="button" class="btn btn-sm btn-outline-secondary add-period-btn" data-day="{{ day }}">Add period</button>
+              <button type="button" class="btn btn-sm btn-outline-primary copy-down-btn" data-day="{{ day }}">Copy to next day</button>
             </td>
             <td><input type="checkbox" class="closed-checkbox" data-day="{{ day }}"></td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      <small class="text-muted">Set opening and closing times for each day, or mark as closed.</small>
     </div>
 
     <!-- Special Offers -->
     <div class="mb-3">
-      <label for="id_special_offers" class="form-label">Special Offers</label>
+      <label for="id_special_offers" class="form-label">
+        Special Offers for Wheelers<br>
+        <small class="form-text text-muted">Add any discounts or promotions specifically for Wheelers to encourage customers to come to your business.</small><br>
+      </label>
       {{ form.special_offers }}
-    </div>
-
-    <!-- Categories (grouped multi-select dropdown) -->
-    <div class="mb-3">
-      <label for="id_categories" class="form-label">Categories</label>
-      <select name="categories" id="id_categories" class="form-select" multiple size="8">
-        {% for category in form.fields.categories.queryset %}
-          <option value="{{ category.pk }}" {% if form.categories.value and category.pk|stringformat:'s' in form.categories.value %}selected{% endif %}>{{ category.name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <!-- Accessibility Features -->
-    <div class="mb-3">
-      <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
-      {{ form.accessibility_features }}
     </div>
 
     <!-- Pricing Tiers -->
@@ -131,107 +161,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-  // Billing frequency logic
-  function updatePrices() {
-    const selected = document.querySelector('input[name="billing_frequency"]:checked');
-    console.log(selected);
-    const yearly = selected && selected.value.toLowerCase() === 'yearly';
-
-    document.querySelectorAll('.price-display').forEach(el => {
-      const priceMonth = parseFloat(el.dataset.priceMonth).toFixed(2);
-      const priceYear = parseFloat(el.dataset.priceYear).toFixed(2);
-      const main = el.querySelector('.price-main');
-      const alt = el.querySelector('.price-alt');
-
-      if (yearly && priceYear > 0) {
-        main.textContent = `£${priceYear} / year`;
-        if (alt) alt.textContent = `or £${priceMonth} / month`;
-      } else {
-        main.textContent = `£${priceMonth} / month`;
-        if (alt && priceYear > 0) alt.textContent = `or £${priceYear} / year`;
-      }
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const cards = document.querySelectorAll('.pricing-tier-card');
-    const hiddenInput = document.getElementById('selected-pricing-tier');
-    const billingRadios = document.querySelectorAll('input[name="billing_frequency"]');
-
-    // Card selection logic
-    cards.forEach(card => {
-      card.addEventListener('click', function() {
-        // Clear existing selection
-        cards.forEach(c => c.classList.remove('border-primary', 'shadow'));
-        // Highlight selected card
-        card.classList.add('border-primary', 'shadow');
-        // Set hidden input value to the selected tier ID
-        hiddenInput.value = card.dataset.tierId;
-      });
-
-      // Set default tier if one is initially selected in Django
-      const defaultTierId = hiddenInput.value;
-      if (defaultTierId) {
-        const defaultCard = document.querySelector(`.pricing-tier-card[data-tier-id="${defaultTierId}"]`);
-        if (defaultCard) {
-          defaultCard.classList.add('border-primary', 'shadow');
-        }
-      }
-
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          card.click();
-        }
-      });
-    });
-
-    // Billing frequency listeners
-    function updateBillingActive() {
-      const radios = document.querySelectorAll('input[name="billing_frequency"]');
-      radios.forEach(radio => {
-        const label = document.querySelector(`label[for='${radio.id}']`);
-        if (label) {
-          if (radio.checked) {
-            label.classList.add('active');
-          } else {
-            label.classList.remove('active');
-          }
-        }
-      });
-    }
-
-    billingRadios.forEach(radio => {
-      radio.addEventListener('change', function() {
-        updatePrices();
-        updateBillingActive();
-      });
-      radio.addEventListener('click', function() {
-        updatePrices();
-        updateBillingActive();
-      });
-    });
-
-    // Also update on click of the label (for accessibility)
-    document.querySelectorAll('#billing-frequency-group label').forEach(label => {
-      label.addEventListener('click', () => {
-        setTimeout(function() {
-          updatePrices();
-          updateBillingActive();
-        }, 10); // Wait for radio to update
-      });
-    });
-    // Initial update
-    updatePrices();
-    updateBillingActive();
-  });
-</script>
-{% endblock %}
-
-{% block extra_css %}
-<style>
-  .pricing-tier-card.border-primary {
-    border-width: 2px !important;
-  }
-</style>
+<script type="module" src="{% static 'js/register_business.js' %}"></script>
 {% endblock %}

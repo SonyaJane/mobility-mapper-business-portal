@@ -125,6 +125,17 @@ def business_dashboard(request):
         'opening_hours_dict': opening_hours_dict,
         'page_title': 'Business Dashboard',
     })
+ 
+@login_required
+def business_request_wheeler_verification(request, pk):
+    # Allow business owner to request Wheelers to verify their business
+    business = get_object_or_404(Business, pk=pk, business_owner=request.user.userprofile)
+    if request.method == 'POST':
+        business.wheeler_verification_requested = True
+        business.save()
+        messages.success(request, "Your request to have Wheelers verify your business has been sent.")
+        return redirect('business_dashboard')
+    return render(request, 'businesses/business_request_wheeler_verification.html', {'business': business})
 
 
 @login_required
@@ -212,13 +223,13 @@ def delete_business(request):
 
 
 @login_required
-def request_wheeler_verification(request, pk):
+def wheeler_verification_application(request, pk):
 
     business = get_object_or_404(Business, pk=pk, is_approved=True)
     profile = getattr(request.user, 'userprofile', None)
     if not request.user.is_authenticated or not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can request to verify a business.")
-        return redirect('public_business_detail', pk=pk)
+        return redirect('accessible_business_search')
 
     # Count current verifications
     verification_count = business.verifications.count()
@@ -245,7 +256,7 @@ def request_wheeler_verification(request, pk):
             )
             return render(request, 'businesses/request_submitted.html', {'business': business})
 
-    return render(request, 'businesses/request_wheeler_verification.html', {
+    return render(request, 'businesses/wheeler_verification_application.html', {
         'business': business,
         'verification_count': verification_count,
         'required_verifications': required_verifications,
@@ -415,6 +426,7 @@ def ajax_search_businesses(request):
             'services_offered': biz.services_offered,
             'description': biz.description,
             'logo': logo_url,
+            'wheeler_verification_requested': biz.wheeler_verification_requested,
         })
     return JsonResponse({'businesses': results})
 

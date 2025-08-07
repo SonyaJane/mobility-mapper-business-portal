@@ -26,6 +26,10 @@ export default function renderResultsList(businesses) {
             let address = biz.address ? `<div>${biz.address}</div>` : '';
             let logo = biz.logo ? `<img src="${biz.logo}" alt="${biz.business_name} Logo" class="business-logo-img me-2">` : '';
             let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<div class="mt-2"><span class="text-success fw-bold">✅ Verified by Wheelers</span></div>` : '';
+            // Badge for businesses that have requested verification
+            let requestedBadge = biz.wheeler_verification_requested ?
+                `<div class="mt-2"><a href="/business/${biz.id}/wheeler-verification-application/" class="badge bg-warning text-dark">📝 Verification requested</a></div>`
+                : '';
             li.innerHTML = `
                 <div class="mb-1 d-flex justify-content-between w-100">
                     <div class="d-flex align-items-center flex-shrink-1">
@@ -39,6 +43,7 @@ export default function renderResultsList(businesses) {
                 </div>                
                 ${address}
                 ${verified}
+                ${requestedBadge}
             `;
             li.style.cursor = 'pointer';
             // Create additional information in initially hidden accordion panel

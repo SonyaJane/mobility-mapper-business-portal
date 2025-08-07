@@ -4,20 +4,25 @@ from .widgets import MapLibrePointWidget
 from .models import AccessibilityFeature, Category
 from PIL import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+from django.utils.safestring import mark_safe
+from django.template.defaultfilters import slugify
 
 
 class BusinessRegistrationForm(forms.ModelForm):
     public_phone = forms.CharField(
         required=False,
-        label="Public phone number"
+        label="Public phone number",
+        help_text="This number will appear in search results so customers can call you directly."
     )
     contact_phone = forms.CharField(
         required=False,
-        label="Contact phone number"
+        label="Contact phone number",
+        help_text="This number will be used for internal communication only."
     )
     public_email = forms.EmailField(
         required=False,
-        label="Public email address"
+        label="Public email address",
+        help_text="This email will appear in search results so customers can contact you directly."
     )
     services_offered = forms.CharField(
         required=False,
@@ -37,7 +42,6 @@ class BusinessRegistrationForm(forms.ModelForm):
             'rows': 3
         })
     )
-
     opening_hours = forms.CharField(
         required=False,
         label="Business Hours",
@@ -47,13 +51,12 @@ class BusinessRegistrationForm(forms.ModelForm):
             'rows': 3
         })
     )
-
     special_offers = forms.CharField(
         required=False,
         label="Special Offers",
         widget=forms.Textarea(attrs={
             'placeholder': 'Describe any special offers or discounts for wheelers.',
-            'class': 'auto-resize',
+            'class': 'form-control auto-resize',  # ensure full-width styling
             'rows': 3
         })
     )
@@ -75,29 +78,54 @@ class BusinessRegistrationForm(forms.ModelForm):
         required=False,
         label="Select Business Categories"
     )
+    other_category = forms.CharField(
+        required=False,
+        label=mark_safe("Other Category*<br>If your category isn't listed, type it here and it will be added to our database."),
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a new category here'})
+    )
     accessibility_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
         required=False,
         label="Select Accessibility Features"
     )
-    
+    location = forms.CharField(
+        widget=MapLibrePointWidget(),
+        label=mark_safe(
+            "Business Location*<br>Find your business location on the map, zoom in for accuracy, and then click directly on your building or area to place a marker."
+        ),
+        required=False,
+    )
+
     class Meta:
         model = Business
-        exclude = [
-            'business_owner',
-            'wheeler_verification_requested',
-            'verified_by_wheelers',
-            'wheeler_verification_notes',
-            'is_approved',
-        ]
-        widgets = {
-            'location': MapLibrePointWidget(),
-        }
-        
+        fields = [
+            'business_name',
+            'address',
+            'location',
+            'public_phone',
+            'contact_phone',
+            'public_email',
+            'website',
+            'facebook_url',
+            'x_twitter_url',
+            'instagram_url',
+            'categories',
+            'other_category',
+            'accessibility_features',
+            'description',
+            'services_offered',
+            'special_offers',
+            'opening_hours',
+            'logo',
+            'pricing_tier',
+            'billing_frequency',
+            ]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['categories'].queryset = Category.objects.all()
+        # order categories by group and name so grouping works correctly
+        self.fields['categories'].queryset = Category.objects.all().order_by('group_description', 'name')
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
         self.fields['pricing_tier'].queryset = PricingTier.objects.filter(is_active=True)
         self.fields['pricing_tier'].empty_label = "Select a pricing tier"
@@ -107,8 +135,13 @@ class BusinessRegistrationForm(forms.ModelForm):
                 self.initial['pricing_tier'] = free_tier.pk
         except PricingTier.DoesNotExist:
             pass
-    
-        
+
+    def clean_location(self):
+        location = self.cleaned_data.get('location')
+        if not location:
+            raise forms.ValidationError('This field is required.')
+        return location
+
     def clean_logo(self):
         logo = self.cleaned_data.get('logo')
         if logo:
@@ -117,7 +150,24 @@ class BusinessRegistrationForm(forms.ModelForm):
                 if image.width != image.height:
                     raise forms.ValidationError("Logo must be square (width and height must be equal).")
         return logo
-        
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        # handle 'Other' category
+        other_cat = self.cleaned_data.get('other_category')
+        if other_cat:
+            # slugify the category name to create a URL-friendly string
+            slug = slugify(other_cat)
+            # create or get the category object
+            category, created = Category.objects.get_or_create(
+                code=slug,
+                defaults={'name': other_cat}
+            )
+            instance.categories.add(category)
+        if commit:
+            instance.save()
+        return instance
+
 
 class WheelerVerificationForm(forms.ModelForm):
 
@@ -149,4 +199,4 @@ class WheelerVerificationForm(forms.ModelForm):
         if business:
             self.fields['confirmed_features'].queryset = business.accessibility_features.all()
         self.fields['additional_features'].queryset = AccessibilityFeature.objects.all()
-        
+

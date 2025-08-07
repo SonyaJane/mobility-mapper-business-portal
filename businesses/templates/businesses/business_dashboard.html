@@ -1,100 +1,123 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/business_dashboard.css' %}">
+{% endblock %}
+
 {% block page_title %}Business Dashboard{% endblock %}
 
 {% block content %}
 <div class="content-container mx-1">
 
   <!-- Dashboard Header -->
-  <div class="row align-items-center mb-4 pt-2">
-    {% if business.logo %}
+  
+  {% if business.logo %}
+  <div class="row align-items-center mt-4 mb-3 pt-2">  
       <div class="col-md-4 text-center">
         <img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" class="img-fluid rounded mb-3" style="max-height: 180px;">
       </div>
       <div class="col-md-8 text-center">
-    {% else %}
-      <div class="col-12">
-    {% endif %}
+  {% else %}
+  <div class="d-flex flex-column align-items-center mt-4 mb-3 pt-2">
+  {% endif %}
         <h1 class="fw-bold">{{ business.business_name }}</h1>
         <p class="fs-5 text-muted">Dashboard</p>
       </div>
+  {% if business.logo %}    
   </div>
+  {% endif %}
 
   {% if business %}
   <div class="row mb-3 g-3">
 
     <!-- Business Details -->
-    <div class="col-md-6">    
-      <div class="card shadow-sm">
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title mb-3">Business Details</h5>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-person-circle fs-5 me-2 text-primary"></i>
-              <span><strong>Owner:</strong> {{ user.first_name }} {{ user.last_name }}</span>
-            </li>
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-tags fs-5 me-2 text-success"></i>
-              <span><strong>Category:</strong> <span class="badge bg-light text-dark px-2 py-1">{% if business.categories.all %}{% for cat in business.categories.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% else %}None{% endif %}</span></span>
-            </li>
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-geo-alt fs-5 me-2 text-danger"></i>
-              <span><strong>Address:</strong> {{ business.address }}</span>
-            </li>
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-globe fs-5 me-2 text-info"></i>
-              <span><strong>Website:</strong> <a href="{{ business.website }}" target="_blank" class="text-decoration-none">{{ business.website }}</a></span>
-            </li>
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-envelope fs-5 me-2 text-warning"></i>
-              <span><strong>Public Email:</strong> <a href="mailto:{{ business.public_email }}" class="text-decoration-none">{{ business.public_email }}</a></span>
-            </li>
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-telephone fs-5 me-2 text-success"></i>
-              <span><strong>Public Phone:</strong> <a href="tel:{{ business.public_phone }}" class="text-decoration-none">{{ business.public_phone }}</a></span>
-            </li>
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-lock fs-5 me-2 text-secondary"></i>
-              <span><strong>Private Phone:</strong> <a href="tel:{{ business.contact_phone }}" class="text-decoration-none">{{ business.contact_phone }}</a></span>
-            </li>
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-share fs-5 me-2 text-info"></i>
-              <span><strong>Social Media:</strong>
-                {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2"><i class="bi bi-facebook text-primary"></i></a>{% endif %}
-                {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2"><i class="bi bi-twitter-x text-dark"></i></a>{% endif %}
-                {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank" class="me-2"><i class="bi bi-instagram text-danger"></i></a>{% endif %}
-              </span>
-            </li>
-          </ul>
+          <h5 class="card-title m-3">Business Details</h5>
+          <div class="table-responsive">
+            <table id="business-details" class="table table-sm table-striped table-hover mb-0">
+            <tbody>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-person-circle fs-5 me-2 text-primary"></i><strong>Owner:</strong></td>
+                <td class="align-middle">{{ user.first_name }} {{ user.last_name }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-tags fs-5 me-2 text-success"></i><strong>Category:</strong></td>
+                <td class="align-middle">
+                  {% if business.categories.all %}{% for cat in business.categories.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% else %}None{% endif %}
+                </td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-geo-alt fs-5 me-2 text-danger"></i><strong>Address:</strong></td>
+                <td class="align-middle">{{ business.address }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-info"></i><strong>Website:</strong></td>
+                <td class="align-middle"><a href="{{ business.website }}" target="_blank" class="text-decoration-none">{{ business.website }}</a></td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-warning"></i><strong>Public Email:</strong></td>
+                <td class="align-middle"><a href="mailto:{{ business.public_email }}" class="text-decoration-none">{{ business.public_email }}</a></td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-telephone fs-5 me-2 text-success"></i><strong>Public Phone:</strong></td>
+                <td class="align-middle"><a href="tel:{{ business.public_phone }}" class="text-decoration-none">{{ business.public_phone }}</a></td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-lock fs-5 me-2 text-secondary"></i><strong>Private Phone:</strong></td>
+                <td class="align-middle"><a href="tel:{{ business.contact_phone }}" class="text-decoration-none">{{ business.contact_phone }}</a></td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-share fs-5 me-2 text-info"></i><strong>Social Media:</strong></td>
+                <td class="align-middle">
+                  {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2"><i class="bi bi-facebook text-primary"></i></a>{% endif %}
+                  {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2"><i class="bi bi-twitter-x text-dark"></i></a>{% endif %}
+                  {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank" class="me-2"><i class="bi bi-instagram text-danger"></i></a>{% endif %}
+                </td>
+              </tr>
+            </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Map Card -->
     <div class="col-md-6">
-      <div id="public-map" class="card shadow-sm"></div>
+      <div class="card shadow-sm h-100">
+        <div class="card-body p-0">
+          <h5 class="card-title ms-3 my-3">Location</h5> 
+          <div id="public-map"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Description & Services Card -->
     <div class="col-12">
       <div class="card shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title mb-3">Description & Services</h5>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-card-text fs-5 me-2 text-info"></i>
-              <span><strong>Description:</strong> {{ business.description }}</span>
-            </li>
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-briefcase fs-5 me-2 text-primary"></i>
-              <span><strong>Services Offered:</strong> {{ business.services_offered }}</span>
-            </li>
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-tag fs-5 me-2 text-warning"></i>
-              <span><strong>Special Offers:</strong> {{ business.special_offers }}</span>
-            </li>
-          </ul>
+        <div class="card-body p-0">
+          <h5 class="card-title ms-3 my-3">Description & Services</h5>
+          <div class="table-responsive">
+            <table id="description-services-table" class="table table-sm table-striped table-hover mb-0">
+            <tbody>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-card-text fs-5 me-2 text-info"></i><strong>Description:</strong></td>
+                <td class="align-middle">{{ business.description }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-briefcase fs-5 me-2 text-primary"></i><strong>Services Offered:</strong></td>
+                <td class="align-middle">{{ business.services_offered }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle ps-3"><i class="bi bi-tag fs-5 me-2 text-warning"></i><strong>Special Offers:</strong></td>
+                <td class="align-middle">{{ business.special_offers }}</td>
+              </tr>
+            </tbody>
+            </table>
+          </div>
+          </div>
         </div>
       </div>
     </div>
@@ -103,7 +126,7 @@
   <div class="row mb-3 g-3 d-flex align-items-stretch">  
     <!-- Accessibility Features Card -->
     <div class="col-12 col-sm-6">
-      <div class="card shadow-sm h-100">
+      <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
           <h5 class="card-title mb-3">Accessibility Features</h5>
           <div>
@@ -117,8 +140,8 @@
             <p class="text-success fw-bold mt-2">✅ Verified by Wheelers</p>
           {% elif business.wheeler_verification_requested %}
             <div class="alert alert-warning mt-2">⏳ Verification request pending</div>
-          {% else %}
-            <a href="{% url 'request_wheeler_verification' business.id %}" class="btn btn-outline-primary mt-2">Request Wheeler Verification</a>
+            {% else %}
+            <a href="{% url 'business_request_wheeler_verification' business.id %}" class="btn btn-outline-primary mt-2">Request Wheeler Verification</a>
           {% endif %}
         </div>
       </div>
@@ -128,15 +151,15 @@
     <div class="col-12 col-sm-6">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title mb-3">Opening Hours</h5>
+          <h5 class="card-title ms-3 my-3">Opening Hours</h5>
           {% if business.opening_hours %}
             {% if opening_hours_dict %}
               <div class="table-responsive">
-                <table class="table table-bordered table-sm w-auto" id="opening-hours-table-dashboard">
+                <table class="table table-sm table-striped table-hover mb-0" id="opening-hours-table-dashboard">
                   <tbody>
                     {% for day, info in opening_hours_dict.items %}
                       <tr>
-                        <td class="ps-2 pe-3 pe-sm-2"><strong>{{ day }}</strong></td>
+                        <td class="px-3 pe-sm-2"><strong>{{ day }}</strong></td>
                         <td class="px-4 px-sm-2">
                           {% if info.closed %}
                             <span class="text-muted">Closed</span>
@@ -161,21 +184,12 @@
   </div>
 
   <div class="row mb-3 g-3 d-flex align-items-stretc"> 
-    <!-- Account & Approval Card -->
+    <!-- Subscription tier -->
     <div class="col-12 col-lg-6">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h5 class="card-title mb-3">Account & Approval</h5>
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-star fs-5 me-2 text-warning"></i>
-              <span><strong>Subscription Tier:</strong> {% if business.pricing_tier %}{{ business.pricing_tier.tier }}{% else %}None{% endif %}</span>
-            </li>
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-check-circle fs-5 me-2 text-success"></i>
-              <span><strong>Approved by Mobility Mapper:</strong> {{ business.is_approved|yesno:"Yes,No" }}</span>
-            </li>
-          </ul>
+          <h5 class="card-title mb-3">Subscription Tier</h5>
+          {% if business.pricing_tier %}{{ business.pricing_tier.tier }}{% else %}None{% endif %}</span>
         </div>
       </div>
     </div>
@@ -184,9 +198,9 @@
     <div class="col-12 col-lg-6">
       <div class="card shadow-sm">
         <div class="card-body">
-        <h5 class="card-title mb-4">Accessibility Verification Reports</h3>
+        <h5 class="card-title mb-3">Accessibility Verification Reports</h3>
         {% if business.verifications.exists %}
-        <ul class="mb-4 ps-0">
+        <ul class="mb-3 ps-0">
           {% for verification in business.verifications.all %}
           <li class="list-group-item mb-2">
             <a href="{% url 'verification_report' verification.id %}">
@@ -196,7 +210,7 @@
           {% endfor %}
         </ul>
         {% else %}
-        <p>No verification reports yet.</p>
+        <p class="mb-0">No verification reports yet.</p>
         {% endif %}
         </div>
       </div>

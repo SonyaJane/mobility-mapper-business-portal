@@ -2,7 +2,6 @@ import renderMarkers from './render_markers.js';
 import load_map from './load_map.js';
 import filterBusinesses from './filter_businesses.js';
 
-
 document.addEventListener('DOMContentLoaded', function() {
 
     // Load map

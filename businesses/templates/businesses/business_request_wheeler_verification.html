@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-container mt-5">
+  <h2>Request Wheelers to Verify Your Business</h2>
+  <p>Business: <strong>{{ business.business_name }}</strong></p>
+  <div class="alert alert-info">
+    <p>By requesting Wheelers to verify your business, you are asking community members to visit the location, confirm accessibility features, and submit a report. You can cancel this request at any time.</p>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Send Verification Request</button>
+    <a href="{% url 'business_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+</div>
+{% endblock %}

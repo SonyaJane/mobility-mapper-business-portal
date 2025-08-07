@@ -167,10 +167,6 @@
     pointer-events: none
 }
 
-.choices__list--multiple .choices__item {
-  font-size: 1rem;
-}
-
 /* hide placeholder if there is at least one selected option */
 .choices__list--multiple:not(:empty) + .choices__input--cloned {
     display: none;
@@ -246,7 +242,6 @@
   }
 }
 
-/* Mobile: Make map-results-container fill remaining space below search form and header */
 @media (max-width: 767.98px) {
   
   #results-container {
