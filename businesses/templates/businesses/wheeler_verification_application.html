@@ -1,16 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="content-container mt-5">
-  <h2>Request to Verify Accessibility Features</h2>
-  <p>Business: <strong>{{ business.business_name }}</strong></p>
-  <div class="alert alert-info">
-    <strong>Instructions for Wheelers:</strong><br>
-    By requesting to verify this business, you agree to visit the location in person, take clear photos of the accessibility features, and write a short report about your experience. You will earn £10 for each completed verification. The business needs 2 independent verifications to earn the badge.
+<div class="content-container p-2">
+  <h5 class="mt-2">We appreciate your interest in verifying the accessibility features of {{ business.business_name }}</h5>
+  <div class="mb-3">
+    <p class="fs-6">{{ business.address }}</p>
+    <p>{{ business.business_name }} has specified that their premises have the following Accessibility Features:</p>
+    {% for feature in business.accessibility_features.all %}
+      <span class="badge accessibility-badge">{{ feature.name }}</span>
+    {% endfor %}
+  </div>
+  
+
+  <div>
+    <p>
+        Each business requires three independent wheeler verifications to earn a badge that confirms its accessibility features.
+    </p>
+    <p>
+        The badge, shown below, appears next to the business in search results, helping customers identify trusted accessible venues at a glance.
+    </p>
+    <div class="mb-3">
+    <span class="text-success fw-bold">✅ Verified by Wheelers</span>
+    </div>
+    <p>By requesting to verify this business, you agree to:</p>
     <ul class="mt-2">
-      <li>Take photos showing you have visited the business and its accessibility features.</li>
-      <li>Write a brief report about your visit and the features you verified.</li>
-      <li>After requesting, you will be able to submit your verification.</li>
+      <li>Visit the location in person using your wheeled mobility device.</li>
+      <li>Take clear photos of the accessibility features.</li>
+      <li>Write a few sentences about your visit and the features you verified.</li>
     </ul>
+    <p>You will earn a £10 Amazon voucher for each completed and approved verification.</p>
+    <p>Click the submit button below to confirm your request to verify this business.</p>
+    <p>Once we approve your request, you will have access to a form to submit your verification report.</p>
   </div>
   <form method="post">
     {% csrf_token %}

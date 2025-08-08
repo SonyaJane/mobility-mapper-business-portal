@@ -1,15 +1,40 @@
 {% extends "base.html" %}
+
+{% block page_title %}Request Wheeler Verification of your business accessibility{% endblock %}
+
 {% block content %}
-<div class="content-container mt-5">
-  <h2>Request Wheelers to Verify Your Business</h2>
+<div class="content-container p-2">
+  <h4 class="my-3">Request Wheeler Verification of your business accessibility</h4>
   <p>Business: <strong>{{ business.business_name }}</strong></p>
-  <div class="alert alert-info">
-    <p>By requesting Wheelers to verify your business, you are asking community members to visit the location, confirm accessibility features, and submit a report. You can cancel this request at any time.</p>
+  
+  <div>
+    <p>By requesting Wheelers to verify your business, you are asking three community members to visit the location, confirm accessibility features, and submit a short accessibility report.</p>    
+
+  {% if business.tier == "premium" %}
+    <p>The cost of this request is covered by your premium plan.</p>   
+  {% elif business.tier == "standard" %}
+    <p>As you are on the standard plan, the cost of this request is half price at £10 per Wheeler.</p>
+  {% else %}
+    <p>As you are on the free plan, the cost of this request is £20 per Wheeler.</p>
+  {% endif %}
+
+  <p>Once three Wheelers have verified your business, you will earn a <strong>Verified Accessibility</strong> badge. This badge appears next to your listing in search results, helping customers identify trusted accessible venues at a glance. You can view each verification report and track your verification status at any time from your <a href="{% url 'business_dashboard' %}">Business Dashboard</a>.</p>
+
+  <h5 class="mt-4">Badge Preview</h5>
+  <div class="mb-3">
+    <span class="text-success fw-bold" style="font-size:1.25rem;">✅ Verified by Wheelers</span>
   </div>
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Send Verification Request</button>
-    <a href="{% url 'business_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
-  </form>
+
+  <p>While awaiting verification, Wheelers browsing the <a href="{% url 'accessible_business_search' %}">Accessible Business Search</a> will see a <span class="badge bg-warning text-dark">📝 Verification requested</span> badge next to your listing. This lets the community know you're actively seeking verification.</p>
+  </div>
+
+  <div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Send Verification Request</button>
+        <a href="{% url 'business_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+  
 </div>
 {% endblock %}

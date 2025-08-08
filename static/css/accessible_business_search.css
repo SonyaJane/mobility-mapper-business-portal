@@ -234,6 +234,11 @@
   overflow-y: auto;
 }
 
+.badge {
+  font-size: 1rem;
+  padding: 0.5rem 0.9rem 0.5rem 0.5rem;
+}
+
 @media (max-width: 559.98px) {
 
   /* Fit results on small screens */

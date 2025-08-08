@@ -28,8 +28,15 @@ export default function renderResultsList(businesses) {
             let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<div class="mt-2"><span class="text-success fw-bold">✅ Verified by Wheelers</span></div>` : '';
             // Badge for businesses that have requested verification
             let requestedBadge = biz.wheeler_verification_requested ?
-                `<div class="mt-2"><a href="/business/${biz.id}/wheeler-verification-application/" class="badge bg-warning text-dark">📝 Verification requested</a></div>`
-                : '';
+                `<div class="mt-2">
+                    <a href="/business/${biz.id}/wheeler-verification-application/" class="badge bg-warning text-decoration-none d-inline-flex align-items-center">
+                        <span class="me-2">📝</span>
+                        <div class="d-flex flex-column text-start">
+                            <span class="text-body fw-normal">Verify the accessibility of this business</span>
+                            <span class="text-body fw-normal">and earn a £10 Amazon voucher</span>
+                        </div>
+                    </a>
+                </div>` : '';
             li.innerHTML = `
                 <div class="mb-1 d-flex justify-content-between w-100">
                     <div class="d-flex align-items-center flex-shrink-1">

@@ -38,7 +38,7 @@ def register_business(request):
                 json.loads(post_data['opening_hours'])
         except Exception:
             post_data['opening_hours'] = ''
-        form = BusinessRegistrationForm(post_data)
+        form = BusinessRegistrationForm(post_data, request.FILES)
         if form.is_valid():
             business = form.save(commit=False)
             business.business_owner = request.user.userprofile
@@ -77,6 +77,52 @@ def register_business(request):
         'selected_categories': selected_categories,
         'selected_accessibility_features': selected_accessibility_features,
         'page_title': 'Register Your Business',
+    })
+@require_GET
+def business_detail(request, pk):
+    """
+    Public-facing business details page.
+    """
+    business = get_object_or_404(Business, pk=pk, is_approved=True)
+    # Parse opening_hours JSON for display
+    import json
+    opening_hours = None
+    try:
+        if business.opening_hours:
+            opening_hours = json.loads(business.opening_hours)
+    except Exception:
+        opening_hours = None
+    # Prepare JSON for client-side map rendering
+    business_json = {
+        "business_name": business.business_name,
+        "location": {
+            "x": business.location.x,
+            "y": business.location.y,
+        },
+    }
+    # Check if current wheeler user has already requested verification
+    user_has_requested = False
+    user_request_approved = False
+    profile = getattr(request.user, 'userprofile', None)
+    if request.user.is_authenticated and profile and profile.is_wheeler:
+        from .models import WheelerVerificationRequest
+        user_has_requested = WheelerVerificationRequest.objects.filter(
+            business=business,
+            wheeler=request.user,
+            approved=False
+        ).exists()
+        user_request_approved = WheelerVerificationRequest.objects.filter(
+            business=business,
+            wheeler=request.user,
+            approved=True
+        ).exists()
+    return render(request, 'businesses/business_detail.html', {
+        'business': business,
+        'opening_hours': opening_hours,
+        'page_title': business.business_name,
+        'business_json': business_json,
+        'user_has_requested': user_has_requested,
+        'user_request_approved': user_request_approved,
     })
 
 

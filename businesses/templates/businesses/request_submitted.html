@@ -1,11 +1,28 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}Request Submitted{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/request_submitted.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="content-container my-5">
-  <h2>Request Submitted</h2>
-  <div class="alert alert-info">
-    <strong>Your request to verify accessibility features for <span class="text-primary">{{ business.business_name }}</span> has been submitted.</strong><br>
-    An admin will review your request to ensure you are a genuine wheeler. You will be notified when you are approved to proceed with the verification.
+<div class="content-container p-2">
+  <h4 class="mt-2">Request Submitted</h4>
+  <div>
+    <p><strong>Your request to verify accessibility features for <span class="text-primary">{{ business.business_name }}</span> has been submitted.</strong></p>
+    <p>An admin will review your request as soon as possible.</p>
+    <p>When you are approved to proceed with the verification:</p>
+    <ul class="mt-2">
+      <li>You will receive an email notification.</li>
+      <li>A link to the verification form will be available in your <a href="{% url 'account_dashboard' %}">{% if not user.userprofile.has_business %}Profile{% else %}Personal Dashboard{% endif %}</a>.</li>
+      <li>You can then submit your verification report, including photos and a brief description of your visit.</li>
+    </ul>
   </div>
-  <a href="{% url 'public_business_detail' business.pk %}" class="btn btn-primary">Back to Business Details</a>
+  <div class="d-flex flex-column align-items-center flex-md-row justify-content-center gap-2 mt-4">
+    <a href="{% url 'account_dashboard' %}" class="btn btn-primary text-center req-sub-btn">Go to my {% if not user.userprofile.has_business %}profile{% else %}personal dashboard{% endif %}</a>
+    <a href="{% url 'accessible_business_search' %}" class="btn btn-info text-center req-sub-btn">Search for more accessible businesses</a>
+  </div>
 </div>
 {% endblock %}

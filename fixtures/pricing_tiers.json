@@ -14,7 +14,7 @@
     "model": "businesses.pricingtier",
     "pk": 2,
     "fields": {
-      "tier": "supporter",
+      "tier": "standard",
       "description": "- All Free features\n- Upload business logo \n- Social Media links  \n- Email address \n- Short description \n- Special offers for wheelers to attract more customers \n Half price wheeler verification (normally £20 per wheeler)",
       "price_per_month": 10,
       "price_per_year": 100,
@@ -25,8 +25,8 @@
     "model": "businesses.pricingtier",
     "pk": 3,
     "fields": {
-      "tier": "featured",
-      "description": "- All Supporter features\n- Highlighted on map\n- Appear higher in search results\n- Wheeler verification included",
+      "tier": "premium",
+      "description": "- All Standard features\n- Highlighted on map\n- Appear higher in search results\n- Wheeler verification included",
       "price_per_month": 25,
       "price_per_year": 250,
       "is_active": true

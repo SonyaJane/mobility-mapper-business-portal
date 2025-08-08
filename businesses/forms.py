@@ -126,6 +126,8 @@ class BusinessRegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Make location input required in HTML
+        self.fields['location'].widget.attrs['required'] = True
         # order categories by group and name so grouping works correctly
         self.fields['categories'].queryset = Category.objects.all().order_by('group_description', 'name')
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
@@ -139,10 +141,18 @@ class BusinessRegistrationForm(forms.ModelForm):
             pass
 
     def clean_location(self):
+        """
+        Ensure location WKT is parsed into a GEOS Point for the model field.
+        """
+        from django.contrib.gis.geos import GEOSGeometry
         location = self.cleaned_data.get('location')
         if not location:
             raise forms.ValidationError('This field is required.')
-        return location
+        try:
+            geom = GEOSGeometry(location)
+        except Exception:
+            raise forms.ValidationError('Invalid location format.')
+        return geom
 
     def clean_logo(self):
         logo = self.cleaned_data.get('logo')

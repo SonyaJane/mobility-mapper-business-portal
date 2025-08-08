@@ -45,9 +45,9 @@ class BusinessAdmin(admin.ModelAdmin):
     search_fields = ('business_name', 'business_owner__email')
     inlines = [WheelerVerificationInline]
 
+    # Display count of Wheeler verifications
     def wheeler_verification_count(self, obj):
         return obj.verifications.count()
-
     wheeler_verification_count.short_description = "Wheeler Verifications"
 
 

@@ -168,7 +168,8 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
         point = Point(lon, lat)
         if uk_polygon.contains(point):
             break
-    point_wkt = f"POINT ({lon} {lat})"
+    # Use SRID prefix for proper PostGIS geometry import
+    point_wkt = f"SRID=4326;POINT({lon} {lat})"
     # Pick a pricing tier
     pricing_tier_obj = random.choice(pricing_tiers) if pricing_tiers else None
     pricing_tier_pk = pricing_tier_obj.pk if pricing_tier_obj else None

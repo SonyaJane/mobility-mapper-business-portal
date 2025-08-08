@@ -84,6 +84,36 @@
 
   {% if user.userprofile.is_wheeler %}
   <div class="row mb-3 g-3">
+    {% if pending_businesses %}
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Businesses you've applied to verify</h5>
+            <ul class="list-group">
+              {% for business in pending_businesses %}
+                <li class="list-group-item position-relative">
+                  <a href="{% url 'business_detail' business.id %}" class="stretched-link"></a>
+                  <div class="mb-1 d-flex justify-content-between w-100">
+                    <div class="d-flex align-items-center flex-shrink-1">
+                      {% if business.logo %}
+                        <img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" class="business-logo-img me-2">
+                      {% endif %}
+                      <div>
+                        <h5 class="mb-1 business">{{ business.business_name }}</h5>
+                        {% if business.categories.all %}
+                          <div class="mb-0 category">{{ business.categories.all|join:", " }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  <div>{{ business.address }}</div>
+                </li>
+              {% endfor %}
+            </ul>
+            </div>
+          </div>
+        </div>
+    {% endif %}
 
     <!-- Businesses you're approved to verify -->
     {% comment %}Pre-filter unverified businesses using a custom filter{% endcomment %}
