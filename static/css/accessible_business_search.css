@@ -16,6 +16,7 @@
 
 #business-search {
   line-height: 2.3;
+  padding-right: 6.4rem; /* Adjusted for search button */
 }
 
 /* Group of search buttons */
@@ -240,7 +241,12 @@
 }
 
 @media (max-width: 559.98px) {
-
+  #business-search {
+    padding-right: 6.2rem; /* Adjusted for search button */
+  }
+  #search-btn {
+    margin-right: 5px;
+  }
   /* Fit results on small screens */
   .business {
     font-size: 1rem;
