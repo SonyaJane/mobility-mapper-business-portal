@@ -202,7 +202,7 @@ class WheelerVerificationForm(forms.ModelForm):
     confirmed_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.CheckboxSelectMultiple,
-        required=True
+        required=False
     )
     additional_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__

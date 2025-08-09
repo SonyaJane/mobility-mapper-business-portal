@@ -26,6 +26,29 @@
   <p>Your responses will be anonymous and your identity will not be revealed to the business.</p>
 
   <form method="POST" enctype="multipart/form-data">
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <strong>Please correct the errors below:</strong>
+        <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            {% if field.name == 'categories' or field.name == 'accessibility_features' %}
+              <li>
+                <strong>{{ field.label }}</strong><br>
+                {{ error }}
+              </li>
+            {% else %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    
     {% csrf_token %}
 
     <div class="mb-3 border-custom">

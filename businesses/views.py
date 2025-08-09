@@ -358,12 +358,12 @@ def wheeler_verification_form(request, pk):
     profile = getattr(request.user, 'userprofile', None)
     if not profile or not profile.is_wheeler:
         messages.error(request, "You must be a verified Wheeler to submit a verification.")
-        return redirect('home')
+        return redirect('account_dashboard')
 
     # Prevent double-verifying
     if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
         messages.info(request, "You have already verified this business.")
-        return redirect('home')
+        return redirect('account_dashboard')
 
     if request.method == 'POST':
         form = WheelerVerificationForm(request.POST, request.FILES, business=business)
@@ -395,8 +395,8 @@ def wheeler_verification_form(request, pk):
                 business.wheeler_verification_requested = False
                 business.save()
 
-            messages.success(request, "Thank you for verifying this business!")
-            return redirect('home')
+            messages.success(request, "Thank you for verifying this business! Please check your email for confirmation.")
+            return redirect('account_dashboard')
     else:
         form = WheelerVerificationForm(business=business)
 
