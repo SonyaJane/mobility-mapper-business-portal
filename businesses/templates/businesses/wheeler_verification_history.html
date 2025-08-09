@@ -44,7 +44,7 @@
           <td>
             {% with submitted=verification_status|get_item:req.id %}
               {% if req.approved and not submitted %}
-                <a href="{% url 'submit_verification' req.business.id %}" class="btn btn-sm btn-primary">Submit Verification</a>
+                <a href="{% url 'wheeler_verification_form' req.business.id %}" class="btn btn-sm btn-primary">Submit Verification</a>
               {% endif %}
             {% endwith %}
           </td>

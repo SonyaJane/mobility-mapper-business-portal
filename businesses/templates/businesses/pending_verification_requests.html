@@ -23,7 +23,7 @@
           <div class="d-flex flex-column">
             <a href="{% url 'business_detail' business.id %}" class="btn btn-primary mb-2">View Business</a>
             {% if business.id in approved_business_ids and business.id not in already_verified_business_ids %}
-              <a href="{% url 'submit_verification' business.id %}" class="btn btn-success">Submit Verification</a>
+              <a href="{% url 'wheeler_verification_form' business.id %}" class="btn btn-success">Submit Verification</a>
             {% elif business.id in already_verified_business_ids %}
               <span class="badge bg-secondary">Already Verified</span>
             {% endif %}

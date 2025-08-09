@@ -353,7 +353,7 @@ def wheeler_verification_application(request, pk):
 
 
 @login_required
-def submit_wheeler_verification(request, pk):
+def wheeler_verification_form(request, pk):
     business = get_object_or_404(Business, pk=pk)
     profile = getattr(request.user, 'userprofile', None)
     if not profile or not profile.is_wheeler:
@@ -400,7 +400,7 @@ def submit_wheeler_verification(request, pk):
     else:
         form = WheelerVerificationForm(business=business)
 
-    return render(request, 'businesses/submit_verification.html', {
+    return render(request, 'businesses/wheeler_verification_form.html', {
         'form': form,
         'business': business,
         'page_title': 'Submit Wheeler Verification',

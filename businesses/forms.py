@@ -202,26 +202,31 @@ class WheelerVerificationForm(forms.ModelForm):
     confirmed_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.CheckboxSelectMultiple,
-        required=False,
-        label="Accessibility features you have confirmed at this business"
+        required=True
     )
     additional_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
-        required=False,
-        label="Additional accessibility features you found (select any that apply)"
+        required=False
     )
 
     class Meta:
         model = WheelerVerification
         fields = ['comments']
         widgets = {
-            'comments': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Write a brief report about your visit and the features you verified.'}),
+            'comments': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Please describe your accessibility experience.',
+                'class': 'form-control w-100',
+                'style': 'max-width: 100%;',
+            }),
         }
 
     def __init__(self, *args, **kwargs):
         business = kwargs.pop('business', None)
         super().__init__(*args, **kwargs)
+        # Ensure comments field is required
+        self.fields['comments'].required = True
         from .models import AccessibilityFeature
         self.fields['confirmed_features'].queryset = AccessibilityFeature.objects.none()
         if business:

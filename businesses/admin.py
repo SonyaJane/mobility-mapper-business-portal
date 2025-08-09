@@ -72,7 +72,7 @@ class WheelerVerificationRequestAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
         if send_email and obj.wheeler.email:
             from django.urls import reverse
-            verification_url = settings.SITE_URL + reverse('submit_verification', args=[obj.business.pk])
+            verification_url = settings.SITE_URL + reverse('wheeler_verification_form', args=[obj.business.pk])
             send_mail(
                 subject="Your verification request has been approved",
                 message=(
@@ -100,7 +100,7 @@ class WheelerVerificationRequestAdmin(admin.ModelAdmin):
                 # Send notification email to the wheeler
                 if req.wheeler.email:
                     from django.urls import reverse
-                    verification_url = settings.SITE_URL + reverse('submit_verification', args=[req.business.pk])
+                    verification_url = settings.SITE_URL + reverse('wheeler_verification_form', args=[req.business.pk])
                     send_mail(
                         subject="Your verification request has been approved",
                         message=(

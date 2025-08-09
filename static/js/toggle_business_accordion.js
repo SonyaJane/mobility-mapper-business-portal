@@ -58,10 +58,8 @@ export default function toggleBusinessAccordion(li, infoPanel, arrowIcon, biz) {
                 result.classList.add('single-visible');
             }
         });
-        // On desktop, fly to and highlight the corresponding marker
+        // On desktop, highlight the corresponding marker without zooming
         if (window.matchMedia('(min-width: 768px)').matches && biz.location && MAP.map && Array.isArray(MAP.markers)) {
-            // Center and zoom map on business location
-            MAP.map.flyTo({ center: [biz.location.lng, biz.location.lat], zoom: 16 });
             // Clear previous marker highlights
             MAP.markers.forEach(marker => {
                 marker.getElement().classList.remove('highlighted-marker');

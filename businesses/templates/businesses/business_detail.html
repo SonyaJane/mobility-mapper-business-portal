@@ -127,9 +127,9 @@
                         ✅ Verified by Wheelers
                     </span>
                     {% elif user_request_approved %}
-                    <a href="{% url 'submit_verification' business.id %}" 
-                        class="badge bg-success text-decoration-none">
-                        📝 Complete Verification
+                    <a href="{% url 'wheeler_verification_form' business.id %}" 
+                        class="btn btn-success fs-6 fw-semibold box-shadow" style="white-space: normal;">
+                        📝 Please verify the accessibility of this business
                     </a>
                     {% elif user_has_requested %}
                         You have submitted an application to verify this business

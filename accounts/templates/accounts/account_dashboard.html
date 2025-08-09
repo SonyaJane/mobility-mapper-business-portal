@@ -102,7 +102,7 @@
                   {% endif %}
                   <div>{{ business.address }}</div>
                   <div class="mt-2">
-                    <a href="{% url 'submit_verification' business.id %}" class="btn btn-success">Start Verification</a>
+                    <a href="{% url 'wheeler_verification_form' business.id %}" class="btn btn-success">Start Verification</a>
                   </div>
                 </li>
                 {% endfor %}
@@ -150,7 +150,8 @@
             <li>Your verification will be reviewed by admins before being published.</li>
             <li>Verified reports help build a trusted, inclusive community and support others in finding accessible businesses.</li>
           </ul>
-          <a href="{% url 'pending_verification_requests' %}" class="btn btn-success my-2">View Businesses Requesting Verification</a>
+          <p>You can find businesses requesting verification, near you, by visiting the accessible business search page. Zoom in to your area on the map for more specific results.</p>
+          <a href="{% url 'accessible_business_search' %}" class="btn btn-success">View Accessible Businesses</a>
         </div>
       </div>
     </div>
