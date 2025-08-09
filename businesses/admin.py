@@ -8,7 +8,7 @@ from django.conf import settings
 
 @admin.register(WheelerVerification)
 class WheelerVerificationAdmin(admin.ModelAdmin):
-    list_display = ('business', 'wheeler', 'date_verified', 'approved')
+    list_display = ('business', 'wheeler', 'date_verified', 'comments', 'mobility_device', 'approved')
     search_fields = ('business__name', 'wheeler__email')
     list_filter = ('date_verified', 'approved')
     actions = ['approve_verifications']
@@ -86,7 +86,8 @@ class WheelerVerificationRequestAdmin(admin.ModelAdmin):
                 recipient_list=[obj.wheeler.email],
                 fail_silently=True,
             )
-    list_display = ('business', 'wheeler', 'requested_at', 'approved', 'reviewed')
+    list_display = ('business', 'wheeler', 'requested_at', 'approved_at', 'approved', 'reviewed')
+    readonly_fields = ('approved_at',)
     list_filter = ('approved', 'reviewed', 'business')
     search_fields = ('business__business_name', 'wheeler__username')
     actions = ['approve_requests']

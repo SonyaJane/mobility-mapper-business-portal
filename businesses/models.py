@@ -114,7 +114,6 @@ class Business(models.Model):
         return self.business_name
 
 
-
 class WheelerVerification(models.Model):
     """
     Represents a verification of a business by a Wheeler (user).
@@ -145,6 +144,10 @@ class WheelerVerification(models.Model):
         help_text="Type of wheeled mobility device used during verification."
     )
     approved = models.BooleanField(default=False, help_text="Has this verification been approved by an admin?")
+    # Store which features the wheeler confirmed
+    confirmed_features = models.ManyToManyField(AccessibilityFeature, blank=False, related_name='confirmed_in_verifications')
+    # Store any additional features the wheeler found
+    additional_features = models.ManyToManyField(AccessibilityFeature, blank=True, related_name='additional_in_verifications')
 
     class Meta:
         unique_together = ('business', 'wheeler')  # prevent double verification
@@ -169,6 +172,16 @@ class WheelerVerificationRequest(models.Model):
     requested_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
     reviewed = models.BooleanField(default=False)
+    # Timestamp when the request was approved
+    approved_at = models.DateTimeField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        # When flag approved is set, record the approval timestamp if not already set
+        if self.approved and self.approved_at is None:
+            from django.utils import timezone
+            self.approved_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Request by {self.wheeler} for {self.business.business_name} ({'Approved' if self.approved else 'Pending'})"
+        status = 'Approved' if self.approved else 'Pending'
+        return f"Request by {self.wheeler} for {self.business.business_name} ({status})"

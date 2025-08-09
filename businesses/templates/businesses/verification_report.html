@@ -13,13 +13,15 @@
   <p>{{ verification.get_mobility_device_display }}</p>
   <h4>Accessibility Features Confirmed</h4>
   <ul>
-    {% for feature in verification.business.accessibility_features.all %}
+    {% for feature in verification.confirmed_features.all %}
       <li>{{ feature.name }}</li>
+    {% empty %}
+      <li>No confirmed features recorded.</li>
     {% endfor %}
   </ul>
   <h4>Additional Features Found</h4>
   <ul>
-    {% for feature in verification.additional_features %}
+    {% for feature in verification.additional_features.all %}
       <li>{{ feature.name }}</li>
     {% empty %}
       <li>No additional features reported.</li>

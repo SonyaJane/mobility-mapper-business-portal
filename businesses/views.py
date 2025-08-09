@@ -210,17 +210,25 @@ def wheeler_verification_history(request):
 
     requests = WheelerVerificationRequest.objects.filter(wheeler=request.user).order_by('-requested_at')
     # For each request, annotate whether a verification has been submitted and approved
+    # For wheelers, build status, approval, and ID mappings for their verifications
     verification_status = {}
     verification_approved = {}
-    from .models import WheelerVerification
+    verification_id_map = {}
     for req in requests:
         verification = WheelerVerification.objects.filter(business=req.business, wheeler=req.wheeler).first()
-        verification_status[req.id] = bool(verification)
-        verification_approved[req.id] = verification.approved if verification else False
+        if verification:
+            verification_status[req.id] = True
+            verification_approved[req.id] = verification.approved
+            verification_id_map[req.id] = verification.id
+        else:
+            verification_status[req.id] = False
+            verification_approved[req.id] = False
+            verification_id_map[req.id] = None
     return render(request, 'businesses/wheeler_verification_history.html', {
         'requests': requests,
         'verification_status': verification_status,
         'verification_approved': verification_approved,
+        'verification_id_map': verification_id_map,
         'page_title': 'Your Verification History',
     })
 
@@ -372,17 +380,13 @@ def wheeler_verification_form(request, pk):
             verification.business = business
             verification.wheeler = request.user
             verification.mobility_device = request.POST.get('mobility_device')
+            # Save the verification instance
             verification.save()
-
-            # Save confirmed features and additional features
-            confirmed = form.cleaned_data.get('confirmed_features')
-            additional = form.cleaned_data.get('additional_features')
-            # update business with new features
-            if additional:
-                for feature in additional:
-                    business.accessibility_features.add(feature)
-                business.save()
-
+            # Persist M2M feature selections explicitly
+            confirmed = form.cleaned_data.get('confirmed_features') or []
+            additional = form.cleaned_data.get('additional_features') or []
+            verification.confirmed_features.set(confirmed)
+            verification.additional_features.set(additional)
             # Handle photo uploads (save to WheelerVerificationPhoto model)
             photos = request.FILES.getlist('photos')
             from .models import WheelerVerificationPhoto
@@ -436,8 +440,10 @@ def pending_verification_requests(request):
 @login_required
 def verification_report(request, verification_id):
     verification = get_object_or_404(WheelerVerification, pk=verification_id)
-    # Only allow business owner to view their own business's reports
-    if verification.business.business_owner != request.user.userprofile:
+    # Allow business owner or the Wheeler who submitted to view the report
+    is_owner = (verification.business.business_owner == request.user.userprofile)
+    is_wheeler = (verification.wheeler == request.user)
+    if not (is_owner or is_wheeler):
         messages.error(request, "You do not have permission to view this report.")
         return redirect('business_dashboard')
 

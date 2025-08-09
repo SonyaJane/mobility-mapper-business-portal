@@ -212,7 +212,8 @@ class WheelerVerificationForm(forms.ModelForm):
 
     class Meta:
         model = WheelerVerification
-        fields = ['comments']
+        # Include M2M fields so selections are processed
+        fields = ['comments', 'confirmed_features', 'additional_features']
         widgets = {
             'comments': forms.Textarea(attrs={
                 'rows': 4,
@@ -225,6 +226,13 @@ class WheelerVerificationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         business = kwargs.pop('business', None)
         super().__init__(*args, **kwargs)
+        # Ensure self.data is mutable so we can strip blank values
+        if hasattr(self.data, 'copy'):
+            data = self.data.copy()  # make mutable QueryDict copy
+            if hasattr(data, 'getlist'):
+                confirmed_vals = [v for v in data.getlist('confirmed_features') if v]
+                data.setlist('confirmed_features', confirmed_vals)
+            self.data = data
         # Ensure comments field is required
         self.fields['comments'].required = True
         from .models import AccessibilityFeature

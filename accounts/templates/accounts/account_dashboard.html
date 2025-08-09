@@ -94,15 +94,16 @@
               <h5 class="card-title mb-3">Businesses you are approved to verify</h5>
               <ul class="list-group">
                 {% for business in unverified_businesses %}
-                <li class="list-group-item position-relative">
-                  <a href="{% url 'business_detail' business.id %}" class="stretched-link"></a>
+                <li class="list-group-item">
+                  <!-- ...existing content... -->
                   <h5 class="mb-1 business">{{ business.business_name }}</h5>
                   {% if business.categories.all %}
                   <div class="mb-0 category">{{ business.categories.all|join:", " }}</div>
                   {% endif %}
                   <div>{{ business.address }}</div>
                   <div class="mt-2">
-                    <a href="{% url 'wheeler_verification_form' business.id %}" class="btn btn-success">Start Verification</a>
+                    <a href="{% url 'business_detail' business.id %}" class="btn btn-outline-secondary btn-sm me-2">View Business</a>
+                    <a href="{% url 'wheeler_verification_form' business.id %}" class="btn btn-success btn-sm">Start Verification</a>
                   </div>
                 </li>
                 {% endfor %}

@@ -8,10 +8,10 @@
       <thead>
         <tr>
           <th>Business</th>
-          <th>Status</th>
+          <th>Request Status</th>
           <th>Date Requested</th>
-          <th>Date Approved</th>
-          <th>Verification Submitted</th>
+          <th>Date Request Approved</th>
+          <th>Verification Report Status</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -29,7 +29,13 @@
             {% endif %}
           </td>
           <td>{{ req.requested_at|date:"F j, Y" }}</td>
-          <td>{% if req.approved %}{{ req.approved_at|date:"F j, Y" }}{% endif %}</td>
+          <td>
+            {% if req.approved_at %}
+              {{ req.approved_at|date:"F j, Y" }}
+            {% else %}
+              <span class="text-muted">Waiting for approval</span>
+            {% endif %}
+          </td>
           <td>
             {% with submitted=verification_status|get_item:req.id approved=verification_approved|get_item:req.id %}
               {% if req.approved and submitted and approved %}
@@ -43,7 +49,9 @@
           </td>
           <td>
             {% with submitted=verification_status|get_item:req.id %}
-              {% if req.approved and not submitted %}
+              {% if submitted %}
+                <a href="{% url 'verification_report' verification_id_map|get_item:req.id %}" class="btn btn-sm btn-secondary">View Report</a>
+              {% elif req.approved %}
                 <a href="{% url 'wheeler_verification_form' req.business.id %}" class="btn btn-sm btn-primary">Submit Verification</a>
               {% endif %}
             {% endwith %}
