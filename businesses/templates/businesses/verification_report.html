@@ -8,58 +8,130 @@
 {% block content %}
 <div class="content-container p-3">
 
-    <h4 class="my-3 text-center">
-    <span class="d-block">Verification of the accessibility features of</span>
-    <span class="fw-bold text-primary py-2 d-block">{{ verification.business.business_name }}</span>
-    {% if show_wheeler_name %}
-    <span class="d-block">by</span>
-    <span class="fw-bold text-primary py-2 d-block">{{ verification.wheeler.get_full_name|default:verification.wheeler.username }}</span>
-    {% endif %}
-  </h4>
-
-  <p><strong>Address visited:</strong> {{ verification.business.address }}</p>
-  <p><strong>Date of Verification:</strong> {{ verification.date_verified|date:"F j, Y" }}</p>
-  <hr>
-  <h5>Mobility Device Used</h5>
-  <p>{{ verification.get_mobility_device_display }}</p>
-  <h4>Accessibility Features Confirmed</h4>
-  <ul>
-    {% for feature in verification.confirmed_features.all %}
-      <li>{{ feature.name }}</li>
-    {% empty %}
-      <li>No confirmed features recorded.</li>
-    {% endfor %}
-  </ul>
-  <h5>Additional Features Found</h5>
-  <ul>
-    {% for feature in verification.additional_features.all %}
-      <li>{{ feature.name }}</li>
-    {% empty %}
-      <li>No additional features reported.</li>
-    {% endfor %}
-  </ul>
-  <h5>Feature Photos</h5>
-    <div class="row">
-      {% for item in feature_photos_list %}
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-          <h5 class="mt-3 fw-bold">{{ item.feature.name }}</h5>
-          <img src="{{ item.photo.image.url }}" alt="{{ item.feature.name }} photo" class="img-fluid rounded border">
-        </div>
-      {% endfor %}
-    </div>
-  <h5>Other Photos Submitted</h5>
-  <div class="row">
-    {% if other_photos.exists %}
-      {% for photo in other_photos %}
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-          <img src="{{ photo.image.url }}" alt="Verification Photo" class="img-fluid rounded border">
-        </div>
-      {% endfor %}
-    {% else %}
-      <p>No photos submitted.</p>
-    {% endif %}
+  <div class="my-4">
+    <h4 class="text-center">
+      <span class="d-block">Verification of the accessibility features of</span>
+      <span class="fw-bold text-primary py-2 d-block">{{ verification.business.business_name }}</span>
+      {% if show_wheeler_name %}
+      <span class="d-block">by</span>
+      <span class="fw-bold text-primary py-2 d-block">{{ verification.wheeler.get_full_name|default:verification.wheeler.username }}</span>
+      <span class="d-block fs-6">(your name is only visible to you)</span>
+      {% endif %}
+    </h4>
   </div>
-  <h5>Wheeler's Comments</h5>
-  <div class="border p-3 bg-light">{{ verification.comments|linebreaks }}</div>
-</div>
+
+  <div class="row pt-3 g-2">
+    <div class="col-md-4">
+      <div class="border rounded p-3 h-100">
+        <h5>Address visited:</h5>
+        <p>{{ verification.business.address }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="border rounded p-3 h-100">
+        <h5>Date of Verification:</h5>
+        <p>{{ verification.date_verified|date:"F j, Y" }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="border rounded p-3 h-100">
+        <h5>Mobility Device Used</h5>
+        <p>{{ verification.get_mobility_device_display }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row my-0 g-2">
+    <div class="col-md-6">
+      <div class="border rounded p-3 h-100">
+      <h5>Accessibility Features Confirmed</h5>
+      <ul>
+        {% for feature in verification.confirmed_features.all %}
+          <li>{{ feature.name }}</li>
+        {% empty %}
+          <li>No confirmed features recorded.</li>
+        {% endfor %}
+      </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="border rounded p-3 h-100">
+      <h5>Additional Features Found</h5>
+      <ul>
+        {% for feature in verification.additional_features.all %}
+          <li>{{ feature.name }}</li>
+        {% empty %}
+          <li>No additional features reported.</li>
+        {% endfor %}
+      </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-2 mt-0 g-2">
+    <div class="col-md-6">
+      <div class="border rounded h-100">
+        <div class="p-3">      
+          <h5 class="mb-3">Feature Photos</h5>
+          <div id="featurePhotosCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              {% for item in feature_photos_list %}
+                <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                  <img src="{{ item.photo.image.url }}" class="d-block w-100 rounded border" alt="{{ item.feature.name }} photo">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5 class="bg-dark bg-opacity-50 rounded px-2">{{ item.feature.name }}</h5>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#featurePhotosCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#featurePhotosCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="border rounded h-100">
+        <div class="p-3">      
+          <h5 class="mb-3">Other Photos Submitted</h5>
+          {% if other_photos.exists %}
+      <div id="otherPhotosCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-wrap="false">
+            <div class="carousel-inner">
+              {% for photo in other_photos %}
+                <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                  <img src="{{ photo.image.url }}" class="d-block w-100 rounded border" alt="Verification Photo">
+                </div>
+              {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#otherPhotosCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#otherPhotosCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          {% else %}
+            <p>No photos submitted.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="border rounded mx-1 mb-2">
+    <div class="p-3">
+      <h5 class="mb-3">Wheeler's Comments</h5>
+      <div class="border p-3 bg-light">{{ verification.comments|linebreaks }}</div>
+    </div>
+  </div>
 {% endblock %}
