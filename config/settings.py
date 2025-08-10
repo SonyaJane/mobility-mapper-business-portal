@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'hijack.contrib.admin',  # Hijack admin integration
+    'hijack',  # Hijack app for user session management
     
     # allauth
     'allauth',
@@ -67,10 +69,9 @@ INSTALLED_APPS = [
     
     # Custom apps 
     'core',
-    'home',   
+    'home',
     'accounts',
-    'businesses',
-]
+    'businesses',]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,6 +79,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'hijack.middleware.HijackUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware', # Middleware for allauth

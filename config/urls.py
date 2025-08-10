@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('business/', include('businesses.urls')),
     path("tiles/<int:z>/<int:x>/<int:y>.png", proxy_os_tile, name="proxy_os_tile"),
+    path('hijack/', include('hijack.urls')),
 ]
 
 # Serve media files in development
