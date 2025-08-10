@@ -6,10 +6,8 @@
     {% trans "Verify Your Email Address" %}
 {% endblock head_title %}
 {% block inner_content %}
-    {% element h1 %}
-        {% trans "Verify Your Email Address" %}
-    {% endelement %}
-    {% element p %}
-        {% blocktrans %}We have sent an email to you for verification. Follow the link provided to finalise the signup process. If you do not see the verification email in your main inbox, check your spam folder. Please contact us if you do not receive the verification email within a few minutes.{% endblocktrans %}
-    {% endelement %}
+<div class="p-3">
+    <h4>Verify Your Email Address</h4>
+    <p>We have sent an email to you for verification. Follow the link provided to finalise the signup process. If you do not see the verification email in your main inbox, check your spam folder. Please contact us if you do not receive the verification email within a few minutes.</p>
+</div>
 {% endblock inner_content %}

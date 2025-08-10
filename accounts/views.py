@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from accounts.models import UserProfile
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 from .forms import UserProfileForm
 
 @login_required
@@ -63,3 +65,10 @@ def postlogin_redirect(request):
     if hasattr(user_profile, 'has_business') and user_profile.has_business:
         return redirect('business_dashboard')
     return redirect('account_dashboard')
+
+def validate_username(request):
+    """AJAX endpoint to check if a username is available."""
+    username = request.GET.get('username', '').strip()
+    User = get_user_model()
+    available = not User.objects.filter(username__iexact=username).exists()
+    return JsonResponse({'available': available})

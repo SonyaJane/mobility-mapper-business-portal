@@ -82,6 +82,10 @@ header {
 
 }
 
+.allauth-container {
+    margin-top: 12px !important;
+}
+
 .custom-toast {
     position: relative;
     overflow: visible;

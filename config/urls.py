@@ -20,9 +20,13 @@ from django.urls import path, include
 from core.views import proxy_os_tile
 from django.conf import settings
 from django.conf.urls.static import static
+from accounts.views import dashboard_view
 
 
 urlpatterns = [
+    # Personal account dashboard (alias for /accounts/account_dashboard/)
+    path('dashboard/', dashboard_view, name='account_dashboard'),
+    # Personal dashboard alias for logging in when the user confirms their email
     path('', include('home.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),

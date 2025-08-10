@@ -5,41 +5,65 @@
     {% trans "Signup" %}
 {% endblock head_title %}
 {% block inner_content %}
-    {% element h1 %}
-        {% trans "Sign Up" %}
-    {% endelement %}
-    {% setvar link %}
-        <a href="{{ login_url }}">
+  <div class="d-flex justify-content-center align-items-center mt-4">
+    <div class="card shadow-sm" style="max-width:400px; width:100%;">
+      <div class="card-body">
+        <h3 class="card-title text-center mb-3">{% trans "Sign Up" %}</h3>
+        {% setvar link %}
+            <a href="{{ login_url }}">
+            {% endsetvar %}
+            {% setvar end_link %}
+            </a>
         {% endsetvar %}
-        {% setvar end_link %}
-        </a>
-    {% endsetvar %}
-    {% element p %}
-        {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
-    {% endelement %}
-    {% if not SOCIALACCOUNT_ONLY %}
-        {% url 'account_signup' as action_url %}
-        {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-            {% slot body %}
-                {% csrf_token %}
-                {{ form|crispy }}
-                {{ redirect_field }}
-            {% endslot %}
-            {% slot actions %}
-                {% element button tags="prominent,signup" type="submit" %}
-                    {% trans "Sign Up" %}
-                {% endelement %}
-            {% endslot %}
+        {% element p %}
+            {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
         {% endelement %}
-    {% endif %}
-    {% if PASSKEY_SIGNUP_ENABLED %}
-        {% element hr %}
-        {% endelement %}
-        {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" %}
-            {% trans "Sign up using a passkey" %}
-        {% endelement %}
-    {% endif %}
-    {% if SOCIALACCOUNT_ENABLED %}
-        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-    {% endif %}
+        {% if not SOCIALACCOUNT_ONLY %}
+          {% url 'account_signup' as action_url %}
+          <form method="post" action="{{ action_url }}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            {{ redirect_field }}
+            <div class="d-flex justify-content-center mt-3">
+              <button type="submit" class="btn btn-primary px-5">{% trans "Sign Up" %}</button>
+            </div>
+          </form>
+        {% endif %}
+        {% if PASSKEY_SIGNUP_ENABLED %}
+          {% element hr %}
+          {% endelement %}
+          {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" %}
+              {% trans "Sign up using a passkey" %}
+          {% endelement %}
+        {% endif %}
+        {% if SOCIALACCOUNT_ENABLED %}
+          {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        {% endif %}
+  </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const usernameInput = document.querySelector('input[name="username"]');
+      if (!usernameInput) return;
+      const feedback = document.createElement('div');
+      feedback.classList.add('mt-1','small');
+      usernameInput.parentNode.appendChild(feedback);
+      let timer;
+      usernameInput.addEventListener('input', function() {
+        clearTimeout(timer);
+        const val = this.value.trim();
+        if (!val) { feedback.textContent = ''; return; }
+        timer = setTimeout(() => {
+          fetch("{% url 'validate_username' %}?username="+encodeURIComponent(val))
+            .then(r => r.json())
+            .then(data => {
+              feedback.textContent = data.available ? 'Username is available.' : 'Username is already taken.';
+              feedback.classList.toggle('text-success', data.available);
+              feedback.classList.toggle('text-danger', !data.available);
+            });
+        }, 300);
+      });
+    });
+  </script>
 {% endblock inner_content %}

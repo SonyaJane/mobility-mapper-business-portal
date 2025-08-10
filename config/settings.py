@@ -143,6 +143,10 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 
+# Automatically confirm email on click and log user in
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
 # Redirects
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/accounts/postlogin/'
