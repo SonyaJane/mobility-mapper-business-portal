@@ -63,6 +63,7 @@ class Category(models.Model):
     def __str__(self):
         return f"{self.name} ({self.group_description})" if self.group_description else self.name
 
+
 class Business(models.Model):
     """
     Represents a business registered on the platform.
@@ -123,7 +124,7 @@ class WheelerVerification(models.Model):
     business = models.ForeignKey('Business', on_delete=models.CASCADE, related_name='verifications')
     wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verifications_made')
     date_verified = models.DateTimeField(auto_now_add=True)
-    comments = models.TextField(blank=True, null=True)
+    comments = models.TextField()  # required comments field
     mobility_device = models.CharField(
         max_length=47,
         choices=getattr(settings, 'MOBILITY_DEVICE_CHOICES', (
@@ -160,10 +161,19 @@ class WheelerVerification(models.Model):
 class WheelerVerificationPhoto(models.Model):
     verification = models.ForeignKey(WheelerVerification, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(upload_to='verification_photos/')
+    # Optional link to the specific accessibility feature this photo illustrates
+    feature = models.ForeignKey(
+        'AccessibilityFeature',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='verification_photos'
+    )
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Photo for verification {self.verification.id} uploaded at {self.uploaded_at}" 
+        feat = self.feature.name if self.feature else 'General'
+        return f"Photo ({feat}) for verification {self.verification.id} uploaded at {self.uploaded_at}" 
 
 
 class WheelerVerificationRequest(models.Model):

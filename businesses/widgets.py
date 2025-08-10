@@ -3,6 +3,7 @@ from django.conf import settings
 from django.forms.widgets import TextInput
 
 
+
 class MapLibrePointWidget(forms.TextInput):
     """A custom widget for rendering a point on a MapLibre map
     This widget does three things:

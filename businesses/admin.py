@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Business, WheelerVerification, PricingTier, Category, AccessibilityFeature
+from .models import Business, WheelerVerification, PricingTier, Category, AccessibilityFeature, WheelerVerificationPhoto
 from .widgets import MapLibrePointWidget
 from .models import WheelerVerificationRequest
 from django.core.mail import send_mail
@@ -12,6 +12,20 @@ class WheelerVerificationAdmin(admin.ModelAdmin):
     search_fields = ('business__name', 'wheeler__email')
     list_filter = ('date_verified', 'approved')
     actions = ['approve_verifications']
+    # Inline photos for each verification
+    # Inline display of verification photos
+    class WheelerVerificationPhotoInline(admin.TabularInline):
+        model = WheelerVerificationPhoto
+        fk_name = 'verification'
+        extra = 0
+        readonly_fields = ('image_preview',)
+        fields = ('image_preview', 'image', 'feature')
+        def image_preview(self, obj):
+            from django.utils.html import format_html
+            return format_html('<img src="{}" style="max-height: 100px;" />', obj.image.url)
+        image_preview.short_description = 'Preview'
+
+    inlines = [WheelerVerificationPhotoInline]
 
     def approve_verifications(self, request, queryset):
         updated = queryset.update(approved=True)
@@ -117,3 +131,9 @@ class WheelerVerificationRequestAdmin(admin.ModelAdmin):
                     )
         self.message_user(request, f"{queryset.count()} request(s) approved and users notified.")
     approve_requests.short_description = "Approve selected requests and notify users"
+
+@admin.register(WheelerVerificationPhoto)
+class WheelerVerificationPhotoAdmin(admin.ModelAdmin):
+    list_display = ('verification', 'feature', 'image', 'uploaded_at')
+    list_filter = ('feature',)
+    search_fields = ('verification__business__business_name',)

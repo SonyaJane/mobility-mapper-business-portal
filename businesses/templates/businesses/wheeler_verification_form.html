@@ -53,19 +53,36 @@
 
     <div class="mb-3 border-custom">
       <label class="fw-bold p-2">
-        Below is a list of accessibility features the business has specified are present on the premises. 
-        Please tick all features you can confirm are present. 
-        If you cannot see a particular feature, please ask a staff member to show you. 
-        If they are unable to do so, please leave it unticked, and provide a brief explanation in the comments section at the end of the form.
+        Below is a list of accessibility features the business has specified are present on the premises. Select those you confirm.
       </label>
       <table class="table table-striped table-bordered m-0">
         <tbody>
-          {% for checkbox in form.confirmed_features %}
+          {% for feature in business.accessibility_features.all %}
           <tr>
-            <td>
-              <div class="form-check">
-                {{ checkbox.tag }}
-                <label class="form-check-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+            <td class="text-center align-middle">
+              <input class="form-check-input" type="checkbox"
+                     name="confirmed_features"
+                     value="{{ feature.pk }}"
+                     id="confirmfeat{{ feature.pk }}"
+                     style="width:1.5rem; height:1.5rem;">
+            </td>
+            <td class="align-middle">
+              <label class="form-check-label" for="confirmfeat{{ feature.pk }}">{{ feature.name }}</label>
+            </td>
+            <td class="text-center align-middle">
+              <div class="feature-photo-wrapper" data-feature="{{ feature.pk }}">
+                <button type="button" class="btn btn-secondary btn-sm feature-photo-btn" data-feature="{{ feature.pk }}">
+                  Upload Photo
+                </button>
+                <input type="file"
+                       name="feature_photo_{{ feature.pk }}"
+                       accept="image/*"
+                       class="feature-photo-input invisible"
+                       style="width:1px; height:1px;"
+                       data-feature="{{ feature.pk }}">
+                <span class="feature-photo-status text-success d-none" data-feature="{{ feature.pk }}">
+                  Photo uploaded <a href="#" class="remove-photo text-danger ms-2" data-feature="{{ feature.pk }}">×</a>
+                </span>
               </div>
             </td>
           </tr>
@@ -76,22 +93,39 @@
 
     <div class="mb-3 border-custom">
       <label class="fw-bold p-2">
-        Below is a list of accessibility features the business has NOT specified are present on the premises.
-        Please tick any additional features you found during your visit.
+        Below is a list of accessibility features the business has NOT specified as present. Select any you found during your visit.
       </label>
       <table class="table table-striped table-bordered m-0">
         <tbody>
           {% for feature in form.fields.additional_features.queryset %}
-            {% if feature not in form.fields.confirmed_features.queryset %}
-            <tr>
-              <td>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="additional_features" value="{{ feature.pk }}" id="addfeat{{ feature.pk }}" style="width:1.5rem; height:1.5rem;">
-                  <label class="form-check-label" for="addfeat{{ feature.pk }}">{{ feature.name }}</label>
-                </div>
-              </td>
-            </tr>
-            {% endif %}
+          <tr>
+            <td class="text-center align-middle">
+              <input class="form-check-input" type="checkbox"
+                     name="additional_features"
+                     value="{{ feature.pk }}"
+                     id="addfeat{{ feature.pk }}"
+                     style="width:1.5rem; height:1.5rem;">
+            </td>
+            <td class="align-middle">
+              <label class="form-check-label" for="addfeat{{ feature.pk }}">{{ feature.name }}</label>
+            </td>
+            <td class="text-center align-middle">
+              <div class="feature-photo-wrapper" data-feature="{{ feature.pk }}">
+                <button type="button" class="btn btn-secondary btn-sm feature-photo-btn" data-feature="{{ feature.pk }}">
+                  Upload Photo
+                </button>
+                <input type="file"
+                       name="feature_photo_{{ feature.pk }}"
+                       accept="image/*"
+                       class="feature-photo-input invisible"
+                       style="width:1px; height:1px;"
+                       data-feature="{{ feature.pk }}">
+                <span class="feature-photo-status text-success d-none" data-feature="{{ feature.pk }}">
+                  Photo uploaded <a href="#" class="remove-photo text-danger ms-2" data-feature="{{ feature.pk }}">×</a>
+                </span>
+              </div>
+            </td>
+          </tr>
           {% endfor %}
         </tbody>
       </table>
@@ -118,10 +152,11 @@
     </div>
 
     <div class="mb-3 border-custom">
-      <label class="fw-bold p-2">
-        Upload a photo of each of the accessibility features you selected above.
-      </label>
-      <input type="file" name="photos" multiple class="form-control" />
+      <div class="fw-bold p-2">Photos</div>
+      <div>
+        <input type="file" name="photos" multiple class="form-control">
+        <small class="form-text text-muted">Upload one or more photos.</small>
+      </div>
     </div>
 
     <div class="mb-3 border-custom">
@@ -136,4 +171,27 @@
     <button type="submit" class="btn btn-success">Submit Verification</button>
   </form>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.feature-photo-wrapper').forEach(wrapper => {
+      const btn = wrapper.querySelector('.feature-photo-btn');
+      const input = wrapper.querySelector('.feature-photo-input');
+      const status = wrapper.querySelector('.feature-photo-status');
+      const removeLink = wrapper.querySelector('.remove-photo');
+      btn.addEventListener('click', () => input.click());
+      input.addEventListener('change', () => {
+        if (input.files.length) {
+          btn.classList.add('d-none');
+          status.classList.remove('d-none');
+        }
+      });
+      removeLink.addEventListener('click', e => {
+        e.preventDefault();
+        input.value = '';
+        status.classList.add('d-none');
+        btn.classList.remove('d-none');
+      });
+    });
+  });
+</script>
 {% endblock %}

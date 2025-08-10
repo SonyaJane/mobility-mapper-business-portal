@@ -198,22 +198,22 @@ class BusinessRegistrationForm(forms.ModelForm):
 
 
 class WheelerVerificationForm(forms.ModelForm):
-
+    # verify business accessibility features
     confirmed_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
-        widget=forms.CheckboxSelectMultiple,
-        required=False
+        widget=forms.CheckboxSelectMultiple, # built-in checkbox widget
+        required=False # allows no selections
     )
     additional_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
-        widget=forms.SelectMultiple,
+        widget=forms.CheckboxSelectMultiple,
         required=False
     )
 
     class Meta:
         model = WheelerVerification
-        # Include M2M fields so selections are processed
-        fields = ['comments', 'confirmed_features', 'additional_features']
+        # Photos are handled manually via request.FILES in the view
+        fields = ['confirmed_features', 'additional_features', 'comments']
         widgets = {
             'comments': forms.Textarea(attrs={
                 'rows': 4,
@@ -224,20 +224,27 @@ class WheelerVerificationForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        business = kwargs.pop('business', None)
-        super().__init__(*args, **kwargs)
+        business = kwargs.pop('business', None) # business instance to filter features
+        # Initialize the form with business context, initializes self.fields and self.data
+        super().__init__(*args, **kwargs) 
+        
         # Ensure self.data is mutable so we can strip blank values
         if hasattr(self.data, 'copy'):
             data = self.data.copy()  # make mutable QueryDict copy
+            print('data',data)
             if hasattr(data, 'getlist'):
                 confirmed_vals = [v for v in data.getlist('confirmed_features') if v]
                 data.setlist('confirmed_features', confirmed_vals)
             self.data = data
-        # Ensure comments field is required
-        self.fields['comments'].required = True
-        from .models import AccessibilityFeature
-        self.fields['confirmed_features'].queryset = AccessibilityFeature.objects.none()
-        if business:
-            self.fields['confirmed_features'].queryset = business.accessibility_features.all()
-        self.fields['additional_features'].queryset = AccessibilityFeature.objects.all()
+            print('cleaned data', self.data)
+
+        # confirmed_features = those currently assigned to this business
+        confirmed_qs = business.accessibility_features.all()
+        self.fields['confirmed_features'].queryset = confirmed_qs
+        print('confirmed features', confirmed_qs)
+        # Additional features = all features minus those already assigned to this business
+        self.fields['additional_features'].queryset = AccessibilityFeature.objects.exclude(
+            pk__in=confirmed_qs.values_list('pk', flat=True)
+        )
+        print('additional features', self.fields['additional_features'].queryset)
 

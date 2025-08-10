@@ -374,8 +374,14 @@ def wheeler_verification_form(request, pk):
         return redirect('account_dashboard')
 
     if request.method == 'POST':
+        # Debug: list POST and FILES dict keys
+        print("POST keys:", list(request.POST.keys()))
+        print("FILES keys:", list(request.FILES.keys()))
         form = WheelerVerificationForm(request.POST, request.FILES, business=business)
         if form.is_valid():
+            # Debug: confirm uploaded files
+            uploaded = request.FILES.getlist('photos')
+            print("Uploaded files:", [f.name for f in uploaded])
             verification = form.save(commit=False)
             verification.business = business
             verification.wheeler = request.user
@@ -387,10 +393,28 @@ def wheeler_verification_form(request, pk):
             additional = form.cleaned_data.get('additional_features') or []
             verification.confirmed_features.set(confirmed)
             verification.additional_features.set(additional)
-            # Handle photo uploads (save to WheelerVerificationPhoto model)
-            photos = request.FILES.getlist('photos')
+            # Handle feature-specific photo uploads for any confirmed or additional feature
+            import re
             from .models import WheelerVerificationPhoto
-            for photo in photos:
+            for field_name in request.FILES:
+                # Match fields named feature_photo_<feature_pk>
+                m = re.match(r'^feature_photo_(?P<pk>\d+)$', field_name)
+                if not m:
+                    continue
+                feature_pk = int(m.group('pk'))
+                try:
+                    feature = AccessibilityFeature.objects.get(pk=feature_pk)
+                except AccessibilityFeature.DoesNotExist:
+                    continue
+                # Save each uploaded file for this feature
+                for upload in request.FILES.getlist(field_name):
+                    WheelerVerificationPhoto.objects.create(
+                        verification=verification,
+                        image=upload,
+                        feature=feature
+                    )
+            # Handle general photo uploads
+            for photo in request.FILES.getlist('photos'):
                 WheelerVerificationPhoto.objects.create(verification=verification, image=photo)
 
             # Automatically approve if >= 3 verifications
@@ -399,6 +423,9 @@ def wheeler_verification_form(request, pk):
                 business.wheeler_verification_requested = False
                 business.save()
 
+            # Debug: list all photos now linked to this verification
+            all_photos = [(p.id, p.feature_id, p.image.name) for p in verification.photos.all()]
+            print(f"Photos linked to verification {verification.id}: {all_photos}")
             messages.success(request, "Thank you for verifying this business! Please check your email for confirmation.")
             return redirect('account_dashboard')
     else:
@@ -449,9 +476,18 @@ def verification_report(request, verification_id):
 
     # Hide wheeler name if business owner is viewing
     show_wheeler_name = not (hasattr(request.user, 'userprofile') and verification.business.business_owner == request.user.userprofile)
+    # Prepare feature-specific photo groupings and other photos for template
+    feature_photos_list = []
+    for feature in verification.confirmed_features.all():
+        # Get the first photo for this feature, if any
+        photo = verification.photos.filter(feature=feature).first()
+        if photo:
+            feature_photos_list.append({'feature': feature, 'photo': photo})
+    other_photos = verification.photos.filter(feature__isnull=True)
     return render(request, 'businesses/verification_report.html', {
         'verification': verification,
-        'additional_features': [],
+        'feature_photos_list': feature_photos_list,
+        'other_photos': other_photos,
         'show_wheeler_name': show_wheeler_name,
         'page_title': 'Verification Report',
     })
