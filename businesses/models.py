@@ -9,8 +9,8 @@ from django.conf import settings
 
 TIER_CHOICES = [
     ('free', 'Free'),
-    ('supporter', 'Supporter'),
-    ('featured', 'Featured'),
+    ('standard', 'Standard'),
+    ('premium', 'Premium'),
 ]
 
 BILLING_FREQUENCY_CHOICES = [

@@ -10,138 +10,147 @@
 
 {% block content %}
 
-<div class="content-container">
-  <h4 class="my-3">Register Your Accessible Business</h4>
-  <p class="mt-1">The details you enter below will appear in the public search results on the <a href="{% url 'accessible_business_search' %}" class="link-body-emphasis">Search for Accessible Businesses</a> page. Therefore, the more complete and accurate your listing, the better potential customers can find and choose your business.</p>
-  <p>After registering, you can request verification of your business's accessibility features via your business profile. Wheelers can then apply to carry out the verification. Once verified, your business will display a special badge in search results to indicate trusted, accessible locations.</p>
+<div class="content-container p-3">
+  <div class="custom-constrained-width">
+    <h4 class="my-3">Register Your Accessible Business</h4>
+    <p class="mt-1">The details you enter below will appear in the public search results on the <a href="{% url 'accessible_business_search' %}" class="link-body-emphasis">Search for Accessible Businesses</a> page. Therefore, the more complete and accurate your listing, the better potential customers can find and choose your business.</p>
+    <p>After registering, you can request verification of your business's accessibility features via your business profile. Wheelers can then apply to carry out the verification. Once verified, your business will display a special badge in search results to indicate trusted, accessible locations.</p>
 
-  <form method="POST" enctype="multipart/form-data" class="business-registration-form">
-    {% if form.errors %}
-      <div class="alert alert-danger">
-        <strong>Please correct the errors below:</strong>
-        <ul>
-        {% for field in form %}
-          {% for error in field.errors %}
-            {% if field.name == 'categories' or field.name == 'accessibility_features' %}
-              <li>
-                <strong>{{ field.label }}</strong><br>
-                {{ error }}
-              </li>
-            {% else %}
-              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-            {% endif %}
-          {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-
-    {% csrf_token %}
-    {{ form.media }} 
-    
-    <!-- Other Form Fields -->
-    {% for field in form.visible_fields %}
-      {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' and field.name != 'opening_hours' and field.name != 'special_offers' %}
-        {{ field|as_crispy_field }}
-      {% endif %}
-    {% endfor %}
-
-    <!-- Categories (grouped multi-select dropdown) -->
-    <div class="mb-3">
-      <label for="id_categories" class="form-label">
-        Business Categories
-        <br>
-        <small>Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</small>
-      </label>
-      {% regroup form.fields.categories.queryset by group_description as grouped_categories %}
-      <select name="categories" id="id_categories" class="form-select" multiple size="8">
-        {% for group in grouped_categories %}
-          {% if group.grouper %}
-          <optgroup label="{{ group.grouper }}">
-            {% for category in group.list %}
-              <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected_categories %}selected{% endif %}>{{ category.name }}</option>
+    <form method="POST" enctype="multipart/form-data" class="business-registration-form">
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          <strong>Please correct the errors below:</strong>
+          <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              {% if field.name == 'categories' or field.name == 'accessibility_features' %}
+                <li>
+                  <strong>{{ field.label }}</strong><br>
+                  {{ error }}
+                </li>
+              {% else %}
+                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+              {% endif %}
             {% endfor %}
-          </optgroup>
-          {% endif %}
-        {% endfor %}
-        <optgroup label="Other">
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% csrf_token %}
+      {{ form.media }} 
+      
+      <!-- Other Form Fields -->
+      {% for field in form.visible_fields %}
+        {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' and field.name != 'opening_hours' and field.name != 'special_offers' %}
+          {{ field|as_crispy_field }}
+        {% endif %}
+      {% endfor %}
+
+      <!-- Categories (grouped multi-select dropdown) -->
+      <div class="mb-3">
+        <label for="id_categories" class="form-label">
+          Business Categories
+          <br>
+          <small>Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</small>
+        </label>
+        {% regroup form.fields.categories.queryset by group_description as grouped_categories %}
+        <select name="categories" id="id_categories" class="form-select" multiple size="8">
           {% for group in grouped_categories %}
-            {% if not group.grouper %}
+            {% if group.grouper %}
+            <optgroup label="{{ group.grouper }}">
               {% for category in group.list %}
                 <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected_categories %}selected{% endif %}>{{ category.name }}</option>
               {% endfor %}
+            </optgroup>
             {% endif %}
           {% endfor %}
-          <option value="__other__" {% if '__other__' in selected_categories %}selected{% endif %}>Other</option>
-        </optgroup>
-      </select>
-      <div id="other-category-field" class="my-3" style="display: none;">
-        {{ form.other_category|as_crispy_field }}
+          <optgroup label="Other">
+            {% for group in grouped_categories %}
+              {% if not group.grouper %}
+                {% for category in group.list %}
+                  <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected_categories %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+            <option value="__other__" {% if '__other__' in selected_categories %}selected{% endif %}>Other</option>
+          </optgroup>
+        </select>
+        <div id="other-category-field" class="my-3" style="display: none;">
+          {{ form.other_category|as_crispy_field }}
+        </div>
+      </div>
+
+      <!-- Accessibility Features -->
+      <div class="mb-3">
+        <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
+        <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
+          {% for feature in form.fields.accessibility_features.queryset %}
+            <option value="{{ feature.pk }}" {% if form.accessibility_features.value and feature.pk|stringformat:'s' in form.accessibility_features.value %}selected{% endif %}>{{ feature.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Opening Hours Widget -->
+      <div class="mb-3">
+        <label class="form-label">
+          Business Hours<br>
+          <small class="form-text text-muted">Set opening and closing times for each day, or mark as closed.</small>
+        </label>
+        <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
+        <table class="table table-bordered" id="opening-hours-table">
+          <thead>
+            <tr><th>Day</th><th>Periods</th><th>Closed</th></tr>
+          </thead>
+          <tbody>
+            {% for day in days_of_week %}
+            <tr data-day="{{ day }}">
+              <td>{{ day }}</td>
+              <td>
+                <div class="periods-container"></div>
+                <div class="d-flex justify-content-end gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary add-period-btn" data-day="{{ day }}">Add period</button>
+                  <button type="button" class="btn btn-sm btn-outline-primary copy-down-btn" data-day="{{ day }}">Copy to next day</button>
+                </div>
+              </td>
+              <td class="text-center align-middle">
+                <input type="checkbox" class="closed-checkbox" data-day="{{ day }}" style="transform: scale(1.5);">
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Special Offers -->
+      <div class="mb-3">
+        <label for="id_special_offers" class="form-label">
+          Special Offers for Wheelers<br>
+          <small class="form-text text-muted">Add any discounts or promotions specifically for Wheelers to encourage customers to come to your business.</small><br>
+        </label>
+        {{ form.special_offers }}
       </div>
     </div>
-
-    <!-- Accessibility Features -->
-    <div class="mb-3">
-      <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
-      <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
-        {% for feature in form.fields.accessibility_features.queryset %}
-          <option value="{{ feature.pk }}" {% if form.accessibility_features.value and feature.pk|stringformat:'s' in form.accessibility_features.value %}selected{% endif %}>{{ feature.name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <!-- Opening Hours Widget -->
-    <div class="mb-3">
-      <label class="form-label">
-        Business Hours<br>
-        <small class="form-text text-muted">Set opening and closing times for each day, or mark as closed.</small>
-      </label>
-      <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
-      <table class="table table-bordered" id="opening-hours-table">
-        <thead>
-          <tr><th>Day</th><th>Periods</th><th>Closed</th></tr>
-        </thead>
-        <tbody>
-          {% for day in days_of_week %}
-          <tr data-day="{{ day }}">
-            <td>{{ day }}</td>
-            <td>
-              <div class="periods-container"></div>
-              <button type="button" class="btn btn-sm btn-outline-secondary add-period-btn" data-day="{{ day }}">Add period</button>
-              <button type="button" class="btn btn-sm btn-outline-primary copy-down-btn" data-day="{{ day }}">Copy to next day</button>
-            </td>
-            <td><input type="checkbox" class="closed-checkbox" data-day="{{ day }}"></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Special Offers -->
-    <div class="mb-3">
-      <label for="id_special_offers" class="form-label">
-        Special Offers for Wheelers<br>
-        <small class="form-text text-muted">Add any discounts or promotions specifically for Wheelers to encourage customers to come to your business.</small><br>
-      </label>
-      {{ form.special_offers }}
-    </div>
-
     <!-- Pricing Tiers -->
     <h4 class="my-4">Choose a Pricing Tier</h4>
     <input type="hidden" name="pricing_tier" id="selected-pricing-tier" value="{{ form.initial.pricing_tier }}">
 
-    <div class="row" id="pricing-tier-cards">
+    <div class="row g-3" id="pricing-tier-cards">
       {% for tier in pricing_tiers %}
-        <div class="col-md-4">
-          <div class="card mb-3 pricing-tier-card {% if tier.id|stringformat:"s" == form.pricing_tier.value|stringformat:"s" %} border-primary shadow{% endif %}"
+        <div class="col-md-4 p-0-custom {% if forloop.first %}ps-md-0{% endif %} {% if forloop.last %}pe-md-0{% endif %}">
+          <div class="card mb-3 pricing-tier-card h-100 {% if tier.id|stringformat:"s" == form.pricing_tier.value|stringformat:"s" %} border-primary shadow{% endif %}"
       data-tier-id="{{ tier.id }}" tabindex="0" style="cursor:pointer;">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ tier.get_tier_display }}</h5>
-              <p class="card-text" style="white-space:pre-line;">{{ tier.description }}</p>
-              <p class="card-text price-display"
+              <ul class="card-text ps-3 ms-0">
+                {% for line in tier.description.splitlines %}
+                  <li>{{ line }}</li>
+                {% endfor %}
+              </ul>
+              <p class="card-text price-display mt-auto"
                 data-price-month="{{ tier.price_per_month }}"
                 data-price-year="{{ tier.price_per_year }}">
                 <strong class="price-main">£{{ tier.price_per_month }} / month</strong><br>
@@ -157,7 +166,7 @@
 
     <!-- Billing Frequency -->
     <div class="my-4">
-      <h4>Choose a Billing Frequency</h4>
+      <h4 class="my-4">Choose a Billing Frequency</h4>
       <div class="btn-group mb-3" role="group" aria-label="Billing Frequency" id="billing-frequency-group">
         {% for frequency in form.billing_frequency %}
           <input type="radio" class="btn-check" name="billing_frequency" 

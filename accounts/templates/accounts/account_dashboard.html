@@ -84,6 +84,9 @@
           <div class="d-flex flex-column gap-2">
             <a href="{% url 'edit_profile' %}" class="btn btn-primary btn-custom-width">Edit Profile</a>
             <a href="{% url 'account_change_password' %}" class="btn btn-outline-primary btn-custom-width">Change Password</a>
+            {% if user.userprofile.has_business and not user.userprofile.business %}
+              <a href="{% url 'register_business' %}" class="btn btn-warning btn-custom-width">Register Your Business</a>
+            {% endif %}
             {% if verification_reports or approved_businesses %}
               <a href="{% url 'wheeler_verification_history' %}" class="btn btn-info btn-custom-width">View Your Business Verifications</a>
             {% endif %}

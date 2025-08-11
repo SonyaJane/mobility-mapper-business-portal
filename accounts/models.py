@@ -129,6 +129,10 @@ class UserProfile(models.Model):
     photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
     is_wheeler = models.BooleanField(default=False)
     has_business = models.BooleanField(default=False)
+    has_registered_business = models.BooleanField(
+        default=False,
+        help_text="Whether the user has registered their business on the site."
+    )
 
     MOBILITY_DEVICE_CHOICES = (
         ('manual_wheelchair', 'Manual Wheelchair'),

@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "tier": "free",
-      "description": "- Basic listing on map\n- Business categories \n- Address \n- Link to website \n- Phone number \n- Opening hours \n- Accessibility features",
+      "description": "Basic listing on map\nBusiness categories \nBusiness Address \nLink to website \nContact Phone number \nOpening hours \nAccessibility features",
       "price_per_month": 0,
       "price_per_year": 0,
       "is_active": true
@@ -15,7 +15,7 @@
     "pk": 2,
     "fields": {
       "tier": "standard",
-      "description": "- All Free features\n- Upload business logo \n- Social Media links  \n- Email address \n- Short description \n- Special offers for wheelers to attract more customers \n Half price wheeler verification (normally £20 per wheeler)",
+      "description": "All Free tier features\nDisplay business logo \nSocial Media links  \nEmail address \nShort description of business \nOption to add special offers for wheelers to attract more customers \nHalf price wheeler verification (normally £20 per wheeler)",
       "price_per_month": 10,
       "price_per_year": 100,
       "is_active": true
@@ -26,7 +26,7 @@
     "pk": 3,
     "fields": {
       "tier": "premium",
-      "description": "- All Standard features\n- Highlighted on map\n- Appear higher in search results\n- Wheeler verification included",
+      "description": "All Standard features\nHighlighted on map\nAppear higher in search results\nWheeler verification included",
       "price_per_month": 25,
       "price_per_year": 250,
       "is_active": true

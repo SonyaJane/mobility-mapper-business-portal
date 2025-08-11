@@ -26,9 +26,13 @@ def register_business(request):
     user_profile = UserProfile.objects.get(user=request.user)
     pricing_tiers = PricingTier.objects.filter(is_active=True)
     
-    # Redirect if business already exists
-    if user_profile.has_business:
+    # Redirect if user already has a business record
+    from .models import Business
+    try:
+        Business.objects.get(business_owner=user_profile)
         return redirect('business_dashboard')
+    except Business.DoesNotExist:
+        pass
 
     import json
     if request.method == 'POST':
@@ -56,7 +60,7 @@ def register_business(request):
                 slug = slugify(other_cat)
                 category_obj, created = Category.objects.get_or_create(code=slug, defaults={'name': other_cat})
                 business.categories.add(category_obj)
-            user_profile.has_business = True
+            user_profile.has_registered_business = True
             user_profile.save()
             return redirect('business_dashboard')
     else:
