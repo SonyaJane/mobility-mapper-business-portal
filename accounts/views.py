@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from .forms import UserProfileForm
 
+
 @login_required
 def edit_profile(request):
     profile = request.user.userprofile
@@ -59,12 +60,14 @@ def dashboard_view(request):
         'page_title': 'Personal Dashboard',
     })
 
+
 @login_required
 def postlogin_redirect(request):
     user_profile = UserProfile.objects.get(user=request.user)
     if hasattr(user_profile, 'has_business') and user_profile.has_business:
         return redirect('business_dashboard')
     return redirect('account_dashboard')
+
 
 def validate_username(request):
     """AJAX endpoint to check if a username is available."""

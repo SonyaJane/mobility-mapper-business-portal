@@ -20,9 +20,27 @@
         {% endelement %}
         {% if not SOCIALACCOUNT_ONLY %}
           {% url 'account_signup' as action_url %}
-          <form method="post" action="{{ action_url }}">
+          <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form|crispy }}
+            {{ form.first_name|as_crispy_field }}
+            {{ form.last_name|as_crispy_field }}
+            {{ form.email|as_crispy_field }}
+            {{ form.confirm_email|as_crispy_field }}
+            {{ form.username|as_crispy_field }}
+            {{ form.has_business|as_crispy_field }}
+            {{ form.is_wheeler|as_crispy_field }}
+            <div id="mobility-devices-field">
+              {{ form.mobility_devices|as_crispy_field }}
+            </div>
+            <div id="mobility-other-field">
+              {{ form.mobility_devices_other|as_crispy_field }}
+            </div>
+            {{ form.country|as_crispy_field }}
+            {{ form.county|as_crispy_field }}
+            {{ form.age_group|as_crispy_field }}
+            {{ form.photo|as_crispy_field }}
+            {{ form.password1|as_crispy_field }}
+            {{ form.password2|as_crispy_field }}
             {{ redirect_field }}
             <div class="d-flex justify-content-center mt-3">
               <button type="submit" class="btn btn-primary px-5">{% trans "Sign Up" %}</button>
@@ -55,7 +73,7 @@
         const val = this.value.trim();
         if (!val) { feedback.textContent = ''; return; }
         timer = setTimeout(() => {
-          fetch("{% url 'validate_username' %}?username="+encodeURIComponent(val))
+        fetch("{% url 'validate_username' %}?username=" + encodeURIComponent(val))
             .then(r => r.json())
             .then(data => {
               feedback.textContent = data.available ? 'Username is available.' : 'Username is already taken.';
@@ -64,6 +82,36 @@
             });
         }, 300);
       });
+      // Show/hide mobility devices based on wheeler choice
+      const yesWheeler = document.querySelector('input[name="is_wheeler"][value="True"]');
+      const noWheeler = document.querySelector('input[name="is_wheeler"][value="False"]');
+      const devicesField = document.getElementById('mobility-devices-field');
+      const otherField = document.getElementById('mobility-other-field');
+      function updateDevicesVisibility() {
+        if (yesWheeler && yesWheeler.checked) {
+          devicesField.style.display = 'block';
+        } else {
+          devicesField.style.display = 'none';
+          otherField.style.display = 'none';
+        }
+      }
+      if (yesWheeler && noWheeler) {
+        yesWheeler.addEventListener('change', updateDevicesVisibility);
+        noWheeler.addEventListener('change', updateDevicesVisibility);
+      }
+      updateDevicesVisibility();
+      // Show/hide other device text input when 'Other' checkbox changes
+      function updateOtherVisibility() {
+        const otherCheckbox = document.querySelector('#mobility-devices-field input[type="checkbox"][value="other"]');
+        if (otherCheckbox && otherCheckbox.checked) {
+          otherField.style.display = 'block';
+        } else {
+          otherField.style.display = 'none';
+        }
+      }
+      // Delegate listener to devicesField container
+      devicesField.addEventListener('change', updateOtherVisibility);
+      updateOtherVisibility();
     });
   </script>
 {% endblock inner_content %}

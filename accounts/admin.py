@@ -14,7 +14,7 @@ class UserProfileInline(admin.StackedInline):
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'email', 'country', 'county', 'is_wheeler', 'has_business',
-        'mobility_device', 'age_group', 'created_at', 'updated_at'
+        'mobility_devices', 'age_group', 'created_at', 'updated_at'
     )
 
     def email(self, obj):

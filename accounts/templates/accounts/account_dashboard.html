@@ -46,10 +46,21 @@
               <i class="bi bi-globe fs-5 me-2 text-info"></i>
               <span><strong>Country:</strong> {{ user.userprofile.country }}</span>
             </li>
+            {# Age group #}
+            {% if user.userprofile.age_group %}
+            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
+              <i class="bi bi-person fs-5 me-2 text-secondary"></i>
+              <span><strong>Age Group:</strong> {{ user.userprofile.get_age_group_display }}</span>
+            </li>
+            {% endif %}
             {% if user.userprofile.is_wheeler %}
             <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
               <i class="bi bi-person-wheelchair fs-5 me-2 text-success"></i>
-              <span><strong>Mobility Device:</strong> {{ user.userprofile.mobility_device }}</span>
+              <span><strong>Mobility Devices:</strong> 
+                {% with labels=user.userprofile.mobility_devices|device_labels %}
+                  {{ labels }}{% if user.userprofile.mobility_devices_other %}, {{ user.userprofile.mobility_devices_other }}{% endif %}
+                {% endwith %}
+              </span>
             </li>
             {% endif %}
             {% if user.userprofile.has_business %}

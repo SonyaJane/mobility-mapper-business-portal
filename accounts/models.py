@@ -122,7 +122,7 @@ class UserProfile(models.Model):
         choices=UK_COUNTY_CHOICES,
         blank=True,
         null=True,
-        help_text="UK county (if country is UK). Leave blank if not applicable."
+        help_text="County of residence"
     )
     """User profile model to extend the User model with additional fields."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -144,12 +144,17 @@ class UserProfile(models.Model):
         ('bicycle', 'Bicycle'),
         ('other', 'Other'),
     )
-    mobility_device = models.CharField(
-        max_length=47,
-        choices=MOBILITY_DEVICE_CHOICES,
-        null=True,
+    # Allow multiple mobility devices
+    mobility_devices = models.JSONField(
+        default=list,
         blank=True,
-        help_text="Type of wheeled mobility device (if user is a wheeler)."
+        help_text="Types of wheeled mobility devices (if user is a wheeler)."
+    )
+    mobility_devices_other = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text="Other mobility device description (if 'Other' selected)."
     )
 
     AGE_GROUP_CHOICES = (

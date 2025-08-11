@@ -7,7 +7,27 @@
   <h2>Edit Profile</h2>
   <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form|crispy }}
+    {{ form.first_name|as_crispy_field }}
+    {{ form.last_name|as_crispy_field }}
+    <div id="country-field">
+      {{ form.country|as_crispy_field }}
+    </div>
+    <div id="county-field">
+      {{ form.county|as_crispy_field }}
+    </div>
+    {{ form.photo|as_crispy_field }}
+    {{ form.has_business|as_crispy_field }}
+    {{ form.is_wheeler|as_crispy_field }}
+    {% if user.userprofile.is_wheeler %}
+      <div id="mobility-devices-field">
+        {{ form.mobility_devices|as_crispy_field }}
+      </div>
+      <div id="mobility-other-field">
+        {{ form.mobility_devices_other|as_crispy_field }}
+      </div>
+    {% endif %}
+    {# Age group #}
+    {{ form.age_group|as_crispy_field }}
     {% if form.errors %}
       <div class="alert alert-danger">
         <ul>
@@ -25,5 +45,67 @@
     <button type="submit" class="btn btn-primary">Save Changes</button>
     <a href="{% url 'account_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
   </form>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const devicesField = document.getElementById('mobility-devices-field');
+      const otherField = document.getElementById('mobility-other-field');
+      function updateOtherField() {
+        if (!devicesField || !otherField) return;
+        const otherCheckbox = devicesField.querySelector('input[type="checkbox"][value="other"]');
+        const otherInput = otherField.querySelector('input[name="mobility_devices_other"]');
+        if (otherCheckbox && otherCheckbox.checked) {
+          otherField.style.display = 'block';
+        } else {
+          otherField.style.display = 'none';
+          if (otherInput) otherInput.value = '';
+        }
+      }
+      if (devicesField) {
+        devicesField.addEventListener('change', updateOtherField);
+        updateOtherField();
+      }
+      // Toggle county visibility based on country selection
+      const countryContainer = document.getElementById('country-field');
+      const countyContainer = document.getElementById('county-field');
+      function updateCountyField() {
+        if (!countryContainer || !countyContainer) return;
+        const select = countryContainer.querySelector('select[name="country"]');
+        if (select.value === 'Other') {
+          countyContainer.style.display = 'none';
+          const countySelect = countyContainer.querySelector('select[name="county"]');
+          if (countySelect) countySelect.value = '';
+        } else {
+          countyContainer.style.display = 'block';
+        }
+      }
+      const select = countryContainer.querySelector('select[name="country"]');
+      if (select) {
+        select.addEventListener('change', updateCountyField);
+        updateCountyField();
+      }
+      // Toggle mobility devices based on wheeler choice
+      const yesWheeler = document.querySelector('input[name="is_wheeler"][value="True"]');
+      const noWheeler = document.querySelector('input[name="is_wheeler"][value="False"]');
+      function updateDevicesVisibility() {
+        if (!devicesField) return;
+        if (yesWheeler && yesWheeler.checked) {
+          devicesField.style.display = 'block';
+          updateOtherField();
+        } else {
+          devicesField.style.display = 'none';
+          otherField.style.display = 'none';
+          // clear mobility device selections
+          devicesField.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+          const otherInput = otherField.querySelector('input[name="mobility_devices_other"]');
+          if (otherInput) otherInput.value = '';
+        }
+      }
+      if (yesWheeler && noWheeler) {
+        yesWheeler.addEventListener('change', updateDevicesVisibility);
+        noWheeler.addEventListener('change', updateDevicesVisibility);
+        updateDevicesVisibility();
+      }
+    });
+  </script>
 </div>
 {% endblock %}
