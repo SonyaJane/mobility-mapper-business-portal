@@ -177,20 +177,33 @@
 
   <div class="row mb-3 g-3 d-flex align-items-stretc"> 
     <!-- Subscription tier -->
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-md-6">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
           <h5 class="card-title mb-3">Subscription Tier</h5>
-          {% if business.pricing_tier %}{{ business.pricing_tier.tier }}{% else %}None{% endif %}</span>
+          <div>
+            {% if business.pricing_tier %}
+              {% if business.pricing_tier.tier == 'free' %}
+                <p class="mb-3">You're on the Free tier. Upgrade to make your business stand out!</p>
+                <a href="{% url 'explore_plans' %}" class="btn btn-primary">Explore Plans</a>
+              {% elif business.pricing_tier.tier == 'standard' %}
+                <p class="mb-2">You're on the Standard tier. Upgrade to Premium for highlighted placement and included verification!</p>
+                <a href="{% url 'explore_plans' %}" class="btn btn-primary">Explore Plans</a>
+              {% else %}
+                <p class="mb-2">You're on the Premium tier. Enjoy highlighted placement and included verification!</p>
+                <a href="{% url 'explore_plans' %}" class="btn btn-primary">Manage Subscription</a>  
+              {% endif %}
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Verification Reports Section -->
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-md-6">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
-        <h5 class="card-title mb-1">Accessibility Verification</h5>
+        <h5 class="card-title mb-2">Accessibility Verification</h5>
         {% if business.verified_by_wheelers %}
           <p class="text-success fw-bold mt-2">✅ Verified by Wheelers</p>
         {% elif business.wheeler_verification_requested %}
@@ -200,7 +213,8 @@
           <div class="alert alert-warning mt-2">⏳ Verification requested</div>
           {% endif %}
         {% else %}
-          <a href="{% url 'business_request_wheeler_verification' business.id %}" class="btn btn-outline-primary mt-2">Request Wheeler Verification</a>
+          <div class="mt-2">No wheeler verification</div>
+          <a href="{% url 'business_request_wheeler_verification' business.id %}" class="btn btn-outline-primary my-2 align-self-start">Request Wheeler Verification</a>
         {% endif %}
         {% if business.verifications.exists %}
         <h5 class="mt-3">Verification Reports</h5>
@@ -214,7 +228,9 @@
           {% endfor %}
         </ul>
         {% else %}
-        <p class="mb-0">No verification reports yet.</p>
+          {% if business.wheeler_verification_requested %}
+            <p class="mb-0">No verification reports yet.</p>
+          {% endif %}
         {% endif %}
         </div>
       </div>
@@ -223,8 +239,8 @@
     <div class="col-12">
       <div class="card shadow-sm mb-3 p-2">
         <div class="d-flex gap-2">
-          <a href="{% url 'edit_business' %}" class="btn btn-warning flex-fill">Edit Business</a>
-          <a href="{% url 'delete_business' %}" class="btn btn-outline-danger flex-fill">Delete Business</a>
+          <a href="{% url 'edit_business' %}" class="btn btn-warning w-50">Edit Business</a>
+          <a href="{% url 'delete_business' %}" class="btn btn-outline-danger w-50">Delete Business</a>
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ from accounts.models import UserProfile
 from businesses.models import Business, Category, AccessibilityFeature
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
 from .models import Business, WheelerVerification, PricingTier, Category, WheelerVerificationRequest
+from .models import Category
 
 # custom template filter for dictionary access
 register = template.Library()
@@ -301,11 +302,32 @@ def edit_business(request):
         'page_title': 'Edit Your Business',
     })
 
+    
+def explore_plans(request):
+    """Display available subscription plans for businesses to review and select."""
+    pricing_tiers = PricingTier.objects.filter(is_active=True).order_by('price_per_month')
+    # Determine the current user's subscription tier if they have a business
+    current_tier = None
+    try:
+        profile = request.user.userprofile
+        business = Business.objects.get(business_owner=profile)
+        current_tier = business.pricing_tier
+    except Exception:
+        current_tier = None
+    # Determine higher-tier upgrade options
+    upgrade_tiers = [tier for tier in pricing_tiers if not current_tier or tier.price_per_month > current_tier.price_per_month]
+    upgrade_count = len(upgrade_tiers)
+    return render(request, 'businesses/explore_plans.html', {
+        'pricing_tiers': pricing_tiers,
+        'current_tier': current_tier,
+        'upgrade_tiers': upgrade_tiers,
+        'upgrade_count': upgrade_count,
+    })
+
 
 @login_required
 def delete_business(request):
     business = get_object_or_404(Business, business_owner=request.user.userprofile)
-
     if request.method == 'POST':
         business.delete()
 

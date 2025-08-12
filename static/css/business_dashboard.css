@@ -47,15 +47,11 @@
     vertical-align: middle;
 }
 
-#business-details tr {
-    min-height: 40px;
-}
-
-/* Uniform row height for Opening Hours dashboard table */
-#opening-hours-table-dashboard tr {
-    height: 3rem; /* adjust to desired row height */
-}
+/* Uniform row height for dashboard table cells */
+#business-details td,
+#description-services-table td,
 #opening-hours-table-dashboard td {
+    min-height: 3rem;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
 }
