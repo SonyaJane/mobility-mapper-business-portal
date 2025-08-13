@@ -1,0 +1,96 @@
+/* Fix first column width to prevent shrink */
+#business-details td:first-child {
+    white-space: nowrap;
+}
+
+/* Ensure the map fills remaining space in the card without overflowing */
+.card.h-100 > .card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0; /* remove padding if needed */
+}
+.card.h-100 > .card-body #public-map {
+    flex: 1 1 auto;
+    min-height: 300px;
+}
+
+/* Stack Business Details on extra small screens */
+@media (max-width: 575.98px) {
+  #business-details {
+    display: block;
+  }
+  #business-details tbody {
+    display: block;
+  }
+  #business-details tr {
+    display: block;
+    border-bottom: 1px solid #dee2e6;
+  }
+  #business-details td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  #business-details td:first-child {
+    font-weight: 600;
+    padding-left: 0;
+  }
+}
+
+/* Vertically center cell contents in dashboard tables */
+#business-details td,
+#description-services-table td,
+#opening-hours-table-dashboard td {
+    vertical-align: middle;
+}
+
+/* Uniform row height for dashboard table cells */
+#business-details td,
+#description-services-table td,
+#opening-hours-table-dashboard td {
+    min-height: 3rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+@media (min-width: 576px) {
+    #business-details td:first-child {
+        width: 173px;
+    }
+}
+/* Description & Services table fixed first column and responsive behavior */
+#description-services-table td:first-child {
+    white-space: nowrap;
+}
+@media (min-width: 576px) {
+    #description-services-table td:first-child {
+        width: 195px;
+    }
+}
+@media (max-width: 575.98px) {
+    #description-services-table {
+        display: block;
+    }
+    #description-services-table tbody {
+        display: block;
+    }
+    #description-services-table tr {
+        display: block;
+        border-bottom: 1px solid #dee2e6;
+    }
+    #description-services-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    #description-services-table td:first-child {
+        font-weight: 600;
+        padding-left: 0;
+    }
+}

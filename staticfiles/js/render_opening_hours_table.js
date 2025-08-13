@@ -1,4 +1,4 @@
-function renderOpeningHoursTable(opening_hours) {
+export default function renderOpeningHoursTable(opening_hours) {
     if (!opening_hours) return '';
     let oh;
     try {
