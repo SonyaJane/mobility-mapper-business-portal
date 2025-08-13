@@ -172,8 +172,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #     }
 # }
 
+# Read DATABASE_URL from .env via decouple if not set in OS env
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 # Override the engine to use GeoDjango's PostGIS backend
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
