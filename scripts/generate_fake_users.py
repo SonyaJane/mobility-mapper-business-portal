@@ -4,7 +4,11 @@
 # python manage.py loaddata ./fixtures/accessibility_features.json
 
 # python manage.py loaddata .\fixtures\business_categories.json
+# python manage.py loaddata ./fixtures/business_categories.json
+
 # python manage.py loaddata .\fixtures\pricing_tiers.json
+# python manage.py loaddata ./fixtures/pricing_tiers.json
+
 # Load the generated fixture: 
 # python manage.py loaddata fixtures/fake_users_fixture.json
 # python manage.py createsuperuser
@@ -30,6 +34,7 @@ django.setup()
 
 from accounts.models import UserProfile
 from businesses.models import Business, TIER_CHOICES
+from businesses.models import Category, AccessibilityFeature, PricingTier
 
 fake = Faker("en_GB")
 
@@ -76,6 +81,10 @@ for i in range(2):
         }
     }
     users.append(user)
+    # Assign mobility devices list for wheeler users
+    # Assign mobility devices list for wheeler users
+    devices = random.sample(MOBILITY_DEVICES, k=random.randint(1, 2))
+    other_desc = fake.sentence(nb_words=3) if 'other' in devices else ''
     profile = {
         "model": "accounts.userprofile",
         "pk": user_pk,
@@ -85,7 +94,8 @@ for i in range(2):
             "has_business": False,
             "country": "GB",
             "county": random.choice(UK_COUNTIES),
-            "mobility_device": random.choice(MOBILITY_DEVICES),
+            "mobility_devices": devices,
+            "mobility_devices_other": other_desc,
             "age_group": random.choice(AGE_GROUPS),
             "created_at": str(fake.date_time_this_decade(tzinfo=timezone.utc)),
             "updated_at": str(fake.date_time_this_year(tzinfo=timezone.utc)),
@@ -124,7 +134,8 @@ for i in range(100):
         "fields": {
             "user": user_pk,
             "is_wheeler": False,
-            "has_business": True,
+            "mobility_devices": [],
+            "mobility_devices_other": '',
             "country": "UK",
             "county": random.choice(UK_COUNTIES),
             "mobility_device": None,
@@ -168,14 +179,12 @@ businesses = []
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 logo_dir = os.path.join(base_dir, 'media', 'business_logos')
 logo_files = sorted([f for f in os.listdir(logo_dir) if os.path.isfile(os.path.join(logo_dir, f))])
-from businesses.models import Category, AccessibilityFeature
 category_choices = list(Category.objects.values_list('pk', flat=True))
+print(f"Found {len(category_choices)} business categories.")
 accessibility_choices = list(AccessibilityFeature.objects.values_list('pk', flat=True))
 tier_choices = [c[0] for c in TIER_CHOICES]
 
-
 # Get all pricing tier PKs (assume at least one exists)
-from businesses.models import PricingTier
 pricing_tiers = list(PricingTier.objects.filter(is_active=True))
 
 for idx, owner_pk in enumerate(user_profiles_with_business):

@@ -63,6 +63,9 @@ class Category(models.Model):
     def __str__(self):
         return f"{self.name} ({self.group_description})" if self.group_description else self.name
 
+    class Meta:
+        verbose_name_plural = "Categories"
+
 
 class Business(models.Model):
     """

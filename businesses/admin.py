@@ -58,6 +58,7 @@ class BusinessAdmin(admin.ModelAdmin):
     list_filter = ('pricing_tier', 'is_approved', 'verified_by_wheelers', 'categories', 'accessibility_features')
     search_fields = ('business_name', 'business_owner__email')
     inlines = [WheelerVerificationInline]
+    filter_horizontal = ('categories', 'accessibility_features')
 
     # Display count of Wheeler verifications
     def wheeler_verification_count(self, obj):
@@ -137,3 +138,17 @@ class WheelerVerificationPhotoAdmin(admin.ModelAdmin):
     list_display = ('verification', 'feature', 'image', 'uploaded_at')
     list_filter = ('feature',)
     search_fields = ('verification__business__business_name',)
+
+# Register Category and AccessibilityFeature admin views
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name', 'group_code', 'group_description', 'tags')
+    search_fields = ('code', 'name')
+    list_filter = ('group_code',)
+
+
+@admin.register(AccessibilityFeature)
+class AccessibilityFeatureAdmin(admin.ModelAdmin):
+    list_display = ('code','name')
+
