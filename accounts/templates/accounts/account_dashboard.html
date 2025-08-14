@@ -67,7 +67,7 @@
               {% if user.userprofile.business %}
               <li class="list-group-item d-flex align-items-center">
                 <i class="bi bi-building fs-5 me-2 text-secondary"></i>
-                <span><strong>Your Business:</strong> {{ user.userprofile.business.business_name }}</span>
+                <span><strong>Your Business:</strong> <a href="{% url 'business_dashboard' %}" class="link-body-emphasis">{{ user.userprofile.business.business_name }}</a></span>
               </li>
               {% endif %}
             {% endif %}

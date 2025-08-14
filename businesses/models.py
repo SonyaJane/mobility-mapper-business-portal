@@ -72,6 +72,8 @@ class Business(models.Model):
     Represents a business registered on the platform.
     Stores owner, details, location, accessibility, pricing tier, and verification info.
     """
+    class Meta:
+        verbose_name_plural = "Businesses"
     # Owner is a UserProfile, which extends the User model
     business_owner = models.OneToOneField('accounts.UserProfile', on_delete=models.CASCADE)
     business_name = models.CharField(max_length=200)

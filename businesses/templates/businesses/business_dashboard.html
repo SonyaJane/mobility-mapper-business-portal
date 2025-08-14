@@ -46,28 +46,69 @@
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-tags fs-5 me-2 text-success"></i><strong>Category:</strong></td>
                 <td class="align-middle">
-                  {% if business.categories.all %}{% for cat in business.categories.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% else %}None{% endif %}
+                  {% if business.categories.all %}
+                    {% for cat in business.categories.all %}
+                      {{ cat.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    <span class="text-muted">No categories selected.</span> <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add categories</a>
+                  {% endif %}
                 </td>
               </tr>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-geo-alt fs-5 me-2 text-danger"></i><strong>Address:</strong></td>
-                <td class="align-middle">{{ business.address }}</td>
+                <td class="align-middle">
+                  {% if business.address %}
+                    {{ business.address }}
+                  {% else %}
+                    <span class="text-muted">No address provided.</span>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add address</a>
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-info"></i><strong>Website:</strong></td>
-                <td class="align-middle"><a href="{{ business.website }}" target="_blank" class="text-decoration-none">{{ business.website }}</a></td>
+                <td class="align-middle">
+                  {% if business.website %}
+                    <a href="{{ business.website }}" target="_blank" class="text-decoration-none">{{ business.website }}</a>
+                  {% else %}
+                    <span class="text-muted">No website set.</span>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add website</a>
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-warning"></i><strong>Public Email:</strong></td>
-                <td class="align-middle"><a href="mailto:{{ business.public_email }}" class="text-decoration-none">{{ business.public_email }}</a></td>
+                <td class="align-middle">
+                  {% if business.public_email %}
+                    <a href="mailto:{{ business.public_email }}" class="text-decoration-none">{{ business.public_email }}</a>
+                  {% else %}
+                    <span class="text-muted">No public email.</span>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add email</a>
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-telephone fs-5 me-2 text-success"></i><strong>Public Phone:</strong></td>
-                <td class="align-middle"><a href="tel:{{ business.public_phone }}" class="text-decoration-none">{{ business.public_phone }}</a></td>
+                <td class="align-middle">
+                  {% if business.public_phone %}
+                    <a href="tel:{{ business.public_phone }}" class="text-decoration-none">{{ business.public_phone }}</a>
+                  {% else %}
+                    <span class="text-muted">No public phone.</span>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add phone</a>
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-lock fs-5 me-2 text-secondary"></i><strong>Private Phone:</strong></td>
-                <td class="align-middle"><a href="tel:{{ business.contact_phone }}" class="text-decoration-none">{{ business.contact_phone }}</a></td>
+                <td class="align-middle">
+                  {% if business.contact_phone %}
+                    <a href="tel:{{ business.contact_phone }}" class="text-decoration-none">{{ business.contact_phone }}</a>
+                  {% else %}
+                    <span class="text-muted">No private phone.</span>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add private phone</a>
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-share fs-6 me-2 text-info"></i><strong>Social Media:</strong></td>
@@ -104,15 +145,36 @@
             <tbody>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-card-text fs-5 me-2 text-info"></i><strong>Description:</strong></td>
-                <td class="align-middle">{{ business.description }}</td>
+                <td class="align-middle">
+                  {% if business.description %}
+                    {{ business.description }}
+                  {% else %}
+                    <span class="text-muted">No description provided.</span>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add description</a>
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-briefcase fs-5 me-2 text-primary"></i><strong>Services Offered:</strong></td>
-                <td class="align-middle">{{ business.services_offered }}</td>
+                <td class="align-middle">
+                  {% if business.services_offered %}
+                    {{ business.services_offered }}
+                  {% else %}
+                    <span class="text-muted">No services listed.</span>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add services</a>
+                  {% endif %}
+                </td>
               </tr>
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-tag fs-5 me-2 text-warning"></i><strong>Special Offers:</strong></td>
-                <td class="align-middle">{{ business.special_offers }}</td>
+                <td class="align-middle">
+                  {% if business.special_offers %}
+                    {{ business.special_offers }}
+                  {% else %}
+                    <span class="text-muted">No special offers.</span>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add offers</a>
+                  {% endif %}
+                </td>
               </tr>
             </tbody>
             </table>
@@ -144,31 +206,32 @@
       <div class="card shadow-sm h-100">
         <div class="card-body">
           <h5 class="card-title ms-3 my-3">Opening Hours</h5>
-          {% if business.opening_hours %}
-            {% if opening_hours_dict %}
-              <div class="table-responsive">
-                <table class="table table-sm table-striped table-hover mb-0" id="opening-hours-table-dashboard">
-                  <tbody>
-                    {% for day, info in opening_hours_dict.items %}
-                      <tr>
-                        <td class="px-3 pe-sm-2"><strong>{{ day }}</strong></td>
-                        <td class="px-4 px-sm-2">
-                          {% if info.closed %}
-                            <span class="text-muted">Closed</span>
-                          {% elif info.periods %}
-                            {% for period in info.periods %}
-                              <span>{{ period.open }} - {{ period.close }}</span>{% if not forloop.last %}<br>{% endif %}
-                            {% endfor %}
-                          {% else %}
-                            <span class="text-muted">No hours set</span>
-                          {% endif %}
-                        </td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            {% endif %}
+          {% if business.opening_hours and opening_hours_dict %}
+            <div class="table-responsive">
+              <table class="table table-sm table-striped table-hover mb-0" id="opening-hours-table-dashboard">
+                <tbody>
+                  {% for day, info in opening_hours_dict.items %}
+                    <tr>
+                      <td class="px-3 pe-sm-2"><strong>{{ day }}</strong></td>
+                      <td class="px-4 px-sm-2">
+                        {% if info %}
+                          {% for period in info %}
+                            <span>{{ period.start }} - {{ period.end }}</span>{% if not forloop.last %}<br>{% endif %}
+                          {% endfor %}
+                        {% else %}
+                          <span class="text-muted">Closed</span>
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="p-3">
+              <span class="text-muted">No opening hours set.</span>
+              <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add hours</a>
+            </div>
           {% endif %}
         </div>
       </div>

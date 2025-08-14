@@ -57,10 +57,12 @@ def register_business(request):
             other_cat = form.cleaned_data.get('other_category')
             if other_cat:
                 from django.template.defaultfilters import slugify
-                from .models import Category
+                from .models import Category as CatModel
                 slug = slugify(other_cat)
-                category_obj, created = Category.objects.get_or_create(code=slug, defaults={'name': other_cat})
+                category_obj, created = CatModel.objects.get_or_create(code=slug, defaults={'name': other_cat})
                 business.categories.add(category_obj)
+            # Update user profile flags
+            user_profile.has_business = True
             user_profile.has_registered_business = True
             user_profile.save()
             return redirect('business_dashboard')
@@ -174,13 +176,34 @@ def business_dashboard(request):
             },
             # Add more fields if needed for JS
         }
-        # Parse opening_hours JSON for server-side table rendering
-        try:
-            if business.opening_hours:
-                opening_hours_dict = json.loads(business.opening_hours)
-            else:
+        # Parse and normalize opening_hours JSON for server-side table rendering
+        # Parse and normalize opening_hours JSON for server-side table rendering
+        if business.opening_hours:
+            try:
+                raw = json.loads(business.opening_hours)
+                normalized = {}
+                for day, info in raw.items():
+                    periods = []
+                    # Legacy format: dict with 'closed' and 'periods'
+                    if isinstance(info, dict) and 'periods' in info:
+                        if not info.get('closed', False):
+                            for p in info.get('periods', []):
+                                start = p.get('open')
+                                end = p.get('close')
+                                if start and end:
+                                    periods.append({'start': start, 'end': end})
+                    # New list-only format
+                    elif isinstance(info, list):
+                        for p in info:
+                            start = p.get('start') or p.get('open')
+                            end = p.get('end') or p.get('close')
+                            if start and end:
+                                periods.append({'start': start, 'end': end})
+                    normalized[day] = periods
+                opening_hours_dict = normalized
+            except Exception:
                 opening_hours_dict = None
-        except Exception:
+        else:
             opening_hours_dict = None
 
     return render(request, 'businesses/business_dashboard.html', {

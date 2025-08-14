@@ -1,5 +1,5 @@
 {% load static %}
-<div id="map-{{ widget.attrs.id }}" style="min-height:300px;"></div>
+<div id="map-{{ widget.attrs.id }}" style="height:300px; width:300px;"></div>
 <input type="hidden" name="{{ widget.name }}" id="{{ widget.attrs.id }}" value="{{ widget.value|default_if_none:'' }}">
 <script type="module">
   // Import the widget initializer
