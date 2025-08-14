@@ -1,4 +1,5 @@
 #python .\\scripts\\renumber_fixture.py .\\fixtures\\business_categories.json 1
+#python .\\scripts\\renumber_fixture.py .\\fixtures\\accessibility_features.json 1
 
 import json
 import sys

@@ -1,6 +1,8 @@
 # Run the script: python scripts/generate_fake_users.py
-# python manage.py flush
+# python manage.py flush --no-input
 # python manage.py loaddata .\fixtures\accessibility_features.json
+# python manage.py loaddata ./fixtures/accessibility_features.json
+
 # python manage.py loaddata .\fixtures\business_categories.json
 # python manage.py loaddata .\fixtures\pricing_tiers.json
 # Load the generated fixture: 
@@ -46,6 +48,15 @@ fixture = []
 
 # 2 fake wheeler users (is_wheeler=True, has_business=False, mobility_device set)
 for i in range(2):
+    # Setup Lilly Bishop with profile photo on first iteration
+    if i == 0:
+        first_name, last_name = "Lilly", "Bishop"
+        # assign single profile photo
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        photo_files = os.listdir(os.path.join(base_dir, 'media', 'profile_photos'))
+        photo_path = f"profile_photos/{photo_files[0]}" if photo_files else ''
+    else:
+        first_name, last_name = fake.first_name(), fake.last_name()
     username = f"wheeler_user_{i+1}"
     email = fake.email()
     password = make_password("testpass123")
@@ -60,8 +71,8 @@ for i in range(2):
             "is_active": True,
             "is_staff": False,
             "is_superuser": False,
-            "first_name": fake.first_name(),
-            "last_name": fake.last_name(),
+            "first_name": first_name,
+            "last_name": last_name,
         }
     }
     users.append(user)
@@ -78,6 +89,9 @@ for i in range(2):
             "age_group": random.choice(AGE_GROUPS),
             "created_at": str(fake.date_time_this_decade(tzinfo=timezone.utc)),
             "updated_at": str(fake.date_time_this_year(tzinfo=timezone.utc)),
+            "first_name": first_name,
+            "last_name": last_name,
+            "photo": photo_path,
         }
     }
     profiles.append(profile)
@@ -150,6 +164,10 @@ uk_polygon = shape(uk_geojson["features"][0]["geometry"])
 
 # Generate businesses, each owned by a user profile with business
 businesses = []
+# Prepare business logos list
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+logo_dir = os.path.join(base_dir, 'media', 'business_logos')
+logo_files = sorted([f for f in os.listdir(logo_dir) if os.path.isfile(os.path.join(logo_dir, f))])
 from businesses.models import Category, AccessibilityFeature
 category_choices = list(Category.objects.values_list('pk', flat=True))
 accessibility_choices = list(AccessibilityFeature.objects.values_list('pk', flat=True))
@@ -175,12 +193,14 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
     pricing_tier_pk = pricing_tier_obj.pk if pricing_tier_obj else None
     # Billing frequency
     billing_frequency = random.choice(["monthly", "yearly"])
-    # Logo (simulate file path)
-    # Generate a placeholder logo URL for each business
-    if random.random() < 0.5:
-        logo_path = fake.image_url(width=400, height=400)
+    # Assign logo and derive business name
+    if idx < len(logo_files):
+        logo_file = logo_files[idx]
+        logo_path = f"business_logos/{logo_file}"
+        business_name = os.path.splitext(logo_file)[0].replace('_', ' ').title()
     else:
         logo_path = ''
+        business_name = fake.company()
     # Website: 80% chance of having a website
     if random.random() < 0.8:
         website = fake.url()
@@ -267,7 +287,7 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
         "pk": idx+1,
         "fields": {
             "business_owner": owner_pk,
-            "business_name": fake.company(),
+            "business_name": business_name,
             "description": fake.sentence(),
             "categories": categories,
             "location": point_wkt,

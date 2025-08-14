@@ -160,7 +160,8 @@ class WheelerVerification(models.Model):
 
 class WheelerVerificationPhoto(models.Model):
     verification = models.ForeignKey(WheelerVerification, on_delete=models.CASCADE, related_name='photos')
-    image = models.ImageField(upload_to='verification_photos/')
+    # Store verification photos under media/verification_photos
+    image = models.ImageField(upload_to='media/verification_photos/')
     # Optional link to the specific accessibility feature this photo illustrates
     feature = models.ForeignKey(
         'AccessibilityFeature',
