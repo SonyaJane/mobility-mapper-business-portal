@@ -139,8 +139,6 @@ class WheelerVerificationPhotoAdmin(admin.ModelAdmin):
     list_filter = ('feature',)
     search_fields = ('verification__business__business_name',)
 
-# Register Category and AccessibilityFeature admin views
-
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'group_code', 'group_description', 'tags')
