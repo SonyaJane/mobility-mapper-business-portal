@@ -161,6 +161,8 @@ class BusinessRegistrationForm(forms.ModelForm):
                 image = Image.open(logo)
                 if image.width != image.height:
                     raise forms.ValidationError("Logo must be square (width and height must be equal).")
+                # Reset file pointer after PIL read
+                logo.file.seek(0)
         return logo
 
     def clean_categories(self):

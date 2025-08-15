@@ -173,6 +173,11 @@ header {
     font-size: 1rem;
 }
 
+/* Reset z-index on the 'remove period' clear button in opening hours widget */
+#opening-hours-table .remove-period-btn {
+  z-index: auto !important;
+}
+
 @media (max-width: 576px) {
     /* Move toast container down page for smaller screens */
     .message-container {

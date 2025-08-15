@@ -168,6 +168,8 @@ class UserProfileForm(forms.ModelForm):
                 raise forms.ValidationError('Invalid image file.')
             if img.width != img.height:
                 raise forms.ValidationError('Profile photo must be square (width and height must match).')
+            # Reset file pointer after PIL read so storage uploads full content
+            photo.file.seek(0)
         return photo
 
     class Meta:

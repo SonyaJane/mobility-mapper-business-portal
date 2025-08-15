@@ -456,14 +456,24 @@ def wheeler_verification_form(request, pk):
                 except AccessibilityFeature.DoesNotExist:
                     continue
                 # Save each uploaded file for this feature
-                for upload in request.FILES.getlist(field_name):
-                    WheelerVerificationPhoto.objects.create(
-                        verification=verification,
-                        image=upload,
-                        feature=feature
-                    )
+            for upload in request.FILES.getlist(field_name):
+                # Reset file pointer after any prior reads
+                try:
+                    upload.file.seek(0)
+                except Exception:
+                    pass
+                WheelerVerificationPhoto.objects.create(
+                    verification=verification,
+                    image=upload,
+                    feature=feature
+                )
             # Handle general photo uploads
             for photo in request.FILES.getlist('photos'):
+                # Reset file pointer before upload
+                try:
+                    photo.file.seek(0)
+                except Exception:
+                    pass
                 WheelerVerificationPhoto.objects.create(verification=verification, image=photo)
 
             # Automatically approve if >= 3 verifications

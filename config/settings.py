@@ -14,6 +14,7 @@ from pathlib import Path
 
 import os
 from decouple import config
+import cloudinary
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,6 +23,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Media files (uploads)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Cloudinary settings, for media storage via separate credentials
+# Configure Cloudinary SDK
+cloudinary.config(
+    cloud_name=config('CLOUD_NAME'),
+    api_key=config('CLOUDINARY_API_KEY'),
+    api_secret=config('CLOUDINARY_API_SECRET'),
+)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+    # Base folder on Cloudinary, set via env FOLDER (e.g. development or production)
+    'FOLDER': config('FOLDER'),
+    'TAGS': [], # disable tags to prevent signature mismatches
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 SECRET_KEY = config('SECRET_KEY')
 
@@ -63,6 +81,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.instagram',
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.twitter',
+    
+    # Cloudinary for media storage
+    'cloudinary',
+    'cloudinary_storage',
     
     # Crispy forms for better form rendering
     'crispy_forms',

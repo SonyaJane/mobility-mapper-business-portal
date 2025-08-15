@@ -30,49 +30,21 @@ export function initAutoResize(textareaSelector) {
   });
 }
 
-  rows.forEach((row) => {
-    const day = row.dataset.day;
-    const container = row.querySelector('.periods-container');
-    // Use only modern list format: array of {start, end}
-    const initialPeriods = Array.isArray(initial[day]) ? initial[day] : [];
-    if (initialPeriods.length) {
-      initialPeriods.forEach(p => {
-        const start = p.start || p.open;
-        const end   = p.end   || p.close;
-        addPeriod(container, start, end);
-      });
-    } else {
-      addPeriod(container);
-    }
-    // Closed checkbox: no periods means closed
-    const closedCb = row.querySelector('.closed-checkbox');
-    const toggle = () => {
-      container.style.display = closedCb.checked ? 'none' : '';
-      row.querySelector('.add-period-btn').style.display = closedCb.checked ? 'none' : '';
-    };
-    closedCb.checked = initialPeriods.length === 0;
-    closedCb.addEventListener('change', toggle);
-    toggle();
-    // Add and copy handlers
-    row.querySelector('.add-period-btn').onclick = () => addPeriod(container);
-    const copyBtn = row.querySelector('.copy-down-btn');
-    if (copyBtn) copyBtn.onclick = () => {
-      const rows = Array.from(table.querySelectorAll('tbody tr'));
-      const idx = rows.indexOf(row);
-      if (idx < rows.length - 1) {
-        const next = rows[idx + 1];
-        const nextContainer = next.querySelector('.periods-container');
-        nextContainer.innerHTML = '';
-        container.querySelectorAll('.period-row').forEach(div => {
-          const open = div.querySelector('.open-time').value;
-          const close = div.querySelector('.close-time').value;
-          if (open && close) addPeriod(nextContainer, open, close);
-        });
-        const nextCb = next.querySelector('.closed-checkbox');
-        nextCb.checked = closedCb.checked;
-        nextCb.dispatchEvent(new Event('change'));
-      }
-    };
+export function initOpeningHours(tableSelector, hiddenFieldSelector) {
+  const openingHoursField = document.querySelector(hiddenFieldSelector);
+  const table = document.querySelector(tableSelector);
+  if (!openingHoursField || !table) return;
+
+  let initial = {};
+  try { initial = openingHoursField.value ? JSON.parse(openingHoursField.value) : {}; } catch {}
+
+  function addPeriod(container, open = '', close = '') {
+    const div = document.createElement('div');
+    div.className = 'input-group mb-1 period-row';
+    div.innerHTML = `
+      <input type="time" class="form-control open-time" value="${open}">
+      <span class="input-group-text">to</span>
+      <input type="time" class="form-control close-time" value="${close}">
       <button type="button" class="btn btn-sm btn-outline-danger remove-period-btn" title="Remove">&times;</button>
     `;
     div.querySelector('.remove-period-btn').onclick = () => div.remove();
@@ -98,8 +70,12 @@ export function initAutoResize(textareaSelector) {
       row.querySelector('.add-period-btn').style.display = closedCb.checked ? 'none' : '';
     };
     closedCb.addEventListener('change', toggle);
-    // Initialize closed state: no periods means closed
-    closedCb.checked = initialPeriods.length === 0;
+    // Initialize closed state: new forms start unchecked, edits follow saved data
+    if (openingHoursField.value) {
+      closedCb.checked = initialPeriods.length === 0;
+    } else {
+      closedCb.checked = false;
+    }
     toggle();
 
     const copyBtn = row.querySelector('.copy-down-btn');

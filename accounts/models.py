@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from cloudinary_storage.storage import MediaCloudinaryStorage
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -126,7 +127,12 @@ class UserProfile(models.Model):
     )
     """User profile model to extend the User model with additional fields."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
+    photo = models.ImageField(
+        upload_to='profile_photos/',
+        storage=MediaCloudinaryStorage(),
+        blank=True,
+        null=True,
+    )
     is_wheeler = models.BooleanField(default=False)
     has_business = models.BooleanField(default=False)
     has_registered_business = models.BooleanField(

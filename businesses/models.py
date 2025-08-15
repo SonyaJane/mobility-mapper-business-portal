@@ -6,6 +6,7 @@ Defines business tiers, business details, and accessibility/verification feature
 from django.contrib.gis.db import models as geomodels
 from django.db import models
 from django.conf import settings
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 TIER_CHOICES = [
     ('free', 'Free'),
@@ -82,7 +83,12 @@ class Business(models.Model):
     address = models.CharField(max_length=300)
     categories = models.ManyToManyField('Category', blank=True, related_name='businesses')
     accessibility_features = models.ManyToManyField('AccessibilityFeature', blank=True, related_name='businesses')
-    logo = models.ImageField(upload_to='business_logos/', blank=True, null=True)
+    logo = models.ImageField(
+        upload_to='business_logos/',
+        storage=MediaCloudinaryStorage(),
+        blank=True,
+        null=True,
+    )
     website = models.URLField(blank=True, null=True)
     opening_hours = models.TextField(blank=True, null=True)
     public_phone = models.CharField(max_length=20, blank=True, null=True)
@@ -166,7 +172,10 @@ class WheelerVerification(models.Model):
 class WheelerVerificationPhoto(models.Model):
     verification = models.ForeignKey(WheelerVerification, on_delete=models.CASCADE, related_name='photos')
     # Store verification photos under media/verification_photos
-    image = models.ImageField(upload_to='media/verification_photos/')
+    image = models.ImageField(
+        upload_to='verification_photos/',
+        storage=MediaCloudinaryStorage(),
+    )
     # Optional link to the specific accessibility feature this photo illustrates
     feature = models.ForeignKey(
         'AccessibilityFeature',
