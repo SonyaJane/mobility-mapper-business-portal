@@ -2,7 +2,7 @@
 # python manage.py migrate_media_to_cloudinary
 # Production (CLI on local machine):
 # heroku login
-# heroku git:remote -a your-app-name
+# heroku git:remote -a mm-business-portal
 # heroku run python manage.py migrate_media_to_cloudinary --app your-app-name
 import os
 import glob

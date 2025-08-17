@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load time_extras %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/business_dashboard.css' %}">
@@ -190,7 +191,7 @@
                           <span class="text-muted">Closed</span>
                         {% elif info.periods %}
                           {% for period in info.periods %}
-                            <span>{{ period.open }} - {{ period.close }}</span>{% if not forloop.last %}<br>{% endif %}
+                            <span>{{ period.open|format_time }} - {{ period.close|format_time }}</span>{% if not forloop.last %}<br>{% endif %}
                           {% endfor %}
                         {% else %}
                           <span class="text-muted">No hours set</span>

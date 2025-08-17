@@ -248,6 +248,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 OS_MAPS_API_KEY = config('OS_MAPS_API_KEY')
 
+# Redirect URL after ending impersonation via django-hijack
+HIJACK_EXIT_REDIRECT_URL = '/admin/auth/user/'
+# Restrict hijack permission to superusers only
+HIJACK_AUTHORIZATION_FUNCTION = 'hijack.auth.superusers_only'
+    
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

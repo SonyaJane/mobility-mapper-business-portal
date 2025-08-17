@@ -1,21 +1,27 @@
 # Run the script: python scripts/generate_fake_users.py
 # python manage.py flush --no-input
+# heroku run python manage.py flush
+
 # python manage.py loaddata .\fixtures\accessibility_features.json
-# python manage.py loaddata ./fixtures/accessibility_features.json
+# heroku run python manage.py loaddata ./fixtures/accessibility_features.json
 
 # python manage.py loaddata .\fixtures\business_categories.json
-# python manage.py loaddata ./fixtures/business_categories.json
+# heroku run python manage.py loaddata ./fixtures/business_categories.json
 
 # python manage.py loaddata .\fixtures\pricing_tiers.json
-# python manage.py loaddata ./fixtures/pricing_tiers.json
+# heroku run python manage.py loaddata ./fixtures/pricing_tiers.json
 
 # Load the generated fixture: 
-# python manage.py loaddata fixtures/fake_users_fixture.json
+# python manage.py loaddata fixtures\fake_users_fixture.json
+# heroku run python manage.py loaddata fixtures/fake_users_fixture.json
+
 # python manage.py createsuperuser
+# heroku run python manage.py createsuperuser
 
 # This script generates fake user profiles and businesses for testing purposes.
 
 import os
+import re
 import django
 import sys
 import json
@@ -49,21 +55,44 @@ user_profiles_without_business = []
 users = []
 profiles = []
 fixture = []
+# Track usernames to enforce uniqueness
+used_usernames = set()
 
 
-# 2 fake wheeler users (is_wheeler=True, has_business=False, mobility_device set)
-for i in range(2):
-    # Setup Lilly Bishop with profile photo on first iteration
-    if i == 0:
-        first_name, last_name = "Lilly", "Bishop"
-        # assign single profile photo
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        photo_files = os.listdir(os.path.join(base_dir, 'media', 'profile_photos'))
-        photo_path = f"profile_photos/{photo_files[0]}" if photo_files else ''
+import os
+# Prepare profile photos list
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+profile_photo_dir = os.path.join(base_dir, 'media', 'profile_photos')
+# Load all photo files
+all_photo_files = sorted([f for f in os.listdir(profile_photo_dir)
+                         if os.path.isfile(os.path.join(profile_photo_dir, f))])
+# First 10 for wheeler users
+photo_files = all_photo_files[:10]
+# Next 36 for business users
+business_photo_files = all_photo_files[10:46]
+# 20 fake wheeler users (first 10 use profile photo filenames as names, next 10 random without photo)
+for i in range(20):
+    if i < len(photo_files):
+        fname = photo_files[i]
+        # derive name from filename
+        stem = os.path.splitext(fname)[0]
+        parts = stem.replace('-', ' ').replace('_', ' ').split()
+        first_name = parts[0].title()
+        last_name = ' '.join(p.title() for p in parts[1:]) if len(parts) > 1 else ''
+        photo_path = f"profile_photos/{fname}"
     else:
         first_name, last_name = fake.first_name(), fake.last_name()
-    username = f"wheeler_user_{i+1}"
-    email = fake.email()
+        photo_path = ''
+    # derive username and ensure uniqueness
+    orig_username = f"{first_name.lower()}_{last_name.lower()}".rstrip('_')
+    username = orig_username
+    suffix = 1
+    while username in used_usernames:
+        username = f"{orig_username}_{suffix}"
+        suffix += 1
+    used_usernames.add(username)
+    # derive email from unique username
+    email = f"{username}@example.com"
     password = make_password("testpass123")
     user_pk = i + 1
     user = {
@@ -81,7 +110,6 @@ for i in range(2):
         }
     }
     users.append(user)
-    # Assign mobility devices list for wheeler users
     # Assign mobility devices list for wheeler users
     devices = random.sample(MOBILITY_DEVICES, k=random.randint(1, 2))
     other_desc = fake.sentence(nb_words=3) if 'other' in devices else ''
@@ -108,8 +136,27 @@ for i in range(2):
 
 # 100 fake business users (is_wheeler=False, has_business=True, mobility_device=None)
 for i in range(100):
-    username = f"business_user_{i+1}"
-    email = fake.email()
+    # derive name from photo filename for first 36 business users, else random
+    if i < len(business_photo_files):
+        # use filename (without extension) for naming
+        biz_fname = business_photo_files[i]
+        stem = os.path.splitext(biz_fname)[0]
+        parts = stem.replace('-', ' ').replace('_', ' ').split()
+        first_name = parts[0].title()
+        last_name = ' '.join(p.title() for p in parts[1:]) if len(parts) > 1 else ''
+    else:
+        first_name = fake.first_name()
+        last_name = fake.last_name()
+    # derive username and ensure uniqueness
+    orig_username = f"{first_name.lower()}_{last_name.lower()}".rstrip('_')
+    username = orig_username
+    suffix = 1
+    while username in used_usernames:
+        username = f"{orig_username}_{suffix}"
+        suffix += 1
+    used_usernames.add(username)
+    # derive email from unique username
+    email = f"{username}@example.com"
     password = make_password("testpass123")
     user_pk = i + 11
     user = {
@@ -122,16 +169,23 @@ for i in range(100):
             "is_active": True,
             "is_staff": False,
             "is_superuser": False,
-            "first_name": fake.first_name(),
-            "last_name": fake.last_name(),
+            "first_name": first_name,
+            "last_name": last_name,
         }
     }
     users.append(user)
+    # Assign business profile photo for first 36 business users
+    if i < len(business_photo_files):
+        biz_fname = business_photo_files[i]
+        photo_path = f"profile_photos/{biz_fname}"
+    else:
+        photo_path = ''
     profile = {
         "model": "accounts.userprofile",
         "pk": user_pk,
         "fields": {
             "user": user_pk,
+            "photo": photo_path,
             "is_wheeler": False,
             "has_business": True,
             "has_registered_business": False,
@@ -149,8 +203,11 @@ for i in range(100):
 
 
 # Add users and profiles to fixture
+# Add users and profiles to fixture
 fixture.extend(users)
 fixture.extend(profiles)
+# Build lookup for owner user info to generate business emails
+user_map = {u['pk']: u['fields'] for u in users if u.get('model') == 'auth.user'}
 
 # Add EmailAddress records for all users with emails
 for user in users:
@@ -230,12 +287,28 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
         x_twitter_url = ''
     # Phones/emails
     if random.random() < 0.75:
-        public_phone = fake.phone_number()
+        # UK format phone number: (01xxx) xxxxxx
+        area = ''.join(str(random.randint(0, 9)) for _ in range(3))
+        number = ''.join(str(random.randint(0, 9)) for _ in range(6))
+        public_phone = f"(01{area}) {number}"
     else:
         public_phone = ''
-    contact_phone = fake.phone_number()
+    # always generate a contact phone in same format
+    area_c = ''.join(str(random.randint(0, 9)) for _ in range(3))
+    number_c = ''.join(str(random.randint(0, 9)) for _ in range(6))
+    contact_phone = f"(01{area_c}) {number_c}"
     if random.random() < 0.5:
-        public_email = fake.company_email()
+        # custom public email: local part from 'hello' or owner name, domain from business name
+        owner = user_map.get(owner_pk, {})
+        first = owner.get('first_name', '').lower() or 'hello'
+        last = owner.get('last_name', '').lower() or ''
+        locals_choices = ['hello', first]
+        if first and last:
+            locals_choices.append(f"{first}.{last}")
+        local = random.choice(locals_choices)
+        # sanitize business name for domain
+        domain_key = re.sub(r'[^A-Za-z0-9]', '', business_name).lower() or 'business'
+        public_email = f"{local}@{domain_key}.com"
     else:
         public_email = ''
     # Services/offers
@@ -276,11 +349,8 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
         categories = random.sample(category_choices, k=2)
 
     verified_by_wheelers = fake.boolean()
-    if verified_by_wheelers:
-        # If verified, set a random note
-        wheeler_verification_notes = fake.sentence()
-    else:
-        wheeler_verification_notes = ''
+    # Determine if Wheeler verification was done
+    # we will generate verification instances below
     
     if verified_by_wheelers:
         wheeler_verification_requested = False
@@ -300,8 +370,8 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             "description": fake.sentence(),
             "categories": categories,
             "location": point_wkt,
-            "address": fake.address(),
-            "accessibility_features": random.sample(accessibility_choices, k=random.randint(0, len(accessibility_choices))),
+            "address": fake.address().replace("\n", ", "),
+            "accessibility_features": random.sample(accessibility_choices, k=random.randint(1, 5)),
             "logo": logo_path,
             "website": website,
             "opening_hours": opening_hours,
@@ -317,12 +387,96 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             "billing_frequency": billing_frequency,
             "wheeler_verification_requested": wheeler_verification_requested,
             "verified_by_wheelers": verified_by_wheelers,
-            "wheeler_verification_notes": wheeler_verification_notes,
             "is_approved": True,
             "created_at": str(fake.date_time_this_decade(tzinfo=timezone.utc)),
         }
     })
 fixture.extend(businesses)
+
+# Create WheelerVerification instances for verified businesses (3 per business)
+wheeler_verifications = []
+# Start a global PK counter for verifications
+ver_pk = 1
+for biz in businesses:
+    if biz['fields'].get('verified_by_wheelers'):
+        biz_pk = biz['pk']
+        # prepare confirmed features list
+        base_confirmed = biz['fields'].get('accessibility_features', []).copy()
+        # select up to 3 unique wheeler users for this business
+        wheeler_pks = random.sample(user_profiles_without_business, k=min(3, len(user_profiles_without_business)))
+        for wheeler_pk in wheeler_pks:
+            # generate verification details
+            date_verified = str(fake.date_time_this_year(tzinfo=timezone.utc))
+            comments = fake.sentence()
+            mobility = random.choice(MOBILITY_DEVICES)
+            # determine additional feature optionally
+            confirmed = base_confirmed.copy()
+            additional = []
+            if random.random() < 0.5:
+                possible_extras = [f for f in accessibility_choices if f not in confirmed]
+                if possible_extras:
+                    additional = [random.choice(possible_extras)]
+            wheeler_verifications.append({
+                'model': 'businesses.wheelerverification',
+                'pk': ver_pk,
+                'fields': {
+                    'business': biz_pk,
+                    'wheeler': wheeler_pk,
+                    'date_verified': date_verified,
+                    'comments': comments,
+                    'mobility_device': mobility,
+                    'approved': True,
+                    'confirmed_features': confirmed,
+                    'additional_features': additional,
+                }
+            })
+            ver_pk += 1
+# add them to fixture
+fixture.extend(wheeler_verifications)
+
+# Create WheelerVerificationPhoto fixtures from media/verification_photos
+# Map accessibility feature codes to their PKs and invert mapping
+features = list(AccessibilityFeature.objects.all())
+feature_map_code_to_pk = {feat.code: feat.pk for feat in features}
+feature_map_pk_to_code = {feat.pk: feat.code for feat in features}
+# Map each business to its accessibility feature PK list
+business_feature_map = {biz['pk']: biz['fields'].get('accessibility_features', []) for biz in businesses}
+# List available photo files
+verification_photo_dir = os.path.join(base_dir, 'media', 'verification_photos')
+available_photos = {f for f in os.listdir(verification_photo_dir) if os.path.isfile(os.path.join(verification_photo_dir, f))}
+photo_fixtures = []
+photo_pk = 1
+for ver in wheeler_verifications:
+    biz_pk = ver['fields']['business']
+    # get confirmed (business-listed) and any additional features
+    biz_features = business_feature_map.get(biz_pk, [])
+    additional_features = ver['fields'].get('additional_features', [])
+    feature_pks = set(biz_features) | set(additional_features)
+    if not feature_pks:
+        continue
+    # include all confirmed and additional feature photos
+    for feat_pk in feature_pks:
+        code = feature_map_pk_to_code.get(feat_pk)
+        if not code:
+            continue
+        # try common image extensions
+        for ext in ['.jpg', '.png', '.jpeg']:
+            fname = f"{code}{ext}"
+            if fname in available_photos:
+                photo_fixtures.append({
+                    'model': 'businesses.wheelerverificationphoto',
+                    'pk': photo_pk,
+                    'fields': {
+                        'verification': ver['pk'],
+                        'image': f"verification_photos/{fname}",
+                        'feature': feat_pk,
+                        'uploaded_at': str(fake.date_time_this_year(tzinfo=timezone.utc))
+                    }
+                })
+                photo_pk += 1
+                break
+# extend the fixture list
+fixture.extend(photo_fixtures)
 
 fixtures_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "fixtures")
 fixture_path = os.path.join(fixtures_dir, "fake_users_fixture.json")

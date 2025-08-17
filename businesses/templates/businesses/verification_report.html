@@ -46,7 +46,7 @@
       <div class="border rounded p-3 h-100">
       <h5>Accessibility Features Confirmed</h5>
       <ul>
-        {% for feature in verification.confirmed_features.all %}
+        {% for feature in confirmed_features %}
           <li>{{ feature.name }}</li>
         {% empty %}
           <li>No confirmed features recorded.</li>

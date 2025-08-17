@@ -78,5 +78,9 @@
 {% endblock %}
 
 {% block extra_js %}
+<script>
+  // Flag indicating whether current user is a verified wheeler (from view context)
+  const isVerifiedWheeler = {{ is_verified_wheeler|yesno:"true,false" }};
+</script>
 <script type="module" src="{% static 'js/accessible_business_search.js' %}"></script>
 {% endblock %}

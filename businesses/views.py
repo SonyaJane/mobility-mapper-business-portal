@@ -537,7 +537,9 @@ def verification_report(request, verification_id):
     show_wheeler_name = not (hasattr(request.user, 'userprofile') and verification.business.business_owner == request.user.userprofile)
     # Prepare feature-specific photo groupings and other photos for template
     feature_photos_list = []
-    for feature in verification.confirmed_features.all():
+    confirmed_features = verification.confirmed_features.all()
+    print(f"Confirmed features for verification {verification.id}: {[f.name for f in confirmed_features]}")
+    for feature in confirmed_features:
         # Get the first photo for this feature, if any
         photo = verification.photos.filter(feature=feature).first()
         if photo:
@@ -545,6 +547,7 @@ def verification_report(request, verification_id):
     other_photos = verification.photos.filter(feature__isnull=True)
     return render(request, 'businesses/verification_report.html', {
         'verification': verification,
+        'confirmed_features': confirmed_features,
         'feature_photos_list': feature_photos_list,
         'other_photos': other_photos,
         'show_wheeler_name': show_wheeler_name,
@@ -678,5 +681,6 @@ def accessible_business_search(request):
         'categories': categories,
         'accessibility_features': accessibility_features,
         'businessesList': json.dumps(business_list),
+        'is_verified_wheeler': bool(user_profile and user_profile.is_wheeler),
         'page_title': 'Accessible Business Search',
     })

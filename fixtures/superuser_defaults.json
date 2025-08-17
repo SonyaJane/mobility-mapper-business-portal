@@ -1,0 +1,41 @@
+{
+  "username": "sonya_ridden",
+  "first_name": "Sonya",
+  "last_name": "Ridden",
+  "email": "sonya.ridden@gmail.com",
+  "business": {
+    "name": "Mobius Cafe",
+    "description": "Accessible cafe serving delicious coffee and pastries.",
+    "address": "10 Frederick Street, Campbell, CA31 4LP",
+    "location": "SRID=4326;POINT(-0.1278 51.5074)",
+    "pricing_tier": "free",
+    "billing_frequency": "monthly",
+    "is_approved": true,
+    "categories": [29],
+    "accessibility_features": [1,2,3],
+    "logo": "",
+    "website": "http://www.mobiuscafe.com/",
+    "opening_hours": "{\"Monday\": [{\"start\": \"09:00\", \"end\": \"17:00\"}], \"Tuesday\": [{\"start\": \"09:00\", \"end\": \"17:00\"}], \"Wednesday\": [{\"start\": \"09:00\", \"end\": \"13:00\"}, {\"start\": \"14:00\", \"end\": \"17:00\"}], \"Thursday\": [{\"start\": \"09:00\", \"end\": \"17:00\"}], \"Friday\": [{\"start\": \"09:00\", \"end\": \"17:00\"}], \"Saturday\": [{\"start\": \"09:00\", \"end\": \"17:00\"}], \"Sunday\": [{\"start\": \"09:00\", \"end\": \"17:00\"}]}",
+    "public_phone": "(01667) 183724",
+    "contact_phone": "(01667) 187304",
+    "public_email": "mobius_cafe@gmail.com",
+    "services_offered": "",
+    "special_offers": "Cumque veritatis fugiat velit quibusdam esse quasi.",
+    "facebook_url": "https://facebook.com/religious-or-trip",
+    "instagram_url": "https://instagram.com/hold-region-two",
+    "x_twitter_url": "",
+    "wheeler_verification_requested": false,
+    "verified_by_wheelers": false
+  },
+  "profile": {
+    "country": "UK",
+    "county": "Pembrokeshire",
+    "photo": "",
+    "is_wheeler": true,
+    "has_business": true,
+    "has_registered_business": true,
+    "mobility_devices": ["manual_wheelchair"],
+    "mobility_devices_other": "",
+    "age_group": "25_34"
+  }
+}

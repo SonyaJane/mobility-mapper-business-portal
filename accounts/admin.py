@@ -24,9 +24,21 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 class UserAdmin(HijackUserAdminMixin, DefaultUserAdmin):
     inlines = (UserProfileInline,)
+    # show profile fields in user list
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_wheeler', 'has_business')
+
     def get_hijack_user(self, obj):
         # Return the user instance to impersonate
         return obj
+    def is_wheeler(self, obj):
+        return getattr(obj.userprofile, 'is_wheeler', False)
+    is_wheeler.boolean = True
+    is_wheeler.short_description = 'Is Wheeler'
+
+    def has_business(self, obj):
+        return getattr(obj.userprofile, 'has_business', False)
+    has_business.boolean = True
+    has_business.short_description = 'Has Business'
 
 admin.site.unregister(User) # Unregister the default User admin
 admin.site.register(User, UserAdmin) # Register the custom User admin

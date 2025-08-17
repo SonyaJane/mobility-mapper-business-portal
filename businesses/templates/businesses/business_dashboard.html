@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load time_extras %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/business_dashboard.css' %}">
@@ -92,7 +93,7 @@
                 <td class="align-middle ps-3"><i class="bi bi-telephone fs-5 me-2 text-success"></i><strong>Public Phone:</strong></td>
                 <td class="align-middle">
                   {% if business.public_phone %}
-                    <a href="tel:{{ business.public_phone }}" class="text-decoration-none">{{ business.public_phone }}</a>
+                    {{ business.public_phone }}
                   {% else %}
                     <span class="text-muted">No public phone.</span>
                     <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add phone</a>
@@ -103,7 +104,7 @@
                 <td class="align-middle ps-3"><i class="bi bi-lock fs-5 me-2 text-secondary"></i><strong>Private Phone:</strong></td>
                 <td class="align-middle">
                   {% if business.contact_phone %}
-                    <a href="tel:{{ business.contact_phone }}" class="text-decoration-none">{{ business.contact_phone }}</a>
+                    {{ business.contact_phone }}
                   {% else %}
                     <span class="text-muted">No private phone.</span>
                     <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add private phone</a>
@@ -216,7 +217,7 @@
                       <td class="px-4 px-sm-2">
                         {% if info %}
                           {% for period in info %}
-                            <span>{{ period.start }} - {{ period.end }}</span>{% if not forloop.last %}<br>{% endif %}
+                            <span>{{ period.start|format_time }} - {{ period.end|format_time }}</span>{% if not forloop.last %}<br>{% endif %}
                           {% endfor %}
                         {% else %}
                           <span class="text-muted">Closed</span>

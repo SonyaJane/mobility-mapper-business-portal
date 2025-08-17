@@ -115,8 +115,6 @@ class Business(models.Model):
     wheeler_verification_requested = models.BooleanField(default=False)
     # Indicate if the business premises has been verified by Wheelers:
     verified_by_wheelers = models.BooleanField(default=False)
-    # Notes by Wheelers about the business
-    wheeler_verification_notes = models.TextField(blank=True, null=True)
     # Indicate if the business is approved by the admin:
     is_approved = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)
