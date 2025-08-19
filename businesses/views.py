@@ -174,9 +174,7 @@ def business_dashboard(request):
                 "x": business.location.x,
                 "y": business.location.y,
             },
-            # Add more fields if needed for JS
         }
-        # Parse and normalize opening_hours JSON for server-side table rendering
         # Parse and normalize opening_hours JSON for server-side table rendering
         if business.opening_hours:
             try:
@@ -206,8 +204,14 @@ def business_dashboard(request):
         else:
             opening_hours_dict = None
 
+    if business and business.logo:
+        logo_url = business.logo.url  
+    else:
+        logo_url = ''
+        
     return render(request, 'businesses/business_dashboard.html', {
         'business': business,
+        'logo_url': logo_url,
         'business_json': business_json,
         'verifications': verifications,
         'user_verifications': user_verifications,
@@ -535,21 +539,27 @@ def verification_report(request, verification_id):
 
     # Hide wheeler name if business owner is viewing
     show_wheeler_name = not (hasattr(request.user, 'userprofile') and verification.business.business_owner == request.user.userprofile)
-    # Prepare feature-specific photo groupings and other photos for template
+    # Precompute URLs for feature-specific photos and other photos
     feature_photos_list = []
     confirmed_features = verification.confirmed_features.all()
-    print(f"Confirmed features for verification {verification.id}: {[f.name for f in confirmed_features]}")
     for feature in confirmed_features:
-        # Get the first photo for this feature, if any
         photo = verification.photos.filter(feature=feature).first()
         if photo:
-            feature_photos_list.append({'feature': feature, 'photo': photo})
-    other_photos = verification.photos.filter(feature__isnull=True)
+            url = photo.image.url
+            feature_photos_list.append({'feature': feature, 'url': url})
+    # Other photos without a feature
+    other_photo_urls = []
+    for photo in verification.photos.filter(feature__isnull=True):
+        try:
+            url = photo.image.url
+        except Exception:
+            url = str(photo.image)
+        other_photo_urls.append(url)
     return render(request, 'businesses/verification_report.html', {
         'verification': verification,
         'confirmed_features': confirmed_features,
         'feature_photos_list': feature_photos_list,
-        'other_photos': other_photos,
+        'other_photo_urls': other_photo_urls,
         'show_wheeler_name': show_wheeler_name,
         'page_title': 'Verification Report',
     })
@@ -594,10 +604,7 @@ def ajax_search_businesses(request):
         pass
     results = []
     for biz in qs.distinct():
-        # Determine logo URL: if the stored name is a full URL, use it; otherwise use media URL
-        if biz.logo and hasattr(biz.logo, 'name') and biz.logo.name.startswith('http'):
-            logo_url = biz.logo.name
-        else:
+        if biz.logo:
             logo_url = biz.logo.url if biz.logo else ''
         results.append({
             'id': biz.id,

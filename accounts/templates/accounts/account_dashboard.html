@@ -10,7 +10,7 @@
   {% if user.userprofile.photo %}
   <div class="row align-items-center my-4 gy-4 gx-2">
     <div class="col-md-4 text-center">
-      <img src="{{ user.userprofile.photo.url }}" alt="Profile Photo" class="img-fluid rounded" style="max-height: 180px; aspect-ratio: 1/1; object-fit: cover;">
+      <img src="{{ profile_photo }}" alt="Profile Photo" class="img-fluid rounded" style="max-height: 180px; aspect-ratio: 1/1; object-fit: cover;">
     </div>
     <div class="col-md-8 text-center">
   {% else %}

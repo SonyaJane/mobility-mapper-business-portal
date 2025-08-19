@@ -4,24 +4,27 @@ import subprocess
 import sys
 import os
 import json
-from decouple import config
+import re
 
 # This script runs the Django management commands to flush and load fixtures in sequence.
 
 def main():
-    # retrieve superuser credentials from .env via python-decouple
-    username = config('DJANGO_SUPERUSER_USERNAME', default=None)
-    email = config('DJANGO_SUPERUSER_EMAIL', default=None)
-    password = config('DJANGO_SUPERUSER_PASSWORD', default=None)
-    if not username or not email or not password:
-        print("Error: Superuser credentials not found in .env")
-        sys.exit(1)
-    os.environ['DJANGO_SUPERUSER_USERNAME'] = username
-    os.environ['DJANGO_SUPERUSER_EMAIL'] = email
-    os.environ['DJANGO_SUPERUSER_PASSWORD'] = password
-    # Load superuser defaults including profile fields
+    # Load superuser defaults JSON first
     script_dir = os.path.dirname(os.path.abspath(__file__))
     defaults_path = os.path.normpath(os.path.join(script_dir, '..', 'fixtures', 'superuser_defaults.json'))
+    with open(defaults_path, 'r', encoding='utf-8') as f:
+        defaults_data = json.load(f)
+
+    # Environment variables override defaults; fallback to JSON
+    username = os.environ.get('DJANGO_SUPERUSER_USERNAME') or defaults_data.get('username')
+    email = os.environ.get('DJANGO_SUPERUSER_EMAIL') or defaults_data.get('email')
+    # Provide a safe fallback password if none supplied via env
+    password = os.environ.get('DJANGO_SUPERUSER_PASSWORD') or 'admin123'
+
+    if not username or not email:
+        print("Unable to determine superuser username/email (missing in env and defaults JSON). Aborting.")
+        sys.exit(1)
+
     commands = [
         [sys.executable, 'manage.py', 'flush', '--no-input'],
         [sys.executable, 'manage.py', 'loaddata', 'fixtures/accessibility_features.json'],
@@ -29,24 +32,23 @@ def main():
         [sys.executable, 'manage.py', 'loaddata', 'fixtures/pricing_tiers.json'],
         [sys.executable, 'scripts/generate_fake_users.py'],
         [sys.executable, 'manage.py', 'loaddata', 'fixtures/fake_users_fixture.json'],
-        [sys.executable, 'manage.py', 'createsuperuser', '--no-input'],
-        # Populate profile fields from defaults JSON
+        # Create/update superuser and populate related objects in one shell
         [sys.executable, 'manage.py', 'shell', '-c', (
             f"import json; d=json.load(open(r'{defaults_path}')); "
-            # User updates
-            "from django.contrib.auth import get_user_model; u=get_user_model().objects.get(username=d['username']); "
-            "u.first_name=d['first_name']; u.last_name=d['last_name']; u.email=d.get('email', u.email); u.save(); "
-            # Profile updates
-            "from accounts.models import UserProfile; p, _=UserProfile.objects.get_or_create(user=u); pd=d['profile']; "
-            "p.country=pd['country']; p.county=pd['county']; p.photo=pd['photo']; p.is_wheeler=pd['is_wheeler']; "
-            "p.has_business=pd['has_business']; p.has_registered_business=pd['has_registered_business']; "
-            "p.mobility_devices=pd['mobility_devices']; p.mobility_devices_other=pd['mobility_devices_other']; p.age_group=pd['age_group']; p.save(); "
-            # Business creation
-            "from businesses.models import Business, PricingTier; bd=d['business']; "
-            "tier=PricingTier.objects.get(tier=bd['pricing_tier']) if bd.get('pricing_tier') else None; "
-            "biz=Business.objects.create(business_owner=p, business_name=bd['name'], description=bd['description'], location=bd['location'], address=bd['address'], pricing_tier=tier, billing_frequency=bd['billing_frequency'], logo=bd['logo'], website=bd['website'], opening_hours=bd['opening_hours'], public_phone=bd['public_phone'], contact_phone=bd['contact_phone'], public_email=bd['public_email'], services_offered=bd['services_offered'], special_offers=bd['special_offers'], facebook_url=bd['facebook_url'], instagram_url=bd['instagram_url'], x_twitter_url=bd['x_twitter_url'], wheeler_verification_requested=bd['wheeler_verification_requested'], verified_by_wheelers=bd['verified_by_wheelers'], is_approved=bd['is_approved']); "
-            "biz.categories.set(bd.get('categories', [])); biz.accessibility_features.set(bd.get('accessibility_features', [])); "
-            "p.has_business=True; p.save();"
+            f"UN='{username}'; EM='{email}'; PW='{password}'; "
+            "from django.contrib.auth import get_user_model; User=get_user_model(); "
+            "u,created = User.objects.get_or_create(username=UN, defaults={'email': EM}); "
+            "u.email = EM; u.is_staff=True; u.is_superuser=True; u.set_password(PW); "
+            "u.first_name=d.get('first_name', u.first_name); u.last_name=d.get('last_name', u.last_name); u.save(); "
+            "from accounts.models import UserProfile; p,_=UserProfile.objects.get_or_create(user=u); pd=d['profile']; "
+            "p.photo=pd.get('photo',''); p.country=pd['country']; p.county=pd['county']; p.is_wheeler=pd['is_wheeler']; "
+            "p.has_business=pd['has_business']; p.has_registered_business=pd['has_registered_business']; p.mobility_devices=pd['mobility_devices']; "
+            "p.mobility_devices_other=pd['mobility_devices_other']; p.age_group=pd['age_group']; p.save(); "
+            "from businesses.models import Business, PricingTier; bd=d['business']; import django.contrib.gis.geos as geos; "
+            "loc=geos.GEOSGeometry(bd['location']); tier=PricingTier.objects.filter(tier=bd.get('pricing_tier')).first() if bd.get('pricing_tier') else None; "
+            "biz = Business.objects.filter(business_owner=p).first() or Business.objects.create(business_owner=p, business_name=bd['name'], description=bd['description'], location=loc, address=bd['address'], pricing_tier=tier, billing_frequency=bd['billing_frequency'], logo=bd['logo'], website=bd['website'], opening_hours=bd['opening_hours'], public_phone=bd['public_phone'], contact_phone=bd['contact_phone'], public_email=bd['public_email'], services_offered=bd['services_offered'], special_offers=bd['special_offers'], facebook_url=bd['facebook_url'], instagram_url=bd['instagram_url'], x_twitter_url=bd['x_twitter_url'], wheeler_verification_requested=bd['wheeler_verification_requested'], verified_by_wheelers=bd['verified_by_wheelers'], is_approved=bd['is_approved']); "
+            "biz.categories.set(bd.get('categories', [])); biz.accessibility_features.set(bd.get('accessibility_features', [])); p.has_business=True; p.save(); "
+            "print('Superuser created/updated:', u.username)"
         )],
     ]
     for cmd in commands:

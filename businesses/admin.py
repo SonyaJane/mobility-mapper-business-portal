@@ -8,7 +8,7 @@ from django.conf import settings
 
 @admin.register(WheelerVerification)
 class WheelerVerificationAdmin(admin.ModelAdmin):
-    list_display = ('business', 'wheeler', 'date_verified', 'comments', 'mobility_device', 'approved')
+    list_display = ('business', 'wheeler', 'date_verified', 'comments', 'mobility_device', 'approved', 'get_confirmed_features', 'get_additional_features')
     search_fields = ('business__name', 'wheeler__email')
     list_filter = ('date_verified', 'approved')
     actions = ['approve_verifications']
@@ -22,7 +22,7 @@ class WheelerVerificationAdmin(admin.ModelAdmin):
         fields = ('image_preview', 'image', 'feature')
         def image_preview(self, obj):
             from django.utils.html import format_html
-            return format_html('<img src="{}" style="max-height: 100px;" />', obj.image.url)
+            return format_html('<img src="{}" style="max-height: 100px;" />', obj.image)
         image_preview.short_description = 'Preview'
 
     inlines = [WheelerVerificationPhotoInline]
@@ -31,6 +31,14 @@ class WheelerVerificationAdmin(admin.ModelAdmin):
         updated = queryset.update(approved=True)
         self.message_user(request, f"{updated} verification(s) marked as approved.")
     approve_verifications.short_description = "Approve selected verifications"
+
+    def get_confirmed_features(self, obj):
+        return ", ".join([f.name for f in obj.confirmed_features.all()])
+    get_confirmed_features.short_description = 'Confirmed features'
+
+    def get_additional_features(self, obj):
+        return ", ".join([f.name for f in obj.additional_features.all()])
+    get_additional_features.short_description = 'Additional features'
 
 class WheelerVerificationInline(admin.TabularInline):
     model = WheelerVerification

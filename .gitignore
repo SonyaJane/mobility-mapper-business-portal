@@ -3,4 +3,6 @@
 __pycache__/
 .venv
 .env
+env.py
 media/
+core/management/commands/upload_media_to_cloudinary.py

@@ -195,7 +195,7 @@
     "model": "businesses.accessibilityfeature",
     "pk": 25,
     "fields": {
-      "code": "accessible_hotel_rooms",
+      "code": "accessible_hotel_room",
       "name": "Accessible hotel rooms or accommodation"
     }
   },

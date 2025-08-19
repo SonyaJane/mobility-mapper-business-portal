@@ -26,8 +26,8 @@ export default function renderResultsList(businesses) {
             let address = biz.address ? `<div>${biz.address}</div>` : '';
             let logo = biz.logo ? `<img src="${biz.logo}" alt="${biz.business_name} Logo" class="business-logo-img me-2">` : '';
             let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<div class="mt-2"><span class="text-success fw-bold">✅ Verified by Wheelers</span></div>` : '';
-            // Badge for businesses that have requested verification
-            let requestedBadge = biz.wheeler_verification_requested ?
+            // Badge for businesses that have requested verification (only for verified wheelers)
+            let requestedBadge = (typeof isVerifiedWheeler !== 'undefined' && isVerifiedWheeler && biz.wheeler_verification_requested) ?
                 `<div class="mt-2">
                     <a href="/business/${biz.id}/wheeler-verification-application/" class="badge bg-warning text-decoration-none d-inline-flex align-items-center">
                         <span class="me-2">📝</span>
@@ -66,6 +66,14 @@ export default function renderResultsList(businesses) {
                 e.stopPropagation();
                 toggleBusinessAccordion(li, infoPanel, arrowIcon, biz);
             });
+            // Prevent toggling when clicking the verification request badge
+            const badgeLink = li.querySelector('.badge.bg-warning');
+            if (badgeLink) {
+                badgeLink.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Allow link navigation without toggling accordion
+                });
+            }
             list.appendChild(li);
         });
     } else { // No businesses found

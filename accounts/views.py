@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from .forms import UserProfileForm
 
+from businesses.models import WheelerVerificationRequest, Business, WheelerVerification
+
 
 @login_required
 def edit_profile(request):
@@ -27,8 +29,10 @@ def dashboard_view(request):
     verified_businesses = []
     verification_reports = []
     profile = getattr(request.user, 'userprofile', None)
+    # user profile photo
+    profile_photo = profile.photo.url if profile and profile.photo else None
+    print('profile photo url', profile_photo)
     if profile and profile.is_wheeler:
-        from businesses.models import WheelerVerificationRequest, Business, WheelerVerification
         approved_business_ids = WheelerVerificationRequest.objects.filter(
             wheeler=request.user,
             approved=True
@@ -53,6 +57,7 @@ def dashboard_view(request):
                 'date_verified': verification.date_verified,
             })
     return render(request, 'accounts/account_dashboard.html', {
+        'profile_photo': profile_photo,
         'approved_businesses': approved_businesses,
         'pending_businesses': pending_businesses,
         'business_verification_status': business_verification_status,

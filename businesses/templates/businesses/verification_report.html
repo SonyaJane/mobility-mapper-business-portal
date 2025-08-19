@@ -77,7 +77,7 @@
             <div class="carousel-inner">
               {% for item in feature_photos_list %}
                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
-                  <img src="{{ item.photo.image.url }}" class="d-block w-100 rounded border" alt="{{ item.feature.name }} photo">
+                  <img src="{{ item.url }}" class="d-block w-100 rounded border" alt="{{ item.feature }} photo">
                   <div class="carousel-caption d-none d-md-block">
                     <h5 class="bg-dark bg-opacity-50 rounded px-2">{{ item.feature.name }}</h5>
                   </div>
@@ -101,12 +101,12 @@
       <div class="border rounded h-100">
         <div class="p-3">      
           <h5 class="mb-3">Other Photos Submitted</h5>
-          {% if other_photos.exists %}
-      <div id="otherPhotosCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-wrap="false">
+          {% if other_photo_urls %}
+          <div id="otherPhotosCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-wrap="false">
             <div class="carousel-inner">
-              {% for photo in other_photos %}
+              {% for url in other_photo_urls %}
                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
-                  <img src="{{ photo.image.url }}" class="d-block w-100 rounded border" alt="Verification Photo">
+                  <img src="{{ url }}" class="d-block w-100 rounded border" alt="Verification Photo">
                 </div>
               {% endfor %}
             </div>
