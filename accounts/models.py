@@ -178,8 +178,7 @@ class UserProfile(models.Model):
         max_length=16,
         choices=AGE_GROUP_CHOICES,
         blank=True,
-        null=True,
-        help_text="User's age group."
+        null=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

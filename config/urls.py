@@ -17,6 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 from core.views import proxy_os_tile
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,6 +29,8 @@ urlpatterns = [
     path('dashboard/', dashboard_view, name='account_dashboard'),
     # Personal dashboard alias for logging in when the user confirms their email
     path('', include('home.urls')),
+    # Redirect /admin (no slash) explicitly to /admin/
+    path('admin', RedirectView.as_view(url='/admin/', permanent=False)),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
