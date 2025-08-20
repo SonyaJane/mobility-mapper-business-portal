@@ -96,7 +96,7 @@ for i in range(20):
         parts = stem.replace('-', ' ').replace('_', ' ').split()
         first_name = parts[0].title()
         last_name = ' '.join(p.title() for p in parts[1:]) if len(parts) > 1 else ''
-        photo_path = f"profile_photos/{fname}"
+        photo_path = f"mobility_mapper_business_portal/profile_photos/{fname}"
         username = f"{first_name.lower()}_{last_name.lower()}".rstrip('_')
         # add name combo to used set
         name_combo = (first_name, last_name)
@@ -479,6 +479,27 @@ for biz in businesses:
             ver_pk += 1
 # add them to fixture
 fixture.extend(wheeler_verifications)
+
+# Generate corresponding WheelerVerificationRequest fixtures linking to each report
+wheeler_verification_requests = []
+req_pk = 1
+for ver in wheeler_verifications:
+    # Use the verification date as the request and approval timestamp
+    date_time = ver['fields']['date_verified']
+    wheeler_verification_requests.append({
+        'model': 'businesses.wheelerverificationrequest',
+        'pk': req_pk,
+        'fields': {
+            'business': ver['fields']['business'],
+            'wheeler': ver['fields']['wheeler'],
+            'requested_at': date_time,
+            'approved': True,
+            'reviewed': True,
+            'approved_at': date_time
+        }
+    })
+    req_pk += 1
+fixture.extend(wheeler_verification_requests)
 
 # Create WheelerVerificationPhoto fixtures from verification_photos
 # Map accessibility feature codes to their PKs and invert mapping

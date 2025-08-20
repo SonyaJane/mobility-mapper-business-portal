@@ -236,7 +236,8 @@ def business_request_wheeler_verification(request, pk):
 @login_required
 def wheeler_verification_history(request):
     profile = getattr(request.user, 'userprofile', None)
-    if not profile or not profile.is_wheeler:
+    is_superuser = request.user.is_superuser
+    if not profile or (not profile.is_wheeler and not is_superuser):
         messages.error(request, "Only verified Wheelers can view their verification history.")
         return redirect('home')
 

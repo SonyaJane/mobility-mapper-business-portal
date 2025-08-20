@@ -6,23 +6,27 @@ import os
 import json
 import re
 
+# Import env.py to set environment variables
+# (ensure env.py is on the PYTHONPATH)
+project_root = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+sys.path.insert(0, project_root)
+import env  # loads environment variables from env.py
+
 # This script runs the Django management commands to flush and load fixtures in sequence.
 
 def main():
     # Load superuser defaults JSON first
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    defaults_path = os.path.normpath(os.path.join(script_dir, '..', 'fixtures', 'superuser_defaults.json'))
-    with open(defaults_path, 'r', encoding='utf-8') as f:
-        defaults_data = json.load(f)
+    superuser_path = os.path.normpath(os.path.join(script_dir, '..', 'fixtures', 'superuser_instances.json'))
 
     # Environment variables override defaults; fallback to JSON
-    username = os.environ.get('DJANGO_SUPERUSER_USERNAME') or defaults_data.get('username')
-    email = os.environ.get('DJANGO_SUPERUSER_EMAIL') or defaults_data.get('email')
+    username = os.environ.get('DJANGO_SUPERUSER_USERNAME')
+    email = os.environ.get('DJANGO_SUPERUSER_EMAIL')
     # Provide a safe fallback password if none supplied via env
-    password = os.environ.get('DJANGO_SUPERUSER_PASSWORD') or 'admin123'
+    password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
 
     if not username or not email:
-        print("Unable to determine superuser username/email (missing in env and defaults JSON). Aborting.")
+        print("Unable to determine superuser username/email (missing in env). Aborting.")
         sys.exit(1)
 
     commands = [
@@ -34,7 +38,7 @@ def main():
         [sys.executable, 'manage.py', 'loaddata', 'fixtures/fake_users_fixture.json'],
         # Create/update superuser and populate related objects in one shell
         [sys.executable, 'manage.py', 'shell', '-c', (
-            f"import json; d=json.load(open(r'{defaults_path}')); "
+            f"import json; d=json.load(open(r'{superuser_path}')); "
             f"UN='{username}'; EM='{email}'; PW='{password}'; "
             "from django.contrib.auth import get_user_model; User=get_user_model(); "
             "u,created = User.objects.get_or_create(username=UN, defaults={'email': EM}); "

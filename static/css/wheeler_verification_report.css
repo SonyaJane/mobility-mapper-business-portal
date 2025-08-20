@@ -7,7 +7,6 @@
 
 /* wrapper around each feature photo and caption: fixed height with space for caption */
 .feature-wrapper {
-  display: inline-block;
   width: auto;
   height: 450px;       /* total height, adjust as needed */
   padding-bottom: 25px; /* reserved space below image for caption */
@@ -54,9 +53,4 @@
     background-color: #212529;
     width: 2.5rem;
     height: 2.5rem;
-}
-/* enforce rounded corners on feature carousel images */
-.feature-wrapper img,
-#featurePhotosCarousel img {
-  border-radius: .25rem !important;
 }

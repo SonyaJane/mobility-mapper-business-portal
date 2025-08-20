@@ -82,7 +82,7 @@
               {% for item in feature_photos_list %}
                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
                   <div class="feature-wrapper mx-auto text-center">
-                    <img src="{{ item.url }}" class="rounded w-100" alt="{{ item.feature }} photo">
+                    <img src="{{ item.url }}" class="w-100" alt="{{ item.feature }} photo">
                     <h5 class="mt-2 d-inline-block px-2">{{ item.feature.name }}</h5>
                   </div>
                 </div>
@@ -103,7 +103,7 @@
     </div>
 
     <div class="col-md-6">
-      <div class="border h-100">
+      <div class="border rounded h-100">
         <div class="p-3">      
           <h5 class="mb-3">Other Photos Submitted</h5>
           {% if other_photo_urls %}
