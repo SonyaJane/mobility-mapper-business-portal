@@ -533,7 +533,9 @@ def verification_report(request, verification_id):
     # Allow business owner or the Wheeler who submitted to view the report
     is_owner = (verification.business.business_owner == request.user.userprofile)
     is_wheeler = (verification.wheeler == request.user)
-    if not (is_owner or is_wheeler):
+    # Allow superusers to view any report
+    is_superuser = request.user.is_superuser
+    if not (is_owner or is_wheeler or is_superuser):
         messages.error(request, "You do not have permission to view this report.")
         return redirect('business_dashboard')
 
@@ -555,7 +557,7 @@ def verification_report(request, verification_id):
         except Exception:
             url = str(photo.image)
         other_photo_urls.append(url)
-    return render(request, 'businesses/verification_report.html', {
+    return render(request, 'businesses/wheeler_verification_report.html', {
         'verification': verification,
         'confirmed_features': confirmed_features,
         'feature_photos_list': feature_photos_list,

@@ -1,0 +1,14 @@
+#featurePhotosCarousel {
+	aspect-ratio: 1 / 1;
+	width: 100%;
+	overflow: hidden;
+}
+#featurePhotosCarousel .carousel-inner,
+#featurePhotosCarousel .carousel-item,
+#featurePhotosCarousel img {
+	height: 100%;
+}
+#featurePhotosCarousel img {
+	width: 100%;
+	object-fit: cover;
+}

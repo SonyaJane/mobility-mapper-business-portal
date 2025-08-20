@@ -4,7 +4,25 @@
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
+:root {
+    /* Fonts */
+    --primary-font: 'Open Sans', sans-serif;
+ 	--secondary-font: 'Bitter', serif;
+    --bs-body-font-size: 1.4rem;
+
+    /* Colours */
+    /* Orange */
+	--color-orange-1: #f5ddd2;  /* Footer background */
+	--color-orange-2:  #eabaa5; /* Header h2 underline */
+	--color-orange-3: #e09878;  /* Button hover */
+	--color-orange-4: #bd582c; 	/* Link and icon */
+	--color-orange-4-b: #bd582cbb; /* cover title background */
+    --color-orange-5: #8e4221; 
+	--color-orange-6-a: #5f2c1641;
+}
+
 html, body {
+    font-family: var(--primary-font), sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;

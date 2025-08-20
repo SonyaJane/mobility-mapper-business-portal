@@ -69,8 +69,6 @@ used_usernames = set()
 # Track used name combinations to ensure uniqueness
 used_name_combos = set()
 
-# (Removed --upload-cloud flag and Cloudinary upload support)
-
 # Resolve base media directories
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 profile_photo_dir = os.path.join(base_dir, 'media', 'profile_photos')
@@ -499,7 +497,7 @@ business_feature_map = {
     if biz['fields'].get('verified_by_wheelers')
 }
 
-# List available certification photo files
+# List available verification photo files
 verification_photo_dir = os.path.join(base_dir, 'media', 'verification_photos')
 available_photos = {f for f in os.listdir(verification_photo_dir) if os.path.isfile(os.path.join(verification_photo_dir, f))}
 photo_fixtures = []
@@ -541,9 +539,26 @@ for ver in wheeler_verifications:
             print(f"file not found for feature code {code}")
 
 # extend the fixture list
+# Add random 'other' photos (0-3) per verification, unassociated with features
+other_photo_dir = os.path.join(base_dir, 'media', 'other')
+other_photos = [f for f in os.listdir(other_photo_dir) if os.path.isfile(os.path.join(other_photo_dir, f))]
+for ver in wheeler_verifications:
+    count = random.randint(0, 3)
+    chosen = random.sample(other_photos, k=min(count, len(other_photos)))
+    for fname in chosen:
+        photo_fixtures.append({
+            'model': 'businesses.wheelerverificationphoto',
+            'pk': photo_pk,
+            'fields': {
+                'verification': ver['pk'],
+                'image': f"mobility_mapper_business_portal/other/{fname}",
+                'feature': None,
+                'uploaded_at': str(fake.date_time_this_year(tzinfo=timezone.utc))
+            }
+        })
+        photo_pk += 1
+        
 fixture.extend(photo_fixtures)
-
-# Cloud upload functionality removed; images should already exist in Cloudinary if needed.
 
 fixtures_dir = os.path.join(base_dir, "fixtures")
 os.makedirs(fixtures_dir, exist_ok=True)

@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/wheeler_verification_report.css' %}">
+{% endblock %}
+
 {% block page_title %}Accessibility Verification Report{% endblock %}
 
 
@@ -73,48 +77,51 @@
       <div class="border rounded h-100">
         <div class="p-3">      
           <h5 class="mb-3">Feature Photos</h5>
-          <div id="featurePhotosCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div id="featurePhotosCarousel" class="carousel slide{% if feature_photos_list|length <= 1 %} single-photo{% endif %}" data-bs-interval="false">
             <div class="carousel-inner">
               {% for item in feature_photos_list %}
                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
-                  <img src="{{ item.url }}" class="d-block w-100 rounded border" alt="{{ item.feature }} photo">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5 class="bg-dark bg-opacity-50 rounded px-2">{{ item.feature.name }}</h5>
+                  <div class="feature-wrapper mx-auto text-center">
+                    <img src="{{ item.url }}" class="rounded w-100" alt="{{ item.feature }} photo">
+                    <h5 class="mt-2 d-inline-block px-2">{{ item.feature.name }}</h5>
                   </div>
                 </div>
               {% endfor %}
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#featurePhotosCarousel" data-bs-slide="prev">
+            <button class="carousel-control-prev {% if feature_photos_list|length <= 1 %}invisible{% endif %}" type="button" data-bs-target="#featurePhotosCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#featurePhotosCarousel" data-bs-slide="next">
+            <button class="carousel-control-next {% if feature_photos_list|length <= 1 %}invisible{% endif %}" type="button" data-bs-target="#featurePhotosCarousel" data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
+            
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-6">
-      <div class="border rounded h-100">
+      <div class="border h-100">
         <div class="p-3">      
           <h5 class="mb-3">Other Photos Submitted</h5>
           {% if other_photo_urls %}
-          <div id="otherPhotosCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-wrap="false">
+          <div id="otherPhotosCarousel" class="carousel slide{% if other_photo_urls|length <= 1 %} single-photo{% endif %}" data-bs-interval="false">
             <div class="carousel-inner">
               {% for url in other_photo_urls %}
                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
-                  <img src="{{ url }}" class="d-block w-100 rounded border" alt="Verification Photo">
+                  <div class="feature-wrapper mx-auto text-center">
+                    <img src="{{ url }}" class="w-100" alt="Verification photo">
+                  </div>
                 </div>
               {% endfor %}
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#otherPhotosCarousel" data-bs-slide="prev">
+            <button class="carousel-control-prev {% if other_photo_urls|length <= 1 %}invisible{% endif %}" type="button" data-bs-target="#otherPhotosCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#otherPhotosCarousel" data-bs-slide="next">
+            <button class="carousel-control-next {% if other_photo_urls|length <= 1 %}invisible{% endif %}" type="button" data-bs-target="#otherPhotosCarousel" data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
