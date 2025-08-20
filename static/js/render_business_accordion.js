@@ -14,7 +14,7 @@ export default function renderBusinessAccordion(biz) {
     let description = biz.description ? `<i class='bi bi-card-text fs-5 me-2 text-info'></i>${biz.description}` : '';
     let services = biz.services_offered ? `<i class='bi bi-briefcase fs-5 me-2 text-primary'></i>${biz.services_offered}` : '';
     let offers = biz.special_offers ? `<i class='bi bi-tag fs-5 me-2 text-success'></i>${biz.special_offers}` : '';
-    let opening_hours = biz.opening_hours ? renderOpeningHoursTable(biz.opening_hours) : '';        
+    let opening_hours = biz.opening_hours ? renderOpeningHoursTable(biz.opening_hours) : '';
     return `
         <div class=\"accordion-body mt-2 mb-1\">
             ${accessibility ? `<div class=\"mb-2\">${accessibility}</div>` : ''}

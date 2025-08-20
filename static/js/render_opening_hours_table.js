@@ -1,5 +1,13 @@
 export default function renderOpeningHoursTable(opening_hours) {
     if (!opening_hours) return '';
+    // Helper to convert 24h HH:MM to 12h format (e.g., '15:00' -> '3pm')
+    function format12h(time) {
+        const [h, m] = time.split(':');
+        let hour = parseInt(h, 10);
+        const suffix = hour < 12 ? 'am' : 'pm';
+        hour = hour % 12 || 12;
+        return m === '00' ? `${hour}${suffix}` : `${hour}:${m}${suffix}`;
+    }
     let oh;
     try {
         oh = typeof opening_hours === 'string' ? JSON.parse(opening_hours) : opening_hours;
@@ -7,23 +15,24 @@ export default function renderOpeningHoursTable(opening_hours) {
         return '';
     }
     let html = `
-        <div class="my-2"><strong>Opening Hours:</strong></div>
+        <div class="my-2"><i class='bi bi-clock fs-5 me-2 text-orange'></i>Opening Hours:</div>
         <div class="table-responsive">
             <table class="table table-bordered table-sm w-auto mb-0" id="opening-hours-table-dashboard">
                 <tbody>
     `;
     Object.entries(oh).forEach(([day, info]) => {
         html += `<tr>
-            <td class="px-2"><strong>${day}</strong></td>
-            <td class="px-2">`;
-        if (info.closed) {
-            html += `<span class="text-muted">Closed</span>`;
-        } else if (info.periods && info.periods.length) {
-            html += info.periods.map((p, idx) =>
-                `<span>${p.open} - ${p.close}</span>${idx < info.periods.length - 1 ? '<br>' : ''}`
+            <td class="px-3 align-middle line-height-16">${day}</td>
+            <td class="px-3 align-middle line-height-16">`;
+        const periods = Array.isArray(info) ? info : [];
+        if (periods.length) {
+            html += periods.map((p, idx) =>
+                `<span>${format12h(p.start)} - ${format12h(p.end)}</span>` +
+                (idx < periods.length - 1 ? '<br>' : '')
             ).join('');
         } else {
-            html += `<span class="text-muted">No hours set</span>`;
+            // No periods means closed
+            html += `<span class="text-muted line-height-16">Closed</span>`;
         }
         html += `</td></tr>`;
     });

@@ -66,6 +66,10 @@ header {
     text-decoration: none;
 }
 
+.text-orange {
+    color: var(--color-orange-4) !important;
+}
+
 .box-shadow {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -190,10 +194,14 @@ header {
   background: #21548e;
   color: #fff;
   border-radius: 5px;
-  padding: 5px 8px 8px 8px;
+  padding: 5px 8px 8px 8px !important;
   margin: 2px 2px 2px 0;
   font-size: 1em;
   font-weight: 500;
+}
+
+.line-height-16 {
+    line-height: 1.6;
 }
 
 .choices__list--multiple .choices__item {
