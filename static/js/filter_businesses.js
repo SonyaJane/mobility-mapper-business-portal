@@ -43,15 +43,37 @@ export default function filterBusinesses() {
         params.append('max_lat', ne.lat);
         params.append('max_lng', ne.lng);
     }
+    
+    // Show loading indicator in results list
+    const list = document.getElementById('results-list');
+    if (list) {
+        list.innerHTML = '';
+        const spinner = document.createElement('div');
+        spinner.id = 'search-spinner';
+        spinner.className = 'd-flex flex-row align-items-center justify-content-center my-3';
+        spinner.innerHTML = `
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="m-2">Searching...</div>`;
+        list.appendChild(spinner);
+    }
+    
     // Fetch businesses based on search, accessibility filters, and map bounds
     fetch(`/business/ajax/search-businesses/?${params.toString()}`)
     .then(response => {
+        // Remove loading indicator once response is received
+        const spinnerEl = document.getElementById('search-spinner');
+        if (spinnerEl) spinnerEl.remove();
         if (!response.ok) {
             throw new Error(`Server returned ${response.status}`);
         }
         return response.json();
     })
     .then(data => {
+        // Ensure spinner is removed before rendering results
+        const spinnerEl2 = document.getElementById('search-spinner');
+        if (spinnerEl2) spinnerEl2.remove();
         businesses = data.businesses || [];
         // Client-side bounds filter: only keep businesses within current map viewport
         if (window.MAP && window.MAP.map && businesses.length > 0) {
@@ -84,6 +106,9 @@ export default function filterBusinesses() {
         }        
     })
     .catch(err => {
+        // Remove loading indicator on error
+        const spinnerEl3 = document.getElementById('search-spinner');
+        if (spinnerEl3) spinnerEl3.remove();
         console.error('Search failed', err);
         // Clear results list and markers on error
         renderResultsList([]);

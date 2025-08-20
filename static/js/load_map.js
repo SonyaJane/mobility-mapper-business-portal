@@ -50,6 +50,16 @@ export default function load_map(containerId) {
       // we'll manage bounds dynamically based on zoom
       attributionControl: false // disable default, we'll add our own
     });
+     // Once the map has initialized and finished loading tiles, remove the loading overlay
+     function hideMapLoading() {
+       const loadingEl = document.getElementById('map-loading');
+       if (loadingEl) {
+         loadingEl.remove();
+       }
+     }
+     // Remove overlay on initial style load and when the map becomes idle
+     MAP.map.on('load', hideMapLoading);
+     MAP.map.on('idle', hideMapLoading);
 
     // Add MapLibre attribution control with custom attribution
     MAP.map.addControl(new maplibregl.AttributionControl({

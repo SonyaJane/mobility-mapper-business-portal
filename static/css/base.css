@@ -132,6 +132,15 @@ header {
     right: 36px;
 }
 
+.bg-warning {
+    background-color: var(--color-orange-2) !important;
+}
+
+.badge-verify {
+    max-width: 400px;
+    font-weight: 400;
+    line-height: 1.2;
+}
 /* Convenience classes - colors copied from Bootstrap */
 .arrow-primary {
     border-bottom-color: #007bff !important;
@@ -150,7 +159,7 @@ header {
 }
 
 .arrow-warning {
-    border-bottom-color: #ffc107 !important;
+    border-bottom-color: var(--color-orange-2) !important;
 }
 
 .arrow-info {

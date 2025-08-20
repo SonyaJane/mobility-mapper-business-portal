@@ -29,11 +29,12 @@ export default function renderResultsList(businesses) {
             // Badge for businesses that have requested verification (only for verified wheelers)
             let requestedBadge = (typeof isVerifiedWheeler !== 'undefined' && isVerifiedWheeler && biz.wheeler_verification_requested) ?
                 `<div class="mt-2">
-                    <a href="/business/${biz.id}/wheeler-verification-application/" class="badge bg-warning text-decoration-none d-inline-flex align-items-center">
-                        <span class="me-2">📝</span>
-                        <div class="d-flex flex-column text-start">
-                            <span class="text-body fw-normal">Verify the accessibility of this business</span>
-                            <span class="text-body fw-normal">and earn a £10 Amazon voucher</span>
+                    <a href="/business/${biz.id}/wheeler-verification-application/" class="badge-verify badge bg-warning text-decoration-none d-inline-flex align-items-center w-100 box-shadow">
+                        <span class="me-2 fs-2">📝</span>
+                        <div class="d-flex flex-column text-start text-wrap">
+                            <span class="text-body">
+                                Verify the accessibility of this business and earn a £10 Amazon voucher
+                            </span>
                         </div>
                     </a>
                 </div>` : '';
