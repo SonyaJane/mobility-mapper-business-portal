@@ -1,4 +1,3 @@
-
 from django.urls import path
 from . import views
 
@@ -13,6 +12,7 @@ urlpatterns = [
     path('pending-verifications/', views.pending_verification_requests, name='pending_verification_requests'),
     path('verification-report/<int:verification_id>/', views.verification_report, name='verification_report'),
     path('wheeler-verification-history/', views.wheeler_verification_history, name='wheeler_verification_history'),
+    path('<int:business_id>/cancel-verification-request/', views.cancel_wheeler_verification_request, name='cancel_wheeler_verification_request'),
     path('accessible-business-search/', views.accessible_business_search, name='accessible_business_search'),
     path('ajax/search-businesses/', views.ajax_search_businesses, name='ajax_search_businesses'),
     # Public-facing business detail page

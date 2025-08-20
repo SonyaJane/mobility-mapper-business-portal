@@ -7,6 +7,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django import template
+from django.contrib import messages
 
 from accounts.models import UserProfile
 from businesses.models import Business, Category, AccessibilityFeature
@@ -694,3 +695,24 @@ def accessible_business_search(request):
         'is_verified_wheeler': bool(user_profile and user_profile.is_wheeler),
         'page_title': 'Accessible Business Search',
     })
+    
+    
+@login_required
+def cancel_wheeler_verification_request(request, business_id):
+    """Allow a wheeler to cancel their pending verification request for a business."""
+    profile = getattr(request.user, 'userprofile', None)
+    if not profile or not profile.is_wheeler:
+        messages.error(request, "Only verified Wheelers can cancel verification requests.")
+        return redirect('account_dashboard')
+    # Find and delete the pending request
+    req = WheelerVerificationRequest.objects.filter(
+        business_id=business_id,
+        wheeler=request.user,
+        approved=False
+    ).first()
+    if req:
+        req.delete()
+        messages.success(request, "Your verification request has been cancelled.")
+    else:
+        messages.info(request, "No pending verification request found to cancel.")
+    return redirect('account_dashboard')

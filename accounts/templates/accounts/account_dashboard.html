@@ -27,51 +27,52 @@
       <div class="card shadow-sm h-100">
         <div class="card-body">
           <h5 class="card-title mb-3">Profile Details</h5>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-person-circle fs-5 me-2 text-primary"></i>
-              <span><strong>Username:</strong> {{ user.username }}</span>
-            </li>
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-envelope fs-5 me-2 text-warning"></i>
-              <span><strong>Email Address:</strong> {{ user.email }}</span>
-            </li>
-            {% if user.userprofile.county %}
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-geo fs-5 me-2 text-danger"></i>
-              <span><strong>County:</strong> {{ user.userprofile.county }}</span>
-            </li>
-            {% endif %}
-            <li class="list-group-item d-flex align-items-center">
-              <i class="bi bi-globe fs-5 me-2 text-info"></i>
-              <span><strong>Country:</strong> {{ user.userprofile.country }}</span>
-            </li>
-            {# Age group #}
-            {% if user.userprofile.age_group %}
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-person fs-5 me-2 text-secondary"></i>
-              <span><strong>Age Group:</strong> {{ user.userprofile.get_age_group_display }}</span>
-            </li>
-            {% endif %}
-            {% if user.userprofile.is_wheeler %}
-            <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa;">
-              <i class="bi bi-person-wheelchair fs-5 me-2 text-success"></i>
-              <span><strong>Mobility Devices:</strong> 
-                {% with labels=user.userprofile.mobility_devices|device_labels %}
-                  {{ labels }}{% if user.userprofile.mobility_devices_other %}, {{ user.userprofile.mobility_devices_other }}{% endif %}
-                {% endwith %}
-              </span>
-            </li>
-            {% endif %}
-            {% if user.userprofile.has_business %}
-              {% if user.userprofile.business %}
-              <li class="list-group-item d-flex align-items-center">
-                <i class="bi bi-building fs-5 me-2 text-secondary"></i>
-                <span><strong>Your Business:</strong> <a href="{% url 'business_dashboard' %}" class="link-body-emphasis">{{ user.userprofile.business.business_name }}</a></span>
-              </li>
-              {% endif %}
-            {% endif %}
-          </ul>
+          <div class="table-responsive">
+            <table id="profile-details" class="table table-sm table-striped table-hover mb-0">
+              <tbody>
+                <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-person-circle fs-5 me-2 text-primary"></i><strong>Username:</strong></td>
+                  <td class="align-middle">{{ user.username }}</td>
+                </tr>
+                <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-warning"></i><strong>Email Address:</strong></td>
+                  <td class="align-middle">{{ user.email }}</td>
+                </tr>
+                {% if user.userprofile.county %}
+                <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-geo fs-5 me-2 text-danger"></i><strong>County:</strong></td>
+                  <td class="align-middle">{{ user.userprofile.county }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-info"></i><strong>Country:</strong></td>
+                  <td class="align-middle">{{ user.userprofile.country }}</td>
+                </tr>
+                {% if user.userprofile.age_group %}
+                <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-person fs-5 me-2 text-secondary"></i><strong>Age Group:</strong></td>
+                  <td class="align-middle">{{ user.userprofile.get_age_group_display }}</td>
+                </tr>
+                {% endif %}
+                {% if user.userprofile.is_wheeler %}
+                <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-person-wheelchair fs-5 me-2 text-success"></i><strong>Mobility Devices:</strong></td>
+                  <td class="align-middle">
+                    {% with labels=user.userprofile.mobility_devices|device_labels %}
+                      {{ labels }}{% if user.userprofile.mobility_devices_other %}, {{ user.userprofile.mobility_devices_other }}{% endif %}
+                    {% endwith %}
+                  </td>
+                </tr>
+                {% endif %}
+                {% if user.userprofile.has_business and user.userprofile.business %}
+                <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-building fs-5 me-2 text-secondary"></i><strong>Your Business:</strong></td>
+                  <td class="align-middle"><a href="{% url 'business_dashboard' %}" class="link-body-emphasis">{{ user.userprofile.business.business_name }}</a></td>
+                </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -87,7 +88,7 @@
             {% if user.userprofile.has_business and not user.userprofile.business %}
               <a href="{% url 'register_business' %}" class="btn btn-warning btn-custom-width">Register Your Business</a>
             {% endif %}
-            {% if verification_reports or approved_businesses %}
+            {% if verification_reports or approved_businesses or pending_businesses %}
               <a href="{% url 'wheeler_verification_history' %}" class="btn btn-info btn-custom-width">View Your Business Verifications</a>
             {% endif %}
           </div>
@@ -129,19 +130,25 @@
     {% endwith %}
 
     {% if pending_businesses %}
-        <div class="col-12">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title mb-3">Businesses you have applied to verify</h5>
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Businesses you have applied to verify</h5>
             <ul class="list-group">
               {% for business in pending_businesses %}
-                <li class="list-group-item position-relative">
-                  <a href="{% url 'business_detail' business.id %}" class="stretched-link"></a>
-                  <h5 class="mb-1 business">{{ business.business_name }}</h5>
-                  {% if business.categories.all %}
-                  <div class="mb-0 category">{{ business.categories.all|join:", " }}</div>
-                  {% endif %}
-                  <div>{{ business.address }}</div>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="mb-1 business">
+                      <a href="{% url 'business_detail' business.id %}" class="text-decoration-none">{{ business.business_name }}</a>
+                    </h5>
+                    {% if business.categories.all %}
+                    <div class="category text-muted small">{{ business.categories.all|join:", " }}</div>
+                    {% endif %}
+                    <div class="text-muted small">{{ business.address }}</div>
+                  </div>
+                  <div>
+                    <a href="{% url 'cancel_wheeler_verification_request' business.id %}" class="btn btn-sm btn-outline-danger">Cancel Request</a>
+                  </div>
                 </li>
               {% endfor %}
             </ul>
