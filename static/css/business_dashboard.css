@@ -13,6 +13,16 @@
     flex: 1 1 auto;
     min-height: 300px;
 }
+/* force the table to fit its container and wrap overflowing text */
+#business-details {
+  table-layout: fixed;
+  width: 100%;
+}
+
+#business-details td {
+  white-space: normal;       /* allow wrapping */
+  word-wrap: break-word;     /* break long words if needed */
+}
 
 /* Stack Business Details on extra small screens */
 @media (max-width: 575.98px) {
