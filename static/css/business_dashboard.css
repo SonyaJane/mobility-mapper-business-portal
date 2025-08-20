@@ -43,6 +43,9 @@
     padding-left: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    white-space: normal;        /* allow normal wrapping */
+    overflow-wrap: anywhere;    /* break words anywhere needed */
+    word-break: break-all;      /* force break of long strings */
   }
   #business-details td:first-child {
     font-weight: 600;
