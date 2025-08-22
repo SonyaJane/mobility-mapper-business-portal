@@ -10,16 +10,23 @@ function shuffleArray(array) {
     return array;
 }
 
+// Token to track most recent request and ignore outdated responses
+let lastRequestToken = 0;
+
 export default function filterBusinesses() {
+    // Increment token for this request
+    const requestToken = ++lastRequestToken;
+
     // Get the search input value
     const search = document.getElementById('business-search').value;
-   
+    console.log("Search term:", search);
+
     // Get accessibility filter selections
     let access;
     access = Array.from(document.getElementById('accessibility-select').selectedOptions)
         .map(o => o.value)
         .filter(v => v);
-    
+    console.log("Selected accessibility features:", access);
     // Show results list container
     let resultsListWrapper = document.getElementById('results-container');
     resultsListWrapper.classList.remove('hide');
@@ -62,7 +69,8 @@ export default function filterBusinesses() {
     // Fetch businesses based on search, accessibility filters, and map bounds
     fetch(`/business/ajax/search-businesses/?${params.toString()}`)
     .then(response => {
-        // Remove loading indicator once response is received
+        // If this is not the latest request, bail out
+        if (requestToken !== lastRequestToken) throw new Error('stale');
         const spinnerEl = document.getElementById('search-spinner');
         if (spinnerEl) spinnerEl.remove();
         if (!response.ok) {
@@ -71,7 +79,8 @@ export default function filterBusinesses() {
         return response.json();
     })
     .then(data => {
-        // Ensure spinner is removed before rendering results
+        // Ignore outdated responses
+        if (requestToken !== lastRequestToken) return;
         const spinnerEl2 = document.getElementById('search-spinner');
         if (spinnerEl2) spinnerEl2.remove();
         businesses = data.businesses || [];
@@ -86,12 +95,13 @@ export default function filterBusinesses() {
                 return loc.lat >= sw.lat && loc.lat <= ne.lat
                     && loc.lng >= sw.lng && loc.lng <= ne.lng;
             });
-        }
+        }       
         // On md+ screens with no search or accessibility filters, randomise initial list
         const isDesktop = window.matchMedia('(min-width: 768px)').matches;
         if (!search && access.length === 0 && isDesktop) {
             businesses = shuffleArray(businesses);
         }
+
         // Store the latest results globally for toggling markers on mobile screens
         window.filteredBusinesses = businesses;
         // Render results list
@@ -106,6 +116,7 @@ export default function filterBusinesses() {
         }        
     })
     .catch(err => {
+        if (err.message === 'stale') return;
         // Remove loading indicator on error
         const spinnerEl3 = document.getElementById('search-spinner');
         if (spinnerEl3) spinnerEl3.remove();

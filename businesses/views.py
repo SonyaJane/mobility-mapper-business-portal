@@ -86,6 +86,7 @@ def register_business(request):
         'selected_accessibility_features': selected_accessibility_features,
         'page_title': 'Register Your Business',
     })
+    
 @require_GET
 def business_detail(request, pk):
     """
@@ -132,7 +133,6 @@ def business_detail(request, pk):
         'user_has_requested': user_has_requested,
         'user_request_approved': user_request_approved,
     })
-
 
 @login_required
 def business_dashboard(request):
@@ -233,7 +233,6 @@ def business_request_wheeler_verification(request, pk):
         return redirect('business_dashboard')
     return render(request, 'businesses/business_request_wheeler_verification.html', {'business': business})
 
-
 @login_required
 def wheeler_verification_history(request):
     profile = getattr(request.user, 'userprofile', None)
@@ -331,7 +330,8 @@ def edit_business(request):
         'page_title': 'Edit Your Business',
     })
 
-    
+
+@login_required
 def explore_plans(request):
     """Display available subscription plans for businesses to review and select."""
     pricing_tiers = PricingTier.objects.filter(is_active=True).order_by('price_per_month')
@@ -571,6 +571,7 @@ def verification_report(request, verification_id):
 
 @require_GET
 def ajax_search_businesses(request):
+    print("AJAX search triggered", request.GET)
     term = request.GET.get('q', '').strip()
     cat_id = request.GET.get('category')
     # allow multiple accessibility filters
@@ -586,8 +587,10 @@ def ajax_search_businesses(request):
     if cat_id:
         qs = qs.filter(categories__id=cat_id)
     if access:
-        # filter businesses matching any of the selected features
-        qs = qs.filter(accessibility_features__name__in=access).distinct()
+        # filter businesses matching all of the selected features
+        for feature in access:
+            qs = qs.filter(accessibility_features__name=feature)
+        qs = qs.distinct()
     # Attempt to filter by map viewport bounds, suppress any errors
     try:
         min_lat = request.GET.get('min_lat')
@@ -608,8 +611,8 @@ def ajax_search_businesses(request):
         pass
     results = []
     for biz in qs.distinct():
-        if biz.logo:
-            logo_url = biz.logo.url if biz.logo else ''
+        # Determine logo URL (empty string if no logo)
+        logo_url = biz.logo.url if getattr(biz, 'logo', None) else ''
         results.append({
             'id': biz.id,
             'business_name': biz.business_name,
@@ -633,66 +636,20 @@ def ajax_search_businesses(request):
 
 
 def accessible_business_search(request):
-    # Handle POST for 'Don't show this TIP again'
+    """
+    Called when accessible business search page is loaded.
+    JS carries out initial search.
+    """
     user_profile = None
     if request.user.is_authenticated:
         from accounts.models import UserProfile
         user_profile = UserProfile.objects.get(user=request.user)
-        if request.method == 'POST' and request.POST.get('dont_show_tip'):
-            user_profile.hide_results_tip = True
-            user_profile.save()
-
-    # Get search parameters
-    term = request.GET.get('q', '').strip()
-    # support multiple accessibility filters
-    access_list = request.GET.getlist('accessibility')
-
-    # Filter businesses if searching
-    businesses = Business.objects.all()
-    if term:
-        businesses = businesses.filter(
-            Q(business_name__icontains=term) |
-            Q(description__icontains=term) |
-            Q(categories__name__icontains=term) |
-            Q(categories__tags__contains=[term])
-        )
-    if access_list:
-        # require businesses to have all selected accessibility features
-        for feature in access_list:
-            businesses = businesses.filter(accessibility_features__name=feature)
-
-    categories = Category.objects.all()
+    
+    # Provide full list of accessibility features for the filter dropdown
     accessibility_features = AccessibilityFeature.objects.all()
-    business_list = []
-    for biz in businesses:
-        business_list.append({
-            'id': biz.id,
-            'business_name': biz.business_name,
-            'categories': list(biz.categories.values_list('name', flat=True)),
-            'address': biz.address,
-            'location': {'lat': biz.location.y, 'lng': biz.location.x} if biz.location else None,
-            'is_wheeler_verified': getattr(biz, 'verified_by_wheelers', False),
-            'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
-            'public_phone': biz.public_phone,
-            'contact_phone': biz.contact_phone,
-            'public_email': biz.public_email,
-            'website': biz.website,
-            'opening_hours': biz.opening_hours,
-            'special_offers': biz.special_offers,
-            'services_offered': biz.services_offered,
-            'description': biz.description,
-            'logo': biz.logo.url if biz.logo else '',
-            'facebook_url': getattr(biz, 'facebook_url', ''),
-            'instagram_url': getattr(biz, 'instagram_url', ''),
-            'x_twitter_url': getattr(biz, 'x_twitter_url', ''),
-        })
-
-    import json
     return render(request, 'businesses/accessible_business_search.html', {
-        'categories': categories,
-        'accessibility_features': accessibility_features,
-        'businessesList': json.dumps(business_list),
         'is_verified_wheeler': bool(user_profile and user_profile.is_wheeler),
+        'accessibility_features': accessibility_features,
         'page_title': 'Accessible Business Search',
     })
     

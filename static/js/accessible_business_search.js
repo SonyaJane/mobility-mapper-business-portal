@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // On desktop: real-time filtering; on mobile: wait for Search button
     const searchInput = document.getElementById('business-search');
     if (window.matchMedia('(min-width: 768px)').matches) {
+        console.log("Desktop detected, enabling real-time search filtering.");
         searchInput.addEventListener('input', filterBusinesses);
     } else {
+        console.log("Mobile detected, waiting for Search button.");
         const searchBtn = document.getElementById('search-btn');
         if (searchBtn) {
             searchBtn.addEventListener('click', () => filterBusinesses());
@@ -23,8 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // listen for map panning or zoom changes to trigger filtering only on desktop
     if (window.MAP && window.MAP.map && window.matchMedia('(min-width: 768px)').matches) {
         // Only re-filter once the user finishes dragging (panning) or zooming on larger screens
-        window.MAP.map.on('dragend', filterBusinesses);
-        window.MAP.map.on('zoomend', filterBusinesses);
+        window.MAP.map.on('dragend', () => {
+                console.log("Map dragged, filtering businesses...");
+                filterBusinesses();
+            }
+        );
+        window.MAP.map.on('zoomend', () => {
+            console.log("Map zoomed, filtering businesses...");
+            filterBusinesses();
+        });
     }
 
     const accessibilitySelect = document.getElementById('accessibility-select');
@@ -71,15 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             // Clear search input
             businessSearchInput.value = '';
-            // hide results div
-            const resultsContainer = document.getElementById('results-container');
-            if (resultsContainer) {
-                resultsContainer.classList.add('hide');
-            // remove markers from map
-            renderMarkers([]);            
+            // Refresh list/map with empty search
+            filterBusinesses();
             businessSearchInput.focus();
-            }
-    });
+        });
     }
 
     // Mobile view toggle

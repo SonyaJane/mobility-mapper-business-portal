@@ -62,12 +62,6 @@
   margin-bottom: 0;
 }
 
-.choices__list--multiple .choices__item {
-  background-color: var(--color-mango-5);
-  border: 1px solid var(--color-mango-5);
-  font-size: 1rem;
-}
-
 #results-list {
   overflow-y: auto;
   height: 100%;

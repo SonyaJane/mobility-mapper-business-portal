@@ -79,18 +79,13 @@ export default function renderResultsList(businesses) {
         });
     } else { // No businesses found
         if (resultsContainer) {
-            if (searchInput && searchInput.value.trim().length > 0) {
-                // Only show no results found if search input has text
-                resultsContainer.classList.add('results-visible');
-                resultsContainer.classList.remove('hide'); 
-                const noResults = document.createElement('li');
-                noResults.className = 'list-group-item text-center text-muted';
-                noResults.textContent = 'No results found.';
-                list.appendChild(noResults);
-            } else {
-                resultsContainer.classList.remove('results-visible');
-                resultsContainer.classList.add('hide');
-            }
+            // Always show the container and display a 'No results found' message
+            resultsContainer.classList.add('results-visible');
+            resultsContainer.classList.remove('hide');
+            const noResults = document.createElement('li');
+            noResults.className = 'list-group-item text-center text-muted';
+            noResults.textContent = 'No results found.';
+            list.appendChild(noResults);
         }
     }
 }
