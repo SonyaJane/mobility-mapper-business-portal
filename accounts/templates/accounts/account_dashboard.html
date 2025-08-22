@@ -34,32 +34,32 @@
             <table id="profile-details" class="table table-sm table-striped table-hover mb-0">
               <tbody>
                 <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-person-circle fs-5 me-2 text-primary"></i><strong>Username:</strong></td>
+                  <td class="align-middle ps-3"><i class="bi bi-person-circle fs-5 me-2 text-mango"></i><strong>Username:</strong></td>
                   <td class="align-middle">{{ user.username }}</td>
                 </tr>
                 <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-warning"></i><strong>Email Address:</strong></td>
+                  <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-orange"></i><strong>Email Address:</strong></td>
                   <td class="align-middle">{{ user.email }}</td>
                 </tr>
                 {% if user.userprofile.county %}
                 <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-geo fs-5 me-2 text-danger"></i><strong>County:</strong></td>
+                  <td class="align-middle ps-3"><i class="bi bi-geo-fill fs-5 me-2 text-brown"></i><strong>County:</strong></td>
                   <td class="align-middle">{{ user.userprofile.county }}</td>
                 </tr>
                 {% endif %}
                 <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-info"></i><strong>Country:</strong></td>
+                  <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-coffee"></i><strong>Country:</strong></td>
                   <td class="align-middle">{{ user.userprofile.country }}</td>
                 </tr>
                 {% if user.userprofile.age_group %}
                 <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-person fs-5 me-2 text-secondary"></i><strong>Age Group:</strong></td>
+                  <td class="align-middle ps-3"><i class="bi bi-person fs-5 me-2 text-mango"></i><strong>Age Group:</strong></td>
                   <td class="align-middle">{{ user.userprofile.get_age_group_display }}</td>
                 </tr>
                 {% endif %}
                 {% if user.userprofile.is_wheeler %}
                 <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-person-wheelchair fs-5 me-2 text-success"></i><strong>Mobility Devices:</strong></td>
+                  <td class="align-middle ps-3"><i class="bi bi-person-wheelchair fs-5 me-2 text-orange"></i><strong>Mobility Devices:</strong></td>
                   <td class="align-middle">
                     {% with labels=user.userprofile.mobility_devices|device_labels %}
                       {{ labels }}{% if user.userprofile.mobility_devices_other %}, {{ user.userprofile.mobility_devices_other }}{% endif %}
@@ -69,7 +69,7 @@
                 {% endif %}
                 {% if user.userprofile.has_business and user.userprofile.business %}
                 <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-building fs-5 me-2 text-secondary"></i><strong>Your Business:</strong></td>
+                  <td class="align-middle ps-3"><i class="bi bi-building fs-5 me-2 text-brown"></i><strong>Your Business:</strong></td>
                   <td class="align-middle"><a href="{% url 'business_dashboard' %}" class="link-body-emphasis">{{ user.userprofile.business.business_name }}</a></td>
                 </tr>
                 {% endif %}
@@ -86,13 +86,13 @@
         <div class="card-body">
           <h5 class="card-title mb-3">Account Actions</h5>
           <div class="d-flex flex-column gap-2">
-            <a href="{% url 'edit_profile' %}" class="btn btn-primary btn-custom-width">Edit Profile</a>
-            <a href="{% url 'account_change_password' %}" class="btn btn-outline-primary btn-custom-width">Change Password</a>
+            <a href="{% url 'edit_profile' %}" class="btn btn-orange btn-custom-width">Edit Profile</a>
+            <a href="{% url 'account_change_password' %}" class="btn btn-mango btn-custom-width">Change Password</a>
             {% if user.userprofile.has_business and not user.userprofile.business %}
-              <a href="{% url 'register_business' %}" class="btn btn-warning btn-custom-width">Register Your Business</a>
+              <a href="{% url 'register_business' %}" class="btn btn-green btn-custom-width">Register Your Business</a>
             {% endif %}
             {% if verification_reports or approved_businesses or pending_businesses %}
-              <a href="{% url 'wheeler_verification_history' %}" class="btn btn-info btn-custom-width">View Your Business Verifications</a>
+              <a href="{% url 'wheeler_verification_history' %}" class="btn btn-coffee btn-custom-width">View Your Business Verifications</a>
             {% endif %}
           </div>
         </div>
@@ -113,8 +113,7 @@
               <ul class="list-group">
                 {% for business in unverified_businesses %}
                 <li class="list-group-item">
-                  <!-- ...existing content... -->
-                  <h5 class="mb-1 business">{{ business.business_name }}</h5>
+=                  <h5 class="mb-1 business text-orange">{{ business.business_name }}</h5>
                   {% if business.categories.all %}
                   <div class="mb-0 category">{{ business.categories.all|join:", " }}</div>
                   {% endif %}
@@ -142,7 +141,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <div>
                     <h5 class="mb-1 business">
-                      <a href="{% url 'business_detail' business.id %}" class="text-decoration-none">{{ business.business_name }}</a>
+                      <a href="{% url 'business_detail' business.id %}" class="text-decoration-none text-orange">{{ business.business_name }}</a>
                     </h5>
                     {% if business.categories.all %}
                     <div class="category text-muted small">{{ business.categories.all|join:", " }}</div>
@@ -150,7 +149,7 @@
                     <div class="text-muted small">{{ business.address }}</div>
                   </div>
                   <div>
-                    <a href="{% url 'cancel_wheeler_verification_request' business.id %}" class="btn btn-sm btn-outline-danger">Cancel Request</a>
+                    <a href="{% url 'cancel_wheeler_verification_request' business.id %}" class="btn btn-sm btn-orange-outline">Cancel Request</a>
                   </div>
                 </li>
               {% endfor %}
@@ -176,7 +175,7 @@
             <li>Verified reports help build a trusted, inclusive community and support others in finding accessible businesses.</li>
           </ul>
           <p>You can find businesses requesting verification, near you, by visiting the accessible business search page. Zoom in to your area on the map for more specific results.</p>
-          <a href="{% url 'accessible_business_search' %}" class="btn btn-success">View Accessible Businesses</a>
+          <a href="{% url 'accessible_business_search' %}" class="btn btn-green">View Accessible Businesses</a>
         </div>
       </div>
     </div>
