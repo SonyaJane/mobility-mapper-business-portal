@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from urllib.parse import urlencode
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.http import JsonResponse
@@ -66,6 +68,13 @@ def register_business(request):
             user_profile.has_business = True
             user_profile.has_registered_business = True
             user_profile.save()
+            # If tier requires payment, send to checkout; otherwise go to dashboard
+            tier_name = business.pricing_tier.tier.lower() if business.pricing_tier else ''
+            if tier_name in ['standard', 'premium']:
+                # Redirect to checkout with selected tier and billing frequency
+                url = reverse('checkout', args=[business.id])
+                query = urlencode({'tier': tier_name, 'billing_frequency': billing_frequency})
+                return redirect(f"{url}?{query}")
             return redirect('business_dashboard')
     else:
         form = BusinessRegistrationForm()
