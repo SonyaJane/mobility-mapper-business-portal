@@ -31,20 +31,25 @@ class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
+    
     phone_number = models.CharField(max_length=20, null=False, blank=False)
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
     county = models.CharField(max_length=80, null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)
-    stripe_checkout_session_id = models.CharField(max_length=255, unique=True)
-    stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True)
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)    
-    stripe_price_id = models.CharField(max_length=255)
+    
     order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES)
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, blank=True, null=True)
     interval = models.CharField(max_length=20, choices=INTERVAL_CHOICES, blank=True, null=True)
+    
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)    
+    
+    stripe_checkout_session_id = models.CharField(max_length=255, unique=True)
+    stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True)
+    stripe_price_id = models.CharField(max_length=255)
     stripe_subscription_id = models.CharField(max_length=255, blank=True, null=True)
+    
     metadata = models.JSONField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
