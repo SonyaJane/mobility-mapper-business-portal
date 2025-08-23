@@ -79,7 +79,11 @@ class Business(models.Model):
     business_name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     location = geomodels.PointField(geography=True)
-    address = models.CharField(max_length=300)
+    street_address1 = models.CharField(max_length=80, default='', blank=True)
+    street_address2 = models.CharField(max_length=80, blank=True, null=True)
+    town_or_city = models.CharField(max_length=40, default='', blank=True)
+    county = models.CharField(max_length=80, blank=True, null=True)
+    postcode = models.CharField(max_length=20, blank=True, null=True)
     categories = models.ManyToManyField('Category', blank=True, related_name='businesses')
     accessibility_features = models.ManyToManyField('AccessibilityFeature', blank=True, related_name='businesses')
     logo = models.ImageField(

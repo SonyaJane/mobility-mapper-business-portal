@@ -1,21 +1,19 @@
+# Dev
 # Run the script: python scripts/generate_fake_users.py
 # python manage.py flush --no-input
-# heroku run python manage.py flush
-
 # python manage.py loaddata .\fixtures\accessibility_features.json
-# heroku run python manage.py loaddata ./fixtures/accessibility_features.json
-
 # python manage.py loaddata .\fixtures\business_categories.json
-# heroku run python manage.py loaddata ./fixtures/business_categories.json
-
 # python manage.py loaddata .\fixtures\pricing_tiers.json
-# heroku run python manage.py loaddata ./fixtures/pricing_tiers.json
-
-# Load the generated fixture: 
+# python scripts/generate_fake_users.py
 # python manage.py loaddata fixtures\fake_users_fixture.json
-# heroku run python manage.py loaddata fixtures/fake_users_fixture.json
-
 # python manage.py createsuperuser
+
+# Prod
+# heroku run python manage.py flush
+# heroku run python manage.py loaddata ./fixtures/accessibility_features.json
+# heroku run python manage.py loaddata ./fixtures/business_categories.json
+# heroku run python manage.py loaddata ./fixtures/pricing_tiers.json
+# heroku run python manage.py loaddata fixtures/fake_users_fixture.json
 # heroku run python manage.py createsuperuser
 
 """Generate fake users, businesses, verifications and associated image references.
@@ -79,10 +77,8 @@ all_photo_files = sorted([f for f in os.listdir(profile_photo_dir)
 
 # Reserve first 10 profile photos for wheeler users
 photo_files = all_photo_files[:10]
-print(all_photo_files)
 # Reserve next 36 profile photos for business users
 business_photo_files = all_photo_files[10:46]
-print(business_photo_files)
 # Create 20 fake wheeler user instances:
 # first 10 use profile photo filenames as names, 
 # next 10 have random names and no profile photo
@@ -173,6 +169,7 @@ for i in range(20):
 # Generate 100 fake business users 
 # (is_wheeler=False, has_business=True, mobility_device=None)
 for i in range(100):
+    print('i=', i)
     # derive names and ensure uniqueness
     if i < len(business_photo_files):
         # fixed from business_photo_files
@@ -414,7 +411,12 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             "description": fake.sentence(),
             "categories": categories,
             "location": point_wkt,
-            "address": fake.address().replace("\n", ", "),
+            # Split address into components
+            "street_address1": fake.street_address(),
+            "street_address2": fake.secondary_address() if hasattr(fake, 'secondary_address') else '',
+            "town_or_city": fake.city(),
+            "county": fake.county() if hasattr(fake, 'county') else '',
+            "postcode": fake.postcode(),
             "accessibility_features": features_for_this,
             "logo": logo_path,
             "website": website,

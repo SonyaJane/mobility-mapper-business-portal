@@ -42,6 +42,12 @@ class Order(models.Model):
     order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES)
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, blank=True, null=True)
     interval = models.CharField(max_length=20, choices=INTERVAL_CHOICES, blank=True, null=True)
+    # Order status using defined choices
+    status = models.CharField(
+        max_length=20,
+        choices=ORDER_STATUS_CHOICES,
+        default='pending'
+    )
     
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)    
     

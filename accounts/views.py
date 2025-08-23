@@ -31,7 +31,6 @@ def dashboard_view(request):
     profile = getattr(request.user, 'userprofile', None)
     # user profile photo
     profile_photo = profile.photo.url if profile and profile.photo else None
-    print('profile photo url', profile_photo)
     if profile and profile.is_wheeler:
         approved_business_ids = WheelerVerificationRequest.objects.filter(
             wheeler=request.user,

@@ -103,7 +103,7 @@ class BusinessRegistrationForm(forms.ModelForm):
         model = Business
         fields = [
             'business_name',
-            'address',
+            'street_address1', 'street_address2', 'town_or_city', 'county', 'postcode',
             'location',
             'public_phone',
             'contact_phone',

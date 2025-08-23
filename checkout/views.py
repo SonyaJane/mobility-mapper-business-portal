@@ -12,6 +12,11 @@ def checkout(request, business_id):
     business = get_object_or_404(Business, pk=business_id)
     tier = request.GET.get('tier')
     interval = request.GET.get('billing_frequency')
+
+    # get Stripe API keys
+    stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+    
     # Determine Stripe Price ID based on interval
     price_id = None
     if business.pricing_tier:
@@ -19,17 +24,26 @@ def checkout(request, business_id):
             price_id = business.pricing_tier.stripe_annual_price_id
         else:
             price_id = business.pricing_tier.stripe_monthly_price_id
+    
     # Initialize checkout form with defaults
+    # Build initial form data using user and business details
     form_initial = {
         'order_type': 'subscription',
         'tier': tier,
         'interval': interval,
         'stripe_price_id': price_id,
+        # Prepopulate contact and address fields
+        'full_name': f"{request.user.first_name} {request.user.last_name}".strip() if request.user.is_authenticated else '',
+        'email': request.user.email if request.user.is_authenticated else '',
+        'phone_number': business.contact_phone or business.public_phone or '',
+        'street_address1': business.address or '',
     }
     form = CheckoutForm(initial=form_initial)
     return render(request, 'checkout/checkout.html', {
         'business': business,
         'form': form,
+        'stripe_publishable_key': stripe_public_key,
+        'client_secret': stripe_secret_key,
     })
 
 @require_POST
