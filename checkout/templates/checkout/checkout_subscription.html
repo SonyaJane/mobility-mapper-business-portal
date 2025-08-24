@@ -7,8 +7,7 @@
 
 {% block content %}
 <div class="container">
-  <h2 class="my-4">Checkout</h2>
-
+  <h5 class="mt-4 mb-1 underline-orange">Checkout</h5>
 
   {% if form.errors %}
     <div class="alert alert-danger">
@@ -28,7 +27,7 @@
 
   <!-- Order Summary -->
   <div class="order-summary my-4 border p-3">
-    <h4 class="mb-4">Order Summary</h4>
+    <h6 class="mb-4 fs-115">Order Summary</h6>
     <p class="d-flex align-items-center">
       <strong>Pricing Tier:</strong>
       <span id="summary-tier-display" class="ms-2">{{ business.pricing_tier.get_tier_display }}</span>
@@ -88,7 +87,7 @@
 
     <!-- Contact Information -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Contact Details</legend>
+      <legend class="fs-115 mb-4">Contact Details</legend>
       {% for field in form.visible_fields %}
         {% if field.name == 'full_name' or field.name == 'email' or field.name == 'phone_number' %}
           {{ field|as_crispy_field }}
@@ -98,7 +97,7 @@
 
     <!-- Address Information -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Billing Address</legend>
+      <legend class="fs-115 mb-4">Billing Address</legend>
       {% for field in form.visible_fields %}
         {% if field.name == 'street_address1' or field.name == 'street_address2' or field.name == 'town_or_city' or field.name == 'county' or field.name == 'postcode' %}
           {{ field|as_crispy_field }}
@@ -108,7 +107,7 @@
 
     <!-- Payment Details -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Payment Details</legend>
+      <legend class="fs-115 mb-4">Payment Details</legend>
       <!--Stripe card element will be inserted here-->
       <div class="mb-3" id="card-element"></div>
       <!--Display card errors-->

@@ -63,8 +63,7 @@
   <p class="fs-6">What would you like to do next?</p>
 
   <div class="mb-2">
-    <form method="post">
-        {% csrf_token %}
+    <form method="get" action="{% url 'checkout_wheeler_verification' business.id %}">
         <div class="btn-stack-350 justify-content-center">
           <button type="submit" class="btn btn-mango fw-medium">Proceed to Payment</button>
           <a href="{% url 'business_dashboard' %}" class="btn btn-coffee fw-medium">Return to Dashboard</a>

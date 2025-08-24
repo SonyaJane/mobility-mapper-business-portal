@@ -6,9 +6,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h2 class="my-4">Checkout</h2>
-
+<div class="content-container mw-600 mb-4">
+  <h5 class="mt-4 mb-1 underline-orange align-self-start">Checkout</h5>
 
   {% if form.errors %}
     <div class="alert alert-danger">
@@ -28,18 +27,20 @@
 
   <!-- Order Summary -->
   <div class="order-summary my-4 border p-3">
-    <h4 class="mb-4">Order Summary</h4>
-    <p><strong>You are on the </strong> {{ business.pricing_tier.tier|title }}<strong> plan</strong></p>
-    <p><strong>Wheeler Verification Cost:</strong> <span id="summary-amount">£{% if tier == 'free' %}60.00{% else %}30.00{% endif %}</span></p>
-    <p>Please check your details below are correct:</p>
+    <h6 class="mb-4 fs-115">Order Summary</h6>
+    <p>You are ordering Wheeler verification of your business accessibility features.</p>
+    <p>You are on the <strong>{{ business.pricing_tier.tier|title }}</strong> plan, therefore the
+    verification cost is <strong>£{% if tier == 'free' %}60.00{% else %}30.00{% endif %}</strong>.</p>
+    <p class="mb-0">Please check your details below are correct, and enter your card details.</p>
   </div>
+  
   <form action="" method="post" id="payment-form">
     {% csrf_token %}
   <input type="hidden" name="tier" value="{{ form.initial.tier }}">
 
     <!-- Contact Information -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Contact Details</legend>
+      <legend class="fs-115 mb-4">Contact Details</legend>
       {% for field in form.visible_fields %}
         {% if field.name == 'full_name' or field.name == 'email' or field.name == 'phone_number' %}
           {{ field|as_crispy_field }}
@@ -49,7 +50,7 @@
 
     <!-- Address Information -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Billing Address</legend>
+      <legend class="fs-115 mb-4">Billing Address</legend>
       {% for field in form.visible_fields %}
         {% if field.name == 'street_address1' or field.name == 'street_address2' or field.name == 'town_or_city' or field.name == 'county' or field.name == 'postcode' %}
           {{ field|as_crispy_field }}
@@ -59,7 +60,7 @@
 
     <!-- Payment Details -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Payment Details</legend>
+      <legend class="fs-115 mb-4">Payment Details</legend>
       <!--Stripe card element will be inserted here-->
       <div class="mb-3" id="card-element"></div>
       <!--Display card errors-->
@@ -72,12 +73,12 @@
         <span class="icon">
           <i class="bi bi-exclamation-circle"></i>
         </span>
-        <span>Your card will be charged <strong>£{{ business.pricing_tier.price_per_month|floatformat:2 }} one-time</strong></span>
+        <span>Your card will be charged <strong>£{% if tier == 'free' %}60.00{% else %}30.00{% endif %}</strong></span>
       </p>
     </div>
 
     <!-- Submit & Loading -->
-    <button id="submit-button" type="submit" class="btn btn-green">Complete Subscription</button>
+    <button id="submit-button" type="submit" class="btn btn-green">Complete Payment</button>
     <div id="loading-overlay" class="d-none">
       <div class="spinner-border text-green" role="status">
         <span class="visually-hidden">Loading...</span>
