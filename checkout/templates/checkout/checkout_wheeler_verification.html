@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="my-4">Checkout</h2>
+
+
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      <strong>Please correct the errors below:</strong>
+      <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <!-- Order Summary -->
+  <div class="order-summary my-4 border p-3">
+    <h4 class="mb-4">Order Summary</h4>
+    <p><strong>You are on the </strong> {{ business.pricing_tier.tier|title }}<strong> plan</strong></p>
+    <p><strong>Wheeler Verification Cost:</strong> <span id="summary-amount">£{% if tier == 'free' %}60.00{% else %}30.00{% endif %}</span></p>
+    <p>Please check your details below are correct:</p>
+  </div>
+  <form action="" method="post" id="payment-form">
+    {% csrf_token %}
+  <input type="hidden" name="tier" value="{{ form.initial.tier }}">
+
+    <!-- Contact Information -->
+    <fieldset class="mb-4 border p-3">
+      <legend class="h4 mb-4">Contact Details</legend>
+      {% for field in form.visible_fields %}
+        {% if field.name == 'full_name' or field.name == 'email' or field.name == 'phone_number' %}
+          {{ field|as_crispy_field }}
+        {% endif %}
+      {% endfor %}
+    </fieldset>
+
+    <!-- Address Information -->
+    <fieldset class="mb-4 border p-3">
+      <legend class="h4 mb-4">Billing Address</legend>
+      {% for field in form.visible_fields %}
+        {% if field.name == 'street_address1' or field.name == 'street_address2' or field.name == 'town_or_city' or field.name == 'county' or field.name == 'postcode' %}
+          {{ field|as_crispy_field }}
+        {% endif %}
+      {% endfor %}
+    </fieldset>
+
+    <!-- Payment Details -->
+    <fieldset class="mb-4 border p-3">
+      <legend class="h4 mb-4">Payment Details</legend>
+      <!--Stripe card element will be inserted here-->
+      <div class="mb-3" id="card-element"></div>
+      <!--Display card errors-->
+      <div id="card-errors" role="alert" class="text-danger mb-3"></div>
+    </fieldset>
+
+    <!-- Charge Warning -->
+    <div class="mb-3">
+      <p class="small text-orange my-0" id="charge-warning">
+        <span class="icon">
+          <i class="bi bi-exclamation-circle"></i>
+        </span>
+        <span>Your card will be charged <strong>£{{ business.pricing_tier.price_per_month|floatformat:2 }} one-time</strong></span>
+      </p>
+    </div>
+
+    <!-- Submit & Loading -->
+    <button id="submit-button" type="submit" class="btn btn-green">Complete Subscription</button>
+    <div id="loading-overlay" class="d-none">
+      <div class="spinner-border text-green" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    
+
+  </form>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_publishable_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'js/checkout.js' %}"></script>
+{% endblock %}

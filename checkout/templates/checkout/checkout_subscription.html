@@ -149,4 +149,5 @@
     {{ stripe_publishable_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <script src="{% static 'js/checkout.js' %}"></script>
+    <script src="{% static 'js/checkout_subscription.js' %}"></script>
 {% endblock %}

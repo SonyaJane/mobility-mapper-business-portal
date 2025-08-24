@@ -125,8 +125,18 @@ header {
     text-decoration: none;
 }
 
+.underline-orange {
+    display: inline-block;
+    border-bottom: 5px solid var(--color-orange-2);
+    padding-bottom: 5px;
+}
+
 .text-orange {
     color: var(--color-orange-4) !important;
+}
+
+.mw-600.content-container {
+    max-width: 600px;
 }
 
 .box-shadow {
@@ -225,7 +235,8 @@ header {
     background-color: var(--color-green-2);
     color: black;
 }
-.btn-green-outline {
+.btn-green-outline,
+.btn-green-outline-no-hover {
     background-color: transparent;
     color: var(--color-green-4);
     border: 1px solid var(--color-green-4);
@@ -247,6 +258,12 @@ header {
     background-color: var(--color-mango-2);
     color: #000;
 }
+.btn-mango:hover {
+    background-color:  transparent;
+    color: var(--color-mango-6);
+    border: 1px solid var(--color-mango-6);
+}
+
 .btn-mango-outline {
     background-color: transparent;
     color: var(--color-mango-4);
@@ -259,6 +276,11 @@ header {
 .btn-coffee {
     background-color: var(--color-coffee-2);
     color: #000;
+}
+.btn-coffee:hover {
+    background-color:transparent;
+    color: var(--color-coffee-6);
+    border: 1px solid var(--color-coffee-4);
 }
 .btn-coffee-outline {
     background-color: transparent;
@@ -286,12 +308,18 @@ header {
 .fw-500 {
     font-weight: 500;
 }
+
 .badge-verify {
-    max-width: 400px;
-    font-weight: 400;
+    display: inline-block;    
+    max-width: 320px;
+    font-weight: 500;
     line-height: 1.2;
     background-color: #c1cab666;
+    text-decoration: none;
+    text-wrap: wrap;
+    text-align: start;
 }
+
 /* Convenience classes - colors copied from Bootstrap */
 .arrow-primary {
     border-bottom-color: #007bff !important;
@@ -393,6 +421,13 @@ header {
     padding: 12px 0px 0px 12px; 
 }
 
+/* Request wheeler verification */
+/* Buttons: horizontal above 350px, stacked on very narrow screens */
+.btn-stack-350 {
+    display: flex !important;
+    gap: 0.5rem;
+    flex-direction: row;
+}
 
 @media (max-width: 576px) {
     /* Move toast container down page for smaller screens */
@@ -433,5 +468,12 @@ header {
 @media (min-width: 1400px) {
     .content-container {
         max-width: 1320px;
+    }
+}
+
+
+@media (max-width: 350px) {
+    .btn-stack-350 {
+        flex-direction: column !important;
     }
 }

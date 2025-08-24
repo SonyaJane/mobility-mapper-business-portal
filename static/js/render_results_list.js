@@ -23,21 +23,22 @@ export default function renderResultsList(businesses) {
             }
             li.className = 'list-group-item';
             let categories = biz.categories && biz.categories.length ? biz.categories.join(', ') : '';
-            let address = biz.address ? `<div>${biz.address}</div>` : '';
+            // Combine separate address fields into a single formatted block
+            let addressParts = [];
+            if (biz.street_address1) addressParts.push(biz.street_address1);
+            if (biz.street_address2) addressParts.push(biz.street_address2);
+            if (biz.town_or_city) addressParts.push(biz.town_or_city);
+            if (biz.county) addressParts.push(biz.county);
+            if (biz.postcode) addressParts.push(biz.postcode);
+            let address = addressParts.length ? `<div>${addressParts.join(', ')}</div>` : '';
             let logo = biz.logo ? `<img src="${biz.logo}" alt="${biz.business_name} Logo" class="business-logo-img me-2">` : '';
-            let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<div class="mt-2 px-2 py-1 btn-green-outline rounded d-inline-block"><span class="text-green-light fw-bold"><i class="bi bi-check-circle-fill pe-2"></i>Verified by Wheelers</span></div>` : '';
+            let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<div class="mt-2 px-2 py-1 btn-green-outline rounded d-inline-block"><span class="fw-bold"><i class="bi bi-check-circle-fill pe-2"></i>Verified by Wheelers</span></div>` : '';
             // Badge for businesses that have requested verification (only for verified wheelers)
             let requestedBadge = (typeof isVerifiedWheeler !== 'undefined' && isVerifiedWheeler && biz.wheeler_verification_requested) ?
-                `<div class="mt-2">
-                    <a href="/business/${biz.id}/wheeler-verification-application/" class="badge-verify badge text-decoration-none d-inline-flex align-items-center w-100 box-shadow">
-                        <span class="me-2"></span>
-                        <div class="d-flex flex-column text-start text-wrap">
-                            <span class="text-body fw-500">
-                                Verify the accessibility of this business and earn a £10 Amazon voucher
-                            </span>
-                        </div>
-                    </a>
-                </div>` : '';
+                `<a href="/business/${biz.id}/wheeler-verification-application/" 
+                    class="badge badge-verify box-shadow text-body mt-2">
+                        Verify the accessibility of this business and earn a £10 Amazon voucher
+                </a>` : '';
             li.innerHTML = `
                 <div class="mb-1 d-flex justify-content-between w-100">
                     <div class="d-flex align-items-center flex-shrink-1">

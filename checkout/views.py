@@ -7,7 +7,7 @@ import stripe
 from businesses.models import Business, PricingTier
 from .forms import CheckoutForm
 
-def checkout(request, business_id):
+def checkout_subscription(request, business_id):
     # Load business and query params
     business = get_object_or_404(Business, pk=business_id)
     tier = request.GET.get('tier')
@@ -44,7 +44,7 @@ def checkout(request, business_id):
         'postcode': business.postcode or '',
     }
     form = CheckoutForm(initial=form_initial)
-    return render(request, 'checkout/checkout.html', {
+    return render(request, 'checkout/checkout_subscription.html', {
         'business': business,
         'form': form,
         'stripe_publishable_key': stripe_public_key,
@@ -52,9 +52,54 @@ def checkout(request, business_id):
         'pricing_tiers': pricing_tiers,  # Pass pricing_tiers to template context
     })
 
-@require_POST
-def create_checkout_session(request):
-    """Create Stripe Checkout session and return its ID."""
+
+def checkout_wheeler_verification(request, business_id):
+    # Load business and query params
+    business = get_object_or_404(Business, pk=business_id)
+    tier = request.GET.get('tier')
+    
+    # get Stripe API keys
+    stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+    
+    # Determine Stripe Price ID based on pricing tier
+    price_id = None
+
+    # Initialize checkout form with defaults (prepopulate contact and address)
+    form_initial = {
+        'order_type': 'wheeler_verification',
+        'tier': tier,
+        # Prepopulate contact and address fields
+        'full_name': f"{request.user.first_name} {request.user.last_name}".strip() if request.user.is_authenticated else '',
+        'email': request.user.email if request.user.is_authenticated else '',
+        'phone_number': business.contact_phone or business.public_phone or '',
+        'street_address1': business.street_address1 or '',
+        'street_address2': business.street_address2 or '',
+        'town_or_city': business.town_or_city or '',
+        'county': business.county or '',
+        'postcode': business.postcode or '',
+    }
+    form = CheckoutForm(initial=form_initial)
+    # Only offer free and standard tiers for wheeler verification
+    pricing_tiers = PricingTier.objects.filter(is_active=True, tier__in=['free', 'standard'])
+    return render(request, 'checkout/checkout_wheeler_verification.html', {
+        'business': business,
+        'form': form,
+        'stripe_publishable_key': stripe_public_key,
+        'client_secret': stripe_secret_key,
+        'pricing_tiers': pricing_tiers,
+    })
+
+
+def checkout_wheeler_verification(request, business_id):
+    # Load business and query params
+    business = get_object_or_404(Business, pk=business_id)
+    tier = request.GET.get('tier')
+
+    # get Stripe API keys
+    stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+
     form = CheckoutForm(request.POST)
     if not form.is_valid():
         return JsonResponse({'error': 'Invalid form data'}, status=400)

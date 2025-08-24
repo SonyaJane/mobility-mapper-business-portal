@@ -71,8 +71,8 @@ def register_business(request):
             # If tier requires payment, send to checkout; otherwise go to dashboard
             tier_name = business.pricing_tier.tier.lower() if business.pricing_tier else ''
             if tier_name in ['standard', 'premium']:
-                # Redirect to checkout with selected tier and billing frequency
-                url = reverse('checkout', args=[business.id])
+                # Redirect to subscription checkout with selected tier and billing frequency
+                url = reverse('checkout_subscription', args=[business.id])
                 query = urlencode({'tier': tier_name, 'billing_frequency': billing_frequency})
                 return redirect(f"{url}?{query}")
             return redirect('business_dashboard')
@@ -235,12 +235,10 @@ def business_dashboard(request):
 def business_request_wheeler_verification(request, pk):
     # Allow business owner to request Wheelers to verify their business
     business = get_object_or_404(Business, pk=pk, business_owner=request.user.userprofile)
-    if request.method == 'POST':
-        business.wheeler_verification_requested = True
-        business.save()
-        messages.success(request, "Your request to have Wheelers verify your business has been sent.")
-        return redirect('business_dashboard')
-    return render(request, 'businesses/business_request_wheeler_verification.html', {'business': business})
+    return render(request, 
+                  'businesses/business_request_wheeler_verification.html', 
+                  {'business': business,
+                   'page_title': 'Request Wheeler Verification'})
 
 @login_required
 def wheeler_verification_history(request):
@@ -626,7 +624,11 @@ def ajax_search_businesses(request):
             'id': biz.id,
             'business_name': biz.business_name,
             'categories': list(biz.categories.values_list('name', flat=True)),
-            'address': biz.address,
+            'street_address1': biz.street_address1,
+            'street_address2': biz.street_address2,
+            'town_or_city': biz.town_or_city,
+            'county': biz.county,
+            'postcode': biz.postcode,
             'location': {'lat': biz.location.y, 'lng': biz.location.x} if biz.location else None,
             'is_wheeler_verified': getattr(biz, 'verified_by_wheelers', False),
             'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
