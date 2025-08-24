@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.urls import reverse
 from django.conf import settings
 import stripe
-from businesses.models import Business
+from businesses.models import Business, PricingTier
 from .forms import CheckoutForm
 
 def checkout(request, business_id):
@@ -13,6 +13,9 @@ def checkout(request, business_id):
     tier = request.GET.get('tier')
     interval = request.GET.get('billing_frequency')
 
+    # Load all active pricing tiers
+    # Load all active pricing tiers except the free tier
+    pricing_tiers = PricingTier.objects.filter(is_active=True).exclude(tier='free')
     # get Stripe API keys
     stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -25,18 +28,20 @@ def checkout(request, business_id):
         else:
             price_id = business.pricing_tier.stripe_monthly_price_id
     
-    # Initialize checkout form with defaults
-    # Build initial form data using user and business details
+    # Initialize checkout form with defaults (prepopulate contact and address)
     form_initial = {
         'order_type': 'subscription',
         'tier': tier,
         'interval': interval,
-        'stripe_price_id': price_id,
         # Prepopulate contact and address fields
         'full_name': f"{request.user.first_name} {request.user.last_name}".strip() if request.user.is_authenticated else '',
         'email': request.user.email if request.user.is_authenticated else '',
         'phone_number': business.contact_phone or business.public_phone or '',
-        'street_address1': business.address or '',
+        'street_address1': business.street_address1 or '',
+        'street_address2': business.street_address2 or '',
+        'town_or_city': business.town_or_city or '',
+        'county': business.county or '',
+        'postcode': business.postcode or '',
     }
     form = CheckoutForm(initial=form_initial)
     return render(request, 'checkout/checkout.html', {
@@ -44,6 +49,7 @@ def checkout(request, business_id):
         'form': form,
         'stripe_publishable_key': stripe_public_key,
         'client_secret': stripe_secret_key,
+        'pricing_tiers': pricing_tiers,  # Pass pricing_tiers to template context
     })
 
 @require_POST

@@ -17,11 +17,6 @@
 # heroku run python manage.py createsuperuser
 
 """Generate fake users, businesses, verifications and associated image references.
-
-Key points:
- - Image field values now use <subdir>/filename (no legacy 'media/' prefix).
- - Optional direct upload to Cloudinary with --upload-cloud (idempotent overwrite).
- - Public IDs = filename stem, enabling stable re-generation.
 """
 
 import os

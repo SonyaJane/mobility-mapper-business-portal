@@ -31,7 +31,7 @@
 	--color-coffee-4: #865640;
 	--color-coffee-4-a: #865640da; 
 	--color-coffee-5: #644030;
-	--color-coffee-6: rgb(67, 43, 32); 	/* main font-color */
+	--color-coffee-6: #432b20; 	/* main font-color */
 	--color-coffee-6-a: #432b20cc; 
 
 	/* Green */
@@ -230,6 +230,10 @@ header {
     color: var(--color-green-4);
     border: 1px solid var(--color-green-4);
 }
+.btn-green-outline:hover {
+    background-color: var(--color-green-4);
+    color: #fff;
+}
 .btn-orange {
     background-color: var(--color-orange-2);
     color: #000;
@@ -243,6 +247,15 @@ header {
     background-color: var(--color-mango-2);
     color: #000;
 }
+.btn-mango-outline {
+    background-color: transparent;
+    color: var(--color-mango-4);
+    border: 1px solid var(--color-mango-4);
+}
+.btn-mango-outline:hover {
+    background-color: var(--color-mango-4);
+    color: #fff;
+}
 .btn-coffee {
     background-color: var(--color-coffee-2);
     color: #000;
@@ -252,7 +265,12 @@ header {
     color: var(--color-coffee-6);
     border: 1px solid var(--color-coffee-4);
 }
-
+.btn-coffee-outline:hover,
+.btn-coffee-outline.freq-btn.active {
+    background-color: var(--color-coffee-4);
+    color: #fff;
+    border: 1px solid var(--color-coffee-4);
+}
 .bg-warning {
     background-color: var(--color-orange-2) !important;
 }
@@ -366,6 +384,15 @@ header {
 #opening-hours-table .remove-period-btn {
   z-index: auto !important;
 }
+
+#payment-form #card-element {
+    color: #000;
+    border: 1px solid var(--color-coffee-4);
+    border-radius: 5px;
+    /* t r b l */
+    padding: 12px 0px 0px 12px; 
+}
+
 
 @media (max-width: 576px) {
     /* Move toast container down page for smaller screens */

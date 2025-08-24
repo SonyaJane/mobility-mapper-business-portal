@@ -17,14 +17,13 @@
     {{ form.photo|as_crispy_field }}
     {{ form.has_business|as_crispy_field }}
     {{ form.is_wheeler|as_crispy_field }}
-    {% if user.userprofile.is_wheeler %}
-      <div id="mobility-devices-field">
-        {{ form.mobility_devices|as_crispy_field }}
-      </div>
-      <div id="mobility-other-field">
-        {{ form.mobility_devices_other|as_crispy_field }}
-      </div>
-    {% endif %}
+    <!-- Mobility devices fields always rendered and toggled via JS -->
+    <div id="mobility-devices-field" style="display:none">
+      {{ form.mobility_devices|as_crispy_field }}
+    </div>
+    <div id="mobility-other-field" style="display:none">
+      {{ form.mobility_devices_other|as_crispy_field }}
+    </div>
     {# Age group #}
     {{ form.age_group|as_crispy_field }}
     {% if form.errors %}
@@ -83,27 +82,24 @@
         updateCountyField();
       }
       // Toggle mobility devices based on wheeler choice
-      const yesWheeler = document.querySelector('input[name="is_wheeler"][value="True"]');
-      const noWheeler = document.querySelector('input[name="is_wheeler"][value="False"]');
       function updateDevicesVisibility() {
         if (!devicesField) return;
-        if (yesWheeler && yesWheeler.checked) {
+        const isWheelerChecked = document.querySelector('input[name="is_wheeler"]:checked')?.value === 'True';
+        if (isWheelerChecked) {
           devicesField.style.display = 'block';
           updateOtherField();
         } else {
           devicesField.style.display = 'none';
           otherField.style.display = 'none';
-          // clear mobility device selections
           devicesField.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
           const otherInput = otherField.querySelector('input[name="mobility_devices_other"]');
           if (otherInput) otherInput.value = '';
         }
       }
-      if (yesWheeler && noWheeler) {
-        yesWheeler.addEventListener('change', updateDevicesVisibility);
-        noWheeler.addEventListener('change', updateDevicesVisibility);
-        updateDevicesVisibility();
-      }
+      document.querySelectorAll('input[name="is_wheeler"]').forEach(radio => {
+        radio.addEventListener('change', updateDevicesVisibility);
+      });
+      updateDevicesVisibility();
     });
   </script>
 </div>

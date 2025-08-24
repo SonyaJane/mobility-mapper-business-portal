@@ -12,9 +12,17 @@ class CheckoutForm(forms.ModelForm):
             'town_or_city', 'county', 'postcode',
             'tier', 'interval'
         ]
-        widgets = {
-            'tier': forms.RadioSelect(),
-            'interval': forms.RadioSelect(),
+        labels = {
+            'full_name': 'Full Name',
+            'email': 'Email Address',
+            'phone_number': 'Phone Number',
+            'street_address1': 'Address Line 1',
+            'street_address2': 'Address Line 2',
+            'town_or_city': 'Town or City',
+            'county': 'County',
+            'postcode': 'Postal Code',
+            'tier': 'Subscription Tier',
+            'interval': 'Billing Frequency',
         }
         
     def __init__(self, *args, **kwargs):
@@ -44,13 +52,5 @@ class CheckoutForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             # Add styling class and hide labels for all fields
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
-            self.fields[field].label = False
+            # self.fields[field].label = False
 
-    def clean(self):
-        cleaned_data = super().clean()
-        if cleaned_data.get('order_type') == 'subscription':
-            if not cleaned_data.get('tier'):
-                self.add_error('tier', 'Please select a subscription tier.')
-            if not cleaned_data.get('interval'):
-                self.add_error('interval', 'Please select a billing interval.')
-        return cleaned_data
