@@ -28,7 +28,9 @@ class Order(models.Model):
     
     # Unique order number for reference
     order_number = models.CharField(max_length=32, unique=True, blank=True)
+    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     
@@ -60,11 +62,12 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f'Order {self.order_number} ({self.status})'
-
     def save(self, *args, **kwargs):
         # Generate order_number if not set
         if not self.order_number:
             self.order_number = uuid.uuid4().hex.upper()[:12]
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Order {self.order_number} ({self.status})'
+    

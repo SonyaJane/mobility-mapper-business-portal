@@ -52,7 +52,7 @@
                       {{ cat.name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                   {% else %}
-                    <span class="text-muted">No categories selected.</span> <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary ms-2">Add categories</a>
+                    <span class="text-muted">No categories selected.</span> <a href="{% url 'edit_business' %}" class="btn btn-sm btn-orange-outline ms-2">Add categories</a>
                   {% endif %}
                 </td>
               </tr>
@@ -63,7 +63,7 @@
                     {{ business.address }}
                   {% else %}
                     <span class="text-muted">No address provided.</span>
-                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-coffee ms-2">Add address</a>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-coffee-outline ms-2">Add address</a>
                   {% endif %}
                 </td>
               </tr>
@@ -74,7 +74,7 @@
                     <a href="{{ business.website }}" target="_blank" class="text-orange">{{ business.website }}</a>
                   {% else %}
                     <span class="text-muted">No website set.</span>
-                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-orange ms-2">Add website</a>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-orange-outline ms-2">Add website</a>
                   {% endif %}
                 </td>
               </tr>
@@ -96,7 +96,7 @@
                     {{ business.public_phone }}
                   {% else %}
                     <span class="text-muted">No public phone.</span>
-                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-mango ms-2">Add phone</a>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-mango-outline ms-2">Add phone</a>
                   {% endif %}
                 </td>
               </tr>
@@ -107,7 +107,7 @@
                     {{ business.contact_phone }}
                   {% else %}
                     <span class="text-muted">No private phone.</span>
-                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-brown ms-2">Add private phone</a>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-brown-outline ms-2">Add private phone</a>
                   {% endif %}
                 </td>
               </tr>
@@ -151,7 +151,7 @@
                     {{ business.description }}
                   {% else %}
                     <span class="text-muted">No description provided.</span>
-                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-mango ms-2">Add description</a>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-mango-outline ms-2">Add description</a>
                   {% endif %}
                 </td>
               </tr>
@@ -162,7 +162,7 @@
                     {{ business.services_offered }}
                   {% else %}
                     <span class="text-muted">No services listed.</span>
-                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-orange ms-2">Add services</a>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-orange-outline ms-2">Add services</a>
                   {% endif %}
                 </td>
               </tr>
@@ -173,7 +173,7 @@
                     {{ business.special_offers }}
                   {% else %}
                     <span class="text-muted">No special offers.</span>
-                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-coffee ms-2">Add offers</a>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-coffee-outline ms-2">Add offers</a>
                   {% endif %}
                 </td>
               </tr>
@@ -231,7 +231,7 @@
           {% else %}
             <div class="p-3">
               <span class="text-muted">No opening hours set.</span>
-              <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-green ms-2">Add hours</a>
+              <a href="{% url 'edit_business' %}" class="btn btn-sm btn-green-outline ms-2">Add hours</a>
             </div>
           {% endif %}
         </div>

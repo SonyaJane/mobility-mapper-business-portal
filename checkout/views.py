@@ -5,7 +5,8 @@ from django.urls import reverse
 from django.conf import settings
 import stripe
 from businesses.models import Business, PricingTier
-from .forms import CheckoutForm
+from .forms import OrderForm
+from django.contrib import messages
 
 def checkout_subscription(request, business_id):
     # Load business and query params
@@ -43,7 +44,7 @@ def checkout_subscription(request, business_id):
         'county': business.county or '',
         'postcode': business.postcode or '',
     }
-    form = CheckoutForm(initial=form_initial)
+    form = OrderForm(initial=form_initial)
     return render(request, 'checkout/checkout_subscription.html', {
         'business': business,
         'form': form,
@@ -58,9 +59,46 @@ def checkout_wheeler_verification(request, business_id):
     stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
-    # GET: render checkout page
-    if request.method == 'GET':
-        tier = request.GET.get('tier')
+    if request.method == 'POST':
+        # POST: process payment
+        order_form = OrderForm(request.POST)
+        if order_form.is_valid():
+            data = order_form.cleaned_data
+            session_params = {
+                'payment_method_types': ['card'],
+                'line_items': [{
+                    'price': data['stripe_price_id'],
+                    'quantity': 1,
+                }],
+                'mode': 'payment',
+                'success_url': request.build_absolute_uri(reverse('payment_success')),
+                'cancel_url': request.build_absolute_uri(reverse('payment_failed')),
+            }
+            try:
+                session = stripe.checkout.Session.create(**session_params)
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+
+            order = form.save(commit=False)
+            if request.user.is_authenticated:
+                order.user = request.user
+            order.stripe_checkout_session_id = session.id
+            order.save()
+            return JsonResponse({'session_id': session.id})
+    
+        else:
+            messages.error(request, 'There was an error with your form. \
+                Please double check your information.')
+
+    else:
+        # GET: render checkout page
+        tier = business.pricing_tier.tier if business.pricing_tier else 'free'
+        total = 60 if tier == 'free' else 30
+        stripe.api_key = stripe_secret_key
+        intent = stripe.PaymentIntent.create(
+            amount=int(total * 100),
+            currency=settings.STRIPE_CURRENCY,
+        )
         form_initial = {
             'order_type': 'wheeler_verification',
             'tier': tier,
@@ -73,43 +111,19 @@ def checkout_wheeler_verification(request, business_id):
             'county': business.county or '',
             'postcode': business.postcode or '',
         }
-        form = CheckoutForm(initial=form_initial)
+        form = OrderForm(initial=form_initial)
+        if not stripe_public_key:
+            messages.warning(request, 'Stripe public key is missing. Did you forget to set it in your environment?')
         return render(request, 'checkout/checkout_wheeler_verification.html', {
             'business': business,
             'form': form,
             'tier': tier,
+            'total': total,
             'stripe_publishable_key': stripe_public_key,
-            'client_secret': stripe_secret_key,
+            'client_secret': intent.client_secret,
         })
 
-    # POST: process payment
-    tier = request.POST.get('tier')
-    form = CheckoutForm(request.POST)
-    if not form.is_valid():
-        return JsonResponse({'error': 'Invalid form data'}, status=400)
-    data = form.cleaned_data
-    stripe.api_key = settings.STRIPE_SECRET_KEY
-    session_params = {
-        'payment_method_types': ['card'],
-        'line_items': [{
-            'price': data['stripe_price_id'],
-            'quantity': 1,
-        }],
-        'mode': 'payment',
-        'success_url': request.build_absolute_uri(reverse('payment_success')),
-        'cancel_url': request.build_absolute_uri(reverse('payment_failed')),
-    }
-    try:
-        session = stripe.checkout.Session.create(**session_params)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-
-    order = form.save(commit=False)
-    if request.user.is_authenticated:
-        order.user = request.user
-    order.stripe_checkout_session_id = session.id
-    order.save()
-    return JsonResponse({'session_id': session.id})
+    
 
 def payment_success(request):
     return render(request, 'checkout/payment_success.html')

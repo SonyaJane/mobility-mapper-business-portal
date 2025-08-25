@@ -13,7 +13,7 @@ const style = {
         color: '#000',
         fontWeight: '600',
         fontFamily: 'Open Sans, sans-serif',
-        fontSize: '24px',
+        fontSize: '16px',
         fontSmoothing: 'antialiased',
         ':-webkit-autofill': { color: '#F7CE9DF0' },
         '::placeholder': { color: '#865640b9' }
@@ -30,10 +30,10 @@ card.on('change', (e) => {
     const errorDiv = document.getElementById('card-errors');
     if (e.error) {
         errorDiv.innerHTML = `
-            <span class="icon" role="alert">
-                <i class="fas fa-times"></i>
+            <span class="icon me-2" role="alert">
+                <i class="bi bi-x align-middle"></i>
             </span>
-            <span>${e.error.message}</span>
+            <span class="align-middle">${e.error.message}</span>
         `;
     } else {
         errorDiv.textContent = '';
@@ -95,10 +95,10 @@ form.addEventListener('submit', async (e) => {
         if (result.error) {
             const errorDiv = document.getElementById('card-errors');
             errorDiv.innerHTML = `
-                <span class="icon" role="alert">
-                    <i class="fas fa-times"></i>
+                <span class="icon me-2" role="alert">
+                    <i class="fas fa-times align-middle"></i>
                 </span>
-                <span>${result.error.message}</span>
+                <span class="align-middle">${result.error.message}</span>
             `;
             form.classList.remove('d-none');
             loadingOverlay.classList.add('d-none');

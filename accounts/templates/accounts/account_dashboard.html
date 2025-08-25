@@ -113,7 +113,7 @@
               <ul class="list-group">
                 {% for business in unverified_businesses %}
                 <li class="list-group-item">
-=                  <h5 class="mb-1 business text-orange">{{ business.business_name }}</h5>
+                  <h5 class="mb-1 business text-orange">{{ business.business_name }}</h5>
                   {% if business.categories.all %}
                   <div class="mb-0 category">{{ business.categories.all|join:", " }}</div>
                   {% endif %}
@@ -144,7 +144,7 @@
                       <a href="{% url 'business_detail' business.id %}" class="text-decoration-none text-orange">{{ business.business_name }}</a>
                     </h5>
                     {% if business.categories.all %}
-                    <div class="category text-muted small">{{ business.categories.all|join:", " }}</div>
+                    <div class="category">{{ business.categories.all|join:", " }}</div>
                     {% endif %}
                     <div class="text-muted small">{{ business.address }}</div>
                   </div>
