@@ -50,8 +50,6 @@ def register_business(request):
         if form.is_valid():
             business = form.save(commit=False)
             business.business_owner = request.user.userprofile
-            billing_frequency = form.cleaned_data.get('billing_frequency')
-            request.session['billing_frequency'] = billing_frequency
             business.opening_hours = post_data.get('opening_hours', '')
             business.save()
             # Persist categories and accessibility features
@@ -71,9 +69,9 @@ def register_business(request):
             # If tier requires payment, send to checkout; otherwise go to dashboard
             tier_name = business.pricing_tier.tier.lower() if business.pricing_tier else ''
             if tier_name in ['standard', 'premium']:
-                # Redirect to subscription checkout with selected tier and billing frequency
+                # Redirect to subscription checkout with selected tier
                 url = reverse('checkout_subscription', args=[business.id])
-                query = urlencode({'tier': tier_name, 'billing_frequency': billing_frequency})
+                query = urlencode({'tier': tier_name})
                 return redirect(f"{url}?{query}")
             return redirect('business_dashboard')
     else:

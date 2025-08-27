@@ -40,8 +40,7 @@
             <div class="card mb-3 pricing-tier-card h-100"
                 data-tier-code="{{ tier.tier }}"
                 data-tier-display="{{ tier.get_tier_display }}"
-                data-tier-month="{{ tier.price_per_month|floatformat:2 }}"
-                data-tier-year="{{ tier.price_per_year|default_if_none:0|floatformat:2 }}"
+                data-tier-price="{{ tier.price|default_if_none:0|floatformat:2 }}"
                 tabindex="0" style="cursor:pointer;">
                 <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ tier.get_tier_display }}</h5>
@@ -52,31 +51,14 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
-                <p class="mt-auto"><strong>£{{ tier.price_per_month }} / month</strong>{% if tier.price_per_year %} or £{{ tier.price_per_year }} / year{% endif %}</p>
+                <p class="mt-auto">{% if tier.price %}£{{ tier.price }} for one year{% endif %}</p>
             </div>
           </div>
         </div>
       {% endfor %}
     </div>
-    <p class="d-flex align-items-center">
-      <strong>Billing Frequency:</strong>
-      <span id="summary-frequency-display" class="ms-2">{{ business.get_billing_frequency_display }}</span>
-      <button type="button" id="change-frequency-btn" class="btn btn-sm btn-green-outline ms-3">Change Frequency</button>
-    </p>
-    <!-- Hidden frequency selection panel -->
-    <div id="checkout-frequency-options" class="btn-group mb-4 d-none">
-      {% for value,label in form.fields.interval.choices %}
-        {% if value %}
-          <button type="button" class="btn btn-coffee-outline freq-btn {% if form.initial.interval == value %}active{% endif %}" data-freq-value="{{ value }}">{{ label }}</button>
-        {% endif %}
-      {% endfor %}
-    </div>
     <p><strong>Amount:</strong> <span id="summary-amount">
-      {% if form.initial.interval == 'yearly' and business.pricing_tier.price_per_year %}
-        £{{ business.pricing_tier.price_per_year }} / year
-      {% else %}
-        £{{ business.pricing_tier.price_per_month }} / month
-      {% endif %}
+        £{{ business.pricing_tier.price }} for one year
     </span></p>
     <p>Please check your details below are correct:</p>
   </div>

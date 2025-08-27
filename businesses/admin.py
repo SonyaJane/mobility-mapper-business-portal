@@ -76,7 +76,7 @@ class BusinessAdmin(admin.ModelAdmin):
 
 @admin.register(PricingTier)
 class PricingTierAdmin(admin.ModelAdmin):
-    list_display = ("tier", "price_per_month", "is_active")
+    list_display = ("tier", "is_active")
     list_filter = ("is_active",)
     search_fields = ("tier",)
 

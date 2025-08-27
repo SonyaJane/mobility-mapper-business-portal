@@ -22,7 +22,6 @@ class OrderForm(forms.ModelForm):
             'county': 'County',
             'postcode': 'Postal Code',
             'tier': 'Subscription Tier',
-            'interval': 'Billing Frequency',
         }
         
     def __init__(self, *args, **kwargs):

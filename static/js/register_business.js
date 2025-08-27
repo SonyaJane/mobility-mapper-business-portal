@@ -1,11 +1,9 @@
-import updatePrices from './update_prices.js';
 import updateBillingActive from './update_billing_active.js';
 import { initChoices, initOtherCategoryToggle, initAutoResize, initOpeningHours } from './form_helpers.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.pricing-tier-card');
     const hiddenInput = document.getElementById('selected-pricing-tier');
-    const billingRadios = document.querySelectorAll('input[name="billing_frequency"]');
 
     // Initialize shared form helpers
     initChoices('#id_accessibility_features', {
@@ -60,19 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Also update on click of the label (for accessibility)
-    document.querySelectorAll('#billing-frequency-group label')
-        .forEach(label => {
-            label.addEventListener('click', () => {
-            setTimeout(function() {
-                updatePrices();
-                updateBillingActive();
-            }, 10); // Wait for radio to update
-            });
-        });
-
     // Initial update
-    updatePrices();
     updateBillingActive();
 
     initOtherCategoryToggle('#id_categories', '#other-category-field');

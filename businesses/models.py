@@ -12,11 +12,6 @@ TIER_CHOICES = [
     ('standard', 'Standard'),
     ('premium', 'Premium'),
 ]
-
-BILLING_FREQUENCY_CHOICES = [
-        ('monthly', 'Monthly'),
-        ('yearly', 'Yearly (Save up to 20%)'),
-    ]
     
 class PricingTier(models.Model):
     """
@@ -25,10 +20,8 @@ class PricingTier(models.Model):
     """
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, default='free', help_text="Tier type (free, supporter, featured)")
     description = models.TextField(blank=True)
-    price_per_month = models.DecimalField(max_digits=6, decimal_places=2)
-    price_per_year = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    stripe_monthly_price_id = models.CharField(max_length=100, help_text="The Stripe Price ID for this tier")
-    stripe_annual_price_id = models.CharField(max_length=100, blank=True, help_text="The Stripe Price ID for yearly billing")
+    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    stripe_price_id = models.CharField(max_length=100, blank=True, help_text="The Stripe Price ID for yearly billing")
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -107,12 +100,6 @@ class Business(models.Model):
         null=True,
         blank=True,
         related_name='businesses'
-    )
-    billing_frequency = models.CharField(
-        max_length=10,
-        choices=BILLING_FREQUENCY_CHOICES,
-        default='monthly',
-        help_text="Billing frequency for this business (monthly or yearly)"
     )
     wheeler_verification_requested = models.BooleanField(default=False)
     # Indicate if the business premises has been verified by Wheelers:

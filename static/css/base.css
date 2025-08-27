@@ -303,8 +303,7 @@ h4 {
     color: var(--color-coffee-6);
     border: 1px solid var(--color-coffee-4);
 }
-.btn-coffee-outline:hover,
-.btn-coffee-outline.freq-btn.active {
+.btn-coffee-outline:hover {
     background-color: var(--color-coffee-4);
     color: #fff;
     border: 1px solid var(--color-coffee-4);

@@ -42,7 +42,7 @@
 
     <!-- Other Form Fields -->
     {% for field in form.visible_fields %}
-      {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'billing_frequency' and field.name != 'opening_hours' and field.name != 'special_offers' %}
+      {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'pricing_tier' and field.name != 'opening_hours' and field.name != 'special_offers' %}
         {{ field|as_crispy_field }}
       {% endif %}
     {% endfor %}
@@ -130,12 +130,9 @@
       {{ form.special_offers }}
     </div>
 
-    <!-- Hidden Pricing Tier and Billing Frequency fields -->
+    <!-- Hidden Pricing Tier field -->
     {% if form.pricing_tier %}
       {{ form.pricing_tier.as_hidden }}
-    {% endif %}
-    {% if form.billing_frequency %}
-      {{ form.billing_frequency.as_hidden }}
     {% endif %}
 
     <button type="submit" class="btn btn-success">Save Changes</button>

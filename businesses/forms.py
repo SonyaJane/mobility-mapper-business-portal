@@ -1,5 +1,5 @@
 from django import forms
-from .models import Business, WheelerVerification, PricingTier, BILLING_FREQUENCY_CHOICES
+from .models import Business, WheelerVerification, PricingTier
 from .widgets import MapLibrePointWidget
 from .models import AccessibilityFeature, Category
 from PIL import Image
@@ -121,7 +121,6 @@ class BusinessRegistrationForm(forms.ModelForm):
             'opening_hours',
             'logo',
             'pricing_tier',
-            'billing_frequency',
             ]
 
     def __init__(self, *args, **kwargs):

@@ -12,7 +12,6 @@ def checkout_subscription(request, business_id):
     # Load business and query params
     business = get_object_or_404(Business, pk=business_id)
     tier = request.GET.get('tier')
-    interval = request.GET.get('billing_frequency')
 
     # Load all active pricing tiers
     # Load all active pricing tiers except the free tier

@@ -302,8 +302,6 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
     # Pick a pricing tier
     pricing_tier_obj = random.choice(pricing_tiers) if pricing_tiers else None
     pricing_tier_pk = pricing_tier_obj.pk if pricing_tier_obj else None
-    # Billing frequency
-    billing_frequency = random.choice(["monthly", "yearly"])
     # Assign logo and derive business name
     if idx < len(logo_files):
         logo_file = logo_files[idx]
@@ -425,7 +423,6 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             "instagram_url": instagram_url,
             "x_twitter_url": x_twitter_url,
             "pricing_tier": pricing_tier_pk,
-            "billing_frequency": billing_frequency,
             "wheeler_verification_requested": wheeler_verification_requested,
             "verified_by_wheelers": verified_by_wheelers,
             "is_approved": True,
