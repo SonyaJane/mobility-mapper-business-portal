@@ -1,3 +1,4 @@
+import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -10,7 +11,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django import template
 from django.contrib import messages
-
+from django.template.defaultfilters import slugify
+from .models import Category as CatModel
 from accounts.models import UserProfile
 from businesses.models import Business, Category, AccessibilityFeature
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
@@ -26,65 +28,58 @@ def get_item(dictionary, key):
 
 @login_required
 def register_business(request):
-    # Get the user profile and active pricing tiers
+    
+    # Get the user profile 
     user_profile = UserProfile.objects.get(user=request.user)
-    pricing_tiers = PricingTier.objects.filter(is_active=True)
     
     # Redirect if user already has a business record
-    from .models import Business
-    try:
-        Business.objects.get(business_owner=user_profile)
+    if Business.objects.filter(business_owner=user_profile).exists():
         return redirect('business_dashboard')
-    except Business.DoesNotExist:
-        pass
 
-    import json
+    # get active pricing tiers
+    pricing_tiers = PricingTier.objects.filter(is_active=True)
+    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
     if request.method == 'POST':
         post_data = request.POST.copy()
-        try:
-            if post_data.get('opening_hours'):
-                json.loads(post_data['opening_hours'])
-        except Exception:
-            post_data['opening_hours'] = ''
+        
+        opening_hours = post_data.get('opening_hours')
+        if opening_hours:
+            json.loads(opening_hours)
+        else:
+            opening_hours = ''
+            
         form = BusinessRegistrationForm(post_data, request.FILES)
+        
         if form.is_valid():
+            # save business
             business = form.save(commit=False)
-            business.business_owner = request.user.userprofile
-            business.opening_hours = post_data.get('opening_hours', '')
+            business.business_owner = user_profile
+            business.opening_hours = opening_hours
             business.save()
             # Persist categories and accessibility features
             form.save_m2m()
-            # Handle custom 'Other' category text
-            other_cat = form.cleaned_data.get('other_category')
-            if other_cat:
-                from django.template.defaultfilters import slugify
-                from .models import Category as CatModel
-                slug = slugify(other_cat)
-                category_obj, created = CatModel.objects.get_or_create(code=slug, defaults={'name': other_cat})
-                business.categories.add(category_obj)
+            
             # Update user profile flags
             user_profile.has_business = True
             user_profile.has_registered_business = True
             user_profile.save()
+            
             # If tier requires payment, send to checkout; otherwise go to dashboard
-            tier_name = business.pricing_tier.tier.lower() if business.pricing_tier else ''
-            if tier_name in ['standard', 'premium']:
+            if business.pricing_tier and business.pricing_tier.tier.lower() in ['standard', 'premium']:
                 # Redirect to subscription checkout with selected tier
                 url = reverse('checkout_subscription', args=[business.id])
-                query = urlencode({'tier': tier_name})
-                return redirect(f"{url}?{query}")
-            return redirect('business_dashboard')
+                return redirect(f"{url}?{urlencode({'tier': business.pricing_tier.tier.lower()})}")
+            
+            # otherwise, go to dashboard
+            return redirect('business_dashboard')    
     else:
         form = BusinessRegistrationForm()
 
-    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    # Determine selected values to preserve on form error
-    if request.method == 'POST':
-        selected_categories = request.POST.getlist('categories')
-        selected_accessibility_features = request.POST.getlist('accessibility_features')
-    else:
-        selected_categories = []
-        selected_accessibility_features = []
+    # Preserve selections for form errors
+    selected_categories = request.POST.getlist('categories') if request.method == 'POST' else []
+    selected_accessibility_features = request.POST.getlist('accessibility_features') if request.method == 'POST' else []
+        
     return render(request, 'businesses/register_business.html', {
         'form': form,
         'pricing_tiers': pricing_tiers,

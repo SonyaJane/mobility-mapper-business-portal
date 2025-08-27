@@ -150,9 +150,8 @@
                 {% endfor %}
               </ul>
               <p class="card-text price-display mt-auto"
-                data-price-year="{{ tier.price_per_year }}">
-                  <small class="text-muted price-alt">£{{ tier.price_per_year }} for one year</small>
-                {% endif %}
+                data-price-year="{{ tier.price }}">
+                  <small class="text-muted price-alt">£{% if {{ tier.price }} for one year</small>
               </p>
             </div>
           </div>
