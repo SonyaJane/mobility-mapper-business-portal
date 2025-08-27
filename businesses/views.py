@@ -418,7 +418,7 @@ def wheeler_verification_application(request, pk):
         'required_verifications': required_verifications,
         'cost_per_verification': cost_per_verification,
         'wheeler_share': wheeler_share,
-        'page_title': 'Request Wheeler Verification',
+        'page_title': 'Wheeler Verification Application',
     })
 
 

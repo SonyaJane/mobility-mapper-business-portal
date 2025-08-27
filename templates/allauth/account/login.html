@@ -10,9 +10,9 @@
   <div class="d-flex justify-content-center align-items-center mt-4">
     <div class="card shadow-sm" style="max-width:400px; width:100%;">
       <div class="card-body">
-        {% element h1 %}
-            {% trans "Sign In" %}
-        {% endelement %}
+        <div class="text-center mb-3">
+            <h3 class="card-title underline-orange d-inline-block mb-0">Sign In</h3>
+        </div>
         {% if not SOCIALACCOUNT_ONLY %}
             {% setvar link %}
                 <a href="{{ signup_url }}">
@@ -29,7 +29,7 @@
                 {{ form|crispy }}
                 {{ redirect_field }}
                 <div class="d-flex justify-content-center mt-3">
-                    <button type="submit" class="btn btn-primary px-5">{% trans "Sign In" %}</button>
+                    <button type="submit" class="btn btn-green px-5">{% trans "Sign In" %}</button>
                 </div>
             </form>
         {% endif %}

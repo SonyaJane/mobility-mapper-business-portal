@@ -86,7 +86,6 @@ header {
 
 h2 {
     font-family: var(--secondary-font), sans-serif;
-    font-size: 1.4rem;
     font-weight: 600;
 }
 
@@ -243,6 +242,11 @@ h4 {
     color: var(--color-mango-5);
 }
 
+.btn {
+    /* Apply subtle shadow to all buttons */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .btn-green {
     background-color: var(--color-green-2);
     color: black;
@@ -304,6 +308,25 @@ h4 {
     background-color: var(--color-coffee-4);
     color: #fff;
     border: 1px solid var(--color-coffee-4);
+
+}
+.btn-brown {
+    background-color: var(--color-brown-2);
+    color: #000;
+}
+.btn-brown:hover {
+    background-color: transparent;
+    color: var(--color-brown-5);
+    border: 1px solid var(--color-brown-5);
+}
+.btn-brown-outline {
+    background-color: transparent;
+    color: var(--color-brown-5);
+    border: 1px solid var(--color-brown-5);
+}
+.btn-brown-outline:hover {
+    background-color: var(--color-brown-5);
+    color: #fff;
 }
 .bg-warning {
     background-color: var(--color-orange-2) !important;

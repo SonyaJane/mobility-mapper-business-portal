@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="content-container mt-5">
-  <h2>Confirm Business Deletion</h2>
-  <p>Are you sure you want to delete your business "{{ business.name }}"?</p>
+<div class="content-container p-2">
+  <div class="text-center my-4">
+    <h3 class="underline-orange d-inline-block">Confirm Business Deletion</h3>
+    <p class="my-3">Are you sure you want to delete your business, <strong>{{ business.business_name }}</strong>?</p>
 
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Yes, Delete</button>
-    <a href="{% url 'business_dashboard' %}" class="btn btn-secondary">Cancel</a>
-  </form>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-orange">Yes, Delete</button>
+      <a href="{% url 'business_dashboard' %}" class="btn btn-coffee">No, Cancel</a>
+    </form>
+  </div>
 </div>
 {% endblock %}

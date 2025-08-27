@@ -16,7 +16,7 @@ export default function renderBusinessAccordion(biz) {
     let offers = biz.special_offers ? `<i class='bi bi-tag fs-5 me-2 text-coffee'></i>${biz.special_offers}` : '';
     let opening_hours = biz.opening_hours ? renderOpeningHoursTable(biz.opening_hours) : '';
     return `
-        <div class=\"accordion-body mt-2 mb-1\">
+        <div class=\"accordion-body mt-3 mb-1\">
             ${accessibility ? `<div class=\"mb-2\">${accessibility}</div>` : ''}
             ${website ? `<div class=\"mb-1 text-orange\">${website}</div>` : ''}
             ${(facebook || instagram || x_twitter) ? `<div class=\"mb-1 d-flex flex-row align-items-center\"><i class='bi bi-share fs-5 me-2 text-mango'></i>${facebook}${instagram}${x_twitter}</div>` : ''}

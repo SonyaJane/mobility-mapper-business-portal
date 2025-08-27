@@ -3,41 +3,40 @@
 {% block page_title %}Request Wheeler Verification of your business accessibility{% endblock %}
 
 {% block content %}
-<div class="mw-600 content-container p-2">
-  <h5 class="my-3 underline-orange align-self-start">Wheeler Verification</h5>
-
-  <p>
-    By requesting Wheelers to verify your business, you are asking three 
+<div class="mw-600 content-container p-3">
+  <h2 class="my-3 underline-orange align-self-center">Wheeler Verification</h2>
+  
+  <h3 class="mt-2">What is Wheeler Verification?</h3>
+  
+  <p>By requesting Wheelers to verify your business, you are asking three 
     community members to visit the location, confirm accessibility features, 
-    and submit a short accessibility report.
-  </p>    
+    and submit a short accessibility report.</p>    
 
   {% if business.tier == "premium" %}
     <p>The cost of this request is covered by your premium plan.</p>   
   {% elif business.tier == "standard" %}
-    <p>Since you are on the standard plan, the total cost of this request is £30.</p>
+    <p>Since you are on the standard plan, the total cost of this request is <strong>£30</strong>.</p>
   {% else %}
-    <p>Since you are on the free plan, the total cost of this request is £60.</p>
+    <p>Since you are on the free plan, the total cost of this request is <strong>£60</strong>.</p>
   {% endif %}
 
-  <p>
-    Once three Wheelers have verified your business, you will earn a badge, as shown below. 
-    This badge appears next to your listing in search results,
+  <p>Once three Wheelers have verified your business, you will earn a badge, as shown below. </p>
+
+  <div class="text-center mt-1 mb-3">
+    <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
+      <span class="fw-bold">
+        <i class="bi bi-check-circle-fill pe-2"></i>
+        Verified by Wheelers
+      </span>
+    </div>
+  </div>
+
+  <p>This badge appears next to your listing in search results,
     and on both your public and private business profile pages. 
     It helps customers identify trusted accessible venues at a glance. 
   </p>
 
-  <div class="border rounded p-2 p-sm-3 mb-2 align-self-start align-self-md-center">
-    <p class="fw-bold">Badge displayed when your business' accessibility features have been verified:</p>  
-    <div class="text-center mb-1">
-      <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
-        <span class="fw-bold">
-          <i class="bi bi-check-circle-fill pe-2"></i>
-          Verified by Wheelers
-        </span>
-      </div>
-    </div>
-  </div>
+  <h3 class="mt-2">How does it work?</h3>
 
   <p>You will be able to view all verification reports, and track your verification 
     status at any time from your Business Dashboard.
@@ -45,24 +44,21 @@
   
   <p>While you are waiting for verification, wheelers browsing the 
     <a href="{% url 'accessible_business_search' %}" class="text-orange">Accessible Business Search</a> 
-    will see the badge, shown below, next to your listing. This lets the community 
-    know you're actively seeking verification. Wheelers can click the badge to 
+    will see the badge, shown below, next to your listing. 
+  </p>  
+  
+  <div class="badge badge-verify box-shadow text-body mb-3 fs-6 d-block mx-auto">
+    Verify the accessibility of this business and earn a £10 Amazon voucher
+  </div>
+    
+  <p>This lets the community know you're actively seeking verification. Wheelers can click the badge to 
     view the verification request details and apply to verify your accessibility features. 
     We only allow verified Wheelers to complete the verification process.
     We check each report for accuracy and completeness before approving the 
     verification and making it available to you.
   </p>
 
-  <div class="border rounded p-2 mb-2 p-sm-3 mb-2 align-self-start align-self-md-center">
-    <p class="fw-bold">Badge shown to Wheelers to request verification of your business' accessibility features:</p>  
-    <div class="badge badge-verify box-shadow text-body mb-1 fs-6 d-block mx-auto">
-       Verify the accessibility of this business and earn a £10 Amazon voucher
-   </div>
-  </div>
-
-  <p class="fs-6">What would you like to do next?</p>
-
-  <div class="mb-2">
+  <div class="my-1">
     <form method="get" action="{% url 'checkout_wheeler_verification' business.id %}">
         <div class="btn-stack-350 justify-content-center">
           <button type="submit" class="btn btn-mango fw-medium">Proceed to Payment</button>
@@ -70,6 +66,5 @@
         </div>
     </form>
   </div>
-
 </div>
 {% endblock %}

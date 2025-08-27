@@ -6,9 +6,9 @@
     {% trans "Verify Your Email Address" %}
 {% endblock head_title %}
 {% block inner_content %}
-    {% element h1 %}
-        {% trans "Verify Your Email Address" %}
-    {% endelement %}
+    <div class="text-center mb-3">
+        <h3 class="card-title underline-orange d-inline-block mb-0">Verify Your Email Address</h3>
+    </div>
     {% url 'account_email' as email_url %}
     {% element p %}
         {% blocktrans %}This part of the site requires us to verify that
