@@ -10,7 +10,7 @@ class OrderForm(forms.ModelForm):
             'full_name', 'email', 'phone_number',
             'street_address1', 'street_address2',
             'town_or_city', 'county', 'postcode',
-            'tier'
+            'selected_tier'
         ]
         labels = {
             'full_name': 'Full Name',
@@ -21,7 +21,10 @@ class OrderForm(forms.ModelForm):
             'town_or_city': 'Town or City',
             'county': 'County',
             'postcode': 'Postal Code',
-            'tier': 'Subscription Tier',
+            'selected_tier': 'Tier',
+        }
+        widgets = {
+            'selected_tier': forms.HiddenInput(),
         }
         
     def __init__(self, *args, **kwargs):
@@ -51,5 +54,4 @@ class OrderForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             # Add styling class and hide labels for all fields
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
-            # self.fields[field].label = False
 

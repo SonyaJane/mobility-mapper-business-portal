@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from businesses.models import PricingTier
 import uuid
 
 class Order(models.Model):
@@ -42,8 +43,7 @@ class Order(models.Model):
     postcode = models.CharField(max_length=20, null=False, blank=False)
     
     order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES)
-    tier = models.CharField(max_length=20, choices=TIER_CHOICES, blank=True, null=True)
-    interval = models.CharField(max_length=20, choices=INTERVAL_CHOICES, blank=True, null=True)
+    selected_tier = models.ForeignKey(PricingTier, on_delete=models.SET_NULL, null=True, blank=True)
     # Order status using defined choices
     status = models.CharField(
         max_length=20,

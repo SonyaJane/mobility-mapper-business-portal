@@ -1,51 +1,55 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_title %}Explore Subscription Plans{% endblock %}
+{% block page_title %}Explore Pricing Tiers{% endblock %}
 
 {% block content %}
 <div class="content-container p-3">
+  <div class="custom-constrained-width">
 
-  <div class="p-4">
-    <h4 class="mb-4">Subscription Plans</h4>
+    <div class="my-3 text-center">
+      <h4 class="underline-orange">Explore Pricing Tiers</h4>
+    </div>
 
     {% if current_tier %}
-    <p class="mb-4">You're currently on the <strong>{{ current_tier.get_tier_display }}</strong> tier, which includes:</p>
+    <p class="mb-4">You're currently on the <strong>{{ current_tier.get_tier_display }}</strong> tier, which includes the following benefits:</p>
     <ul class="card-text ps-3 ms-0">
-        {% for line in current_tier.description.splitlines %}
-            <li>{{ line }}</li>
+        {% for benefit in current_tier.description %}
+            <li>{{ benefit }}</li>
         {% endfor %}
     </ul>
     {% endif %}
-
+    
     {% if upgrade_count %}
-      <div class="mb-3">Your upgrade option{% if upgrade_count > 1 %}s are{% else %} is{% endif %}:</div>
+    <div class="mb-3 mb-md-1">Your upgrade option{% if upgrade_count > 1 %}s are{% else %} is{% endif %}:</div>
     {% endif %}
+  
   </div>
-
+    
   <div class="row g-3">
-    {% for tier in pricing_tiers %}
-      {% if not current_tier or tier.price > current_tier.price %}
-      <div class="{% if upgrade_count == 2 %}col-md-6{% elif upgrade_count == 1 %}col-md-12{% else %}col-md-4{% endif %}">
+    {% for tier in upgrade_tiers %}
+      <div class="p-0 p-md-3 {% if upgrade_count == 2 %}col-md-6{% else %}col-md-12{% endif %}">
         <div class="card h-100">
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title">{{ tier.get_tier_display }}</h5>
+            <h4 class="card-title">{{ tier.get_tier_display }}</h4>
             <ul class="flex-grow-1 ps-3 ms-0">
-              {% for line in tier.description.splitlines %}
-              <li>{{ line }}</li>
+              {% for benefit in tier.description %}
+              <li>{{ benefit }}</li>
               {% endfor %}
             </ul>
             <p class="mb-3">
-              <strong>£{{ tier.price_per_month }} / month</strong>
-              {% if tier.price_per_year %}<br><small class="text-muted">or £{{ tier.price_per_year }} / year</small>{% endif %}
+              <strong>£{{ tier.price }} for one year</strong>
             </p>
-            <a href="{% url 'edit_business' %}" class="btn btn-primary mt-auto">Choose {{ tier.get_tier_display }}</a>
+            <a href="{% url 'checkout' business.id %}?selected_tier={{ tier.tier }}" class="btn btn-green mt-auto">Choose {{ tier.get_tier_display }}</a>
           </div>
         </div>
       </div>
-      {% endif %}
     {% endfor %}
   </div>
   
+  <div class="mb-1 mt-4 mt-md-2 text-center">
+    <a href="{% url 'business_dashboard' %}" class="btn btn-orange-outline mb-4">Keep current tier</a>
+  </div>
+
 </div>
 {% endblock %}

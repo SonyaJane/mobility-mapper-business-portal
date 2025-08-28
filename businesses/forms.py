@@ -98,7 +98,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         ),
         required=True,
     )
-
     class Meta:
         model = Business
         fields = [

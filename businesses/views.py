@@ -61,14 +61,12 @@ def register_business(request):
             user_profile.has_business = True
             user_profile.has_registered_business = True
             user_profile.save()
-
-
             
             # If tier requires payment, send to checkout; otherwise go to dashboard
-            if business.pricing_tier and business.pricing_tier.tier.lower() in ['standard', 'premium']:
+            if business.pricing_tier and business.pricing_tier.tier in ['standard', 'premium']:
                 # Redirect to subscription checkout with selected tier
                 url = reverse('checkout', args=[business.id])
-                return redirect(f"{url}?{urlencode({'tier': business.pricing_tier.tier.lower()})}")
+                return redirect(f"{url}?{urlencode({'selected_tier': business.pricing_tier.tier})}")
             
             # otherwise, go to dashboard
             return redirect('business_dashboard')    
@@ -331,25 +329,22 @@ def edit_business(request):
 
 
 @login_required
-def explore_plans(request):
+def explore_plans(request):    
     """Display available subscription plans for businesses to review and select."""
-    pricing_tiers = PricingTier.objects.filter(is_active=True).order_by('price_per_month')
-    # Determine the current user's subscription tier if they have a business
-    current_tier = None
-    try:
-        profile = request.user.userprofile
-        business = Business.objects.get(business_owner=profile)
-        current_tier = business.pricing_tier
-    except Exception:
-        current_tier = None
+    business = get_object_or_404(Business, business_owner=request.user.userprofile)
+    current_tier = business.pricing_tier
+    # get all pricing tiers
+    all_pricing_tiers = PricingTier.objects.filter(is_active=True).order_by('price')
     # Determine higher-tier upgrade options
-    upgrade_tiers = [tier for tier in pricing_tiers if not current_tier or tier.price_per_month > current_tier.price_per_month]
+    upgrade_tiers = [tier for tier in all_pricing_tiers if not current_tier or tier.price > current_tier.price]
     upgrade_count = len(upgrade_tiers)
     return render(request, 'businesses/explore_plans.html', {
-        'pricing_tiers': pricing_tiers,
+        'all_pricing_tiers': all_pricing_tiers,
         'current_tier': current_tier,
         'upgrade_tiers': upgrade_tiers,
         'upgrade_count': upgrade_count,
+        'business': business,
+        'page_title': 'Explore Pricing Tiers',
     })
 
 

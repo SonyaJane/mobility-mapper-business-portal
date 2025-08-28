@@ -11,21 +11,20 @@ from django.contrib import messages
 def checkout(request, business_id):
     # Load business and query params
     business = get_object_or_404(Business, pk=business_id)
-    tier = request.GET.get('tier')
-
-    # Load all active pricing tiers
+    # Support both 'tier' and 'selected_tier' GET parameters
+    tier_code = request.GET.get('tier') or request.GET.get('selected_tier') or (business.pricing_tier.tier if business.pricing_tier else None)
     # Load all active pricing tiers except the free tier
-    pricing_tiers = PricingTier.objects.filter(is_active=True).exclude(tier='free')
+    paid_pricing_tiers = PricingTier.objects.filter(is_active=True).exclude(tier='free')
     # get Stripe API keys
     stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     
-    # Use the pricing tier's Stripe price ID
-    price_id = business.pricing_tier.stripe_price_id if business.pricing_tier else None
+    # Determine selected tier instance and its Stripe price ID
+    selected_tier = PricingTier.objects.filter(tier=tier_code).first() if tier_code else business.pricing_tier
+    price_id = selected_tier.stripe_price_id if selected_tier else None
     # Initialize checkout form with defaults (prepopulate contact and address)
     form_initial = {
-        'order_type': 'subscription',
-        'tier': tier,
+        'selected_tier': selected_tier.id if selected_tier else None,
         # Prepopulate contact and address fields
         'full_name': f"{request.user.first_name} {request.user.last_name}".strip() if request.user.is_authenticated else '',
         'email': request.user.email if request.user.is_authenticated else '',
@@ -42,7 +41,8 @@ def checkout(request, business_id):
         'form': form,
         'stripe_publishable_key': stripe_public_key,
         'client_secret': stripe_secret_key,
-        'pricing_tiers': pricing_tiers,  # Pass pricing_tiers to template context
+        'paid_pricing_tiers': paid_pricing_tiers,
+        'selected_tier': selected_tier,
     })
 
 
@@ -114,8 +114,6 @@ def checkout_wheeler_verification(request, business_id):
             'stripe_publishable_key': stripe_public_key,
             'client_secret': intent.client_secret,
         })
-
-    
 
 def payment_success(request):
     return render(request, 'checkout/payment_success.html')
