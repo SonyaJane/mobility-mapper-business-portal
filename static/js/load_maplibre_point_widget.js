@@ -10,7 +10,7 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
         
         // If a location value already exists, show marker and make it draggable, and center map
         const initial = document.getElementById(widgetAttrsId).value;
-        console.log(`Initial value for marker: ${initial}`);
+
         if (initial) {
         // Support both 'SRID=4326;POINT (lng lat)' and 'POINT(lng lat)' formats
         let match = initial.match(/POINT ?\(([-\d.]+) ([-\d.]+)\)/);

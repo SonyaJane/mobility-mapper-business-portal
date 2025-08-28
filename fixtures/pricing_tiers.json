@@ -4,9 +4,14 @@
     "pk": 1,
     "fields": {
       "tier": "free",
-      "description": "Basic listing on map\nBusiness categories \nBusiness Address \nLink to website \nContact Phone number \nOpening hours \nAccessibility features",
-      "price_per_month": 0,
-      "price_per_year": 0,
+      "description": ["Basic listing",
+                      "Business categories",
+                      "Address",
+                      "Link to your website",
+                      "Contact Phone number",
+                      "Opening hours",
+                      "Accessibility features"],
+      "price": 0,
       "is_active": true
     }
   },
@@ -15,9 +20,14 @@
     "pk": 2,
     "fields": {
       "tier": "standard",
-      "description": "All Free tier features\nDisplay business logo \nSocial Media links  \nEmail address \nShort description of business \nOption to add special offers for wheelers to attract more customers \nHalf price wheeler verification (normally £20 per wheeler)",
-      "price_per_month": 10,
-      "price_per_year": 100,
+      "description": ["All Free tier features",
+                      "Display business logo",
+                      "Social Media links",
+                      "Email address",
+                      "Short description of business",
+                      "Option to add special offers for wheelers to attract more customers",
+                      "Half price wheeler verification (normally £60)"],
+      "price": 100,
       "is_active": true
     }
   },
@@ -26,9 +36,11 @@
     "pk": 3,
     "fields": {
       "tier": "premium",
-      "description": "All Standard features\nHighlighted on map\nAppear higher in search results\nWheeler verification included",
-      "price_per_month": 25,
-      "price_per_year": 250,
+      "description": ["All Standard features",
+                      "Highlighted on map",
+                      "Appear high in search results",
+                      "Wheeler verification included (normally £60)"],
+      "price": 250,
       "is_active": true
     }
   }

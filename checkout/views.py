@@ -8,7 +8,7 @@ from businesses.models import Business, PricingTier
 from .forms import OrderForm
 from django.contrib import messages
 
-def checkout_subscription(request, business_id):
+def checkout(request, business_id):
     # Load business and query params
     business = get_object_or_404(Business, pk=business_id)
     tier = request.GET.get('tier')
@@ -20,19 +20,12 @@ def checkout_subscription(request, business_id):
     stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     
-    # Determine Stripe Price ID based on interval
-    price_id = None
-    if business.pricing_tier:
-        if interval == 'yearly' and business.pricing_tier.stripe_annual_price_id:
-            price_id = business.pricing_tier.stripe_annual_price_id
-        else:
-            price_id = business.pricing_tier.stripe_monthly_price_id
-    
+    # Use the pricing tier's Stripe price ID
+    price_id = business.pricing_tier.stripe_price_id if business.pricing_tier else None
     # Initialize checkout form with defaults (prepopulate contact and address)
     form_initial = {
         'order_type': 'subscription',
         'tier': tier,
-        'interval': interval,
         # Prepopulate contact and address fields
         'full_name': f"{request.user.first_name} {request.user.last_name}".strip() if request.user.is_authenticated else '',
         'email': request.user.email if request.user.is_authenticated else '',
@@ -44,7 +37,7 @@ def checkout_subscription(request, business_id):
         'postcode': business.postcode or '',
     }
     form = OrderForm(initial=form_initial)
-    return render(request, 'checkout/checkout_subscription.html', {
+    return render(request, 'checkout/checkout.html', {
         'business': business,
         'form': form,
         'stripe_publishable_key': stripe_public_key,

@@ -55,7 +55,7 @@ class BusinessRegistrationForm(forms.ModelForm):
         required=False,
         label="Special Offers",
         widget=forms.Textarea(attrs={
-            'placeholder': 'Describe any special offers or discounts for wheelers.',
+            'placeholder': 'Add any discounts or promotions specifically for Wheelers to encourage customers to come to your business.',
             'class': 'form-control auto-resize',  # ensure full-width styling
             'rows': 3
         })

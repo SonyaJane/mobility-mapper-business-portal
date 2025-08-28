@@ -1,4 +1,3 @@
-import updateBillingActive from './update_billing_active.js';
 import { initChoices, initOtherCategoryToggle, initAutoResize, initOpeningHours } from './form_helpers.js';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -46,21 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         });
     });
-
-    billingRadios.forEach(radio => {
-        radio.addEventListener('change', function() {
-        updatePrices();
-        updateBillingActive();
-        });
-        radio.addEventListener('click', function() {
-        updatePrices();
-        updateBillingActive();
-        });
-    });
-
-    // Initial update
-    updateBillingActive();
-
+    
     initOtherCategoryToggle('#id_categories', '#other-category-field');
 
     initAutoResize('textarea.auto-resize');

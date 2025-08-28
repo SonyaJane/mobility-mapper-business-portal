@@ -39,6 +39,7 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
   try { initial = openingHoursField.value ? JSON.parse(openingHoursField.value) : {}; } catch {}
 
   function addPeriod(container, open = '', close = '') {
+    console.log('Adding period', open, close);
     const div = document.createElement('div');
     div.className = 'input-group mb-1 period-row';
     div.innerHTML = `
@@ -63,20 +64,7 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
       addPeriod(container);
     }
 
-    row.querySelector('.add-period-btn').onclick = () => addPeriod(container);
-    const closedCb = row.querySelector('.closed-checkbox');
-    const toggle = () => {
-      container.style.display = closedCb.checked ? 'none' : '';
-      row.querySelector('.add-period-btn').style.display = closedCb.checked ? 'none' : '';
-    };
-    closedCb.addEventListener('change', toggle);
-    // Initialize closed state: new forms start unchecked, edits follow saved data
-    if (openingHoursField.value) {
-      closedCb.checked = initialPeriods.length === 0;
-    } else {
-      closedCb.checked = false;
-    }
-    toggle();
+  row.querySelector('.add-period-btn').onclick = () => addPeriod(container);
 
     const copyBtn = row.querySelector('.copy-down-btn');
     if (copyBtn) copyBtn.onclick = () => {
@@ -99,15 +87,12 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
     const data = {};
     rows.forEach(row => {
       const day = row.dataset.day;
-      const isClosed = row.querySelector('.closed-checkbox').checked;
       const periods = [];
-      if (!isClosed) {
-        row.querySelectorAll('.period-row').forEach(div => {
-          const open = div.querySelector('.open-time').value;
-          const close = div.querySelector('.close-time').value;
-          if (open && close) periods.push({ start: open, end: close });
-        });
-      }
+      row.querySelectorAll('.period-row').forEach(div => {
+        const open = div.querySelector('.open-time').value;
+        const close = div.querySelector('.close-time').value;
+        if (open && close) periods.push({ start: open, end: close });
+      });
       data[day] = periods;
     });
     openingHoursField.value = JSON.stringify(data);

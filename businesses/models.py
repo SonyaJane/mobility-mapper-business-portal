@@ -15,21 +15,19 @@ TIER_CHOICES = [
     
 class PricingTier(models.Model):
     """
-    Represents a subscription/pricing tier for businesses.
-    Includes monthly and optional yearly pricing, Stripe integration, tier type, and active status.
+    Represents a pricing tier for businesses.
+    Includes annual pricing, Stripe integration, tier type, and active status.
     """
-    tier = models.CharField(max_length=20, choices=TIER_CHOICES, default='free', help_text="Tier type (free, supporter, featured)")
-    description = models.TextField(blank=True)
+    tier = models.CharField(max_length=20, choices=TIER_CHOICES, default='free')
+    description = models.JSONField()
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    stripe_price_id = models.CharField(max_length=100, blank=True, help_text="The Stripe Price ID for yearly billing")
+    stripe_price_id = models.CharField(max_length=100, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         """String representation showing name and prices."""
-        prices = [f"£{self.price_per_month}/mo"]
-        if self.price_per_year:
-            prices.append(f"£{self.price_per_year}/yr")
-        return f"{self.tier} ({', '.join(prices)})"
+        price = [f"£{self.price}]"]
+        return f"Tier: {self.tier}, price: {price} for one year"
 
 
 class AccessibilityFeature(models.Model):

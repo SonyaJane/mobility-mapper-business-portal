@@ -11,13 +11,10 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django import template
 from django.contrib import messages
-from django.template.defaultfilters import slugify
-from .models import Category as CatModel
 from accounts.models import UserProfile
-from businesses.models import Business, Category, AccessibilityFeature
+from businesses.models import Business, AccessibilityFeature
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
-from .models import Business, WheelerVerification, PricingTier, Category, WheelerVerificationRequest
-from .models import Category
+from .models import Business, WheelerVerification, PricingTier, WheelerVerificationRequest
 
 # custom template filter for dictionary access
 register = template.Library()
@@ -68,7 +65,7 @@ def register_business(request):
             # If tier requires payment, send to checkout; otherwise go to dashboard
             if business.pricing_tier and business.pricing_tier.tier.lower() in ['standard', 'premium']:
                 # Redirect to subscription checkout with selected tier
-                url = reverse('checkout_subscription', args=[business.id])
+                url = reverse('checkout', args=[business.id])
                 return redirect(f"{url}?{urlencode({'tier': business.pricing_tier.tier.lower()})}")
             
             # otherwise, go to dashboard

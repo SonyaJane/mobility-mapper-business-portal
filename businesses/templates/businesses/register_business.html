@@ -9,11 +9,31 @@
 
 {% block content %}
 
-<div class="content-container p-3">
-  <div class="custom-constrained-width">
-    <h4 class="my-3">Register Your Accessible Business</h4>
-    <p class="mt-1">The details you enter below will appear in the public search results on the <a href="{% url 'accessible_business_search' %}" class="link-body-emphasis">Search for Accessible Businesses</a> page. Therefore, the more complete and accurate your listing, the better potential customers can find and choose your business.</p>
-    <p>After registering, you can request verification of your business's accessibility features via your business profile. Wheelers can then apply to carry out the verification. Once verified, your business will display a special badge in search results to indicate trusted, accessible locations.</p>
+<div class="content-container p-2 p-sm-3 custom-constrained-width">
+    <div class="text-center mb-3">
+      <h3 class="underline-orange align-self-center tier-heading">Register Your Accessible Business</h3>
+    </div>
+
+    <p class="mt-1">The details you enter below will appear in the public 
+      search results on the 
+      <a href="{% url 'accessible_business_search' %}" class="text-orange">
+      Search for Accessible Businesses</a> page. Therefore, the more complete and 
+      accurate your listing, the better potential customers can find and choose your business.</p>
+
+    <p>After registering, you can request verification of your business' 
+      accessibility features via your business profile. 
+      Wheelers can then apply to carry out the verification. 
+      Once verified, your business will display a special badge 
+      (shown below) in the search results to indicate trusted, accessible locations.</p>
+
+    <div class="text-center mt-1 mb-3">
+      <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
+        <span class="fw-bold">
+          <i class="bi bi-check-circle-fill pe-2"></i>
+          Verified by Wheelers
+        </span>
+      </div>
+    </div>
 
     <form method="POST" enctype="multipart/form-data" class="business-registration-form">
       {% if form.errors %}
@@ -54,7 +74,7 @@
         <label for="id_categories" class="form-label">
           Business Categories
           <br>
-          <small>Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</small>
+          <span class="form-text">Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</span>
         </label>
         {% regroup form.fields.categories.queryset by group_description as grouped_categories %}
         <select name="categories" id="id_categories" class="form-select" multiple size="8">
@@ -97,12 +117,13 @@
       <div class="mb-3">
         <label class="form-label">
           Business Hours<br>
-          <small class="form-text text-muted">Set opening and closing times for each day, or mark as closed.</small>
+          <span class="form-text text-muted">Set opening and closing times for each day that your business is open.</span>
         </label>
         <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
         <table class="table table-bordered" id="opening-hours-table">
           <thead>
-            <tr><th>Day</th><th>Periods</th><th>Closed</th></tr>
+            <tr><th>Day</th><th>Periods</th><!-- <th>Closed</th> removed -->
+            </tr>
           </thead>
           <tbody>
             {% for day in days_of_week %}
@@ -110,13 +131,10 @@
               <td>{{ day }}</td>
               <td>
                 <div class="periods-container"></div>
-                <div class="d-flex justify-content-end gap-2">
-                  <button type="button" class="btn btn-sm btn-outline-secondary add-period-btn" data-day="{{ day }}">Add period</button>
-                  <button type="button" class="btn btn-sm btn-outline-primary copy-down-btn" data-day="{{ day }}">Copy to next day</button>
+                <div class="d-flex justify-content-end gap-2 flex-column flex-sm-row">
+                  <button type="button" class="btn btn-sm btn-orange-outline add-period-btn" data-day="{{ day }}">Add period</button>
+                  <button type="button" class="btn btn-sm btn-coffee-outline copy-down-btn" data-day="{{ day }}">Copy to next day</button>
                 </div>
-              </td>
-              <td class="text-center align-middle">
-                <input type="checkbox" class="closed-checkbox" data-day="{{ day }}" style="transform: scale(1.5);">
               </td>
             </tr>
             {% endfor %}
@@ -127,14 +145,15 @@
       <!-- Special Offers -->
       <div class="mb-3">
         <label for="id_special_offers" class="form-label">
-          Special Offers for Wheelers<br>
-          <small class="form-text text-muted">Add any discounts or promotions specifically for Wheelers to encourage customers to come to your business.</small><br>
+          Special Offers for Wheelers
         </label>
         {{ form.special_offers }}
       </div>
     </div>
-    <!-- Pricing Tiers -->
-    <h4 class="my-4">Choose a Pricing Tier</h4>
+
+  <!-- Pricing Tiers -->
+  <div class="content-container p-3">
+    <h4 class="mb-4">Choose a Pricing Tier</h4>
     <input type="hidden" name="pricing_tier" id="selected-pricing-tier" value="{{ form.initial.pricing_tier }}">
 
     <div class="row g-3" id="pricing-tier-cards">
@@ -145,13 +164,13 @@
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ tier.get_tier_display }}</h5>
               <ul class="card-text ps-3 ms-0">
-                {% for line in tier.description.splitlines %}
-                  <li>{{ line }}</li>
+                {% for benefit in tier.description %}
+                  <li>{{ benefit }}</li>
                 {% endfor %}
               </ul>
               <p class="card-text price-display mt-auto"
                 data-price-year="{{ tier.price }}">
-                  <small class="text-muted price-alt">£{% if {{ tier.price }} for one year</small>
+                  <strong class="price-alt">{% if tier.tier == 'free' %}Free{% else %}£{{ tier.price }} for one year{% endif %}</strong>
               </p>
             </div>
           </div>
@@ -159,7 +178,7 @@
       {% endfor %}
     </div>
 
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-green my-3 align-self-start">Register</button>
   </form>
 
 </div>

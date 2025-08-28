@@ -9,11 +9,19 @@
     height: 400px;
 }
 
+.add-period-btn, .copy-down-btn {
+    white-space: nowrap;
+}
+
 .pricing-tier-card.border-primary {
     border-width: 2px !important;
 }
 
-
+@media (max-width: 360px) {
+  .tier-heading {
+    font-size: 1.1rem;
+  }
+}
 
 /* Style Choices.js grouping labels and indent category items */
 .choices__group .choices__heading {
@@ -34,4 +42,24 @@
     padding: 0 !important;
   }
 
+}
+
+/* Stack opening-hours rows into a single column on small screens */
+@media (max-width: 400px) {
+  #opening-hours-table thead {
+    display: none;
+  }
+  #opening-hours-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+  #opening-hours-table tbody tr td {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 0.5rem 0;
+  }
 }
