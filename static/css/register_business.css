@@ -1,8 +1,3 @@
-.custom-constrained-width {
-    max-width: 600px !important;
-    margin: 0 auto;
-}
-
 #map-id_location {
     width: 100%;
     max-width: 400px;

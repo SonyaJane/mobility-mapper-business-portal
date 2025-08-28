@@ -6,9 +6,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h2 class="mt-4 mb-1 underline-orange">Checkout</h2>
-
+<div class="content-container p-2 p-sm-3 custom-constrained-width">
+    <div class="text-center">
+        <h3 class="mt-4 mb-1 underline-orange">Checkout</h3>
+    </div>
   {% if form.errors %}
     <div class="alert alert-danger">
       <strong>Please correct the errors below:</strong>
@@ -27,7 +28,7 @@
 
   <!-- Order Summary -->
   <div class="order-summary my-4 border p-3">
-    <h3 class="mb-4">Order Summary</h3>
+    <h4 class="mb-4">Order Summary</h4>
     <p class="d-flex align-items-center">
       <strong>Pricing Tier:</strong>
       <span id="summary-tier-display" class="ms-2">{{ business.pricing_tier.get_tier_display }}</span>
@@ -69,7 +70,7 @@
 
     <!-- Contact Information -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h3 mb-4">Contact Details</legend>
+      <legend class="h4 mb-4">Contact Details</legend>
       {% for field in form.visible_fields %}
         {% if field.name == 'full_name' or field.name == 'email' or field.name == 'phone_number' %}
           {{ field|as_crispy_field }}
@@ -79,7 +80,7 @@
 
     <!-- Address Information -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h3 mb-4">Billing Address</legend>
+      <legend class="h4 mb-4">Billing Address</legend>
       {% for field in form.visible_fields %}
         {% if field.name == 'street_address1' or field.name == 'street_address2' or field.name == 'town_or_city' or field.name == 'county' or field.name == 'postcode' %}
           {{ field|as_crispy_field }}
@@ -89,7 +90,7 @@
 
     <!-- Payment Details -->
     <fieldset class="mb-4 border p-3">
-      <legend class="h3 mb-4">Payment Details</legend>
+      <legend class="h4 mb-4">Payment Details</legend>
       <!--Stripe card element will be inserted here-->
       <div class="mb-3" id="card-element"></div>
       <!--Display card errors-->
@@ -102,18 +103,15 @@
         <span class="icon">
           <i class="bi bi-exclamation-circle"></i>
         </span>
-        <span>Your card will be charged <strong>£
-        {% if form.initial.interval == 'yearly' and business.pricing_tier.price_per_year %}
-          {{ business.pricing_tier.price_per_year|floatformat:2 }} per year
-        {% else %}
-          {{ business.pricing_tier.price_per_month|floatformat:2 }} per month
-        {% endif %}
-        </strong></span>
+        <span>Your card will be charged <strong>£{{ business.pricing_tier.price|floatformat:2 }}</strong></span>
       </p>
     </div>
 
     <!-- Submit & Loading -->
-    <button id="submit-button" type="submit" class="btn btn-green">Complete Subscription</button>
+    <button id="submit-button" type="submit" class="btn btn-green">Complete Payment</button>
+    <button id="cancel-button" type="button" class="btn btn-mango" data-bs-toggle="modal" data-bs-target="#cancelModal">
+      Cancel
+    </button>
     <div id="loading-overlay" class="d-none">
       <div class="spinner-border text-green" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -122,6 +120,25 @@
     
 
   </form>
+
+  <!-- Cancel confirmation modal -->
+    <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="cancelModalLabel">Confirm Cancellation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to cancel your payment? This will downgrade your business to the Free tier.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Return to payment</button>
+            <a href="{% url 'cancel_subscription' %}" class="btn btn-danger">Yes, Cancel Payment</a>
+        </div>
+    </div>
+  </div>
+</div>
 </div>
 {% endblock %}
 

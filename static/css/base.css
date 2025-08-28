@@ -95,7 +95,7 @@ h3, .h3 {
     font-weight: 500;
 }
 
-h4 {
+h4, .h4 {
     font-family: var(--secondary-font), sans-serif;
     font-size: 1.25rem;
     font-weight: 500;
@@ -352,6 +352,11 @@ h4 {
     text-decoration: none;
     text-wrap: wrap;
     text-align: start;
+}
+
+.custom-constrained-width {
+    max-width: 600px !important;
+    margin: 0 auto;
 }
 
 /* Convenience classes - colors copied from Bootstrap */

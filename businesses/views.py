@@ -61,6 +61,8 @@ def register_business(request):
             user_profile.has_business = True
             user_profile.has_registered_business = True
             user_profile.save()
+
+
             
             # If tier requires payment, send to checkout; otherwise go to dashboard
             if business.pricing_tier and business.pricing_tier.tier.lower() in ['standard', 'premium']:
@@ -674,3 +676,24 @@ def cancel_wheeler_verification_request(request, business_id):
     else:
         messages.info(request, "No pending verification request found to cancel.")
     return redirect('account_dashboard')
+
+@login_required
+def cancel_subscription(request):
+    """Downgrade the user's business to the free tier on cancellation."""
+    profile = getattr(request.user, 'userprofile', None)
+    if not profile:
+        messages.error(request, "Unable to find your business profile.")
+        return redirect('business_dashboard')
+    try:
+        business = Business.objects.get(business_owner=profile)
+        free_tier = PricingTier.objects.filter(tier='free', is_active=True).first()
+        if free_tier:
+            business.pricing_tier = free_tier
+            business.billing_frequency = 'monthly'
+            business.save()
+            messages.success(request, "Payment cancelled; you have been moved to the Free tier.")
+        else:
+            messages.error(request, "Free tier not available.")
+    except Business.DoesNotExist:
+        messages.error(request, "No business found to cancel subscription for.")
+    return redirect('business_dashboard')
