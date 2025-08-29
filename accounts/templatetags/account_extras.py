@@ -7,11 +7,20 @@ def device_labels(devices):
     """
     Convert a list of mobility device keys to their display names.
     """
-    from accounts.models import UserProfile
-    choices_dict = dict(UserProfile.MOBILITY_DEVICE_CHOICES)
-    # Use list of labels, defaulting to key if not found
-    # Exclude generic 'other' key; handle actual text separately
-    labels = [choices_dict.get(dev, dev) for dev in (devices or []) if dev != 'other']
+    # devices may be a manager or iterable of MobilityDevice instances or their PKs
+    devices_qs = devices.all() if hasattr(devices, 'all') else devices or []
+    # Collect device names, excluding 'other'
+    labels = []
+    for dev in devices_qs:
+        # dev may be instance or simple value
+        name = getattr(dev, 'name', None)
+        code = getattr(dev, 'code', None)
+        if code == 'other':
+            continue
+        if name:
+            labels.append(name)
+        else:
+            labels.append(str(dev))
     return ", ".join(labels)
 
 @register.filter

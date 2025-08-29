@@ -3,7 +3,7 @@ from PIL import Image
 from allauth.account.forms import SignupForm
 from django.contrib.auth import get_user_model
 from django import forms
-from .models import UserProfile
+from .models import UserProfile, County, AgeGroup, MobilityDevice
 
 class CustomSignupForm(SignupForm):
     confirm_email = forms.EmailField(max_length=254, required=True, label='Confirm Email Address')
@@ -24,8 +24,8 @@ class CustomSignupForm(SignupForm):
         widget=forms.RadioSelect,
         label='Do you use a wheeled mobility device?'
     )
-    mobility_devices = forms.MultipleChoiceField(
-        choices=UserProfile.MOBILITY_DEVICE_CHOICES,
+    mobility_devices = forms.ModelMultipleChoiceField(
+        queryset=MobilityDevice.objects.all(),
         required=False,
         widget=forms.CheckboxSelectMultiple,
         label='Which mobility devices do you use?'
@@ -43,15 +43,17 @@ class CustomSignupForm(SignupForm):
         label='Country',
         required=True
     )
-    county = forms.ChoiceField(
-        choices=UserProfile.UK_COUNTY_CHOICES,
+    county = forms.ModelChoiceField(
+        queryset=County.objects.all(),
         label='County',
-        required=False
+        required=False,
+        empty_label='Select county'
     )
-    age_group = forms.ChoiceField(
-        choices=UserProfile.AGE_GROUP_CHOICES,
+    age_group = forms.ModelChoiceField(
+        queryset=AgeGroup.objects.all(),
         label='Age Group',
-        required=False
+        required=False,
+        empty_label='Select age group'
     )
     photo = forms.ImageField(
         label='Profile Photo',
@@ -100,10 +102,10 @@ class CustomSignupForm(SignupForm):
         profile.is_wheeler = self.cleaned_data.get('is_wheeler', False)
         # Only set devices if wheeler
         if profile.is_wheeler:
-            profile.mobility_devices = self.cleaned_data.get('mobility_devices', [])
+            profile.mobility_devices.set(self.cleaned_data.get('mobility_devices', []))
             profile.mobility_devices_other = self.cleaned_data.get('mobility_devices_other', '')
         else:
-            profile.mobility_devices = []
+            profile.mobility_devices.clear()
             profile.mobility_devices_other = ''
         # Save additional profile fields
         profile.country = self.cleaned_data.get('country')
@@ -120,9 +122,16 @@ class UserProfileForm(forms.ModelForm):
     # Include user name fields
     first_name = forms.CharField(max_length=30, required=True, label='First Name')
     last_name = forms.CharField(max_length=30, required=True, label='Last Name')
+    # Country field (extend model)
+    country = forms.ChoiceField(
+        choices=UserProfile.COUNTRY_CHOICES,
+        initial='UK',
+        label='Country',
+        required=True
+    )
     # Render mobility_devices as checkboxes, and allow free-text for 'other'
-    mobility_devices = forms.MultipleChoiceField(
-        choices=UserProfile.MOBILITY_DEVICE_CHOICES,
+    mobility_devices = forms.ModelMultipleChoiceField(
+        queryset=MobilityDevice.objects.all(),
         required=False,
         widget=forms.CheckboxSelectMultiple,
         label='Which mobility devices do you use?'
@@ -152,8 +161,10 @@ class UserProfileForm(forms.ModelForm):
             # User name
             self.fields['first_name'].initial = self.instance.user.first_name
             self.fields['last_name'].initial = self.instance.user.last_name
-            # Mobility devices
-            self.fields['mobility_devices'].initial = self.instance.mobility_devices or []
+            # Country
+            self.fields['country'].initial = self.instance.country
+            # Mobility devices: use list of PKs
+            self.fields['mobility_devices'].initial = list(self.instance.mobility_devices.values_list('pk', flat=True))
             self.fields['mobility_devices_other'].initial = self.instance.mobility_devices_other or ''
             # Business and wheeler flags
             self.fields['has_business'].initial = self.instance.has_business
@@ -174,8 +185,8 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        # mobility_devices and mobility_devices_other handled in save()
-        fields = ['country', 'county', 'photo', 'age_group']
+        # Country, mobility_devices, and mobility_devices_other are handled explicitly
+        fields = ['county', 'photo', 'age_group']
 
     def save(self, commit=True):
         # Save profile fields and customized mobility selections
@@ -183,11 +194,7 @@ class UserProfileForm(forms.ModelForm):
         # Save business and mobility flags
         profile.has_business = self.cleaned_data.get('has_business', False)
         profile.is_wheeler = self.cleaned_data.get('is_wheeler', False)
-        # Update mobility devices list
-        if profile.is_wheeler:
-            profile.mobility_devices = self.cleaned_data.get('mobility_devices', [])
-        else:
-            profile.mobility_devices = []
+        # Defer m2m handling after save
         # Update other device text or clear if unchecked
         profile.mobility_devices_other = self.cleaned_data.get('mobility_devices_other', '')
         # Save related user name
@@ -197,4 +204,10 @@ class UserProfileForm(forms.ModelForm):
         if commit:
             user.save()
             profile.save()
+            # Handle many-to-many mobility devices
+            devices = self.cleaned_data.get('mobility_devices', []) or []
+            if profile.is_wheeler:
+                profile.mobility_devices.set(devices)
+            else:
+                profile.mobility_devices.clear()
         return profile

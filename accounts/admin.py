@@ -14,13 +14,18 @@ class UserProfileInline(admin.StackedInline):
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'email', 'country', 'county', 'is_wheeler', 'has_business',
-        'mobility_devices', 'age_group', 'created_at', 'updated_at'
+        'mobility_devices_list', 'age_group', 'created_at', 'updated_at'
     )
 
     def email(self, obj):
         return obj.user.email
     email.short_description = 'Email'
     search_fields = ('user__username', 'user__email')
+    
+    def mobility_devices_list(self, obj):
+        """Show mobility devices in a comma-separated list"""
+        return ", ".join(device.name for device in obj.mobility_devices.all())
+    mobility_devices_list.short_description = 'Mobility Devices'
 
 class UserAdmin(HijackUserAdminMixin, DefaultUserAdmin):
     inlines = (UserProfileInline,)

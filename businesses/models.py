@@ -92,13 +92,7 @@ class Business(models.Model):
     facebook_url = models.URLField(blank=True, null=True, help_text="Facebook page URL")
     x_twitter_url = models.URLField(blank=True, null=True, help_text="X profile URL")
     instagram_url = models.URLField(blank=True, null=True, help_text="Instagram profile URL")
-    pricing_tier = models.ForeignKey(
-        PricingTier,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='businesses'
-    )
+    pricing_tier = models.ForeignKey(PricingTier, on_delete=models.SET_NULL, null=True, blank=True, related_name='businesses')
     wheeler_verification_requested = models.BooleanField(default=False)
     # Indicate if the business premises has been verified by Wheelers:
     verified_by_wheelers = models.BooleanField(default=False)
@@ -121,23 +115,13 @@ class WheelerVerification(models.Model):
     wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verifications_made')
     date_verified = models.DateTimeField(auto_now_add=True)
     comments = models.TextField()  # required comments field
-    mobility_device = models.CharField(
-        max_length=47,
-        choices=getattr(settings, 'MOBILITY_DEVICE_CHOICES', (
-            ('manual_wheelchair', 'Manual Wheelchair'),
-            ('powered_wheelchair', 'Powered Wheelchair'),
-            ('manual_wheelchair_with_powered_front_attachment', 'Manual Wheelchair with Powered Front Attachment'),
-            ('all_terrain_wheelchair', 'All Terrain Wheelchair'),
-            ('mobility_scooter_class_2', 'Mobility Scooter Class 2 (for footpaths)'),
-            ('mobility_scooter_class_3', 'Mobility Scooter Class 3 (for road use)'),
-            ('tricycle', 'Tricycle'),
-            ('handcycle', 'Handcycle'),
-            ('adapted_bicycle', 'Adapted Bicycle'),
-            ('bicycle', 'Bicycle'),
-            ('other', 'Other'),
-        )),
-        blank=True,
+    from accounts.models import MobilityDevice
+    mobility_device = models.ForeignKey(
+        MobilityDevice,
+        on_delete=models.SET_NULL,
         null=True,
+        blank=True,
+        related_name='verifications',
         help_text="Type of wheeled mobility device used during verification."
     )
     approved = models.BooleanField(default=False, help_text="Has this verification been approved by an admin?")

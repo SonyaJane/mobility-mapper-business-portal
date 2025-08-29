@@ -4,6 +4,9 @@
 # python manage.py loaddata .\fixtures\accessibility_features.json
 # python manage.py loaddata .\fixtures\business_categories.json
 # python manage.py loaddata .\fixtures\pricing_tiers.json
+# python manage.py loaddata fixtures/counties.json
+# python manage.py loaddata fixtures/age_groups.json
+# python manage.py loaddata fixtures/mobility_devices.json
 # python scripts/generate_fake_users.py
 # python manage.py loaddata fixtures\fake_users_fixture.json
 # python manage.py createsuperuser
@@ -37,17 +40,17 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
-from accounts.models import UserProfile
+from accounts.models import UserProfile, County, AgeGroup, MobilityDevice
 from businesses.models import Business, TIER_CHOICES
 from businesses.models import Category, AccessibilityFeature, PricingTier
 from django.conf import settings  # (may remain for future use; safe if unused)
 
 fake = Faker("en_GB")
 
-# Extract UserProfile field options
-AGE_GROUPS = [choice[0] for choice in UserProfile.AGE_GROUP_CHOICES]
-MOBILITY_DEVICES = [choice[0] for choice in UserProfile.MOBILITY_DEVICE_CHOICES]
-UK_COUNTIES = [choice[0] for choice in UserProfile.UK_COUNTY_CHOICES]
+# Extract lookup table primary keys for user profile fields
+AGE_GROUPS = list(AgeGroup.objects.values_list('pk', flat=True))
+MOBILITY_DEVICES = list(MobilityDevice.objects.values_list('pk', flat=True))
+UK_COUNTIES = list(County.objects.values_list('pk', flat=True))
 
 # Generate user profiles
 user_profiles_with_business = []
