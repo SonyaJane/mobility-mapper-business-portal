@@ -69,7 +69,7 @@ export default function renderResultsList(businesses) {
                 toggleBusinessAccordion(li, infoPanel, arrowIcon, biz);
             });
             // Prevent toggling when clicking the verification request badge
-            const badgeLink = li.querySelector('.badge.bg-warning');
+            const badgeLink = li.querySelector('.badge.badge-verify');
             if (badgeLink) {
                 badgeLink.addEventListener('click', function(e) {
                     e.stopPropagation();

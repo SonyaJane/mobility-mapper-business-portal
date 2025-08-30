@@ -15,8 +15,9 @@ from accounts.models import UserProfile
 from businesses.models import Business, AccessibilityFeature
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
 from .models import Business, WheelerVerification, PricingTier, WheelerVerificationRequest
-
+from django.core.mail import mail_admins
 # custom template filter for dictionary access
+from accounts.models import MobilityDevice
 register = template.Library()
 
 @register.filter
@@ -29,7 +30,6 @@ def register_business(request):
     # Get the user profile 
     user_profile = UserProfile.objects.get(user=request.user)
     
-    # Redirect if user already has a business record
     if Business.objects.filter(business_owner=user_profile).exists():
         return redirect('business_dashboard')
 
@@ -367,7 +367,6 @@ def delete_business(request):
 
 @login_required
 def wheeler_verification_application(request, pk):
-
     business = get_object_or_404(Business, pk=pk, is_approved=True)
     profile = getattr(request.user, 'userprofile', None)
     if not request.user.is_authenticated or not profile or not profile.is_wheeler:
@@ -376,28 +375,25 @@ def wheeler_verification_application(request, pk):
 
     # Count current verifications
     verification_count = business.verifications.count()
-    required_verifications = 2
+    required_verifications = 3
     cost_per_verification = 20
     wheeler_share = 10
 
-    # Prevent double-requesting
+    # check if the wheeler has already verified this business
     if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
         messages.info(request, "You have already verified this business.")
         return redirect('public_business_detail', pk=pk)
 
     if request.method == 'POST':
-        from .models import WheelerVerificationRequest
-        # Prevent duplicate requests
-        if WheelerVerificationRequest.objects.filter(business=business, wheeler=request.user, approved=False).exists():
-            return render(request, 'businesses/request_submitted.html', {'business': business})
-        else:
-            from django.core.mail import mail_admins
+        # check if the wheeler has already applied to verify this business
+        if not WheelerVerificationRequest.objects.filter(business=business, wheeler=request.user, approved=False).exists():
+            # create a new verification request
             WheelerVerificationRequest.objects.create(business=business, wheeler=request.user)
             mail_admins(
-                subject="New Wheeler Verification Request",
-                message=f"A new request to verify accessibility features has been submitted for {business.business_name} by {request.user.username}. Review and approve in the admin panel.",
+                subject="New Wheeler Verification Application",
+                message=f"A new application to verify the accessibility features has been submitted for {business.business_name} by {request.user.username}. Review and approve in the admin panel.",
             )
-            return render(request, 'businesses/request_submitted.html', {'business': business})
+        return render(request, 'businesses/request_submitted.html', {'business': business, 'page_title': 'Application Submitted'})
 
     return render(request, 'businesses/wheeler_verification_application.html', {
         'business': business,
@@ -422,19 +418,30 @@ def wheeler_verification_form(request, pk):
         messages.info(request, "You have already verified this business.")
         return redirect('account_dashboard')
 
+    # Load mobility device options for template
+    devices = MobilityDevice.objects.all()
     if request.method == 'POST':
         # Debug: list POST and FILES dict keys
         print("POST keys:", list(request.POST.keys()))
         print("FILES keys:", list(request.FILES.keys()))
         form = WheelerVerificationForm(request.POST, request.FILES, business=business)
         if form.is_valid():
-            # Debug: confirm uploaded files
             uploaded = request.FILES.getlist('photos')
             print("Uploaded files:", [f.name for f in uploaded])
             verification = form.save(commit=False)
             verification.business = business
             verification.wheeler = request.user
-            verification.mobility_device = request.POST.get('mobility_device')
+            # Attach mobility device instance (not raw id string)
+            mob_dev_id = request.POST.get('mobility_device')
+            if mob_dev_id:
+                try:
+                    verification.mobility_device = MobilityDevice.objects.get(pk=mob_dev_id)
+                except MobilityDevice.DoesNotExist:
+                    verification.mobility_device = None
+            else:
+                verification.mobility_device = None
+            if 'selfie' in request.FILES:
+                verification.selfie = request.FILES['selfie']
             # Save the verification instance
             verification.save()
             # Persist M2M feature selections explicitly
@@ -456,17 +463,17 @@ def wheeler_verification_form(request, pk):
                 except AccessibilityFeature.DoesNotExist:
                     continue
                 # Save each uploaded file for this feature
-            for upload in request.FILES.getlist(field_name):
-                # Reset file pointer after any prior reads
-                try:
-                    upload.file.seek(0)
-                except Exception:
-                    pass
-                WheelerVerificationPhoto.objects.create(
-                    verification=verification,
-                    image=upload,
-                    feature=feature
-                )
+                for upload in request.FILES.getlist(field_name):
+                    # Reset file pointer after any prior reads
+                    try:
+                        upload.file.seek(0)
+                    except Exception:
+                        pass
+                    WheelerVerificationPhoto.objects.create(
+                        verification=verification,
+                        image=upload,
+                        feature=feature
+                    )
             # Handle general photo uploads
             for photo in request.FILES.getlist('photos'):
                 # Reset file pointer before upload
@@ -493,7 +500,8 @@ def wheeler_verification_form(request, pk):
     return render(request, 'businesses/wheeler_verification_form.html', {
         'form': form,
         'business': business,
-        'page_title': 'Submit Wheeler Verification',
+        'devices': devices,
+        'page_title': 'Accessibility Verification Form',
     })
 
 
@@ -559,7 +567,7 @@ def verification_report(request, verification_id):
         'feature_photos_list': feature_photos_list,
         'other_photo_urls': other_photo_urls,
         'show_wheeler_name': show_wheeler_name,
-        'page_title': 'Verification Report',
+        'page_title': 'Accessibility Verification Report',
     })
     
 
@@ -634,10 +642,7 @@ def ajax_search_businesses(request):
 
 
 def accessible_business_search(request):
-    """
-    Called when accessible business search page is loaded.
-    JS carries out initial search.
-    """
+    """JS carries out initial search."""
     user_profile = None
     if request.user.is_authenticated:
         from accounts.models import UserProfile

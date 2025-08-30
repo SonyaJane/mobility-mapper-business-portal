@@ -212,8 +212,9 @@ class WheelerVerificationForm(forms.ModelForm):
 
     class Meta:
         model = WheelerVerification
-        # Photos are handled manually via request.FILES in the view
-        fields = ['confirmed_features', 'additional_features', 'comments']
+        # Include selfie field for Wheeler’s photo
+        fields = ['confirmed_features', 'additional_features', 'comments', 'selfie']
+        field_classes = {'selfie': forms.ImageField}
         widgets = {
             'comments': forms.Textarea(attrs={
                 'rows': 4,
@@ -222,6 +223,7 @@ class WheelerVerificationForm(forms.ModelForm):
                 'style': 'max-width: 100%;',
             }),
         }
+    selfie = forms.ImageField(required=True, label="Upload a photo of yourself")
 
     def __init__(self, *args, **kwargs):
         business = kwargs.pop('business', None) # business instance to filter features
@@ -246,5 +248,26 @@ class WheelerVerificationForm(forms.ModelForm):
         self.fields['additional_features'].queryset = AccessibilityFeature.objects.exclude(
             pk__in=confirmed_qs.values_list('pk', flat=True)
         )
-        print('additional features', self.fields['additional_features'].queryset)
+    def clean(self):
+        cleaned_data = super().clean()
+        # Ensure a mobility device is selected
+        if not (self.data.get('mobility_device')):
+            raise forms.ValidationError('Select the mobility device you are using.')
+        confirmed = cleaned_data.get('confirmed_features') or []
+        additional = cleaned_data.get('additional_features') or []
+        errors = []
+        # Check that for each selected feature a photo was uploaded
+        for feature in confirmed:
+            if f'feature_photo_{feature.pk}' not in (self.files or {}):
+                errors.append(forms.ValidationError(
+                    f"A photo is required for confirmed feature '{feature.name}'."
+                ))
+        for feature in additional:
+            if f'feature_photo_{feature.pk}' not in (self.files or {}):
+                errors.append(forms.ValidationError(
+                    f"A photo is required for additional feature '{feature.name}'."
+                ))
+        if errors:
+            raise forms.ValidationError(errors)
+        return cleaned_data
 

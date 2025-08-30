@@ -79,8 +79,9 @@ class Business(models.Model):
     accessibility_features = models.ManyToManyField('AccessibilityFeature', blank=True, related_name='businesses')
     logo = models.ImageField(
         upload_to='mobility_mapper_business_portal/business_logos/',
-        blank=True,
-        null=True,
+    max_length=255,
+    blank=True,
+    null=True,
     )
     website = models.URLField(blank=True, null=True)
     opening_hours = models.TextField(blank=True, null=True)
@@ -124,6 +125,14 @@ class WheelerVerification(models.Model):
         related_name='verifications',
         help_text="Type of wheeled mobility device used during verification."
     )
+    # Selfie of the Wheeler at the business
+    selfie = models.ImageField(
+        upload_to='mobility_mapper_business_portal/wheeler_selfies/',
+    max_length=255,
+    blank=True,
+    null=True,
+        help_text="A selfie of the Wheeler taken at the business."
+    )
     approved = models.BooleanField(default=False, help_text="Has this verification been approved by an admin?")
     # Store which features the wheeler confirmed
     confirmed_features = models.ManyToManyField(AccessibilityFeature, blank=False, related_name='confirmed_in_verifications')
@@ -141,7 +150,8 @@ class WheelerVerification(models.Model):
 class WheelerVerificationPhoto(models.Model):
     verification = models.ForeignKey(WheelerVerification, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(
-        upload_to='mobility_mapper_business_portal/verification_photos/',
+    upload_to='mobility_mapper_business_portal/verification_photos/',
+    max_length=255,
     )
     feature = models.ForeignKey(
         'AccessibilityFeature',

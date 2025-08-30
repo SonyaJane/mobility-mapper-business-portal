@@ -5,8 +5,15 @@
 }
 .border-custom {
   border: 1px solid #dee2e6;
-  border-bottom: none;
+  border-radius: 5px;
 }
 textarea.form-control {
   border-radius: 0rem;
+}
+/* Fixed width for checkbox/radio icon columns */
+.w-41 {
+  width: 41px;
+}
+.w-49 {
+  width: 49px;
 }

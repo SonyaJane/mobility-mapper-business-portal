@@ -83,6 +83,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'accounts.context_processors.user_profile',
                 'config.context_processors.os_api_key',
+                'config.context_processors.wheeler_history',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -210,6 +211,13 @@ OS_MAPS_API_KEY = os.environ.get('OS_MAPS_API_KEY')
 HIJACK_EXIT_REDIRECT_URL = '/admin/auth/user/'
 # Restrict hijack permission to superusers only
 HIJACK_AUTHORIZATION_FUNCTION = 'hijack.auth.superusers_only'
+
+ADMINS = [
+    (
+        os.environ.get("ADMIN_NAME"),
+        os.environ.get("ADMIN_EMAIL"),
+    ),
+]
     
 LOGGING = {
     'version': 1,

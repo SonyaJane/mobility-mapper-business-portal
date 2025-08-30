@@ -30,6 +30,12 @@
     padding-bottom: 0.75rem;
 }
 
+.profile-photo {
+    max-height: 180px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
 .category {
     font-weight: 600;
     color: var(--color-coffee-4);

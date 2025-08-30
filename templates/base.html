@@ -78,6 +78,11 @@
                 <li class="nav-item mb-2">
                   <a class="nav-link{% if request.resolver_match.url_name == 'accessible_business_search' %} active{% endif %}" href="{% url 'accessible_business_search' %}">Accessible Business Search</a>
                 </li>                
+                {% if show_wheeler_history %}
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'wheeler_verification_history' %} active{% endif %}" href="{% url 'wheeler_verification_history' %}">Accessibility Verifications</a>
+                </li>
+                {% endif %}
                 {% if not user.userprofile.has_business %}
                 <li class="nav-item mb-2">
                   <a class="nav-link{% if request.resolver_match.url_name == 'register_business' %} active{% endif %}" href="{% url 'register_business' %}">Register Your Business</a>

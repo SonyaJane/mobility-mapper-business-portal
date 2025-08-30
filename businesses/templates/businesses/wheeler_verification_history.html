@@ -3,19 +3,20 @@
 {% block content %}
 <div class="content-container m-1">
   <div class="p-2">
- 
-    <h5 class="my-4">Your Accessibility Verification History</h5>
+
+    <h3 class="my-4 underline-orange align-self-start">Accessibility Verifications</h3>
     {% if requests %}
+    <p class="mb-3">Your accessibility verification applications and reports are listed below:</p>
     <div class="table-responsive h-100 w-100" style="overflow:auto;">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Business</th>
-            <th>Request Status</th>
-            <th>Date Requested</th>
-            <th>Date Request Approved</th>
-            <th>Verification Report Status</th>
-            <th>Actions</th>
+            <th class="align-middle text-nowrap">Business</th>
+            <th class="align-middle text-nowrap">Request Status</th>
+            <th class="align-middle text-nowrap">Date Requested</th>
+            <th class="align-middle text-nowrap">Date Request Approved</th>
+            <th class="align-middle text-nowrap">Verification Report Status</th>
+            <th class="align-middle text-nowrap">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -53,13 +54,35 @@
             <td>
               {% with submitted=verification_status|get_item:req.id %}
                 {% if submitted %}
-                  <a href="{% url 'verification_report' verification_id_map|get_item:req.id %}" class="btn btn-sm btn-secondary">View Report</a>
+                  <a href="{% url 'verification_report' verification_id_map|get_item:req.id %}" class="btn btn-sm btn-green-outline">View Report</a>
                 {% elif req.approved %}
-                  <a href="{% url 'wheeler_verification_form' req.business.id %}" class="btn btn-sm btn-primary">Submit Verification</a>
+                  <a href="{% url 'wheeler_verification_form' req.business.id %}" class="btn btn-sm btn-green">Submit Verification</a>
+                {% else %}
+                  <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelModal-{{ req.id }}">
+                    Cancel Request
+                  </button>
                 {% endif %}
               {% endwith %}
             </td>
           </tr>
+          <!-- Cancel Confirmation Modal -->
+          <div class="modal fade" id="cancelModal-{{ req.id }}" tabindex="-1" aria-labelledby="cancelModalLabel-{{ req.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="cancelModalLabel-{{ req.id }}">Cancel Verification Request</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to cancel your request to verify {{ req.business.business_name }}?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Keep It</button>
+                  <a href="{% url 'cancel_wheeler_verification_request' req.business.id %}" class="btn btn-danger">Yes, Cancel</a>
+                </div>
+              </div>
+            </div>
+          </div>
           {% endfor %}
         </tbody>
       </table>

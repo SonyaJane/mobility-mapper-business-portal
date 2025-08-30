@@ -15,10 +15,10 @@
   <div class="my-4">
     <h4 class="text-center">
       <span class="d-block">Verification of the accessibility features of</span>
-      <span class="fw-bold text-primary py-2 d-block">{{ verification.business.business_name }}</span>
+      <span class="fw-bold text-orange py-2 d-block">{{ verification.business.business_name }}</span>
       {% if show_wheeler_name %}
       <span class="d-block">by</span>
-      <span class="fw-bold text-primary py-2 d-block">{{ verification.wheeler.get_full_name|default:verification.wheeler.username }}</span>
+      <span class="fw-bold text-orange py-2 d-block">{{ verification.wheeler.get_full_name|default:verification.wheeler.username }}</span>
       <span class="d-block fs-6">(your name is only visible to you)</span>
       {% endif %}
     </h4>
@@ -28,7 +28,14 @@
     <div class="col-md-4">
       <div class="border rounded p-3 h-100">
         <h5>Address visited:</h5>
-        <p>{{ verification.business.address }}</p>
+        <p>
+          {% with biz=verification.business %}
+            {% if biz.street_address1 %}{{ biz.street_address1 }}<br>{% endif %}
+            {% if biz.street_address2 %}{{ biz.street_address2 }}<br>{% endif %}
+            {% if biz.town_or_city %}{{ biz.town_or_city }}{% if biz.postcode %}, {{ biz.postcode }}{% endif %}<br>{% endif %}
+            {% if biz.county %}{{ biz.county }}{% endif %}
+          {% endwith %}
+        </p>
       </div>
     </div>
     <div class="col-md-4">
@@ -40,7 +47,13 @@
     <div class="col-md-4">
       <div class="border rounded p-3 h-100">
         <h5>Mobility Device Used</h5>
-        <p>{{ verification.get_mobility_device_display }}</p>
+        <p>
+          {% if verification.mobility_device %}
+            {{ verification.mobility_device.name }}
+          {% else %}
+            Not provided
+          {% endif %}
+        </p>
       </div>
     </div>
   </div>

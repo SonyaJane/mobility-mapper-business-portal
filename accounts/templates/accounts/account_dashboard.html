@@ -9,15 +9,12 @@
 {% block content %}
 <div class="content-container p-1">
 
-  <!-- Dashboard Header -->
-
-
   <div class="row align-items-center my-4 mx-2 gy-4 gx-2 border rounded shadow-sm">
     <div class="p-0 m-0 col-md-6 text-center">
       {% if user.userprofile.photo %}
-      <img src="{{ profile_photo }}" alt="Profile Photo" class="img-fluid rounded my-4" style="max-height: 180px; aspect-ratio: 1/1; object-fit: cover;">
+      <img src="{{ profile_photo }}" alt="Profile Photo" class="img-fluid rounded my-4 profile-photo">
       {% else %}
-      <div class="placeholder-img" style="max-height: 180px; aspect-ratio: 1/1; background-color: #f0f0f0;"></div>
+      <img src="{% static 'images/profile_photo_placeholder.png' %}" alt="Profile Photo" class="img-fluid rounded my-4 profile-photo">
       {% endif %}
     </div>
     <div class="p-0 col-md-6 text-center">
@@ -94,7 +91,7 @@
               <a href="{% url 'register_business' %}" class="btn btn-green">Register Your Business</a>
             {% endif %}
             {% if verification_reports or approved_businesses or pending_businesses %}
-              <a href="{% url 'wheeler_verification_history' %}" class="btn btn-coffee">View Your Business Verifications</a>
+              <a href="{% url 'wheeler_verification_history' %}" class="btn btn-coffee">Your Business Accessibility Verifications</a>
             {% endif %}
           </div>
         </div>

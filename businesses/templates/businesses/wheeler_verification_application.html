@@ -3,12 +3,12 @@
 <div class="content-container p-2">
   <h3 class="mt-3 mb-1 underline-orange align-self-center">Accessibility Verification</h3>
 
-  <p class="mt-2">We appreciate your interest in verifying the accessibility features of <span class="fw-bold">{{ business.name }}</span>.</p>
+  <p class="mt-2">We appreciate your interest in verifying the accessibility features of <span class="fw-bold">{{ business.business_name }}</span>.</p>
   <div class="mb-3">
     <p>
       <strong>Address:</strong> {{ business.street_address1 }}{% if business.street_address2 %}, {{ business.street_address2 }}{% endif %}, {{ business.town_or_city }}, {{ business.county }}, {{ business.postcode }}
     </p>
-    <p>{{ business.name }} has specified that their premises have the following Accessibility Features:</p>
+  <p>{{ business.business_name }} has specified that their premises have the following Accessibility Features:</p>
     {% for feature in business.accessibility_features.all %}
       <span class="badge accessibility-badge">{{ feature.name }}</span>
     {% endfor %}
