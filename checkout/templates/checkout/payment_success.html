@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-container p-3 custom-constrained-width">
+    
+    <h3 class="mt-4 mb-1 underline-orange align-self-start">Payment Successful</h3>
+    
+    <p>Thank you for your payment.</p>
+    <p>Your purchase information is below. A confirmation email will be sent to <strong>{{ purchase.email }}</strong>.</p>
+
+    <div class="card p-3">
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <p class="font-weight-bold mb-0">Purchase Type</p>
+            </div>
+            <div class="col-12 col-md-8 text-md-right">
+                <p class="mb-0">{{ purchase.get_purchase_type_display }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <p class="mb-0 font-weight-bold">Purchase Amount</p>
+            </div>
+            <div class="col-12 col-md-8 text-md-right">
+                <p class="mb-0">£{{ purchase.amount }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <p class="font-weight-bold mb-0">Reference Number </p>
+            </div>
+            <div class="col-12 col-md-8 text-md-right">
+                <p class="mb-0">{{ purchase.purchase_number }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <p class="font-weight-bold mb-0">Purchase Date</p>
+            </div>
+            <div class="col-12 col-md-8 text-md-right">
+                <p class="mb-0">{{ purchase.created_at|date:"F j, Y" }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <small class="text-muted">Billing Info:</small>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <p class="mb-0 font-weight-bold">Full Name</p>
+            </div>
+            <div class="col-12 col-md-8 text-md-right">
+                <p class="mb-0">{{ purchase.full_name }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <p class="mb-0 font-weight-bold">Email Address</p>
+            </div>
+            <div class="col-12 col-md-8 text-md-right">
+                <p class="mb-0">{{ purchase.email }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <p class="mb-0 font-weight-bold">Phone Number</p>
+            </div>
+            <div class="col-12 col-md-8 text-md-right">
+                <p class="mb-0">{{ purchase.phone_number }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <p class="mb-0 font-weight-bold">Address</p>
+            </div>
+            <div class="col-12 col-md-8 text-md-right">
+                    <p class="mb-0">
+                        {{ purchase.street_address1 }}{% if purchase.street_address2 %}<br>{{ purchase.street_address2 }}{% endif %}<br>
+                        {{ purchase.town_or_city }}<br>
+                        {{ purchase.county }}<br>
+                        {{ purchase.postcode }}
+                    </p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="{% url 'business_dashboard' %}" class="btn btn-green">Go to business dashboard</a>
+</div>
+{% endblock %}
