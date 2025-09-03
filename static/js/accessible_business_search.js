@@ -12,10 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // On desktop: real-time filtering; on mobile: wait for Search button
     const searchInput = document.getElementById('business-search');
     if (window.matchMedia('(min-width: 768px)').matches) {
-        console.log("Desktop detected, enabling real-time search filtering.");
         searchInput.addEventListener('input', filterBusinesses);
     } else {
-        console.log("Mobile detected, waiting for Search button.");
         const searchBtn = document.getElementById('search-btn');
         if (searchBtn) {
             searchBtn.addEventListener('click', () => filterBusinesses());
@@ -26,12 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.MAP && window.MAP.map && window.matchMedia('(min-width: 768px)').matches) {
         // Only re-filter once the user finishes dragging (panning) or zooming on larger screens
         window.MAP.map.on('dragend', () => {
-                console.log("Map dragged, filtering businesses...");
                 filterBusinesses();
             }
         );
         window.MAP.map.on('zoomend', () => {
-            console.log("Map zoomed, filtering businesses...");
             filterBusinesses();
         });
     }

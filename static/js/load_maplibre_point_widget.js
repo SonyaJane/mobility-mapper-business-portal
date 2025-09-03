@@ -49,15 +49,11 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
             }
         }
 
-
         MAP.map.on('click', function (e) {
-            console.log(e);
             const lat = e.lngLat.lat
             const lng = e.lngLat.lng;
             setMarker([lng, lat], true);
         });
-
-
 
         MAP.map.on('load', () => {
             MAP.map.resize();  // critical!

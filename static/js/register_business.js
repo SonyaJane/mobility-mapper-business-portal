@@ -1,8 +1,8 @@
 import { initChoices, initOtherCategoryToggle, initAutoResize, initOpeningHours } from './form_helpers.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-    const cards = document.querySelectorAll('.pricing-tier-card');
-    const hiddenInput = document.getElementById('selected-pricing-tier');
+    const cards = document.querySelectorAll('.membership-tier-card');
+    const hiddenInput = document.getElementById('selected-membership-tier');
 
     // Initialize shared form helpers
     initChoices('#id_accessibility_features', {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set default tier if one is initially selected in Django
         const defaultTierId = hiddenInput.value;
         if (defaultTierId) {
-        const defaultCard = document.querySelector(`.pricing-tier-card[data-tier-id="${defaultTierId}"]`);
+        const defaultCard = document.querySelector(`.membership-tier-card[data-tier-id="${defaultTierId}"]`);
         if (defaultCard) {
             defaultCard.classList.add('border-primary', 'shadow');
         }

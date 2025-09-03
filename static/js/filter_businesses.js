@@ -19,14 +19,12 @@ export default function filterBusinesses() {
 
     // Get the search input value
     const search = document.getElementById('business-search').value;
-    console.log("Search term:", search);
 
     // Get accessibility filter selections
     let access;
     access = Array.from(document.getElementById('accessibility-select').selectedOptions)
         .map(o => o.value)
         .filter(v => v);
-    console.log("Selected accessibility features:", access);
     // Show results list container
     let resultsListWrapper = document.getElementById('results-container');
     resultsListWrapper.classList.remove('hide');
@@ -120,7 +118,6 @@ export default function filterBusinesses() {
         // Remove loading indicator on error
         const spinnerEl3 = document.getElementById('search-spinner');
         if (spinnerEl3) spinnerEl3.remove();
-        console.error('Search failed', err);
         // Clear results list and markers on error
         renderResultsList([]);
         if (window.MAP && window.MAP.map) {

@@ -39,7 +39,6 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
   try { initial = openingHoursField.value ? JSON.parse(openingHoursField.value) : {}; } catch {}
 
   function addPeriod(container, open = '', close = '') {
-    console.log('Adding period', open, close);
     const div = document.createElement('div');
     div.className = 'input-group mb-1 period-row';
     div.innerHTML = `
