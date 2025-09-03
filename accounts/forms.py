@@ -59,8 +59,8 @@ class CustomSignupForm(SignupForm):
         label='Profile Photo',
         required=False
     )
-    # specify render order including new fields
-    field_order = [
+    # specify render purchase including new fields
+    field_purchase = [
         'first_name', 'last_name', 
         'email', 'confirm_email', 'username', 
         'has_business', 'is_wheeler', 'mobility_devices', 'mobility_devices_other', 

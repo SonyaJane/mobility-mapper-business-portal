@@ -244,22 +244,22 @@
   </div>
 
   <div class="row mb-3 g-3 d-flex align-items-stretch"> 
-    <!-- Subscription tier -->
+  <!-- Membership tier -->
     <div class="col-12 col-md-6">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
-          <h3 class="card-title mb-3">Subscription Tier</h3>
+          <h3 class="card-title mb-3">Membership Tier</h3>
           <div>
-            {% if business.pricing_tier %}
-              {% if business.pricing_tier.tier == 'free' %}
+            {% if business.membership_tier %}
+              {% if business.membership_tier.tier == 'free' %}
                 <p class="mb-3">You're on the Free tier. Upgrade to make your business stand out!</p>
                 <a href="{% url 'explore_plans' %}" class="btn btn-green-outline">Explore Plans</a>
-              {% elif business.pricing_tier.tier == 'standard' %}
+              {% elif business.membership_tier.tier == 'standard' %}
                 <p class="mb-2">You're on the Standard tier. Upgrade to Premium for highlighted placement and included verification!</p>
                 <a href="{% url 'explore_plans' %}" class="btn btn-green-outline-outline">Explore Plans</a>
               {% else %}
                 <p class="mb-2">You're on the Premium tier. Enjoy highlighted placement and included verification!</p>
-                <a href="{% url 'explore_plans' %}" class="btn btn-green-outline">Manage Subscription</a>  
+                <a href="{% url 'explore_plans' %}" class="btn btn-green-outline">Manage Membership</a>  
               {% endif %}
             {% endif %}
           </div>

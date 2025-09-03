@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_title %}Explore Pricing Tiers{% endblock %}
+{% block page_title %}Explore Membership Tiers{% endblock %}
 
 {% block content %}
 <div class="content-container p-3">
   <div class="custom-constrained-width">
 
     <div class="my-3 text-center">
-      <h4 class="underline-orange">Explore Pricing Tiers</h4>
+      <h4 class="underline-orange">Explore Membership Tiers</h4>
     </div>
 
     {% if current_tier %}
@@ -40,7 +40,7 @@
             <p class="mb-3">
               <strong>£{{ tier.price }} for one year</strong>
             </p>
-            <a href="{% url 'checkout' business.id %}?selected_tier={{ tier.tier }}" class="btn btn-green mt-auto">Choose {{ tier.get_tier_display }}</a>
+            <a href="{% url 'checkout' business.id %}?membership_tier={{ tier.tier }}" class="btn btn-green mt-auto">Choose {{ tier.get_tier_display }}</a>
           </div>
         </div>
       </div>

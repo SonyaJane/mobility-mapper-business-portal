@@ -59,7 +59,8 @@
   </p>
 
   <div class="my-1">
-    <form method="get" action="{% url 'checkout_wheeler_verification' business.id %}">
+    <form method="get" action="{% url 'checkout' business.id %}">
+        <input type="hidden" name="purchase" value="verification">
         <div class="btn-stack-350 justify-content-center">
           <button type="submit" class="btn btn-mango fw-medium">Proceed to Payment</button>
           <a href="{% url 'business_dashboard' %}" class="btn btn-coffee fw-medium">Return to Dashboard</a>

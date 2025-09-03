@@ -14,7 +14,7 @@ from django.contrib import messages
 from accounts.models import UserProfile
 from businesses.models import Business, AccessibilityFeature
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
-from .models import Business, WheelerVerification, PricingTier, WheelerVerificationRequest
+from .models import Business, WheelerVerification, MembershipTier, WheelerVerificationRequest
 from django.core.mail import mail_admins
 # custom template filter for dictionary access
 from accounts.models import MobilityDevice
@@ -33,8 +33,8 @@ def register_business(request):
     if Business.objects.filter(business_owner=user_profile).exists():
         return redirect('business_dashboard')
 
-    # get active pricing tiers
-    pricing_tiers = PricingTier.objects.filter(is_active=True)
+    # get active membership tiers
+    membership_tiers = MembershipTier.objects.filter(is_active=True)
     days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
     if request.method == 'POST':
@@ -53,6 +53,17 @@ def register_business(request):
             business = form.save(commit=False)
             business.business_owner = user_profile
             business.opening_hours = opening_hours
+            # Ensure new businesses default to the Free tier until payment completes.
+            intended_tier = form.cleaned_data.get('membership_tier')
+            try:
+                free_tier = MembershipTier.objects.filter(tier__iexact='free', is_active=True).first()
+            except Exception:
+                free_tier = None
+            if free_tier:
+                business.membership_tier = free_tier
+            else:
+                # If no free tier exists for some reason, clear the tier to avoid granting paid access.
+                business.membership_tier = None
             business.save()
             # Persist categories and accessibility features
             form.save_m2m()
@@ -62,11 +73,11 @@ def register_business(request):
             user_profile.has_registered_business = True
             user_profile.save()
             
-            # If tier requires payment, send to checkout; otherwise go to dashboard
-            if business.pricing_tier and business.pricing_tier.tier in ['standard', 'premium']:
-                # Redirect to subscription checkout with selected tier
+            # If the user selected a paid tier, redirect to checkout using the intended tier id
+            # (the business itself remains on Free until the webhook upgrades it on successful payment).
+            if intended_tier and intended_tier.tier in ['standard', 'premium']:
                 url = reverse('checkout', args=[business.id])
-                return redirect(f"{url}?{urlencode({'selected_tier': business.pricing_tier.tier})}")
+                return redirect(f"{url}?{urlencode({'membership_tier': intended_tier.id})}")
             
             # otherwise, go to dashboard
             return redirect('business_dashboard')    
@@ -79,7 +90,7 @@ def register_business(request):
         
     return render(request, 'businesses/register_business.html', {
         'form': form,
-        'pricing_tiers': pricing_tiers,
+        'membership_tiers': membership_tiers,
         'days_of_week': days_of_week,
         'selected_categories': selected_categories,
         'selected_accessibility_features': selected_accessibility_features,
@@ -267,7 +278,7 @@ def wheeler_verification_history(request):
 def edit_business(request):
     business = get_object_or_404(Business, business_owner=request.user.userprofile)
 
-    pricing_tiers = PricingTier.objects.filter(is_active=True)
+    membership_tiers = MembershipTier.objects.filter(is_active=True)
     import json
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -320,7 +331,7 @@ def edit_business(request):
         selected_accessibility_features = [str(pk) for pk in business.accessibility_features.values_list('pk', flat=True)]
     return render(request, 'businesses/edit_business.html', {
         'form': form,
-        'pricing_tiers': pricing_tiers,
+        'membership_tiers': membership_tiers,
         'days_of_week': days_of_week,
         'selected_categories': selected_categories,
         'selected_accessibility_features': selected_accessibility_features,
@@ -330,21 +341,21 @@ def edit_business(request):
 
 @login_required
 def explore_plans(request):    
-    """Display available subscription plans for businesses to review and select."""
+    """Display available membership plans for businesses to review and select."""
     business = get_object_or_404(Business, business_owner=request.user.userprofile)
-    current_tier = business.pricing_tier
-    # get all pricing tiers
-    all_pricing_tiers = PricingTier.objects.filter(is_active=True).order_by('price')
+    current_tier = business.membership_tier
+    # get all membership tiers
+    all_membership_tiers = MembershipTier.objects.filter(is_active=True).order_by('price')
     # Determine higher-tier upgrade options
-    upgrade_tiers = [tier for tier in all_pricing_tiers if not current_tier or tier.price > current_tier.price]
+    upgrade_tiers = [tier for tier in all_membership_tiers if not current_tier or tier.price > current_tier.price]
     upgrade_count = len(upgrade_tiers)
     return render(request, 'businesses/explore_plans.html', {
-        'all_pricing_tiers': all_pricing_tiers,
+        'all_membership_tiers': all_membership_tiers,
         'current_tier': current_tier,
         'upgrade_tiers': upgrade_tiers,
         'upgrade_count': upgrade_count,
         'business': business,
-        'page_title': 'Explore Pricing Tiers',
+        'page_title': 'Explore Membership Tiers',
     })
 
 
@@ -678,22 +689,22 @@ def cancel_wheeler_verification_request(request, business_id):
     return redirect('account_dashboard')
 
 @login_required
-def cancel_subscription(request):
-    """Downgrade the user's business to the free tier on cancellation."""
+def cancel_membership(request):
+    """Downgrade the user's business to the free tier on membership cancellation."""
     profile = getattr(request.user, 'userprofile', None)
     if not profile:
         messages.error(request, "Unable to find your business profile.")
         return redirect('business_dashboard')
     try:
         business = Business.objects.get(business_owner=profile)
-        free_tier = PricingTier.objects.filter(tier='free', is_active=True).first()
+        free_tier = MembershipTier.objects.filter(tier='free', is_active=True).first()
         if free_tier:
-            business.pricing_tier = free_tier
+            business.membership_tier = free_tier
             business.billing_frequency = 'monthly'
             business.save()
-            messages.success(request, "Payment cancelled; you have been moved to the Free tier.")
+            messages.success(request, "Membership cancelled; you have been moved to the Free tier.")
         else:
             messages.error(request, "Free tier not available.")
     except Business.DoesNotExist:
-        messages.error(request, "No business found to cancel subscription for.")
+        messages.error(request, "No business found to cancel membership for.")
     return redirect('business_dashboard')

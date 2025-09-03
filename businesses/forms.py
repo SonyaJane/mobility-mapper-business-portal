@@ -1,5 +1,5 @@
 from django import forms
-from .models import Business, WheelerVerification, PricingTier
+from .models import Business, WheelerVerification, MembershipTier
 from .widgets import MapLibrePointWidget
 from .models import AccessibilityFeature, Category
 from PIL import Image
@@ -119,23 +119,27 @@ class BusinessRegistrationForm(forms.ModelForm):
             'special_offers',
             'opening_hours',
             'logo',
-            'pricing_tier',
-            ]
+            'membership_tier',
+        ]
+        labels = {
+            'street_address1': 'Street address (building and number)',
+            'street_address2': 'Address line 2 (suite, unit, etc.)',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Make location input required in HTML
         self.fields['location'].widget.attrs['required'] = True
-        # order categories by group and name so grouping works correctly
+        # purchase categories by group and name so grouping works correctly
         self.fields['categories'].queryset = Category.objects.all().order_by('group_description', 'name')
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
-        self.fields['pricing_tier'].queryset = PricingTier.objects.filter(is_active=True)
-        self.fields['pricing_tier'].empty_label = "Select a pricing tier"
+        self.fields['membership_tier'].queryset = MembershipTier.objects.filter(is_active=True)
+        self.fields['membership_tier'].empty_label = "Select a membership tier"
         try:
-            free_tier = PricingTier.objects.filter(tier__iexact='Free', is_active=True).first()
+            free_tier = MembershipTier.objects.filter(tier__iexact='Free', is_active=True).first()
             if free_tier:
-                self.initial['pricing_tier'] = free_tier.pk
-        except PricingTier.DoesNotExist:
+                self.initial['membership_tier'] = free_tier.pk
+        except MembershipTier.DoesNotExist:
             pass
 
     def clean_location(self):
