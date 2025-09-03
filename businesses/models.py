@@ -1,5 +1,5 @@
 """
-Models for the businesses app, including PricingTier, Business, and WheelerVerification.
+Models for the businesses app, including MembershipTier, Business, and WheelerVerification.
 Defines business tiers, business details, and accessibility/verification features.
 """
 
@@ -13,15 +13,21 @@ TIER_CHOICES = [
     ('premium', 'Premium'),
 ]
     
-class PricingTier(models.Model):
+class MembershipTier(models.Model):
     """
-    Represents a pricing tier for businesses.
-    Includes annual pricing, Stripe integration, tier type, and active status.
+    Represents a membership tier for businesses.
+    Includes annual membership, Stripe integration, tier type, and active status.
     """
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, default='free')
     description = models.JSONField()
     price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    stripe_price_id = models.CharField(max_length=100, blank=True)
+    # Numeric price for a Wheeler verification when purchased separately
+    verification_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    # Stripe price id used for the business membership tier:
+    membership_stripe_price_id = models.CharField(max_length=100, blank=True)
+    # Stripe price id for purchasing a Wheeler verification given they are on this tier
+    verification_stripe_price_id = models.CharField(max_length=100, blank=True, null=True,
+                                                   help_text="Stripe Price ID used for Wheeler verification purchases for this tier.")
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -61,7 +67,7 @@ class Category(models.Model):
 class Business(models.Model):
     """
     Represents a business registered on the platform.
-    Stores owner, details, location, accessibility, pricing tier, and verification info.
+    Stores owner, details, location, accessibility, membership tier, and verification info.
     """
     class Meta:
         verbose_name_plural = "Businesses"
@@ -93,7 +99,7 @@ class Business(models.Model):
     facebook_url = models.URLField(blank=True, null=True, help_text="Facebook page URL")
     x_twitter_url = models.URLField(blank=True, null=True, help_text="X profile URL")
     instagram_url = models.URLField(blank=True, null=True, help_text="Instagram profile URL")
-    pricing_tier = models.ForeignKey(PricingTier, on_delete=models.SET_NULL, null=True, blank=True, related_name='businesses')
+    membership_tier = models.ForeignKey(MembershipTier, on_delete=models.SET_NULL, null=True, blank=True, related_name='businesses')
     wheeler_verification_requested = models.BooleanField(default=False)
     # Indicate if the business premises has been verified by Wheelers:
     verified_by_wheelers = models.BooleanField(default=False)
@@ -186,3 +192,7 @@ class WheelerVerificationRequest(models.Model):
     def __str__(self):
         status = 'Approved' if self.approved else 'Pending'
         return f"Request by {self.wheeler} for {self.business.business_name} ({status})"
+
+    class Meta:
+        # Prevent duplicate requests for the same business/wheeler pair at the DB level
+        unique_together = ('business', 'wheeler')

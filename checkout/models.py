@@ -1,37 +1,37 @@
 from django.db import models
 from django.conf import settings
-from businesses.models import PricingTier
+from businesses.models import Business, MembershipTier
 import uuid
 
-class Order(models.Model):
-    """Model to track Stripe orders and their status."""
-    
-    # Type of order: subscription or one-off verification
-    ORDER_TYPE_CHOICES = [
-        ('subscription', 'Subscription'),
-        ('verification', 'One-off Verification'),
+class Purchase(models.Model):
+    """Model to track Stripe purchases and their status."""
+
+    # Type of purchase: membership or verification
+    PURCHASE_TYPE_CHOICES = [
+        ('membership', 'Membership for one year'),
+        ('verification', 'Verification of Accessibility Features'),
     ]
-    ORDER_STATUS_CHOICES = [
+    PURCHASE_STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('completed', 'Completed'),
         ('canceled', 'Canceled'),
     ]
-        # Tier for subscriptions (standard vs premium)
+    # Memberships tiers
     TIER_CHOICES = [
+        ('free', 'Free'),
         ('standard', 'Standard'),
         ('premium', 'Premium'),
     ]
-    # Billing interval for subscriptions
-    INTERVAL_CHOICES = [
-        ('monthly', 'Monthly'),
-        ('yearly', 'Yearly'),
-    ]
-    
-    # Unique order number for reference
-    order_number = models.CharField(max_length=32, unique=True, blank=True)
-    
+
+    # Unique purchase number for reference
+    purchase_number = models.CharField(max_length=32, unique=True, blank=True)
+    purchase_type = models.CharField(max_length=20, choices=PURCHASE_TYPE_CHOICES)
+
+    # Foreign keys
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
-    
+    business = models.ForeignKey(Business, on_delete=models.SET_NULL, null=True, blank=True)
+    membership_tier = models.ForeignKey(MembershipTier, on_delete=models.SET_NULL, null=True, blank=True)
+
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     
@@ -42,31 +42,30 @@ class Order(models.Model):
     county = models.CharField(max_length=80, null=False, blank=False)
     postcode = models.CharField(max_length=20, null=False, blank=False)
     
-    order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES)
-    selected_tier = models.ForeignKey(PricingTier, on_delete=models.SET_NULL, null=True, blank=True)
-    # Order status using defined choices
+    # purchase status using defined choices
     status = models.CharField(
         max_length=20,
-        choices=ORDER_STATUS_CHOICES,
+        choices=PURCHASE_STATUS_CHOICES,
         default='pending'
     )
     
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)    
+    amount = models.DecimalField(max_digits=10, decimal_places=2)    
     
-    stripe_checkout_session_id = models.CharField(max_length=255, unique=True)
     stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True)
-    stripe_price_id = models.CharField(max_length=255)
+    membership_stripe_price_id = models.CharField(max_length=255)
+    # Raw Stripe session payload for audit/reconciliation
+    raw_payload = models.JSONField(blank=True, null=True)
     
     metadata = models.JSONField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        # Generate order_number if not set
-        if not self.order_number:
-            self.order_number = uuid.uuid4().hex.upper()[:12]
+        # Generate purchase_number if not set
+        if not self.purchase_number:
+            self.purchase_number = uuid.uuid4().hex.upper()[:12]
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Order {self.order_number} ({self.status})'
+        return f'Purchase {self.purchase_number} ({self.status})'
     
