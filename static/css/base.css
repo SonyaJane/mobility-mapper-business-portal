@@ -252,6 +252,14 @@ h5, .h5 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Disabled button appearance and behavior helper */
+.btn.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: grayscale(15%);
+}
+
 .btn-green {
     background-color: var(--color-green-2);
     color: black;
@@ -398,6 +406,23 @@ h5, .h5 {
 }
 
 /* Disable the pulse animation on the location dot */
+/* Spinner for form submit buttons */
+.btn-spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 .maplibregl-user-location-dot::after,
 .maplibregl-user-location-dot::before {
     display: none !important;

@@ -1,16 +1,16 @@
 from django import forms
-from .models import Order
+from .models import Purchase
 
-class OrderForm(forms.ModelForm):
-    """Form for creating an Order via Stripe Checkout."""
+class PurchaseForm(forms.ModelForm):
+    """Form for creating a Purchase for on-site Stripe Elements (PaymentIntent) payments."""
 
     class Meta:
-        model = Order
+        model = Purchase
         fields = [
             'full_name', 'email', 'phone_number',
             'street_address1', 'street_address2',
             'town_or_city', 'county', 'postcode',
-            'selected_tier'
+            'membership_tier'
         ]
         labels = {
             'full_name': 'Full Name',
@@ -21,10 +21,10 @@ class OrderForm(forms.ModelForm):
             'town_or_city': 'Town or City',
             'county': 'County',
             'postcode': 'Postal Code',
-            'selected_tier': 'Tier',
+            'membership_tier': 'Tier',
         }
         widgets = {
-            'selected_tier': forms.HiddenInput(),
+            'membership_tier': forms.HiddenInput(),
         }
         
     def __init__(self, *args, **kwargs):
