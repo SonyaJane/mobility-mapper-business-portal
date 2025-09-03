@@ -1,0 +1,50 @@
+[
+  {
+    "model": "businesses.membershiptier",
+    "pk": 1,
+    "fields": {
+      "tier": "free",
+      "description": ["Basic listing",
+                      "Business categories",
+                      "Address",
+                      "Link to your website",
+                      "Contact Phone number",
+                      "Opening hours",
+                      "Accessibility features"],
+      "price": 0,
+      "verification_price": 60,
+      "is_active": true
+    }
+  },
+  {
+    "model": "businesses.membershiptier",
+    "pk": 2,
+    "fields": {
+      "tier": "standard",
+      "description": ["All Free tier features",
+                      "Display business logo",
+                      "Social Media links",
+                      "Email address",
+                      "Short description of business",
+                      "Option to add special offers for wheelers to attract more customers",
+                      "Half price wheeler verification (normally £60)"],
+      "price": 100,
+      "verification_price": 30,
+      "is_active": true
+    }
+  },
+  {
+    "model": "businesses.membershiptier",
+    "pk": 3,
+    "fields": {
+      "tier": "premium",
+      "description": ["All Standard features",
+                      "Highlighted on map",
+                      "Appear high in search results",
+                      "Wheeler verification included (normally £60)"],
+      "price": 250,
+      "verification_price": 0,
+      "is_active": true
+    }
+  }
+]

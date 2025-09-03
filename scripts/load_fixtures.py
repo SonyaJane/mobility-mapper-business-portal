@@ -33,7 +33,7 @@ def main():
         [sys.executable, 'manage.py', 'flush', '--no-input'],
         [sys.executable, 'manage.py', 'loaddata', 'fixtures/accessibility_features.json'],
         [sys.executable, 'manage.py', 'loaddata', 'fixtures/business_categories.json'],
-        [sys.executable, 'manage.py', 'loaddata', 'fixtures/pricing_tiers.json'],
+        [sys.executable, 'manage.py', 'loaddata', 'fixtures/membership_tiers.json'],
         [sys.executable, 'scripts/generate_fake_users.py'],
         [sys.executable, 'manage.py', 'loaddata', 'fixtures/fake_users_fixture.json'],
         # Create/update superuser and populate related objects in one shell
@@ -48,9 +48,9 @@ def main():
             "p.photo=pd.get('photo',''); p.country=pd['country']; p.county=pd['county']; p.is_wheeler=pd['is_wheeler']; "
             "p.has_business=pd['has_business']; p.has_registered_business=pd['has_registered_business']; p.mobility_devices=pd['mobility_devices']; "
             "p.mobility_devices_other=pd['mobility_devices_other']; p.age_group=pd['age_group']; p.save(); "
-            "from businesses.models import Business, PricingTier; bd=d['business']; import django.contrib.gis.geos as geos; "
-            "loc=geos.GEOSGeometry(bd['location']); tier=PricingTier.objects.filter(tier=bd.get('pricing_tier')).first() if bd.get('pricing_tier') else None; "
-            "biz = Business.objects.filter(business_owner=p).first() or Business.objects.create(business_owner=p, business_name=bd['name'], description=bd['description'], location=loc, address=bd['address'], pricing_tier=tier, logo=bd['logo'], website=bd['website'], opening_hours=bd['opening_hours'], public_phone=bd['public_phone'], contact_phone=bd['contact_phone'], public_email=bd['public_email'], services_offered=bd['services_offered'], special_offers=bd['special_offers'], facebook_url=bd['facebook_url'], instagram_url=bd['instagram_url'], x_twitter_url=bd['x_twitter_url'], wheeler_verification_requested=bd['wheeler_verification_requested'], verified_by_wheelers=bd['verified_by_wheelers'], is_approved=bd['is_approved']); "
+            "from businesses.models import Business, MembershipTier; bd=d['business']; import django.contrib.gis.geos as geos; "
+            "loc=geos.GEOSGeometry(bd['location']); tier=MembershipTier.objects.filter(tier=bd.get('membership_tier')).first() if bd.get('membership_tier') else None; "
+            "biz = Business.objects.filter(business_owner=p).first() or Business.objects.create(business_owner=p, business_name=bd['name'], description=bd['description'], location=loc, address=bd['address'], membership_tier=tier, logo=bd['logo'], website=bd['website'], opening_hours=bd['opening_hours'], public_phone=bd['public_phone'], contact_phone=bd['contact_phone'], public_email=bd['public_email'], services_offered=bd['services_offered'], special_offers=bd['special_offers'], facebook_url=bd['facebook_url'], instagram_url=bd['instagram_url'], x_twitter_url=bd['x_twitter_url'], wheeler_verification_requested=bd['wheeler_verification_requested'], verified_by_wheelers=bd['verified_by_wheelers'], is_approved=bd['is_approved']); "
             "biz.categories.set(bd.get('categories', [])); biz.accessibility_features.set(bd.get('accessibility_features', [])); p.has_business=True; p.save(); "
             "print('Superuser created/updated:', u.username)"
         )],

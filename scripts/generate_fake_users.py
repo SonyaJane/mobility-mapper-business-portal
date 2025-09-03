@@ -3,7 +3,7 @@
 # python manage.py flush --no-input
 # python manage.py loaddata .\fixtures\accessibility_features.json
 # python manage.py loaddata .\fixtures\business_categories.json
-# python manage.py loaddata .\fixtures\pricing_tiers.json
+# python manage.py loaddata .\fixtures\membership_tiers.json
 # python manage.py loaddata fixtures/counties.json
 # python manage.py loaddata fixtures/age_groups.json
 # python manage.py loaddata fixtures/mobility_devices.json
@@ -15,7 +15,7 @@
 # heroku run python manage.py flush
 # heroku run python manage.py loaddata ./fixtures/accessibility_features.json
 # heroku run python manage.py loaddata ./fixtures/business_categories.json
-# heroku run python manage.py loaddata ./fixtures/pricing_tiers.json
+# heroku run python manage.py loaddata ./fixtures/membership_tiers.json
 # heroku run python manage.py loaddata fixtures/fake_users_fixture.json
 # heroku run python manage.py createsuperuser
 
@@ -42,7 +42,7 @@ django.setup()
 
 from accounts.models import UserProfile, County, AgeGroup, MobilityDevice
 from businesses.models import Business, TIER_CHOICES
-from businesses.models import Category, AccessibilityFeature, PricingTier
+from businesses.models import Category, AccessibilityFeature, MembershipTier
 from django.conf import settings  # (may remain for future use; safe if unused)
 
 fake = Faker("en_GB")
@@ -285,11 +285,11 @@ category_choices = list(Category.objects.values_list('pk', flat=True))
 # get all accessibility feature IDs
 accessibility_choices = list(AccessibilityFeature.objects.values_list('pk', flat=True))
 
- # Get all pricing tier IDs
+ # Get all membership tier IDs
 tier_choices = [c[0] for c in TIER_CHOICES]
 
-# Get all pricing tier PKs (assume at least one exists)
-pricing_tiers = list(PricingTier.objects.filter(is_active=True))
+# Get all membership tier PKs (assume at least one exists)
+membership_tiers = list(MembershipTier.objects.filter(is_active=True))
 
 # Generate businesses for each user profile with a business
 for idx, owner_pk in enumerate(user_profiles_with_business):
@@ -302,9 +302,9 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             break
     # Use SRID prefix for proper PostGIS geometry import
     point_wkt = f"SRID=4326;POINT({lon} {lat})"
-    # Pick a pricing tier
-    pricing_tier_obj = random.choice(pricing_tiers) if pricing_tiers else None
-    pricing_tier_pk = pricing_tier_obj.pk if pricing_tier_obj else None
+    # Pick a membership tier
+    membership_tier_obj = random.choice(membership_tiers) if membership_tiers else None
+    membership_tier_pk = membership_tier_obj.pk if membership_tier_obj else None
     # Assign logo and derive business name
     if idx < len(logo_files):
         logo_file = logo_files[idx]
@@ -425,7 +425,7 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             "facebook_url": facebook_url,
             "instagram_url": instagram_url,
             "x_twitter_url": x_twitter_url,
-            "pricing_tier": pricing_tier_pk,
+            "membership_tier": membership_tier_pk,
             "wheeler_verification_requested": wheeler_verification_requested,
             "verified_by_wheelers": verified_by_wheelers,
             "is_approved": True,

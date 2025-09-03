@@ -8,7 +8,7 @@
     "description": "Accessible cafe serving delicious coffee and pastries.",
     "address": "10 Frederick Street, Campbell, CA31 4LP",
     "location": "SRID=4326;POINT(-0.1278 51.5074)",
-    "pricing_tier": "free",
+    "membership_tier": "free",
     "is_approved": true,
     "categories": [29],
     "accessibility_features": [1,2,3],
