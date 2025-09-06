@@ -36,12 +36,18 @@ class UserAdmin(HijackUserAdminMixin, DefaultUserAdmin):
         # Return the user instance to impersonate
         return obj
     def is_wheeler(self, obj):
-        return getattr(obj.userprofile, 'is_wheeler', False)
+        try:
+            return obj.profile.is_wheeler
+        except UserProfile.DoesNotExist:
+            return False
     is_wheeler.boolean = True
     is_wheeler.short_description = 'Is Wheeler'
 
     def has_business(self, obj):
-        return getattr(obj.userprofile, 'has_business', False)
+        try:
+            return obj.profile.has_business
+        except UserProfile.DoesNotExist:
+            return False
     has_business.boolean = True
     has_business.short_description = 'Has Business'
 
