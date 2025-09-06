@@ -34,7 +34,7 @@ function initMembershipUI() {
                 // so the server will re-render the page and create a PaymentIntent for that tier.
                 const url = new URL(window.location.href);
                 url.searchParams.set('membership_tier', card.dataset.tierId || card.dataset.tierCode || '');
-                url.searchParams.set('purchase_type', 'membership');
+                url.searchParams.set('purchase', 'membership');
                 window.location.href = url.toString();
             });
         });

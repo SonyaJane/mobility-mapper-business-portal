@@ -9,8 +9,8 @@ const paymentIntentId = JSON.parse(document.getElementById('id_payment_intent').
 const errorDiv = document.getElementById('card-errors');
 
 // Initialise Stripe
-let stripe = Stripe(stripePublicKey);
-let elements = stripe.elements();
+stripe = Stripe(stripePublicKey);
+elements = stripe.elements();
 
 // Create a card Element style
 const style = {
@@ -35,7 +35,7 @@ const style = {
 };
 
 // Create card Element without the postal / ZIP code input
-let card = elements.create('card', {style: style, hidePostalCode: true});
+card = elements.create('card', {style: style, hidePostalCode: true});
 // mount the card Element
 card.mount('#card-element');
 
@@ -120,5 +120,10 @@ form.addEventListener('submit', async e => {
         if (result.paymentIntent.status === 'succeeded') {
             form.submit();
         }
+        // redirect to success page. We use paymentIntent id
+        // as the reference so payment_success can show purchase details or poll.
     }
+
+    const initPaymentIntentId = paymentIntentId;
+    window.location.href = `/checkout/payment-success/?payment_intent_id=${encodeURIComponent(initPaymentIntentId || (result.paymentIntent && result.paymentIntent.id) || '')}`;
 });
