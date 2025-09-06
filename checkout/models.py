@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from businesses.models import Business, MembershipTier
 import uuid
+from django.db import IntegrityError
 
 
 class CheckoutCache(models.Model):
@@ -82,10 +83,22 @@ class Purchase(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        # Generate purchase_number if not set
-        if not self.purchase_number:
-            self.purchase_number = uuid.uuid4().hex.upper()[:12]
-        super().save(*args, **kwargs)
+        # Generate purchase_number if not set. Retry on IntegrityError
+        # to defend against the unlikely case of a purchase_number collision
+        attempts = 0
+        while True:
+            if not self.purchase_number:
+                self.purchase_number = uuid.uuid4().hex.upper()[:12]
+            try:
+                super().save(*args, **kwargs)
+                break
+            except IntegrityError:
+                # If we hit a unique constraint (very rare), try a new number up to 3 times
+                attempts += 1
+                if attempts >= 3:
+                    raise
+                # regenerate and retry
+                self.purchase_number = None
 
     def __str__(self):
         return f'Purchase {self.purchase_number} ({self.status})'
