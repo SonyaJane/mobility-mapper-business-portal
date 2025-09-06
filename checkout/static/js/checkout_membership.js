@@ -32,20 +32,10 @@ function initMembershipUI() {
             card.addEventListener('click', () => {
                 // Redirect to the checkout page with the membership_tier as a query param
                 // so the server will re-render the page and create a PaymentIntent for that tier.
-                try {
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('membership_tier', card.dataset.tierId || card.dataset.tierCode || '');
-                    url.searchParams.set('purchase', 'membership');
-                    window.location.href = url.toString();
-                } catch (e) {
-                    // Fallback: set hidden input and update UI if URL API isn't available
-                    cards.forEach(c => c.classList.remove('border-primary', 'shadow'));
-                    card.classList.add('border-primary', 'shadow');
-                    selectedTierHidden.value = card.dataset.tierId || card.dataset.tierCode;
-                    summaryDisplay.textContent = card.dataset.tierDisplay;
-                    tierOptions.style.display = 'none';
-                    updateAmount();
-                }
+                const url = new URL(window.location.href);
+                url.searchParams.set('membership_tier', card.dataset.tierId || card.dataset.tierCode || '');
+                url.searchParams.set('purchase_type', 'membership');
+                window.location.href = url.toString();
             });
         });
         // Highlight default
