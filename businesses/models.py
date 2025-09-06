@@ -20,20 +20,18 @@ class MembershipTier(models.Model):
     """
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, default='free')
     description = models.JSONField()
-    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    membership_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     # Numeric price for a Wheeler verification when purchased separately
     verification_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    # Stripe price id used for the business membership tier:
-    membership_stripe_price_id = models.CharField(max_length=100, blank=True)
-    # Stripe price id for purchasing a Wheeler verification given they are on this tier
-    verification_stripe_price_id = models.CharField(max_length=100, blank=True, null=True,
-                                                   help_text="Stripe Price ID used for Wheeler verification purchases for this tier.")
+    # Note: Stripe Price IDs were removed from models; pricing is stored locally as
+    # `membership_price` and `verification_price`. To reintroduce Stripe Price
+    # references later, add fields and migrations.
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         """String representation showing name and prices."""
-        price = [f"£{self.price}]"]
-        return f"Tier: {self.tier}, price: {price} for one year"
+        price_display = f"£{self.membership_price}" if self.membership_price is not None else "£0"
+        return f"Tier: {self.tier}, price: {price_display} for one year"
 
 
 class AccessibilityFeature(models.Model):

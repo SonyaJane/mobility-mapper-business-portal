@@ -11,8 +11,8 @@
                       "Contact Phone number",
                       "Opening hours",
                       "Accessibility features"],
-      "price": 0,
-      "verification_price": 60,
+  "membership_price": 0,
+  "verification_price": 60,
       "is_active": true
     }
   },
@@ -28,8 +28,8 @@
                       "Short description of business",
                       "Option to add special offers for wheelers to attract more customers",
                       "Half price wheeler verification (normally £60)"],
-      "price": 100,
-      "verification_price": 30,
+  "membership_price": 100,
+  "verification_price": 30,
       "is_active": true
     }
   },
@@ -42,8 +42,8 @@
                       "Highlighted on map",
                       "Appear high in search results",
                       "Wheeler verification included (normally £60)"],
-      "price": 250,
-      "verification_price": 0,
+  "membership_price": 250,
+  "verification_price": 0,
       "is_active": true
     }
   }
