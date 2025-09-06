@@ -116,7 +116,8 @@ class StripeWebHookHandler:
             purchase.metadata = intent.get('metadata', {}) or {}
 
             purchase.save()
-
+            biz_id = purchase.business.id
+            tier_id = purchase.membership_tier.id
             # If this was a membership purchase, upgrade the Business tier.
             business = Business.objects.filter(pk=int(biz_id)).first()
             print('business:', business)
