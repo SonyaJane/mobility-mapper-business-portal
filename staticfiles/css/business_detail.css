@@ -1,6 +1,0 @@
-@media (min-width: 576px) {
-    /* To allow for longer category names */
-    #description-services-table td:first-child {
-        width: 210px;
-    }
-}

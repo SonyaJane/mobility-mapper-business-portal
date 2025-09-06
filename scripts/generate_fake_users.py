@@ -1,12 +1,6 @@
 # Dev
-# Run the script: python scripts/generate_fake_users.py
 # python manage.py flush --no-input
-# python manage.py loaddata .\fixtures\accessibility_features.json
-# python manage.py loaddata .\fixtures\business_categories.json
-# python manage.py loaddata .\fixtures\membership_tiers.json
-# python manage.py loaddata fixtures/counties.json
-# python manage.py loaddata fixtures/age_groups.json
-# python manage.py loaddata fixtures/mobility_devices.json
+# python manage.py loaddata .\fixtures\accessibility_features.json .\fixtures\business_categories.json .\fixtures\membership_tiers.json .\fixtures\counties.json .\fixtures\age_groups.json .\fixtures\mobility_devices.json
 # python scripts/generate_fake_users.py
 # python manage.py loaddata fixtures\fake_users_fixture.json
 # python manage.py createsuperuser
@@ -16,12 +10,14 @@
 # heroku run python manage.py loaddata ./fixtures/accessibility_features.json
 # heroku run python manage.py loaddata ./fixtures/business_categories.json
 # heroku run python manage.py loaddata ./fixtures/membership_tiers.json
+# heroku run python manage.py loaddata ./fixtures/counties.json
+# heroku run python manage.py loaddata ./fixtures/age_groups.json
+# heroku run python manage.py loaddata ./fixtures/mobility_devices.json
 # heroku run python manage.py loaddata fixtures/fake_users_fixture.json
 # heroku run python manage.py createsuperuser
 
 """Generate fake users, businesses, verifications and associated image references.
 """
-
 import os
 import re
 import django
@@ -136,10 +132,10 @@ for i in range(20):
     users.append(user)
     
     ### user profile instances ###
-    # Assign 1 or 2 mobility devices to wheeler users
+    # Assign 1 or 2 mobility devices to wheeler users (devices is a list of PKs)
     devices = random.sample(MOBILITY_DEVICES, k=random.randint(1, 2))
-    # Other mobility device (not in devices list)
-    other_device = fake.sentence(nb_words=3) if 'other' in devices else ''
+    # Never populate mobility_devices_other in generated fixtures — keep empty.
+    other_device = ''
     # Generate timestamps so updated_at is after created_at and both before now
     created_at = fake.date_time_this_year(tzinfo=timezone.utc)
     updated_at = fake.date_time_between(start_date=created_at, end_date="now", tzinfo=timezone.utc)
