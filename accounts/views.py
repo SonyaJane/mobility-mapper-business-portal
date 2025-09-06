@@ -10,7 +10,8 @@ from businesses.models import WheelerVerificationRequest, Business, WheelerVerif
 
 @login_required
 def edit_profile(request):
-    profile = request.user.userprofile
+    # Ensure a UserProfile exists for the current user
+    profile, _ = UserProfile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
@@ -28,7 +29,7 @@ def dashboard_view(request):
     business_verification_status = {}
     verified_businesses = []
     verification_reports = []
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     # user profile photo
     profile_photo = profile.photo.url if profile and profile.photo else None
     if profile and profile.is_wheeler:
@@ -67,7 +68,8 @@ def dashboard_view(request):
 
 @login_required
 def postlogin_redirect(request):
-    user_profile = UserProfile.objects.get(user=request.user)
+    # Ensure a profile exists for routing decisions
+    user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
     if hasattr(user_profile, 'has_business') and user_profile.has_business:
         return redirect('business_dashboard')
     return redirect('account_dashboard')

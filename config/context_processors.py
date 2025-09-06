@@ -11,7 +11,7 @@ def wheeler_history(request):
     """
     show = False
     if request.user.is_authenticated:
-        profile = getattr(request.user, 'userprofile', None)
+        profile = getattr(request.user, 'profile', None)
         if profile and getattr(profile, 'is_wheeler', False):
             from businesses.models import WheelerVerificationRequest, WheelerVerification
             has_req = WheelerVerificationRequest.objects.filter(wheeler=request.user).exists()

@@ -84,7 +84,8 @@ class CustomSignupForm(SignupForm):
         # Require other device description if 'Other' selected
         devices = cleaned_data.get('mobility_devices', []) or []
         other_desc = cleaned_data.get('mobility_devices_other', '').strip()
-        if 'other' in devices and not other_desc:
+        # devices is a queryset/list of MobilityDevice instances; check their code
+        if any(getattr(d, 'code', '').lower() == 'other' for d in devices) and not other_desc:
             self.add_error('mobility_devices_other', 'Please specify your other mobility device.')
         # No immediate validation for country/county/age/photo
         return cleaned_data
@@ -97,7 +98,8 @@ class CustomSignupForm(SignupForm):
         user.email = self.cleaned_data.get('email')
         user.save()
         # Save profile flags
-        profile = user.userprofile
+        # Ensure profile exists and use related_name 'profile'
+        profile, _ = UserProfile.objects.get_or_create(user=user)
         profile.has_business = self.cleaned_data.get('has_business', False)
         profile.is_wheeler = self.cleaned_data.get('is_wheeler', False)
         # Only set devices if wheeler

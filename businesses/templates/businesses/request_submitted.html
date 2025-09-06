@@ -16,12 +16,12 @@
     <p>When you are approved to proceed with the verification:</p>
     <ul class="mt-2">
       <li>You will receive an email notification.</li>
-      <li>A link to the verification form will be available in your <a href="{% url 'account_dashboard' %}" class="text-orange">{% if not user.userprofile.has_business %}Profile{% else %}Personal Dashboard{% endif %}</a>.</li>
+      <li>A link to the verification form will be available in your <a href="{% url 'account_dashboard' %}" class="text-orange">{% if not user.profile or not user.profile.has_business %}Profile{% else %}Personal Dashboard{% endif %}</a>.</li>
       <li>You can then complete and submit your verification report.</li>
     </ul>
   </div>
   <div class="d-flex flex-column align-items-center justify-content-center gap-2 mt-2">
-    <a href="{% url 'account_dashboard' %}" class="btn btn-green text-center req-sub-btn">Go to my {% if not user.userprofile.has_business %}profile{% else %}personal dashboard{% endif %}</a>
+  <a href="{% url 'account_dashboard' %}" class="btn btn-green text-center req-sub-btn">Go to my {% if not user.profile or not user.profile.has_business %}profile{% else %}personal dashboard{% endif %}</a>
     <a href="{% url 'accessible_business_search' %}" class="btn btn-coffee text-center req-sub-btn">Search for more accessible businesses</a>
   </div>
 </div>

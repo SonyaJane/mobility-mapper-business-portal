@@ -94,7 +94,7 @@ def checkout(request, business_id):
 
         # Require ownership for verification purchases
         if purchase_type == 'verification':
-            user_profile = getattr(request.user, 'userprofile', None)
+            user_profile = getattr(request.user, 'profile', None)
             if business.business_owner != user_profile:
                 return HttpResponseForbidden('You are not authorised to request verification for this business')
 

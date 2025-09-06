@@ -28,8 +28,8 @@ def get_item(dictionary, key):
 @login_required
 def register_business(request):
     
-    # Get the user profile 
-    user_profile = UserProfile.objects.get(user=request.user)
+    # Get or create the user profile
+    user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
     
     if Business.objects.filter(business_owner=user_profile).exists():
         return redirect('business_dashboard')
@@ -124,7 +124,7 @@ def business_detail(request, pk):
     # Check if current wheeler user has already requested verification
     user_has_requested = False
     user_request_approved = False
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     if request.user.is_authenticated and profile and profile.is_wheeler:
         from .models import WheelerVerificationRequest
         user_has_requested = WheelerVerificationRequest.objects.filter(
@@ -150,7 +150,7 @@ def business_detail(request, pk):
 def business_dashboard(request):
     import json
     try:
-        business = Business.objects.get(business_owner=request.user.userprofile)
+        business = Business.objects.get(business_owner=getattr(request.user, 'profile', None))
     except Business.DoesNotExist:
         business = None
 
@@ -160,7 +160,7 @@ def business_dashboard(request):
     user_verifications = None
     verification_status = None
     verification_approved = None
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     if profile and profile.is_wheeler:
         from .models import WheelerVerification
         user_verifications = WheelerVerification.objects.filter(wheeler=request.user)
@@ -230,7 +230,7 @@ def business_dashboard(request):
 @login_required
 def request_wheeler_verification(request, pk):
     # Allow business owner to request Wheelers to verify their business
-    business = get_object_or_404(Business, pk=pk, business_owner=request.user.userprofile)
+    business = get_object_or_404(Business, pk=pk, business_owner=getattr(request.user, 'profile', None))
 
     if request.method == 'POST':
     # Determine verification price from membership tier (tier.verification_price or tier.membership_price)
@@ -264,7 +264,7 @@ def request_wheeler_verification(request, pk):
 
 @login_required
 def wheeler_verification_history(request):
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     is_superuser = request.user.is_superuser
     if not profile or (not profile.is_wheeler and not is_superuser):
         messages.error(request, "Only verified Wheelers can view their verification history.")
@@ -297,7 +297,7 @@ def wheeler_verification_history(request):
 
 @login_required
 def edit_business(request):
-    business = get_object_or_404(Business, business_owner=request.user.userprofile)
+    business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
 
     membership_tiers = MembershipTier.objects.filter(is_active=True)
     import json
@@ -317,7 +317,7 @@ def edit_business(request):
         form = BusinessRegistrationForm(post_data, request.FILES, instance=business)
         if form.is_valid():
             business = form.save(commit=False)
-            business.business_owner = request.user.userprofile
+            business.business_owner = getattr(request.user, 'profile', None)
             # Store opening_hours as text
             business.opening_hours = post_data.get('opening_hours', '')
             business.save()
@@ -358,12 +358,9 @@ def edit_business(request):
         'selected_accessibility_features': selected_accessibility_features,
         'page_title': 'Edit Your Business',
     })
-
-
-@login_required
 def explore_membership_options(request):    
     """Display available membership plans for businesses to review and select."""
-    business = get_object_or_404(Business, business_owner=request.user.userprofile)
+    business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     current_tier = business.membership_tier
     # get all membership tiers (ordered by the membership price field)
     all_membership_tiers = MembershipTier.objects.filter(is_active=True).order_by('membership_price')
@@ -382,14 +379,15 @@ def explore_membership_options(request):
 
 @login_required
 def delete_business(request):
-    business = get_object_or_404(Business, business_owner=request.user.userprofile)
+    business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     if request.method == 'POST':
         business.delete()
 
         # Update the user profile to reflect no business
-        user_profile = request.user.userprofile
-        user_profile.has_business = False
-        user_profile.save()
+        user_profile = getattr(request.user, 'profile', None)
+        if user_profile:
+            user_profile.has_business = False
+            user_profile.save()
 
         messages.success(request, "Business deleted successfully.")
         return redirect('business_dashboard')
@@ -400,7 +398,7 @@ def delete_business(request):
 @login_required
 def wheeler_verification_application(request, pk):
     business = get_object_or_404(Business, pk=pk, is_approved=True)
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     if not request.user.is_authenticated or not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can request to verify a business.")
         return redirect('accessible_business_search')
@@ -425,8 +423,6 @@ def wheeler_verification_application(request, pk):
                 subject="New Wheeler Verification Application",
                 message=f"A new application to verify the accessibility features has been submitted for {business.business_name} by {request.user.username}. Review and approve in the admin panel.",
             )
-        return render(request, 'businesses/request_submitted.html', {'business': business, 'page_title': 'Application Submitted'})
-
     return render(request, 'businesses/wheeler_verification_application.html', {
         'business': business,
         'verification_count': verification_count,
@@ -440,7 +436,7 @@ def wheeler_verification_application(request, pk):
 @login_required
 def wheeler_verification_form(request, pk):
     business = get_object_or_404(Business, pk=pk)
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     if not profile or not profile.is_wheeler:
         messages.error(request, "You must be a verified Wheeler to submit a verification.")
         return redirect('account_dashboard')
@@ -536,7 +532,7 @@ def wheeler_verification_form(request, pk):
 @login_required
 def pending_verification_requests(request):
     # Only show to wheelers
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     if not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can view pending verification requests.")
         return redirect('home')
@@ -563,7 +559,7 @@ def pending_verification_requests(request):
 def verification_report(request, verification_id):
     verification = get_object_or_404(WheelerVerification, pk=verification_id)
     # Allow business owner or the Wheeler who submitted to view the report
-    is_owner = (verification.business.business_owner == request.user.userprofile)
+    is_owner = (verification.business.business_owner == getattr(request.user, 'profile', None))
     is_wheeler = (verification.wheeler == request.user)
     # Allow superusers to view any report
     is_superuser = request.user.is_superuser
@@ -572,7 +568,7 @@ def verification_report(request, verification_id):
         return redirect('business_dashboard')
 
     # Hide wheeler name if business owner is viewing
-    show_wheeler_name = not (hasattr(request.user, 'userprofile') and verification.business.business_owner == request.user.userprofile)
+    show_wheeler_name = not (hasattr(request.user, 'profile') and verification.business.business_owner == getattr(request.user, 'profile', None))
     # Precompute URLs for feature-specific photos and other photos
     feature_photos_list = []
     confirmed_features = verification.confirmed_features.all()
@@ -674,7 +670,7 @@ def accessible_business_search(request):
     user_profile = None
     if request.user.is_authenticated:
         from accounts.models import UserProfile
-        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
     
     # Provide full list of accessibility features for the filter dropdown
     accessibility_features = AccessibilityFeature.objects.all()
@@ -688,7 +684,7 @@ def accessible_business_search(request):
 @login_required
 def cancel_wheeler_verification_request(request, business_id):
     """Allow a wheeler to cancel their pending verification request for a business."""
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     if not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can cancel verification requests.")
         return redirect('account_dashboard')
@@ -708,7 +704,7 @@ def cancel_wheeler_verification_request(request, business_id):
 @login_required
 def cancel_membership(request):
     """Downgrade the user's business to the free tier on membership cancellation."""
-    profile = getattr(request.user, 'userprofile', None)
+    profile = getattr(request.user, 'profile', None)
     if not profile:
         messages.error(request, "Unable to find your business profile.")
         return redirect('business_dashboard')

@@ -11,7 +11,7 @@
 
   <div class="row align-items-center my-4 mx-2 gy-4 gx-2 border rounded shadow-sm">
     <div class="p-0 m-0 col-md-6 text-center">
-      {% if user.userprofile.photo %}
+      {% if user.profile and user.profile.photo %}
       <img src="{{ profile_photo }}" alt="Profile Photo" class="img-fluid rounded my-4 profile-photo">
       {% else %}
       <img src="{% static 'images/profile_photo_placeholder.png' %}" alt="Profile Photo" class="img-fluid rounded my-4 profile-photo">
@@ -40,38 +40,38 @@
                   <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-orange"></i><strong>Email Address:</strong></td>
                   <td class="align-middle">{{ user.email }}</td>
                 </tr>
-                {% if user.userprofile.county %}
+                {% if user.profile and user.profile.county %}
                 <tr>
                   <td class="align-middle ps-3"><i class="bi bi-geo-fill fs-5 me-2 text-brown"></i><strong>County:</strong></td>
-                  <td class="align-middle">{{ user.userprofile.county }}</td>
+                  <td class="align-middle">{{ user.profile.county }}</td>
+                </tr>
+                {% endif %}
+                {% if user.profile and user.profile.age_group %}
+                <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-person fs-5 me-2 text-mango"></i><strong>Age Group:</strong></td>
+                  <td class="align-middle">{{ user.profile.age_group }}</td>
                 </tr>
                 {% endif %}
                 <tr>
                   <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-coffee"></i><strong>Country:</strong></td>
-                  <td class="align-middle">{{ user.userprofile.country }}</td>
+                  <td class="align-middle">{{ user.profile.country }}</td>
                 </tr>
-                {% if user.userprofile.age_group %}
-                <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-person fs-5 me-2 text-mango"></i><strong>Age Group:</strong></td>
-                  <td class="align-middle">{{ user.userprofile.age_group }}</td>
-                </tr>
-                {% endif %}
-                {% if user.userprofile.is_wheeler %}
-                <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-person-wheelchair fs-5 me-2 text-orange"></i><strong>Mobility Devices:</strong></td>
-                  <td class="align-middle">
-                    {% with labels=user.userprofile.mobility_devices|device_labels %}
-                      {{ labels }}{% if user.userprofile.mobility_devices_other %}, {{ user.userprofile.mobility_devices_other }}{% endif %}
-                    {% endwith %}
-                  </td>
-                </tr>
-                {% endif %}
-                {% if user.userprofile.has_business and user.userprofile.business %}
-                <tr>
-                  <td class="align-middle ps-3"><i class="bi bi-building fs-5 me-2 text-brown"></i><strong>Your Business:</strong></td>
-                  <td class="align-middle"><a href="{% url 'business_dashboard' %}" class="link-body-emphasis">{{ user.userprofile.business.business_name }}</a></td>
-                </tr>
-                {% endif %}
+                  {% if user.profile and user.profile.is_wheeler %}
+                  <tr>
+                    <td class="align-middle ps-3"><i class="bi bi-person-wheelchair fs-5 me-2 text-orange"></i><strong>Mobility Devices:</strong></td>
+                    <td class="align-middle">
+                      {% with labels=user.profile.mobility_devices|device_labels %}
+                        {{ labels }}{% if user.profile.mobility_devices_other %}, {{ user.profile.mobility_devices_other }}{% endif %}
+                      {% endwith %}
+                    </td>
+                  </tr>
+                  {% endif %}
+                  {% if user.profile and user.profile.has_business and user.profile.business %}
+                  <tr>
+                    <td class="align-middle ps-3"><i class="bi bi-building fs-5 me-2 text-brown"></i><strong>Your Business:</strong></td>
+                    <td class="align-middle"><a href="{% url 'business_dashboard' %}" class="link-body-emphasis">{{ user.profile.business.business_name }}</a></td>
+                  </tr>
+                  {% endif %}
               </tbody>
             </table>
           </div>
@@ -87,7 +87,7 @@
           <div class="d-flex flex-column gap-2">
             <a href="{% url 'edit_profile' %}" class="btn btn-orange">Edit Profile</a>
             <a href="{% url 'account_change_password' %}" class="btn btn-mango">Change Password</a>
-            {% if user.userprofile.has_business and not user.userprofile.business %}
+            {% if user.profile and user.profile.has_business and not user.profile.business %}
               <a href="{% url 'register_business' %}" class="btn btn-green">Register Your Business</a>
             {% endif %}
             {% if verification_reports or approved_businesses or pending_businesses %}
@@ -99,7 +99,7 @@
     </div>
   </div>
 
-  {% if user.userprofile.is_wheeler %}
+  {% if user.profile and user.profile.is_wheeler %}
   <div class="row mb-3 g-3">
 
     <!-- Businesses you are approved to verify -->

@@ -53,8 +53,8 @@
         <div class="d-flex align-items-center justify-content-end" style="min-width: 180px;">
           {% if user.is_authenticated %}
             <span class="me-2">{{ user.first_name }} {{ user.last_name }}</span>
-            {% if user.userprofile.photo %}
-              <img src="{{ user.userprofile.photo.url }}" alt="Profile Photo" class="rounded-circle" style="width: 36px; height: 36px; object-fit: cover;">
+            {% if user.profile and user.profile.photo %}
+              <img src="{{ user.profile.photo.url }}" alt="Profile Photo" class="rounded-circle" style="width: 36px; height: 36px; object-fit: cover;">
             {% endif %}
           {% endif %}
         </div>
@@ -68,10 +68,10 @@
               {% if user.is_authenticated %}
                 <li class="nav-item mb-2">
                   <a class="nav-link{% if request.resolver_match.url_name == 'account_dashboard' %} active{% endif %}" href="{% url 'account_dashboard' %}">
-                    {% if not user.userprofile.has_business %}Your Profile{% else %}Personal Dashboard{% endif %}
+                    {% if not user.profile or not user.profile.has_business %}Your Profile{% else %}Personal Dashboard{% endif %}
                   </a>
                 </li>
-                {% if user.userprofile.has_business %}
+                {% if user.profile and user.profile.has_business %}
                 <li class="nav-item mb-2">
                   <a class="nav-link{% if request.resolver_match.url_name == 'business_dashboard' %} active{% endif %}" href="{% url 'business_dashboard' %}">Business Dashboard</a>
                 </li>
@@ -84,7 +84,7 @@
                   <a class="nav-link{% if request.resolver_match.url_name == 'wheeler_verification_history' %} active{% endif %}" href="{% url 'wheeler_verification_history' %}">Accessibility Verifications</a>
                 </li>
                 {% endif %}
-                {% if not user.userprofile.has_business %}
+                {% if not user.profile or not user.profile.has_business %}
                 <li class="nav-item mb-2">
                   <a class="nav-link{% if request.resolver_match.url_name == 'register_business' %} active{% endif %}" href="{% url 'register_business' %}">Register Your Business</a>
                 </li>
@@ -117,10 +117,10 @@
               {% if user.is_authenticated %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'account_dashboard' %}">
-                    {% if not user.userprofile.has_business %}Your Profile{% else %}Personal Dashboard{% endif %}
+                    {% if not user.profile or not user.profile.has_business %}Your Profile{% else %}Personal Dashboard{% endif %}
                   </a>
                 </li>
-                {% if user.userprofile.has_business %}
+                {% if user.profile and user.profile.has_business %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'business_dashboard' %}">Business Dashboard</a>
                 </li>
@@ -128,7 +128,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'accessible_business_search' %}">Accessible Business Search</a>
                 </li>
-                {% if not user.userprofile.has_business %}
+                {% if not user.profile or not user.profile.has_business %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'register_business' %}">Register Your Business</a>
                 </li>
