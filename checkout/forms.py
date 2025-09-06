@@ -10,7 +10,7 @@ class PurchaseForm(forms.ModelForm):
             'full_name', 'email', 'phone_number',
             'street_address1', 'street_address2',
             'town_or_city', 'county', 'postcode',
-            'membership_tier'
+            'membership_tier',
         ]
         labels = {
             'full_name': 'Full Name',
@@ -24,6 +24,7 @@ class PurchaseForm(forms.ModelForm):
             'membership_tier': 'Tier',
         }
         widgets = {
+            'purchase_type': forms.HiddenInput(),
             'membership_tier': forms.HiddenInput(),
         }
         
