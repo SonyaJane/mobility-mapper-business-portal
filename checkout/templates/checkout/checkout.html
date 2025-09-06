@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/checkout.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
-<div class="content-container p-2 p-sm-3 custom-constrained-width" data-business-id="{{ business.id }}">
-  <div class="text-center">
-    <h3 class="mt-4 mb-1 underline-orange">Checkout</h3>
-  </div>
+
+<div class="content-container p-2 p-sm-3 custom-constrained-width" data-business-id="{{ business.id }}" data-amount="{{ amount|floatformat:2 }}" data-purchase-type="{{ purchase_type|default_if_none:'' }}">
+  
+  <h4 class="underline-orange my-3 align-self-start">Checkout</h3>
+  
   {% if form.errors %}
     <div class="alert alert-danger">
       <strong>Please correct the errors below:</strong>
@@ -23,21 +26,21 @@
     </div>
   {% endif %}
 
-  <!-- Purchase Summary -->
-  <div class="purchase-summary my-4 border p-3">
-    <h4 class="mb-4">Purchase Summary</h4>
+  {% comment %} Purchase Summary {% endcomment %}
+  <div class="purchase-summary mb-3 border p-3">
+    <h5 class="mb-3">Purchase Summary</h5>
 
-    <!--Wheeler verification purchase-->
-    {% if purchase == 'verification' %}
+    {% comment %} Wheeler verification purchase {% endcomment %}
+    {% if purchase_type == 'verification' %}
 
-    <p>You are purchaseing Wheeler verification of your business accessibility features.</p>
+    <p>You are purchasing Wheeler verification of your business accessibility features.</p>
     <p>You are on the <strong>{{ membership_tier.tier|title }}</strong> plan, therefore the
     verification cost is 
-    <strong>{% if covered %}covered by your plan{% else %}£{{ amount|floatformat:2 }}{% endif %}</strong>.</p>
+    <strong>{% if amount == 0 %}covered by your plan{% else %}£{{ amount|floatformat:2 }}{% endif %}</strong>.</p>
 
     {% else %}
 
-    <!--membership purchase-->
+    {% comment %} membership purchase {% endcomment %}
     <p>You are purchasing a Mobility Mapper membership plan for your business.</p>
     <p class="d-flex align-items-center">
       <strong>Membership Tier:</strong>
@@ -45,15 +48,15 @@
       <button type="button" id="change-tier-btn" class="btn btn-sm btn-green-outline ms-3">Change Tier</button>
     </p>
 
-    <!-- Hidden tier selection panel for changing membership tier -->
-    <div id="checkout-tier-options" class="row g-3 mb-4" style="display: none;">
+    {% comment %} Hidden tier selection panel for changing membership tier {% endcomment %}
+    <div id="checkout-tier-options" class="row g-3 mb-3" style="display: none;">
       {% for tier in paid_membership_tiers %}
       <div class="col-md-6 p-0-custom">
-        <div class="card mb-3 membership-tier-card h-100"
+          <div class="card mb-3 membership-tier-card h-100"
           data-tier-id="{{ tier.id }}"
           data-tier-code="{{ tier.tier }}"
           data-tier-display="{{ tier.get_tier_display }}"
-          data-tier-price="{{ tier.price|default_if_none:0|floatformat:2 }}"
+          data-tier-price="{{ tier.membership_price|default_if_none:0|floatformat:2 }}"
           tabindex="0" style="cursor:pointer;">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ tier.get_tier_display }}</h5>
@@ -64,27 +67,29 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <p class="mt-auto">{% if tier.price %}£{{ tier.price }} for one year{% endif %}</p>
+            <p class="mt-auto">{% if tier.membership_price %}£{{ tier.membership_price|floatformat:2 }} for one year{% endif %}</p>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
 
-    <p class="mt-3"><strong>Amount:</strong> <span id="summary-amount">{% if covered %}£0.00{% else %}{% if membership_tier %}£{{ membership_tier.price|default_if_none:0|floatformat:2 }} for one year{% else %}£0.00 for one year{% endif %}{% endif %}</span></p>
+  <p class="mt-3"><strong>Amount:</strong> <span id="summary-amount">{% if amount == 0 %}£0.00{% else %}{% if membership_tier %}£{{ membership_tier.membership_price|floatformat:2 }} for one year{% else %}£0.00 for one year{% endif %}{% endif %}</span></p>
     {% endif %}
     <p class="mb-0">Please check your details below are correct.</p>
   </div>
 
-  <!-- Payment Form -->
-  <form action="" method="post" id="payment-form">
+  {% comment %} Payment Form {% endcomment %}
+  <form action="{% url 'checkout' business.id %}" method="POST" id="payment-form">
     {% csrf_token %}
+    {# Persist purchase_type and payment_intent_id across POSTs; JS will update the PI id as needed. #}
+    <input type="hidden" name="purchase_type" id="purchase_type_input" value="{{ purchase_type|default_if_none:'' }}">
+    <input type="hidden" name="payment_intent_id" id="payment_intent_input" value="{{ payment_intent_id|default_if_none:'' }}">
     {{ form.membership_tier }}
-    <input type="hidden" name="purchase" value="{{ purchase }}">
 
-    <!-- Contact Information -->
-    <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Contact Details</legend>
+    {% comment %} Contact Information {% endcomment %}
+    <fieldset class="mb-3 border p-3">
+      <legend class="h5 mb-3">Contact Details</legend>
       {% for field in form.visible_fields %}
         {% if field.name == 'full_name' or field.name == 'email' or field.name == 'phone_number' %}
           {{ field|as_crispy_field }}
@@ -92,9 +97,9 @@
       {% endfor %}
     </fieldset>
 
-    <!-- Address Information -->
-    <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Billing Address</legend>
+    {% comment %} Address Information {% endcomment %}
+    <fieldset class="mb-3 border p-3">
+      <legend class="h5 mb-3">Billing Address</legend>
       {% for field in form.visible_fields %}
         {% if field.name == 'street_address1' or field.name == 'street_address2' or field.name == 'town_or_city' or field.name == 'county' or field.name == 'postcode' %}
           {{ field|as_crispy_field }}
@@ -102,9 +107,9 @@
       {% endfor %}
     </fieldset>
 
-    <!-- Payment Details -->
-    <fieldset class="mb-4 border p-3">
-      <legend class="h4 mb-4">Payment Details</legend>
+    {% comment %} Payment Details {% endcomment %}  
+    <fieldset class="mb-3 border p-3">
+      <legend class="h5 mb-3">Payment Details</legend>
       <p>Please enter your payment information below:</p>
       <!--Stripe card element will be inserted here-->
       <div class="mb-3" id="card-element"></div>
@@ -112,21 +117,21 @@
       <div id="card-errors" role="alert" class="text-danger mb-3"></div>
     </fieldset>
 
-    <!-- Charge Warning -->
+    {% comment %} Charge Warning {% endcomment %}
     <div class="mb-3">
       <p class="small text-orange my-0" id="charge-warning">
         <span class="icon">
           <i class="bi bi-exclamation-circle"></i>
         </span>
-        {% if purchase == 'verification' %}
-            {% if covered %}
+        {% if purchase_type == 'verification' %}
+            {% if amount == 0 %}
             <span>This verification is covered by your <strong>{{ membership_tier.get_tier_display }}</strong> plan — no charge will be taken.</span>
           {% else %}
-            <span>Your card will be charged <strong>£{{ membership_tier.verification_price|default_if_none:membership_tier.price|floatformat:2 }}</strong> for verification.</span>
+            <span>Your card will be charged <strong>£{{ membership_tier.verification_price|default_if_none:membership_tier.membership_price|floatformat:2 }}</strong> for verification.</span>
           {% endif %}
         {% else %}
           {% if membership_tier %}
-            <span>Your card will be charged <strong>£{{ membership_tier.price|default_if_none:0|floatformat:2 }}</strong></span>
+            <span>Your card will be charged <strong>£{{ membership_tier.membership_price|floatformat:2 }}</strong></span>
           {% else %}
             <span>Your card will be charged <strong>£0.00</strong></span>
           {% endif %}
@@ -134,8 +139,8 @@
       </p>
     </div>
 
-    <!-- Submit & Loading -->
-    {% if purchase == 'verification' and covered %}
+    {% comment %} Submit & Loading {% endcomment %}
+    {% if purchase_type == 'verification' and amount == 0 %}
       <button id="submit-button" type="submit" class="btn btn-green">Request Verification (no charge)
         <span id="submit-button-spinner" class="btn-spinner" aria-hidden="true" style="display:none"></span>
       </button>
@@ -146,17 +151,11 @@
     {% endif %}
     <button id="cancel-button" type="button" class="btn btn-mango" data-bs-toggle="modal" data-bs-target="#cancelModal">
       Cancel
-    </button>
-
-    <div id="loading-overlay" class="d-none position-fixed w-100 h-100 top-0 start-0 z-3">
-      <div class="d-flex align-items-center justify-content-center h-100 m-0">
-        <span class="icon"><i class="bi bi-arrow-clockwise"></i></span>
-      </div>
-    </div>
-    
+    </button> 
   </form>
 
-  <!-- Cancel confirmation modal -->
+  
+  {% comment %} Cancel confirmation modal {% endcomment %}
   <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -174,17 +173,28 @@
       </div>
     </div>
   </div>
-
+  
 </div>
 
+{% comment %} Loading overlay for form submission {% endcomment %}
+  <div id="loading-overlay" class="d-none position-fixed w-100 h-100 top-0 start-0">
+    <div class="d-flex align-items-center justify-content-center h-100 m-0">
+      <!-- Use Bootstrap's spinner so it animates by default and respects accessibility settings -->
+      <div class="spinner-border text-primary" role="status" aria-hidden="false">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block postloadjs %}
-  {{ block.super }}
-  {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+{{ block.super }}
+{{ stripe_public_key|json_script:"id_stripe_public_key" }}
   {# price_id JSON script removed - client JS reads prices from DOM / server-created client_secret is used #}
   {{ client_secret|default_if_none:""|json_script:"id_client_secret" }}
   {{ payment_intent_id|default_if_none:""|json_script:"id_payment_intent" }}
-  <script src="{% static 'js/checkout.js' %}"></script>
-  <script src="{% static 'js/checkout_membership.js' %}"></script>
+  <script type="module" src="{% static 'js/checkout.js' %}"></script>
+  {% if purchase_type == 'membership' %}
+  <script type="module" src="{% static 'js/checkout_membership.js' %}"></script>
+  {% endif %}
 {% endblock %}
