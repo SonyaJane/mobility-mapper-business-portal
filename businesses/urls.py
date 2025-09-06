@@ -7,7 +7,7 @@ urlpatterns = [
     path('edit/', views.edit_business, name='edit_business'),
     path('delete/', views.delete_business, name='delete_business'),
     path('<int:pk>/wheeler-verification-application/', views.wheeler_verification_application, name='wheeler_verification_application'),
-    path('<int:pk>/request-wheelers-verification/', views.business_request_wheeler_verification, name='business_request_wheeler_verification'),
+    path('<int:pk>/request-wheeler-verification/', views.request_wheeler_verification, name='request_wheeler_verification'),
     path('<int:pk>/verify/', views.wheeler_verification_form, name='wheeler_verification_form'),
     path('pending-verifications/', views.pending_verification_requests, name='pending_verification_requests'),
     path('verification-report/<int:verification_id>/', views.verification_report, name='verification_report'),
@@ -19,5 +19,5 @@ urlpatterns = [
     path('ajax/search-businesses/', views.ajax_search_businesses, name='ajax_search_businesses'),
     # Public-facing business detail page
     path('<int:pk>/', views.business_detail, name='business_detail'),
-    path('plans/', views.explore_plans, name='explore_plans'),
+    path('membership-options/', views.explore_membership_options, name='explore_membership_options'),
 ]
