@@ -1,4 +1,5 @@
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -51,7 +52,11 @@ class UserProfile(models.Model):
         help_text="County of residence"
     )
     """User profile model to extend the User model with additional fields."""
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='profile',
+    )
     photo = models.ImageField(
         upload_to='mobility_mapper_business_portal/profile_photos/',
         blank=True,
@@ -91,7 +96,7 @@ class UserProfile(models.Model):
         return self.user.username
 
 # Automatically create/update UserProfile when User is saved
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=get_user_model())
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     # Skip auto-creation when loading fixtures (raw=True)
     if kwargs.get('raw', False):
@@ -99,4 +104,9 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
     else:
-        instance.userprofile.save()
+        # Try to save existing profile; if missing, create it.
+        try:
+            # use related_name 'profile' for the reverse accessor
+            instance.profile.save()
+        except UserProfile.DoesNotExist:
+            UserProfile.objects.create(user=instance)
