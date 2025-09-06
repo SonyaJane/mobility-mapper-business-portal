@@ -169,8 +169,8 @@
                 {% endfor %}
               </ul>
               <p class="card-text price-display mt-auto"
-                data-price-year="{{ tier.price }}">
-                  <strong class="price-alt">{% if tier.tier == 'free' %}Free{% else %}£{{ tier.price }} for one year{% endif %}</strong>
+                data-price-year="{{ tier.membership_price }}">
+                  <strong class="price-alt">{% if tier.tier == 'free' %}Free{% else %}£{{ tier.membership_price|floatformat:2 }} for one year{% endif %}</strong>
               </p>
             </div>
           </div>
@@ -178,6 +178,7 @@
       {% endfor %}
     </div>
 
+    {% comment %} Sends to register_business view as POST data {% endcomment %}
     <button type="submit" class="btn btn-green my-3 align-self-start">Register</button>
   </form>
 
