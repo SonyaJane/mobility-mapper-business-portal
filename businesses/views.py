@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from urllib.parse import urlencode
+from decimal import Decimal
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.http import JsonResponse
@@ -53,17 +54,17 @@ def register_business(request):
             business = form.save(commit=False)
             business.business_owner = user_profile
             business.opening_hours = opening_hours
-            # Ensure new businesses default to the Free tier until payment completes.
+            # get intended (selected) membership tier
             intended_tier = form.cleaned_data.get('membership_tier')
-            try:
-                free_tier = MembershipTier.objects.filter(tier__iexact='free', is_active=True).first()
-            except Exception:
-                free_tier = None
-            if free_tier:
-                business.membership_tier = free_tier
-            else:
-                # If no free tier exists for some reason, clear the tier to avoid granting paid access.
-                business.membership_tier = None
+            # Set new businesses tier to Free until payment completes. If no Free tier row exists
+            # fall back to the canonical Free tier with PK=1 (project convention).
+            free_tier = MembershipTier.objects.filter(tier__iexact='free', is_active=True).first()
+            if not free_tier:
+                try:
+                    free_tier = MembershipTier.objects.get(pk=1)
+                except MembershipTier.DoesNotExist:
+                    free_tier = None
+            business.membership_tier = free_tier
             business.save()
             # Persist categories and accessibility features
             form.save_m2m()
@@ -77,7 +78,8 @@ def register_business(request):
             # (the business itself remains on Free until the webhook upgrades it on successful payment).
             if intended_tier and intended_tier.tier in ['standard', 'premium']:
                 url = reverse('checkout', args=[business.id])
-                return redirect(f"{url}?{urlencode({'membership_tier': intended_tier.id})}")
+                # send both membership_tier and purchase type so to checkout
+                return redirect(f"{url}?{urlencode({'membership_tier': intended_tier.id, 'purchase_type': 'membership'})}")
             
             # otherwise, go to dashboard
             return redirect('business_dashboard')    
@@ -151,13 +153,6 @@ def business_dashboard(request):
         business = Business.objects.get(business_owner=request.user.userprofile)
     except Business.DoesNotExist:
         business = None
-
-    # print debug info
-    # print all business attributes
-    if business:
-        for attr, value in business.__dict__.items():
-            if not attr.startswith('_'):
-                print(f"Business {attr}: {value}")
 
     verifications = business.verifications.all() if business else []
 
@@ -233,11 +228,37 @@ def business_dashboard(request):
     })
  
 @login_required
-def business_request_wheeler_verification(request, pk):
+def request_wheeler_verification(request, pk):
     # Allow business owner to request Wheelers to verify their business
     business = get_object_or_404(Business, pk=pk, business_owner=request.user.userprofile)
-    return render(request, 
-                  'businesses/business_request_wheeler_verification.html', 
+
+    if request.method == 'POST':
+    # Determine verification price from membership tier (tier.verification_price or tier.membership_price)
+        tier = business.membership_tier
+        price = Decimal('0')
+        if tier:
+            # Prefer an explicit verification_price; otherwise fall back to membership price
+            price = tier.verification_price if tier.verification_price is not None else (tier.membership_price if getattr(tier, 'membership_price', None) is not None else Decimal('0'))
+
+        # If price is zero, short-circuit: mark verification requested on the Business and skip checkout
+        try:
+            price_decimal = Decimal(price)
+        except Exception:
+            price_decimal = Decimal('0')
+
+        if price_decimal == Decimal('0'):
+            business.wheeler_verification_requested = True
+            business.save()
+            # Inform the user and redirect back to dashboard
+            messages.success(request, 'Verification requested — no payment required for your current plan.')
+            return redirect('business_dashboard')
+
+        # Otherwise, redirect to checkout to collect payment
+        url = reverse('checkout', args=[business.id])
+        return redirect(f"{url}?{urlencode({'purchase_type': 'verification'})}")
+
+    return render(request,
+                  'businesses/request_wheeler_verification.html',
                   {'business': business,
                    'page_title': 'Request Wheeler Verification'})
 
@@ -340,22 +361,22 @@ def edit_business(request):
 
 
 @login_required
-def explore_plans(request):    
+def explore_membership_options(request):    
     """Display available membership plans for businesses to review and select."""
     business = get_object_or_404(Business, business_owner=request.user.userprofile)
     current_tier = business.membership_tier
-    # get all membership tiers
-    all_membership_tiers = MembershipTier.objects.filter(is_active=True).order_by('price')
-    # Determine higher-tier upgrade options
-    upgrade_tiers = [tier for tier in all_membership_tiers if not current_tier or tier.price > current_tier.price]
+    # get all membership tiers (ordered by the membership price field)
+    all_membership_tiers = MembershipTier.objects.filter(is_active=True).order_by('membership_price')
+    # Determine higher-tier upgrade options using membership_price if available
+    upgrade_tiers = [tier for tier in all_membership_tiers if not current_tier or (getattr(tier, 'membership_price', getattr(tier, 'membership_price', 0)) > getattr(current_tier, 'membership_price', getattr(current_tier, 'membership_price', 0)))]
     upgrade_count = len(upgrade_tiers)
-    return render(request, 'businesses/explore_plans.html', {
+    return render(request, 'businesses/explore_membership_options.html', {
         'all_membership_tiers': all_membership_tiers,
         'current_tier': current_tier,
         'upgrade_tiers': upgrade_tiers,
         'upgrade_count': upgrade_count,
         'business': business,
-        'page_title': 'Explore Membership Tiers',
+        'page_title': 'Explore Membership Options',
     })
 
 
@@ -432,13 +453,9 @@ def wheeler_verification_form(request, pk):
     # Load mobility device options for template
     devices = MobilityDevice.objects.all()
     if request.method == 'POST':
-        # Debug: list POST and FILES dict keys
-        print("POST keys:", list(request.POST.keys()))
-        print("FILES keys:", list(request.FILES.keys()))
         form = WheelerVerificationForm(request.POST, request.FILES, business=business)
         if form.is_valid():
             uploaded = request.FILES.getlist('photos')
-            print("Uploaded files:", [f.name for f in uploaded])
             verification = form.save(commit=False)
             verification.business = business
             verification.wheeler = request.user
@@ -698,6 +715,12 @@ def cancel_membership(request):
     try:
         business = Business.objects.get(business_owner=profile)
         free_tier = MembershipTier.objects.filter(tier='free', is_active=True).first()
+        if not free_tier:
+            try:
+                free_tier = MembershipTier.objects.get(pk=1)
+            except MembershipTier.DoesNotExist:
+                free_tier = None
+
         if free_tier:
             business.membership_tier = free_tier
             business.billing_frequency = 'monthly'
