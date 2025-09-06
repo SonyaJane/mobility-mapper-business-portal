@@ -253,13 +253,13 @@
             {% if business.membership_tier %}
               {% if business.membership_tier.tier == 'free' %}
                 <p class="mb-3">You're on the Free tier. Upgrade to make your business stand out!</p>
-                <a href="{% url 'explore_plans' %}" class="btn btn-green-outline">Explore Plans</a>
+                <a href="{% url 'explore_membership_options' %}" class="btn btn-green-outline">Explore Plans</a>
               {% elif business.membership_tier.tier == 'standard' %}
                 <p class="mb-2">You're on the Standard tier. Upgrade to Premium for highlighted placement and included verification!</p>
-                <a href="{% url 'explore_plans' %}" class="btn btn-green-outline-outline">Explore Plans</a>
+                <a href="{% url 'explore_membership_options' %}" class="btn btn-green-outline-outline">Explore Plans</a>
               {% else %}
                 <p class="mb-2">You're on the Premium tier. Enjoy highlighted placement and included verification!</p>
-                <a href="{% url 'explore_plans' %}" class="btn btn-green-outline">Manage Membership</a>  
+                <a href="{% url 'explore_membership_options' %}" class="btn btn-green-outline">Manage Membership</a>  
               {% endif %}
             {% endif %}
           </div>
@@ -281,7 +281,7 @@
           <div class="alert alert-warning mt-2">⏳ Verification requested</div>
           {% endif %}
         {% else %}
-          <a href="{% url 'business_request_wheeler_verification' business.id %}" class="btn btn-mango-outline my-2 align-self-start">Request Wheeler Verification</a>
+          <a href="{% url 'request_wheeler_verification' business.id %}" class="btn btn-mango-outline my-2 align-self-start">Request Wheeler Verification</a>
         {% endif %}
         {% if business.verifications.exists %}
         <h3 class="mt-3">Verification Reports</h3>
