@@ -2,6 +2,15 @@
 # We specify URL the signals are sent to
 # The webhook handler determines what we want to given a particular event signal 
 from django.http import HttpResponse
+from django.conf import settings
+import stripe
+
+from .models import Purchase
+from businesses.models import Business, MembershipTier
+import logging
+from .models import CheckoutCache
+
+logger = logging.getLogger(__name__)
 # from django.core.mail import send_mail
 # from django.template.loader import render_to_string
 #from django.conf import settings
@@ -53,6 +62,79 @@ class StripeWebHookHandler:
         """
         Handle the payment_intent.succeeded webhook from Stripe
         """
+        print('In handle_payment_intent_succeeded')
+        intent = event.data.object
+        pid = intent.get('id')
+        print('PaymentIntent ID:', pid)
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        # Try to find an existing Purchase by the PaymentIntent id
+        purchase = Purchase.objects.filter(stripe_payment_intent_id=pid).first()
+        print('Found purchase:', purchase)
+        # If there isn't a Purchase, create one using metadata stored on the PI
+        if purchase is None:
+            print('Creating new purchase')
+            # Use the server-side cache data in a CheckoutCache object referenced by
+            # cc_ref in PI metadata to create the Purchase
+            metadata = intent.get('metadata')
+            print('Metadata from PaymentIntent:', metadata)
+            cc_ref = metadata.get('cc_ref')
+            print('CheckoutCache reference ID:', cc_ref)
+            
+            cache = CheckoutCache.objects.filter(id=cc_ref).first()
+            print('Found CheckoutCache:', cache)
+            form = cache.form_data
+            # Attach business and membership tier from the cache top-level fields
+            biz_id = cache.business_id
+            tier_id = cache.membership_tier
+            # Merge business/tier into metadata so later upgrade logic can find them
+            metadata['business_id'] = str(biz_id)
+            metadata['membership_tier'] = str(tier_id)
+
+            purchase = Purchase.objects.create(
+                purchase_type=form.get('purchase_type', 'membership'),
+                full_name=form.get('full_name', ''),
+                email=form.get('email', ''),
+                phone_number=form.get('phone_number', ''),
+                street_address1=form.get('street_address1', ''),
+                street_address2=form.get('street_address2', ''),
+                town_or_city=form.get('town_or_city', ''),
+                county=form.get('county', ''),
+                postcode=form.get('postcode', ''),
+                amount=(intent.get('amount') or 0) / 100.0,
+                stripe_payment_intent_id=pid,
+                raw_payload=intent,
+                metadata=metadata,
+                business=Business.objects.filter(pk=biz_id).first() if biz_id else None,
+                membership_tier=MembershipTier.objects.filter(pk=tier_id).first() if tier_id else None,
+            )
+            
+        # Update existing purchase status and payload
+        if purchase:
+            purchase.status = 'completed'
+            purchase.raw_payload = intent
+            purchase.metadata = intent.get('metadata', {}) or {}
+
+            purchase.save()
+
+            # If this was a membership purchase, upgrade the Business tier.
+            business = Business.objects.filter(pk=int(biz_id)).first()
+            print('business:', business)
+            purchase_type = purchase.purchase_type
+            biz_id = purchase.business.id
+            tier_id = purchase.membership_tier.id
+            
+            if purchase_type == 'membership':
+                print('upgrading business membership tier')
+                tier = MembershipTier.objects.filter(pk=int(tier_id)).first()
+                business.membership_tier = tier
+                business.save()
+                
+            # If this was a verification purchase, set verification_requested to true
+            if purchase_type == 'verification':
+                print('setting wheeler_verification_requested to true')
+                business.wheeler_verification_requested = True
+
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
@@ -61,6 +143,17 @@ class StripeWebHookHandler:
         """
         Handle the payment_intent.payment_failed webhook from Stripe
         """
+        intent = event.data.object
+        pid = intent.get('id')
+        purchase = None
+        if pid:
+            purchase = Purchase.objects.filter(stripe_payment_intent_id=pid).first()
+        if purchase:
+            purchase.status = 'canceled'
+            purchase.raw_payload = intent
+            purchase.metadata = intent.get('metadata', {}) or {}
+            purchase.save()
+
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
