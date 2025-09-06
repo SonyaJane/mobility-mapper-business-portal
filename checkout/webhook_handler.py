@@ -142,6 +142,7 @@ class StripeWebHookHandler:
             if purchase_type == 'verification':
                 print('setting wheeler_verification_requested to true')
                 business.wheeler_verification_requested = True
+                business.save()
 
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
