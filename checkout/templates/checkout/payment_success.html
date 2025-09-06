@@ -6,86 +6,86 @@
 
 {% block content %}
 <div class="content-container p-3 custom-constrained-width">
-    
-    <h3 class="mt-4 mb-1 underline-orange align-self-start">Payment Successful</h3>
-    
+
+    <h4 class="mt-2 mb-3 underline-orange align-self-start">Payment Successful</h4>
+
     <p>Thank you for your payment.</p>
-    <p>Your purchase information is below. A confirmation email will be sent to <strong>{{ purchase.email }}</strong>.</p>
+    <p>Your purchase and billing information is shown below. 
+        A confirmation email will be sent to <strong>{{ purchase.email }}</strong>.</p>
 
     <div class="card p-3">
-
         <div class="row">
+            <div class="col">
+                <h5 class="mb-2">Purchase and Billing Information</h5>
+            </div>
+        </div>
+
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
-                <p class="font-weight-bold mb-0">Purchase Type</p>
+                <p class="fw-bold mb-0">Purchase Type</p>
             </div>
             <div class="col-12 col-md-8 text-md-right">
                 <p class="mb-0">{{ purchase.get_purchase_type_display }}</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
-                <p class="mb-0 font-weight-bold">Purchase Amount</p>
+                <p class="mb-0 fw-bold">Purchase Amount</p>
             </div>
             <div class="col-12 col-md-8 text-md-right">
                 <p class="mb-0">£{{ purchase.amount }}</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
-                <p class="font-weight-bold mb-0">Reference Number </p>
+                <p class="fw-bold mb-0">Reference Number </p>
             </div>
             <div class="col-12 col-md-8 text-md-right">
                 <p class="mb-0">{{ purchase.purchase_number }}</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
-                <p class="font-weight-bold mb-0">Purchase Date</p>
+                <p class="fw-bold mb-0">Purchase Date</p>
             </div>
             <div class="col-12 col-md-8 text-md-right">
                 <p class="mb-0">{{ purchase.created_at|date:"F j, Y" }}</p>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <small class="text-muted">Billing Info:</small>
-            </div>
-        </div>
-
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
-                <p class="mb-0 font-weight-bold">Full Name</p>
+                <p class="mb-0 fw-bold">Full Name</p>
             </div>
             <div class="col-12 col-md-8 text-md-right">
                 <p class="mb-0">{{ purchase.full_name }}</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
-                <p class="mb-0 font-weight-bold">Email Address</p>
+                <p class="mb-0 fw-bold">Email Address</p>
             </div>
             <div class="col-12 col-md-8 text-md-right">
                 <p class="mb-0">{{ purchase.email }}</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
-                <p class="mb-0 font-weight-bold">Phone Number</p>
+                <p class="mb-0 fw-bold">Phone Number</p>
             </div>
             <div class="col-12 col-md-8 text-md-right">
                 <p class="mb-0">{{ purchase.phone_number }}</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 col-md-4">
-                <p class="mb-0 font-weight-bold">Address</p>
+                <p class="mb-0 fw-bold">Address</p>
             </div>
             <div class="col-12 col-md-8 text-md-right">
                     <p class="mb-0">
@@ -98,6 +98,6 @@
         </div>
     </div>
     
-    <a href="{% url 'business_dashboard' %}" class="btn btn-green">Go to business dashboard</a>
+    <a href="{% url 'business_dashboard' %}" class="btn btn-green align-self-start my-3">Go to business dashboard</a>
 </div>
 {% endblock %}
