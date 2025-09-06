@@ -4,25 +4,25 @@
 
 {% block content %}
 <div class="mw-600 content-container p-3">
-  <h2 class="my-3 underline-orange align-self-center">Wheeler Verification</h2>
-  
-  <h3 class="mt-2">What is Wheeler Verification?</h3>
-  
-  <p>By requesting Wheelers to verify your business, you are asking three 
-    community members to visit the location, confirm accessibility features, 
-    and submit a short accessibility report.</p>    
+  <h3 class="my-3 underline-orange align-self-start">Wheeler Verification</h3>
 
-  {% if business.tier == "premium" %}
-    <p>The cost of this request is covered by your premium plan.</p>   
-  {% elif business.tier == "standard" %}
-    <p>Since you are on the standard plan, the total cost of this request is <strong>£30</strong>.</p>
-  {% else %}
-    <p>Since you are on the free plan, the total cost of this request is <strong>£60</strong>.</p>
-  {% endif %}
+  <h5 class="mt-2">What is Wheeler Verification?</h5>
+
+  <p>By requesting Wheelers to verify your business, you are asking three
+    community members to visit the location, confirm accessibility features,
+    and submit a short accessibility report.</p>
+
+  {% with price=business.membership_tier.verification_price|default_if_none:business.membership_tier.membership_price %}
+    {% if price == 0 %}
+      <p>The cost of this request is covered by your premium membership.</p>
+    {% else %}
+      <p>You are on the <strong>{{ business.membership_tier.tier }}</strong> membership tier, so the total cost of this request is <strong>£{{ price|floatformat:2 }}</strong>.</p>
+    {% endif %}
+  {% endwith %}
 
   <p>Once three Wheelers have verified your business, you will earn a badge, as shown below. </p>
 
-  <div class="text-center mt-1 mb-3">
+  <div class="mt-2 mb-4">
     <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
       <span class="fw-bold">
         <i class="bi bi-check-circle-fill pe-2"></i>
@@ -36,7 +36,7 @@
     It helps customers identify trusted accessible venues at a glance. 
   </p>
 
-  <h3 class="mt-2">How does it work?</h3>
+  <h5 class="mt-2">How does it work?</h5>
 
   <p>You will be able to view all verification reports, and track your verification 
     status at any time from your Business Dashboard.
@@ -47,7 +47,7 @@
     will see the badge, shown below, next to your listing. 
   </p>  
   
-  <div class="badge badge-verify box-shadow text-body mb-3 fs-6 d-block mx-auto">
+  <div class="badge badge-verify box-shadow text-body mt-2 mb-4 fs-6">
     Verify the accessibility of this business and earn a £10 Amazon voucher
   </div>
     
@@ -59,12 +59,12 @@
   </p>
 
   <div class="my-1">
-    <form method="get" action="{% url 'checkout' business.id %}">
-        <input type="hidden" name="purchase" value="verification">
-        <div class="btn-stack-350 justify-content-center">
-          <button type="submit" class="btn btn-mango fw-medium">Proceed to Payment</button>
-          <a href="{% url 'business_dashboard' %}" class="btn btn-coffee fw-medium">Return to Dashboard</a>
-        </div>
+    <form method="post" action="{% url 'request_wheeler_verification' business.id %}">
+      {% csrf_token %}
+      <div class="btn-stack-350">
+        <button type="submit" class="btn btn-mango fw-medium">Request Verification</button>
+        <a href="{% url 'business_dashboard' %}" class="btn btn-coffee fw-medium">Return to Dashboard</a>
+      </div>
     </form>
   </div>
 </div>

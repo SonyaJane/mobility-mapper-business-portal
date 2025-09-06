@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}Explore Membership Options{% endblock %}
+
+{% block content %}
+<div class="content-container custom-constrained-width p-3">
+
+  <h4 class="underline-orange my-3 align-self-start">Explore Membership Options</h4>
+
+  {% if current_tier %}
+  <p class="mb-3">You're currently on the <strong>{{ current_tier.get_tier_display }}</strong> tier, which includes the following benefits:</p>
+  <ul class="card-text ps-4 ms-2">
+      {% for benefit in current_tier.description %}
+          <li>{{ benefit }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  
+  {% if upgrade_count %}
+  <div class="mb-3">Your upgrade option{% if upgrade_count > 1 %}s are{% else %} is{% endif %}:</div>
+  {% endif %}
+  
+  <div>
+    {% for tier in upgrade_tiers %}
+
+      <div class="p-0 pb-3">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <h4 class="card-title">{{ tier.get_tier_display }}</h4>
+            <ul class="flex-grow-1 ps-3 ms-0">
+              {% for benefit in tier.description %}
+              <li>{{ benefit }}</li>
+              {% endfor %}
+            </ul>
+            <p class="mb-3">
+              <strong>£{{ tier.membership_price|floatformat:2 }} for one year</strong>
+            </p>
+            <a href="{% url 'checkout' business.id %}?membership_tier={{ tier.id }}&purchase_type=membership" class="btn btn-green align-self-start">Upgrade to {{ tier.get_tier_display }}</a>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+    <a href="{% url 'business_dashboard' %}" class="btn btn-orange-outline mb-4 align-self-start">Return to Business Dashboard</a>  
+  </div>
+</div>
+{% endblock %}
