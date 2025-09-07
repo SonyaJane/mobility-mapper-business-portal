@@ -29,9 +29,7 @@ class MembershipTier(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        """String representation showing name and prices."""
-        price_display = f"£{self.membership_price}" if self.membership_price is not None else "£0"
-        return f"Tier: {self.tier}, price: {price_display} for one year"
+        return self.tier
 
 
 class AccessibilityFeature(models.Model):
