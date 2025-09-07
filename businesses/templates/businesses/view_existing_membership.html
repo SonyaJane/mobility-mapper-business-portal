@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% load time_extras %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/business_dashboard.css' %}">
+{% endblock %}
+
+{% block page_title %}Current Membership Information{% endblock %}
+
+{% block content %}
+
+<div class="content-container custom-constrained-width p-3">
+    <h4 class="underline-orange my-3 align-self-start">Your Current Membership</h4>
+    <div class="mb-2">
+        <p class="mb-1"><strong>Membership Tier:</strong> {{ membership.tier }}</p>
+        <p class="mb-1"><strong>Start Date:</strong> {{ start_date|date:"N j, Y" }}</p>
+        <p class="mb-1"><strong>End Date:</strong> {{ end_date|date:"N j, Y" }}</p>
+        <p class="mb-1"><strong>Benefits:</strong></p>
+        <ul>
+            {% for benefit in membership.description %}
+                <li>{{ benefit }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

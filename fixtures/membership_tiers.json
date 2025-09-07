@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "tier": "free",
-      "description": ["Basic listing",
+      "description": ["Basic business listing",
                       "Business categories",
                       "Address",
                       "Link to your website",
@@ -21,7 +21,7 @@
     "pk": 2,
     "fields": {
       "tier": "standard",
-      "description": ["Standard listing",
+      "description": ["Standard business listing",
                       "Business categories",
                       "Address",
                       "Link to your website",

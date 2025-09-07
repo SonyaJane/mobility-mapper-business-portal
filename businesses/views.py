@@ -1,3 +1,4 @@
+from datetime import timedelta
 import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -16,6 +17,7 @@ from accounts.models import UserProfile
 from businesses.models import Business, AccessibilityFeature
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
 from .models import Business, WheelerVerification, MembershipTier, WheelerVerificationRequest
+from checkout.models import Purchase
 from django.core.mail import mail_admins
 # custom template filter for dictionary access
 from accounts.models import MobilityDevice
@@ -727,3 +729,29 @@ def cancel_membership(request):
     except Business.DoesNotExist:
         messages.error(request, "No business found to cancel membership for.")
     return redirect('business_dashboard')
+
+@login_required
+def view_existing_membership(request):
+    """Display current membership details."""
+    profile = getattr(request.user, 'profile', None)
+    if not profile:
+        messages.error(request, "Unable to find your business profile.")
+        return redirect('business_dashboard')
+    try:
+        business = Business.objects.get(business_owner=profile)
+        current_tier = business.membership_tier
+        # get membership tier object
+        membership_tier = MembershipTier.objects.get(pk=current_tier.id)
+        # get latest purchase with purchase_type='membership'
+        membership_purchase = Purchase.objects.filter(business=business, purchase_type='membership').order_by('-created_at').first()
+        start_date = membership_purchase.created_at if membership_purchase else None
+        end_date = start_date + timedelta(days=366) if start_date else None
+        return render(request, 'businesses/view_existing_membership.html', {
+            'membership': membership_tier,
+            'start_date': start_date,
+            'end_date': end_date,
+            'page_title': 'Current Membership Information',
+        })
+    except Business.DoesNotExist:
+        messages.error(request, "No business found. Please register your business first.")
+        return redirect('register_business')
