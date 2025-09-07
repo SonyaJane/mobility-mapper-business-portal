@@ -3,12 +3,29 @@
 
 {% block content %}
 <div class="mx-2 my-3">
-  <div class="text-center my-3">
-    <h3 class="underline-orange d-inline-block">Edit Profile</h3>
-  </div>
+  <h3 class="underline-orange my-3 align-self-start">Edit Profile</h3>
+
   <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.first_name|as_crispy_field }}
+    {% comment %} Photo {% endcomment %}
+    <div class="mb-4">
+    {% if form.instance.photo %}
+        <div class="mb-2">
+          <img src="{{ form.instance.photo.url }}" alt="Profile photo" class="img-thumbnail" style="max-width:200px;">
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" name="{{ form.photo.html_name }}-clear" id="{{ form.photo.id_for_label }}-clear">
+          <label class="form-check-label" for="{{ form.photo.id_for_label }}-clear">Delete current photo (without replacing it)</label>
+        </div>
+        <div>
+          <label for="{{ form.photo.id_for_label }}" class="form-label">Change photo:</label>
+          <input type="file" name="{{ form.photo.html_name }}" class="form-control" accept="image/*" id="{{ form.photo.id_for_label }}">
+        </div>
+      {% else %}
+      {{ form.photo|as_crispy_field }}
+      {% endif %}
+    </div>
+        {{ form.first_name|as_crispy_field }}
     {{ form.last_name|as_crispy_field }}
     <div id="country-field">
       {{ form.country|as_crispy_field }}
@@ -16,7 +33,6 @@
     <div id="county-field">
       {{ form.county|as_crispy_field }}
     </div>
-    {{ form.photo|as_crispy_field }}
     {{ form.has_business|as_crispy_field }}
     {{ form.is_wheeler|as_crispy_field }}
     <!-- Mobility devices fields always rendered and toggled via JS -->
