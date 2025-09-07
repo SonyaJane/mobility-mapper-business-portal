@@ -11,8 +11,8 @@
                       "Contact Phone number",
                       "Opening hours",
                       "Accessibility features"],
-  "membership_price": 0,
-  "verification_price": 60,
+      "membership_price": 0,
+      "verification_price": 60,
       "is_active": true
     }
   },
@@ -21,15 +21,21 @@
     "pk": 2,
     "fields": {
       "tier": "standard",
-      "description": ["All Free tier features",
+      "description": ["Standard listing",
+                      "Business categories",
+                      "Address",
+                      "Link to your website",
+                      "Contact Phone number",
+                      "Opening hours",
+                      "Accessibility features",
                       "Display business logo",
                       "Social Media links",
                       "Email address",
                       "Short description of business",
                       "Option to add special offers for wheelers to attract more customers",
                       "Half price wheeler verification (normally £60)"],
-  "membership_price": 100,
-  "verification_price": 30,
+      "membership_price": 100,
+      "verification_price": 30,
       "is_active": true
     }
   },
@@ -38,13 +44,24 @@
     "pk": 3,
     "fields": {
       "tier": "premium",
-      "description": ["All Standard features",
+      "description": ["Premium listing",
+                      "Business categories",
+                      "Address",
+                      "Link to your website",
+                      "Contact Phone number",
+                      "Opening hours",
+                      "Accessibility features",
+                      "Display business logo",
+                      "Social Media links",
+                      "Email address",
+                      "Short description of business",
+                      "Option to add special offers for wheelers to attract more customers",
                       "Highlighted on map",
-                      "Appear high in search results",
+                      "Appear higher in search results",
                       "Wheeler verification included (normally £60)"],
-  "membership_price": 250,
-  "verification_price": 0,
-      "is_active": true
+      "membership_price": 250,
+      "verification_price": 0,
+      "is_active": true 
     }
   }
 ]
