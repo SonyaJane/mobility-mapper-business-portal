@@ -1,0 +1,10 @@
+Hi {{ profile_name }},
+
+Thanks — we've received your payment.
+
+Your payment for the {{ tier_display }} membership has been applied to {{ business_name }}.
+
+If you have questions, reply to this email.
+
+Thanks,
+The Mobility Mapper team

@@ -13,21 +13,19 @@
 
   <!-- Dashboard Header -->
   
-  {% if logo_url %}
-  <div class="row align-items-center mt-4 mb-3 pt-2">  
-      <div class="col-md-4 text-center">
-        <img src="{{ logo_url }}" alt="{{ business.business_name }} Logo" class="img-fluid rounded mb-3" style="max-height: 180px;">
-      </div>
-      <div class="col-md-8 text-center">
-  {% else %}
-  <div class="d-flex flex-column align-items-center mt-4 mb-3 pt-2">
-  {% endif %}
-        <h1 class="fw-bold">{{ business.business_name }}</h1>
-        <p class="fs-5 text-muted">Dashboard</p>
-      </div>
-  {% if logo_url %}    
+  <div class="row align-items-center my-4 mx-2 gy-4 gx-2 border rounded shadow-sm">
+    <div class="p-0 m-0 col-md-6 text-center">
+      {% if logo_url %}
+      <img src="{{ logo_url }}" alt="{{ business.business_name }} Logo" class="img-fluid rounded my-4 business-logo">
+      {% else %}
+      <img src="{% static 'images/business_logo_placeholder.png' %}" alt="Business Logo Placeholder" class="img-fluid rounded my-4 business-logo">
+      {% endif %}
+    </div>
+    <div class="p-0 col-md-6 text-center">
+      <h1 class="fw-bold">{{ business.business_name }}</h1>
+      <p class="fs-5 text-muted">Dashboard</p>
+    </div>
   </div>
-  {% endif %}
 
   {% if business %}
   <div class="row mb-3 g-3">

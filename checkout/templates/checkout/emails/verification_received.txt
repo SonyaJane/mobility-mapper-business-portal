@@ -1,0 +1,8 @@
+Hi {{ user_name }},
+
+We received your payment for a Wheeler verification for {{ business_name }}.
+
+Your verification request (ID: {{ request_id }}) has been created and will be reviewed by an admin shortly.
+
+Thanks,
+The Mobility Mapper team

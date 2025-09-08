@@ -20,8 +20,14 @@
 }
 
 #business-details td {
-  white-space: normal;       /* allow wrapping */
-  word-wrap: break-word;     /* break long words if needed */
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+img.business-logo {
+    max-height: 180px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 /* Stack Business Details on extra small screens */
