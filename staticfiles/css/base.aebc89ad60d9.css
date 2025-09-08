@@ -497,8 +497,7 @@ h5, .h5 {
     flex-direction: row;
 }
 
-#edit-profile label,
-#edit-profile legend {
+#edit-profile label {
   font-size: 1.1rem;
   font-weight: 500;
 }

@@ -300,9 +300,8 @@ def wheeler_verification_history(request):
 @login_required
 def edit_business(request):
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
-
     membership_tiers = MembershipTier.objects.filter(is_active=True)
-    import json
+    
     if request.method == 'POST':
         post_data = request.POST.copy()
         # Remove '__other__' marker so categories field validation passes
@@ -360,6 +359,8 @@ def edit_business(request):
         'selected_accessibility_features': selected_accessibility_features,
         'page_title': 'Edit Your Business',
     })
+    
+
 def explore_membership_options(request):    
     """Display available membership plans for businesses to review and select."""
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))

@@ -16,3 +16,8 @@
 .choices__list--dropdown .choices__item--choice {
   padding-left: 1rem;
 }
+
+#edit-business label {
+  font-size: 1.1rem;
+  font-weight: 500;
+}

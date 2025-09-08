@@ -9,8 +9,10 @@
 
 {% block content %}
 
-<div class="content-container p-3">
-  <h4 class="mb-2">Edit your business</h4>
+<div id="edit-business" class="content-container .mw-600.content-container p-3">
+
+  <h4 class="my-3 underline-orange align-self-start">Edit your business</h4>
+  
   <p class="mt-1">The details you enter below will appear in the public search results on the <a href="{% url 'accessible_business_search' %}" class="link-body-emphasis">Search for Accessible Businesses</a> page. Therefore, the more complete and accurate your listing, the better potential customers can find and choose your business.</p>
 
   <form method="POST" enctype="multipart/form-data" class="business-registration-form">
@@ -40,9 +42,30 @@
     {% csrf_token %}
     {{ form.media }}
 
+    {% comment %} Logo {% endcomment %}
+    <div class="mb-4">
+      <h5 class="mb-2">Business Logo</h5>
+      {% if form.instance.logo %}
+        <div class="mb-2">
+          <img src="{{ form.instance.logo.url }}" alt="Business logo" class="img-thumbnail" style="max-width:200px;">
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="checkbox" name="{{ form.logo.html_name }}-clear" id="{{ form.logo.id_for_label }}-clear">
+          <label class="form-check-label" for="{{ form.logo.id_for_label }}-clear">Delete current logo (without replacing it)</label>
+        </div>
+        <div>
+          <label for="{{ form.logo.id_for_label }}" class="form-label">Change logo:</label>
+          <p>The image must be in PNG, JPEG, or WEBP format, square, and no larger than 5MB.</p>
+          <input type="file" name="{{ form.logo.html_name }}" class="form-control" accept="image/*" id="{{ form.logo.id_for_label }}">
+        </div>
+      {% else %}
+      {{ form.logo|as_crispy_field }}
+      {% endif %}
+    </div>
+
     <!-- Other Form Fields -->
     {% for field in form.visible_fields %}
-      {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'membership_tier' and field.name != 'opening_hours' and field.name != 'special_offers' %}
+      {% if field.name != 'logo' and field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'membership_tier' and field.name != 'opening_hours' and field.name != 'special_offers' %}
         {{ field|as_crispy_field }}
       {% endif %}
     {% endfor %}

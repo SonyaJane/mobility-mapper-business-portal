@@ -3,6 +3,9 @@ from .models import Business, WheelerVerification, MembershipTier
 from .widgets import MapLibrePointWidget
 from .models import AccessibilityFeature, Category
 from core.validators import validate_logo
+from django.core.exceptions import ValidationError
+from django.utils.text import slugify
+import os
 
 
 class BusinessRegistrationForm(forms.ModelForm):
@@ -94,12 +97,15 @@ class BusinessRegistrationForm(forms.ModelForm):
         help_text="Find your business location on the map, zoom in for accuracy, and then click directly on your building or area to place a marker.",
         required=True,
     )
-    logo = forms.ImageField(
+    # Use FileField so we can validate extension/MIME first in clean_logo
+    logo = forms.FileField(
         required=False,
+        widget=forms.ClearableFileInput(attrs={'accept': 'image/png,image/jpeg,image/webp'}),
         error_messages={
             'invalid': 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.'
         }
     )
+
     class Meta:
         model = Business
         fields = [
@@ -163,7 +169,18 @@ class BusinessRegistrationForm(forms.ModelForm):
         if not logo:
             return logo
 
-        # Delegate to centralized validator; require square logos
+        # Early extension/content-type check to give a clear "wrong file type" error for SVG
+        name = getattr(logo, 'name', '') or ''
+        content_type = getattr(logo, 'content_type', '') or ''
+        allowed_exts = ('.png', '.jpg', '.jpeg', '.webp')
+        allowed_mimes = ('image/png', 'image/jpeg', 'image/webp')
+
+        if name and not name.lower().endswith(allowed_exts):
+            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
+        if content_type and content_type not in allowed_mimes:
+            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
+
+        # Delegate to centralized validator (verify/reopen + size/dimension checks)
         validate_logo(logo, purpose="logo")
         return logo
 

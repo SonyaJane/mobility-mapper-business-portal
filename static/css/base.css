@@ -497,6 +497,12 @@ h5, .h5 {
     flex-direction: row;
 }
 
+#edit-profile label,
+#edit-profile legend {
+  font-size: 1.1rem !important;
+  font-weight: 500;
+}
+
 @media (max-width: 350px) {
     .btn-stack-350 {
         flex-direction: column !important;

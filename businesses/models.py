@@ -83,10 +83,13 @@ class Business(models.Model):
     accessibility_features = models.ManyToManyField('AccessibilityFeature', blank=True, related_name='businesses')
     logo = models.ImageField(
         upload_to='mobility_mapper_business_portal/business_logos/',
-        max_length=255,
         blank=True,
         null=True,
         validators=[validate_logo],  # ensure model-level validation for logos
+        error_messages={
+            # Message used when Pillow/Django can't read the file (corrupted/unreadable)
+            'invalid_image': 'The uploaded image appears corrupted or unreadable.'
+        }
     )
     website = models.URLField(blank=True, null=True)
     opening_hours = models.TextField(blank=True, null=True)

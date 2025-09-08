@@ -2,14 +2,40 @@
 {% load static %}
 
 {% block content %}
-<div class="mx-2 my-3">
+<div id="edit-profile" class="mx-2 my-3">
   <h3 class="underline-orange my-3 align-self-start">Edit Profile</h3>
 
   <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+    
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <strong>Please correct the errors below:</strong>
+        <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            {% if field.name == 'categories' or field.name == 'accessibility_features' %}
+              <li>
+                <strong>{{ field.label }}</strong><br>
+                {{ error }}
+              </li>
+            {% else %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
     {% csrf_token %}
+
     {% comment %} Photo {% endcomment %}
     <div class="mb-4">
-    {% if form.instance.photo %}
+      <h5 class="mb-2">Profile Photo</h5>
+      {% if form.instance.photo %}
         <div class="mb-2">
           <img src="{{ form.instance.photo.url }}" alt="Profile photo" class="img-thumbnail" style="max-width:200px;">
         </div>
@@ -19,14 +45,17 @@
         </div>
         <div>
           <label for="{{ form.photo.id_for_label }}" class="form-label">Change photo:</label>
-          <input type="file" name="{{ form.photo.html_name }}" class="form-control" accept="image/*" id="{{ form.photo.id_for_label }}">
+          <p>The image must be in PNG, JPEG, or WEBP format, square, and no larger than 5MB.</p>
+          <input type="file" name="{{ form.photo.html_name }}" class="form-control" accept="image/png,image/jpeg,image/webp" id="{{ form.photo.id_for_label }}">
         </div>
       {% else %}
       {{ form.photo|as_crispy_field }}
       {% endif %}
     </div>
-        {{ form.first_name|as_crispy_field }}
+
+    {{ form.first_name|as_crispy_field }}
     {{ form.last_name|as_crispy_field }}
+
     <div id="country-field">
       {{ form.country|as_crispy_field }}
     </div>
@@ -44,20 +73,7 @@
     </div>
     {# Age group #}
     {{ form.age_group|as_crispy_field }}
-    {% if form.errors %}
-      <div class="alert alert-danger">
-        <ul>
-          {% for field in form %}
-            {% for error in field.errors %}
-              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-            {% endfor %}
-          {% endfor %}
-          {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
+    
     <button type="submit" class="btn btn-primary">Save Changes</button>
     <a href="{% url 'account_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
   </form>

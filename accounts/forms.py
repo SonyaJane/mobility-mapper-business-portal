@@ -56,9 +56,13 @@ class CustomSignupForm(SignupForm):
         required=False,
         empty_label='Select age group'
     )
-    photo = forms.ImageField(
+    photo = forms.FileField(
         label='Profile Photo',
-        required=False
+        required=False,
+        widget=forms.ClearableFileInput(attrs={'accept': 'image/png,image/jpeg,image/webp'}),
+        error_messages={
+            'invalid': 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.'
+        }
     )
     field_order = [
         'first_name', 'last_name', 
@@ -78,7 +82,23 @@ class CustomSignupForm(SignupForm):
 
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
-        return validate_profile_photo(photo, purpose="profile signup")
+        if not photo:
+            return photo
+
+        # Early extension / MIME hint check -> "wrong file type" message for SVG etc.
+        name = getattr(photo, 'name', '') or ''
+        content_type = getattr(photo, 'content_type', '') or ''
+        allowed_exts = ('.png', '.jpg', '.jpeg', '.webp')
+        allowed_mimes = ('image/png', 'image/jpeg', 'image/webp')
+
+        # Early "wrong file type" check (catches SVG, etc.)
+        if name and not name.lower().endswith(allowed_exts):
+            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
+        if content_type and content_type not in allowed_mimes:
+            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
+
+        # Delegate to centralized validator (verify/reopen + size/dimension checks)
+        return validate_profile_photo(photo, purpose="profile photo")
 
     def clean(self):
         cleaned_data = super().clean()
@@ -151,7 +171,14 @@ class UserProfileForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'placeholder': 'Specify other device'})
     )
     
-    photo = forms.ImageField(label='Profile Photo', required=False)
+    photo = forms.FileField(
+        label='Profile Photo',
+        required=False,
+        widget=forms.ClearableFileInput(attrs={'accept': 'image/png,image/jpeg,image/webp'}),
+        error_messages={
+            'invalid': 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.'
+        }
+    )
 
     # Business ownership and wheeler flags
     has_business = forms.TypedChoiceField(
@@ -193,6 +220,21 @@ class UserProfileForm(forms.ModelForm):
 
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
+        if not photo:
+            return photo
+
+        # Early extension / MIME hint check -> "wrong file type" message for SVG etc.
+        name = getattr(photo, 'name', '') or ''
+        content_type = getattr(photo, 'content_type', '') or ''
+        allowed_exts = ('.png', '.jpg', '.jpeg', '.webp')
+        allowed_mimes = ('image/png', 'image/jpeg', 'image/webp')
+
+        if name and not name.lower().endswith(allowed_exts):
+            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
+        if content_type and content_type not in allowed_mimes:
+            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
+
+        # Delegate to centralized validator (verify/reopen + size/dimension checks)
         return validate_profile_photo(photo, purpose="profile photo")
 
     def clean(self):
