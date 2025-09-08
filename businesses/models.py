@@ -31,7 +31,7 @@ class MembershipTier(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.tier
+        return self.get_tier_display()
 
 
 class AccessibilityFeature(models.Model):
