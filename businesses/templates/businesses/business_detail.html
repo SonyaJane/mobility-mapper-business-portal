@@ -12,20 +12,21 @@
 {% block content %}
 <div class="content-container mx-1">
   
+  <div class="row align-items-center my-4 mx-2 gy-4 gx-2 border rounded shadow-sm">
   {% if business.logo %}
-  <div class="row align-items-center mt-4 mb-3 pt-2">  
-      <div class="col-md-4 text-center">
-        <img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" class="img-fluid rounded mb-3" style="max-height: 180px;">
-      </div>
-      <div class="col-md-8 text-center">
+    <div class="p-0 m-0 col-md-6 text-center">
+      <img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" class="img-fluid rounded my-4 business-logo">
+    </div>
+    <div class="col-md-6 text-center">
+      <h1 class="fw-bold">{{ business.business_name }}</h1>
+    </div>
   {% else %}
-  <div class="d-flex flex-column align-items-center mt-4 mb-3 pt-2">
+    <div class="col-12 text-center">
+      <h1 class="fw-bold">{{ business.business_name }}</h1>
+    </div>
   {% endif %}
-        <h1 class="fw-bold">{{ business.business_name }}</h1>
-      </div>
-  {% if business.logo %}    
   </div>
-  {% endif %}
+
 
   <div class="row mb-3 g-3">
 
@@ -37,41 +38,49 @@
           <div class="table-responsive">
             <table id="business-details" class="table table-sm table-striped table-hover mb-0">
             <tbody>
-                <tr>
-                    <td class="align-middle ps-3"><i class="bi bi-geo-alt fs-5 me-2 text-danger"></i><strong>Address:</strong></td>
-                    <td class="align-middle">{{ business.address }}</td>
-                </tr>
               <tr>
-                <td class="align-middle ps-3"><i class="bi bi-tags fs-5 me-2 text-success"></i><strong>Category:</strong></td>
+                <td class="align-middle ps-3"><i class="bi bi-tags fs-5 me-2 text-orange"></i><strong>Category:</strong></td>
                 <td class="align-middle">
-                  {% if business.categories.all %}{% for cat in business.categories.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% else %}None{% endif %}
+                  {% if business.categories.all %}
+                    {% for cat in business.categories.all %}
+                      {{ cat.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    None
+                  {% endif %}
                 </td>
               </tr>
+              {% if business.address %}
+              <tr>
+                  <td class="align-middle ps-3"><i class="bi bi-geo-alt fs-5 me-2 text-brown"></i><strong>Address:</strong></td>
+                  <td class="align-middle">{{ business.address }}</td>
+              </tr>
+              {% endif %}
               {% if business.website %}
               <tr>
-                <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-info"></i><strong>Website:</strong></td>
+                <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-mango"></i><strong>Website:</strong></td>
                 <td class="align-middle"><a href="{{ business.website }}" target="_blank" class="text-decoration-none">{{ business.website }}</a></td>
               </tr>
               {% endif %}
               {% if business.public_email %}
               <tr>
-                <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-warning"></i><strong>Email:</strong></td>
+                <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-brown"></i><strong>Email:</strong></td>
                 <td class="align-middle"><a href="mailto:{{ business.public_email }}" class="text-decoration-none">{{ business.public_email }}</a></td>
               </tr>
               {% endif %}
               {% if business.public_phone %}
               <tr>
-                <td class="align-middle ps-3"><i class="bi bi-telephone fs-5 me-2 text-success"></i><strong>Phone:</strong></td>
+                <td class="align-middle ps-3"><i class="bi bi-telephone fs-5 me-2 text-coffee"></i><strong>Phone:</strong></td>
                 <td class="align-middle"><a href="tel:{{ business.public_phone }}" class="text-decoration-none">{{ business.public_phone }}</a></td>
               </tr>
               {% endif %}
               {% if business.facebook_url or business.x_twitter_url or business.instagram_url %}
               <tr>
-                <td class="align-middle ps-3"><i class="bi bi-share fs-6 me-2 text-info"></i><strong>Social Media:</strong></td>
+                <td class="align-middle ps-3"><i class="bi bi-share fs-6 me-2 text-coffee"></i><strong>Social Media:</strong></td>
                 <td class="align-middle">
-                  {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2"><i class="bi bi-facebook text-primary"></i></a>{% endif %}
-                  {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2"><i class="bi bi-twitter-x text-dark"></i></a>{% endif %}
-                  {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank" class="me-2"><i class="bi bi-instagram text-danger"></i></a>{% endif %}
+                  {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2"><i class="bi bi-facebook text-orange"></i></a>{% endif %}
+                  {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2"><i class="bi bi-twitter-x text-mango"></i></a>{% endif %}
+                  {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank" class="me-2"><i class="bi bi-instagram text-coffee"></i></a>{% endif %}
                 </td>
               </tr>
               {% endif %}
