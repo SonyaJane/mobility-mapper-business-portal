@@ -5,6 +5,8 @@ Defines business tiers, business details, and accessibility/verification feature
 
 from django.contrib.gis.db import models as geomodels
 from django.db import models
+from django.utils.text import slugify
+from core.validators import validate_logo
 from django.conf import settings
 
 TIER_CHOICES = [
@@ -81,9 +83,10 @@ class Business(models.Model):
     accessibility_features = models.ManyToManyField('AccessibilityFeature', blank=True, related_name='businesses')
     logo = models.ImageField(
         upload_to='mobility_mapper_business_portal/business_logos/',
-    max_length=255,
-    blank=True,
-    null=True,
+        max_length=255,
+        blank=True,
+        null=True,
+        validators=[validate_logo],  # ensure model-level validation for logos
     )
     website = models.URLField(blank=True, null=True)
     opening_hours = models.TextField(blank=True, null=True)

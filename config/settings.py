@@ -237,3 +237,10 @@ LOGGING = {
         },
     },
 }
+
+# Image validator defaults (used by core.validators.validate_image_file)
+IMAGE_MAX_FILE_SIZE = 5 * 1024 * 1024        # bytes (5 MB)
+IMAGE_MAX_DIMENSION = 3000                  # max width/height in pixels
+IMAGE_ALLOWED_MIMES = ("image/png", "image/jpeg", "image/webp")
+IMAGE_ALLOWED_EXTS = (".png", ".jpg", ".jpeg", ".webp")
+IMAGE_ALLOWED_FORMATS = ("PNG", "JPEG", "WEBP")

@@ -1,17 +1,19 @@
-from PIL import Image
-
+from core.validators import validate_profile_photo
+from django import forms
+from django.core.exceptions import ValidationError
 from allauth.account.forms import SignupForm
 from django.contrib.auth import get_user_model
-from django import forms
+
 from .models import UserProfile, County, AgeGroup, MobilityDevice
+
+User = get_user_model()
 
 class CustomSignupForm(SignupForm):
     confirm_email = forms.EmailField(max_length=254, required=True, label='Confirm Email Address')
     first_name = forms.CharField(max_length=30, required=True, label='First Name')
     last_name = forms.CharField(max_length=30, required=True, label='Last Name')
-    # Override username for custom label
     username = forms.CharField(max_length=150, required=True, label='Choose a username')
-    # New profile questions
+
     has_business = forms.TypedChoiceField(
         choices=[('True', 'Yes'), ('False', 'No')],
         coerce=lambda x: x == 'True',
@@ -34,9 +36,8 @@ class CustomSignupForm(SignupForm):
         max_length=100,
         required=False,
         label='Please specify other mobility device',
-        widget=forms.TextInput(attrs={'placeholder': 'Describe other device'})
+        widget=forms.TextInput(attrs={'placeholder': 'Specify other device'})
     )
-    # Additional profile fields
     country = forms.ChoiceField(
         choices=UserProfile.COUNTRY_CHOICES,
         initial='UK',
@@ -59,8 +60,7 @@ class CustomSignupForm(SignupForm):
         label='Profile Photo',
         required=False
     )
-    # specify render purchase including new fields
-    field_purchase = [
+    field_order = [
         'first_name', 'last_name', 
         'email', 'confirm_email', 'username', 
         'has_business', 'is_wheeler', 'mobility_devices', 'mobility_devices_other', 
@@ -69,18 +69,24 @@ class CustomSignupForm(SignupForm):
     ]
 
     def clean_username(self):
-        username = self.cleaned_data.get('username')
-        User = get_user_model()
-        if User.objects.filter(username=username).exists():
-            raise forms.ValidationError('This username is already taken. Please choose another.')
+        username = self.cleaned_data.get('username', '').strip()
+        if not username:
+            raise ValidationError("Username is required.")
+        if User.objects.filter(username__iexact=username).exists():
+            raise ValidationError("This username is already taken.")
         return username
+
+    def clean_photo(self):
+        photo = self.cleaned_data.get('photo')
+        return validate_profile_photo(photo, purpose="profile signup")
 
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
         confirm = cleaned_data.get('confirm_email')
-        if email and confirm and email != confirm:
+        if email and confirm and email.lower() != confirm.lower():
             self.add_error('confirm_email', 'Email addresses must match.')
+            
         # Require other device description if 'Other' selected
         devices = cleaned_data.get('mobility_devices', []) or []
         other_desc = cleaned_data.get('mobility_devices_other', '').strip()
@@ -141,54 +147,61 @@ class UserProfileForm(forms.ModelForm):
     mobility_devices_other = forms.CharField(
         max_length=100,
         required=False,
-        label='Please specify other device'
+        label='Please specify other device',
+        widget=forms.TextInput(attrs={'placeholder': 'Specify other device'})
     )
+    
+    photo = forms.ImageField(label='Profile Photo', required=False)
+
     # Business ownership and wheeler flags
     has_business = forms.TypedChoiceField(
-        choices=[(True, 'Yes'), (False, 'No')],
+        choices=[('True', 'Yes'), ('False', 'No')],
         coerce=lambda x: x == 'True',
         widget=forms.RadioSelect,
         label='Do you own or manage a business?'
     )
     is_wheeler = forms.TypedChoiceField(
-        choices=[(True, 'Yes'), (False, 'No')],
+        choices=[('True', 'Yes'), ('False', 'No')],
         coerce=lambda x: x == 'True',
         widget=forms.RadioSelect,
         label='Do you use a wheeled mobility device?'
     )
+    
+    class Meta:
+        model = UserProfile
+        fields = [
+            'has_business', 'is_wheeler',
+            'mobility_devices', 'mobility_devices_other',
+            'country', 'county', 'age_group', 'photo'
+        ]
+        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Populate initial values for overridden fields
         if hasattr(self, 'instance') and self.instance:
             # User name
-            self.fields['first_name'].initial = self.instance.user.first_name
-            self.fields['last_name'].initial = self.instance.user.last_name
+            self.fields['first_name'].initial = getattr(self.instance.user, 'first_name', '')
+            self.fields['last_name'].initial = getattr(self.instance.user, 'last_name', '')
             # Country
             self.fields['country'].initial = self.instance.country
             # Mobility devices: use list of PKs
             self.fields['mobility_devices'].initial = list(self.instance.mobility_devices.values_list('pk', flat=True))
             self.fields['mobility_devices_other'].initial = self.instance.mobility_devices_other or ''
-            # Business and wheeler flags
-            self.fields['has_business'].initial = self.instance.has_business
-            self.fields['is_wheeler'].initial = self.instance.is_wheeler
+            # Business and wheeler flags (use string values to match TypedChoiceField choices)
+            self.fields['has_business'].initial = 'True' if self.instance.has_business else 'False'
+            self.fields['is_wheeler'].initial = 'True' if self.instance.is_wheeler else 'False'
 
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
-        if photo:
-            try:
-                img = Image.open(photo)
-            except Exception:
-                raise forms.ValidationError('Invalid image file.')
-            if img.width != img.height:
-                raise forms.ValidationError('Profile photo must be square (width and height must match).')
-            # Reset file pointer after PIL read so storage uploads full content
-            photo.file.seek(0)
-        return photo
+        return validate_profile_photo(photo, purpose="profile photo")
 
-    class Meta:
-        model = UserProfile
-        # Country, mobility_devices, and mobility_devices_other are handled explicitly
-        fields = ['county', 'photo', 'age_group']
+    def clean(self):
+        cleaned = super().clean()
+        devices = cleaned.get('mobility_devices') or []
+        other_desc = (cleaned.get('mobility_devices_other') or '').strip()
+        if any(getattr(d, 'code', '').lower() == 'other' for d in devices) and not other_desc:
+            self.add_error('mobility_devices_other', 'Please specify your other mobility device.')
+        return cleaned
 
     def save(self, commit=True):
         # Save profile fields and customized mobility selections
@@ -196,9 +209,11 @@ class UserProfileForm(forms.ModelForm):
         # Save business and mobility flags
         profile.has_business = self.cleaned_data.get('has_business', False)
         profile.is_wheeler = self.cleaned_data.get('is_wheeler', False)
-        # Defer m2m handling after save
-        # Update other device text or clear if unchecked
-        profile.mobility_devices_other = self.cleaned_data.get('mobility_devices_other', '')
+        # Update other device text only when wheeler; clear otherwise
+        if profile.is_wheeler:
+            profile.mobility_devices_other = self.cleaned_data.get('mobility_devices_other', '')
+        else:
+            profile.mobility_devices_other = ''
         # Save related user name
         user = profile.user
         user.first_name = self.cleaned_data.get('first_name', user.first_name)
@@ -206,10 +221,10 @@ class UserProfileForm(forms.ModelForm):
         if commit:
             user.save()
             profile.save()
-            # Handle many-to-many mobility devices
-            devices = self.cleaned_data.get('mobility_devices', []) or []
+            # Persist many-to-many only when wheeler; clear otherwise
             if profile.is_wheeler:
-                profile.mobility_devices.set(devices)
+                # let the ModelForm handle m2m from cleaned_data
+                self.save_m2m()
             else:
                 profile.mobility_devices.clear()
         return profile

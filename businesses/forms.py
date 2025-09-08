@@ -2,11 +2,7 @@ from django import forms
 from .models import Business, WheelerVerification, MembershipTier
 from .widgets import MapLibrePointWidget
 from .models import AccessibilityFeature, Category
-from PIL import Image
-from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
-from django.utils.safestring import mark_safe
-from django.template.defaultfilters import slugify
-from django.core.exceptions import ValidationError
+from core.validators import validate_logo
 
 
 class BusinessRegistrationForm(forms.ModelForm):
@@ -76,14 +72,14 @@ class BusinessRegistrationForm(forms.ModelForm):
     categories = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
-        label=mark_safe(
-            "Business Categories*<br><small>Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</small>"
-        ),
+        label="Business Categories*",
+        help_text="Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.",
         required=False
     )
     other_category = forms.CharField(
         required=False,
-        label=mark_safe("Other Category*<br><small>If your category isn't listed, type it here and it will be added to our database.</small>"),
+        label="Other Category*",
+        help_text="If your category isn't listed, type it here and it will be added to our database.",
         widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a new category here'})
     )
     accessibility_features = forms.ModelMultipleChoiceField(
@@ -94,15 +90,14 @@ class BusinessRegistrationForm(forms.ModelForm):
     )
     location = forms.CharField(
         widget=MapLibrePointWidget(),
-        label=mark_safe(
-            "Business Location*<br><small>Find your business location on the map, zoom in for accuracy, and then click directly on your building or area to place a marker.</small>"
-        ),
+        label="Business Location*",
+        help_text="Find your business location on the map, zoom in for accuracy, and then click directly on your building or area to place a marker.",
         required=True,
     )
     logo = forms.ImageField(
         required=False,
         error_messages={
-            'invalid': 'Please upload a PNG or JPEG image. SVG or other formats are not allowed.'
+            'invalid': 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.'
         }
     )
     class Meta:
@@ -167,24 +162,9 @@ class BusinessRegistrationForm(forms.ModelForm):
         logo = self.cleaned_data.get('logo')
         if not logo:
             return logo
-        
-        # Quick reject by MIME or extension
-        allowed_mimes = ("image/png", "image/jpeg")
-        content_type = getattr(logo, "content_type", "")
-        if content_type and content_type not in allowed_mimes:
-            raise ValidationError("Please upload a PNG or JPEG image. SVG or other formats are not allowed.")
 
-        name = getattr(logo, "name", "") or ""
-        if not name.lower().endswith(('.png', '.jpg', '.jpeg')):
-            raise ValidationError("Please upload a PNG or JPEG image. SVG or other formats are not allowed.")
-
-        if isinstance(logo, (InMemoryUploadedFile, TemporaryUploadedFile)):
-            image = Image.open(logo)
-            if image.width != image.height:
-                raise ValidationError("Logo must be square (width and height must be equal).")
-            # Reset file pointer after PIL read
-            logo.file.seek(0)
-            
+        # Delegate to centralized validator; require square logos
+        validate_logo(logo, purpose="logo")
         return logo
 
     def clean_categories(self):
@@ -250,28 +230,29 @@ class WheelerVerificationForm(forms.ModelForm):
     selfie = forms.ImageField(required=True, label="Upload a photo of yourself")
 
     def __init__(self, *args, **kwargs):
-        business = kwargs.pop('business', None) # business instance to filter features
-        # Initialize the form with business context, initializes self.fields and self.data
-        super().__init__(*args, **kwargs) 
-        
+        business = kwargs.pop('business', None)  # optional business instance to filter features
+        super().__init__(*args, **kwargs)
+
         # Ensure self.data is mutable so we can strip blank values
         if hasattr(self.data, 'copy'):
             data = self.data.copy()  # make mutable QueryDict copy
-            print('data',data)
             if hasattr(data, 'getlist'):
                 confirmed_vals = [v for v in data.getlist('confirmed_features') if v]
                 data.setlist('confirmed_features', confirmed_vals)
             self.data = data
-            print('cleaned data', self.data)
 
-        # confirmed_features = those currently assigned to this business
-        confirmed_qs = business.accessibility_features.all()
+        # confirmed_features = those currently assigned to this business (guard business None)
+        if business is not None:
+            confirmed_qs = business.accessibility_features.all()
+        else:
+            confirmed_qs = AccessibilityFeature.objects.none()
         self.fields['confirmed_features'].queryset = confirmed_qs
-        print('confirmed features', confirmed_qs)
+
         # Additional features = all features minus those already assigned to this business
         self.fields['additional_features'].queryset = AccessibilityFeature.objects.exclude(
             pk__in=confirmed_qs.values_list('pk', flat=True)
         )
+
     def clean(self):
         cleaned_data = super().clean()
         # Ensure a mobility device is selected
