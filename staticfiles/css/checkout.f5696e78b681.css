@@ -1,0 +1,4 @@
+#loading-overlay {
+    background: var(--color-mango-1-a);
+    z-index: 2000;
+}

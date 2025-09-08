@@ -6,6 +6,7 @@ from PIL import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
 from django.utils.safestring import mark_safe
 from django.template.defaultfilters import slugify
+from django.core.exceptions import ValidationError
 
 
 class BusinessRegistrationForm(forms.ModelForm):
@@ -98,6 +99,12 @@ class BusinessRegistrationForm(forms.ModelForm):
         ),
         required=True,
     )
+    logo = forms.ImageField(
+        required=False,
+        error_messages={
+            'invalid': 'Please upload a PNG or JPEG image. SVG or other formats are not allowed.'
+        }
+    )
     class Meta:
         model = Business
         fields = [
@@ -158,13 +165,26 @@ class BusinessRegistrationForm(forms.ModelForm):
 
     def clean_logo(self):
         logo = self.cleaned_data.get('logo')
-        if logo:
-            if isinstance(logo, (InMemoryUploadedFile, TemporaryUploadedFile)):
-                image = Image.open(logo)
-                if image.width != image.height:
-                    raise forms.ValidationError("Logo must be square (width and height must be equal).")
-                # Reset file pointer after PIL read
-                logo.file.seek(0)
+        if not logo:
+            return logo
+        
+        # Quick reject by MIME or extension
+        allowed_mimes = ("image/png", "image/jpeg")
+        content_type = getattr(logo, "content_type", "")
+        if content_type and content_type not in allowed_mimes:
+            raise ValidationError("Please upload a PNG or JPEG image. SVG or other formats are not allowed.")
+
+        name = getattr(logo, "name", "") or ""
+        if not name.lower().endswith(('.png', '.jpg', '.jpeg')):
+            raise ValidationError("Please upload a PNG or JPEG image. SVG or other formats are not allowed.")
+
+        if isinstance(logo, (InMemoryUploadedFile, TemporaryUploadedFile)):
+            image = Image.open(logo)
+            if image.width != image.height:
+                raise ValidationError("Logo must be square (width and height must be equal).")
+            # Reset file pointer after PIL read
+            logo.file.seek(0)
+            
         return logo
 
     def clean_categories(self):
