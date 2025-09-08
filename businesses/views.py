@@ -664,31 +664,37 @@ def ajax_search_businesses(request):
     #print("Sorted membership tiers:", [b.membership_tier.tier if b.membership_tier else 'free' for b in qs])
     results = []
     for biz in qs:
-         # Determine logo URL (empty string if no logo)
-         logo_url = biz.logo.url if getattr(biz, 'logo', None) else ''
-         results.append({
-             'id': biz.id,
-             'business_name': biz.business_name,
-             'categories': list(biz.categories.values_list('name', flat=True)),
-             'street_address1': biz.street_address1,
-             'street_address2': biz.street_address2,
-             'town_or_city': biz.town_or_city,
-             'county': biz.county,
-             'postcode': biz.postcode,
-             'location': {'lat': biz.location.y, 'lng': biz.location.x} if biz.location else None,
-             'is_wheeler_verified': getattr(biz, 'verified_by_wheelers', False),
-             'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
-             'public_phone': biz.public_phone,
-             'contact_phone': biz.contact_phone,
-             'public_email': biz.public_email,
-             'website': biz.website,
-             'opening_hours': biz.opening_hours,
-             'special_offers': biz.special_offers,
-             'services_offered': biz.services_offered,
-             'description': biz.description,
-             'logo': logo_url,
-             'wheeler_verification_requested': biz.wheeler_verification_requested,
-         })
+        # Determine membership tier (default to 'free' if not set)
+        membership_tier = biz.membership_tier.tier
+        # Determine logo URL (empty string if no logo)
+        # only show logo if not on free tier
+        logo_url = biz.logo.url if getattr(biz, 'logo', None) and (membership_tier != 'free') else ''
+        results.append({
+            'id': biz.id,
+            'business_name': biz.business_name,
+            'categories': list(biz.categories.values_list('name', flat=True)),
+            'street_address1': biz.street_address1,
+            'street_address2': biz.street_address2,
+            'town_or_city': biz.town_or_city,
+            'county': biz.county,
+            'postcode': biz.postcode,
+            'location': {'lat': biz.location.y, 'lng': biz.location.x} if biz.location else None,
+            'is_wheeler_verified': getattr(biz, 'verified_by_wheelers', False),
+            'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
+            'public_phone': biz.public_phone,
+            'website': biz.website,
+            'opening_hours': biz.opening_hours,
+            # only if not on free tier
+            'public_email': biz.public_email if membership_tier != 'free' else '',
+            'facebook': biz.facebook_url if membership_tier != 'free' else '',
+            'twitter': biz.x_twitter_url if membership_tier != 'free' else '',
+            'instagram': biz.instagram_url if membership_tier != 'free' else '',
+            'description': biz.description if membership_tier != 'free' else '',
+            'special_offers': biz.special_offers if membership_tier != 'free' else '',
+            'services_offered': biz.services_offered if membership_tier != 'free' else '',
+            'logo': logo_url,
+            'wheeler_verification_requested': biz.wheeler_verification_requested,
+        })
     return JsonResponse({'businesses': results})
 
 
