@@ -1,5 +1,6 @@
-from datetime import timedelta
 import json
+import random
+from datetime import timedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -23,9 +24,11 @@ from django.core.mail import mail_admins
 from accounts.models import MobilityDevice
 register = template.Library()
 
+
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
+
 
 @login_required
 def register_business(request):
@@ -100,6 +103,7 @@ def register_business(request):
         'selected_accessibility_features': selected_accessibility_features,
         'page_title': 'Register Your Business',
     })
+
     
 @require_GET
 def business_detail(request, pk):
@@ -147,6 +151,7 @@ def business_detail(request, pk):
         'user_has_requested': user_has_requested,
         'user_request_approved': user_request_approved,
     })
+
 
 @login_required
 def business_dashboard(request):
@@ -228,6 +233,7 @@ def business_dashboard(request):
         'opening_hours_dict': opening_hours_dict,
         'page_title': 'Business Dashboard',
     })
+
  
 @login_required
 def request_wheeler_verification(request, pk):
@@ -263,6 +269,7 @@ def request_wheeler_verification(request, pk):
                   'businesses/request_wheeler_verification.html',
                   {'business': business,
                    'page_title': 'Request Wheeler Verification'})
+
 
 @login_required
 def wheeler_verification_history(request):
@@ -426,7 +433,7 @@ def wheeler_verification_application(request, pk):
                 subject="New Wheeler Verification Application",
                 message=f"A new application to verify the accessibility features has been submitted for {business.business_name} by {request.user.username}. Review and approve in the admin panel.",
             )
-            messages.success(request, "Application submitted — we'll review it and contact you.")
+            messages.success(request, "Application submitted — we'll review it and contact you. This page shows the details of the business you have applied to verify.")
             # redirect after successful POST to avoid re-submission / silent reload
             return redirect('business_detail', pk=pk)
         else:
@@ -607,7 +614,6 @@ def verification_report(request, verification_id):
 
 @require_GET
 def ajax_search_businesses(request):
-    print("AJAX search triggered", request.GET)
     term = request.GET.get('q', '').strip()
     cat_id = request.GET.get('category')
     # allow multiple accessibility filters
@@ -627,7 +633,7 @@ def ajax_search_businesses(request):
         for feature in access:
             qs = qs.filter(accessibility_features__name=feature)
         qs = qs.distinct()
-    # Attempt to filter by map viewport bounds, suppress any errors
+    # Filter by map viewport bounds, suppress any errors
     try:
         min_lat = request.GET.get('min_lat')
         min_lng = request.GET.get('min_lng')
@@ -645,38 +651,49 @@ def ajax_search_businesses(request):
     except Exception:
         # If spatial lookup fails (e.g., unsupported backend), ignore bounds filter
         pass
+    # make a distinct list, shuffle to randomise order within tiers, then stable-sort by tier
+    qs = list(qs.distinct())
+    random.shuffle(qs)
+    membership_order = {'premium': 1, 'standard': 2, 'free': 3}
+    # sort is stable so the random order within each tier is preserved
+    qs.sort(key=lambda b: membership_order.get(
+        (b.membership_tier.tier if getattr(b, 'membership_tier', None) and getattr(b.membership_tier, 'tier', None) else 'free').lower(),
+        4
+    ))
+    # print membership tiers of sorted results for debugging (optional)
+    #print("Sorted membership tiers:", [b.membership_tier.tier if b.membership_tier else 'free' for b in qs])
     results = []
-    for biz in qs.distinct():
-        # Determine logo URL (empty string if no logo)
-        logo_url = biz.logo.url if getattr(biz, 'logo', None) else ''
-        results.append({
-            'id': biz.id,
-            'business_name': biz.business_name,
-            'categories': list(biz.categories.values_list('name', flat=True)),
-            'street_address1': biz.street_address1,
-            'street_address2': biz.street_address2,
-            'town_or_city': biz.town_or_city,
-            'county': biz.county,
-            'postcode': biz.postcode,
-            'location': {'lat': biz.location.y, 'lng': biz.location.x} if biz.location else None,
-            'is_wheeler_verified': getattr(biz, 'verified_by_wheelers', False),
-            'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
-            'public_phone': biz.public_phone,
-            'contact_phone': biz.contact_phone,
-            'public_email': biz.public_email,
-            'website': biz.website,
-            'opening_hours': biz.opening_hours,
-            'special_offers': biz.special_offers,
-            'services_offered': biz.services_offered,
-            'description': biz.description,
-            'logo': logo_url,
-            'wheeler_verification_requested': biz.wheeler_verification_requested,
-        })
+    for biz in qs:
+         # Determine logo URL (empty string if no logo)
+         logo_url = biz.logo.url if getattr(biz, 'logo', None) else ''
+         results.append({
+             'id': biz.id,
+             'business_name': biz.business_name,
+             'categories': list(biz.categories.values_list('name', flat=True)),
+             'street_address1': biz.street_address1,
+             'street_address2': biz.street_address2,
+             'town_or_city': biz.town_or_city,
+             'county': biz.county,
+             'postcode': biz.postcode,
+             'location': {'lat': biz.location.y, 'lng': biz.location.x} if biz.location else None,
+             'is_wheeler_verified': getattr(biz, 'verified_by_wheelers', False),
+             'accessibility_features': list(biz.accessibility_features.values_list('name', flat=True)),
+             'public_phone': biz.public_phone,
+             'contact_phone': biz.contact_phone,
+             'public_email': biz.public_email,
+             'website': biz.website,
+             'opening_hours': biz.opening_hours,
+             'special_offers': biz.special_offers,
+             'services_offered': biz.services_offered,
+             'description': biz.description,
+             'logo': logo_url,
+             'wheeler_verification_requested': biz.wheeler_verification_requested,
+         })
     return JsonResponse({'businesses': results})
 
 
 def accessible_business_search(request):
-    """JS carries out initial search."""
+    """JavaScript carries out initial search."""
     user_profile = None
     if request.user.is_authenticated:
         from accounts.models import UserProfile
@@ -684,11 +701,15 @@ def accessible_business_search(request):
     
     # Provide full list of accessibility features for the filter dropdown
     accessibility_features = AccessibilityFeature.objects.all()
-    return render(request, 'businesses/accessible_business_search.html', {
-        'is_verified_wheeler': bool(user_profile and user_profile.is_wheeler),
-        'accessibility_features': accessibility_features,
-        'page_title': 'Accessible Business Search',
-    })
+    return render(
+        request, 
+        'businesses/accessible_business_search.html', 
+        {
+            'is_verified_wheeler': bool(user_profile and user_profile.is_wheeler),
+            'accessibility_features': accessibility_features,
+            'page_title': 'Accessible Business Search',
+        }
+    )
     
     
 @login_required
