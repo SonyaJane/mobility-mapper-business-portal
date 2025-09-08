@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="content-container p-2">
-  <h3 class="mt-3 mb-1 underline-orange align-self-center">Accessibility Verification</h3>
+
+  {# render messages so success/info errors are visible #}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <h4 class="mt-3 mb-1 underline-orange align-self-start">Accessibility Verification</h4>
 
   <p class="mt-2">We appreciate your interest in verifying the accessibility features of <span class="fw-bold">{{ business.business_name }}</span>.</p>
   <div class="mb-3">
@@ -22,7 +30,9 @@
       at a glance.</p>
   </div>
     
-  <div class="mt-2 mb-3 px-2 py-1 btn-green-outline rounded align-self-start"><span class="text-green-light fw-bold"><i class="bi bi-check-circle-fill pe-2"></i>Verified by Wheelers</span></div>
+  <div class="mt-2 mb-3 px-2 py-1 btn-green-outline rounded align-self-start">
+    <span class="text-green-light fw-bold"><i class="bi bi-check-circle-fill pe-2"></i>Verified by Wheelers</span>
+  </div>
     
   <div>
     <p>By requesting to verify this business, you agree to:</p>

@@ -415,7 +415,7 @@ def wheeler_verification_application(request, pk):
     # check if the wheeler has already verified this business
     if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
         messages.info(request, "You have already verified this business.")
-        return redirect('public_business_detail', pk=pk)
+        return redirect('business_detail', pk=pk)
 
     if request.method == 'POST':
         # check if the wheeler has already applied to verify this business
@@ -426,6 +426,13 @@ def wheeler_verification_application(request, pk):
                 subject="New Wheeler Verification Application",
                 message=f"A new application to verify the accessibility features has been submitted for {business.business_name} by {request.user.username}. Review and approve in the admin panel.",
             )
+            messages.success(request, "Application submitted — we'll review it and contact you.")
+            # redirect after successful POST to avoid re-submission / silent reload
+            return redirect('business_detail', pk=pk)
+        else:
+            messages.info(request, "You already have a pending verification request for this business.")
+            return redirect('business_detail', pk=pk)
+
     return render(request, 'businesses/wheeler_verification_application.html', {
         'business': business,
         'verification_count': verification_count,
