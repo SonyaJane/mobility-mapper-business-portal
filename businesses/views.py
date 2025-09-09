@@ -368,7 +368,7 @@ def edit_business(request):
     })
     
 
-def explore_membership_options(request):    
+def upgrade_membership(request):    
     """Display available membership plans for businesses to review and select."""
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     current_tier = business.membership_tier
@@ -377,13 +377,13 @@ def explore_membership_options(request):
     # Determine higher-tier upgrade options using membership_price if available
     upgrade_tiers = [tier for tier in all_membership_tiers if not current_tier or (getattr(tier, 'membership_price', getattr(tier, 'membership_price', 0)) > getattr(current_tier, 'membership_price', getattr(current_tier, 'membership_price', 0)))]
     upgrade_count = len(upgrade_tiers)
-    return render(request, 'businesses/explore_membership_options.html', {
+    return render(request, 'businesses/upgrade_membership.html', {
         'all_membership_tiers': all_membership_tiers,
         'current_tier': current_tier,
         'upgrade_tiers': upgrade_tiers,
         'upgrade_count': upgrade_count,
         'business': business,
-        'page_title': 'Explore Membership Options',
+        'page_title': 'Upgrade Membership',
     })
 
 

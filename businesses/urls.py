@@ -19,7 +19,7 @@ urlpatterns = [
     path('ajax/search-businesses/', views.ajax_search_businesses, name='ajax_search_businesses'),
     # Public-facing business detail page
     path('<int:pk>/', views.business_detail, name='business_detail'),
-    path('membership-options/', views.explore_membership_options, name='explore_membership_options'),
+    path('upgrade-membership/', views.upgrade_membership, name='upgrade_membership'),
     # View current membership details
     path('current-membership/', views.view_existing_membership, name='view_existing_membership'),
 ]

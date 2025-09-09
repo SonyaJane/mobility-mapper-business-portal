@@ -11,7 +11,7 @@ Below is a step-by-step flow showing how the code implements checkout with Strip
 
 **2. Routes that lead to checkout**
 - From the Register Business flow (user selected tier) — the register view redirects to checkout with `?membership_tier=<id>&purchase_type=membership`.
-- From Explore Memberships (user chooses an upgrade) — upgrade links include `?membership_tier=<id>&purchase_type=membership`.
+- From Upgrade Memberships (user chooses an upgrade) — upgrade links include `?membership_tier=<id>&purchase_type=membership`.
 - From Request Wheeler Verification — the verification page POSTs to the `request_wheeler_verification` view. That view computes the verification price from the business's membership tier; if the computed amount is zero it sets `business.wheeler_verification_requested = True` and skips checkout, otherwise it redirects to checkout with `?purchase_type=verification` (the `business_id` is still passed as the URL path arg).
 
 **3. What the checkout view supports**
