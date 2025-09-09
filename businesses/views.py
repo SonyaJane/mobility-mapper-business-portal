@@ -104,7 +104,7 @@ def register_business(request):
         'page_title': 'Register Your Business',
     })
 
-    
+@login_required    
 @require_GET
 def business_detail(request, pk):
     """
@@ -368,6 +368,7 @@ def edit_business(request):
     })
     
 
+@login_required
 def upgrade_membership(request):    
     """Display available membership plans for businesses to review and select."""
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
@@ -612,6 +613,7 @@ def verification_report(request, verification_id):
     })
     
 
+@login_required
 @require_GET
 def ajax_search_businesses(request):
     term = request.GET.get('q', '').strip()
@@ -698,6 +700,7 @@ def ajax_search_businesses(request):
     return JsonResponse({'businesses': results})
 
 
+@login_required
 def accessible_business_search(request):
     """JavaScript carries out initial search."""
     user_profile = None

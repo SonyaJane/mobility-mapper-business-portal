@@ -1,7 +1,14 @@
 import requests
 from django.http import HttpResponse
 from django.conf import settings
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ContactForm
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
+
+@login_required
 def proxy_os_tile(request, z, x, y):
     print(f"OS tile request: z={z}, x={x}, y={y}")
     # Limit the maximum zoom level to 20
@@ -27,3 +34,31 @@ def proxy_os_tile(request, z, x, y):
             "Cache-Control": "public, max-age=3600",  # Cache for 1 hour
         }
     )
+
+
+def contact(request):
+    initial = {}
+    if request.user.is_authenticated:
+        initial['name'] = request.user.get_full_name() or request.user.username
+        initial['email'] = request.user.email
+    if request.method == "POST":
+        form = ContactForm(request.POST, initial=initial)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            subject = f"Contact Form Submission from {name}"
+            full_message = f"From: {name} <{email}>\n\n{message}"
+            send_mail(
+                subject,
+                full_message,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.DEFAULT_FROM_EMAIL],
+                fail_silently=False,
+            )
+            messages.success(request, "Your message has been sent!")
+            return redirect("contact")
+    else:
+        form = ContactForm(initial=initial)
+    return render(request, "core/contact.html", {"form": form, "page_title": "Contact Us"})
+

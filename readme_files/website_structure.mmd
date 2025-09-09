@@ -1,0 +1,62 @@
+flowchart LR
+    A[Landing Page / Home]
+    B[Register / Login]
+    J[Contact Support]
+
+    A --> B
+    A --> J
+
+    B --> C1
+    B --> C2
+    B --> C3
+
+    %% Business Owner Dashboard
+    subgraph BusinessOwnerDashboard
+        C1[Business Owner Dashboard]
+        F1[Manage Listings]
+        F2[Membership Tier]
+        F3[Request Verification]
+        F4[Membership Status]
+        F5[Payments]
+        F6[Notifications]
+        C1 --> F1
+        C1 --> F2
+        C1 --> F3
+        C1 --> F4
+        C1 --> F5
+        C1 --> F6
+    end
+
+    %% Wheeler Dashboard
+    subgraph WheelerDashboard
+        C2[Wheeler Dashboard]
+        G1[Business Search & Map]
+        G2[Verification Requests]
+        G3[Become Verifier]
+        G4[Submit Reports]
+        G5[Track Activity]
+        C2 --> G1
+        C2 --> G2
+        C2 --> G3
+        C2 --> G4
+        C2 --> G5
+        G1 --> E[Business Listing Details]
+        E --> I1[Accessibility Features]
+        E --> I2[Verification Status]
+        E --> I3[Contact Business]
+    end
+
+    %% Admin Dashboard
+    subgraph AdminDashboard
+        C3[Admin Dashboard]
+        H1[Approve Listings]
+        H2[Approve Verifications]
+        H3[Manage Users]
+        H4[View Logs]
+        H5[Demo Data]
+        C3 --> H1
+        C3 --> H2
+        C3 --> H3
+        C3 --> H4
+        C3 --> H5
+    end

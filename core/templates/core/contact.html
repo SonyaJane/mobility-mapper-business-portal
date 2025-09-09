@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="content-container p-2 p-sm-3 custom-constrained-width" data-business-id="{{ business.id }}" data-amount="{{ amount|floatformat:2 }}" data-purchase-type="{{ purchase_type|default_if_none:'' }}">
+
+  <h4 class="underline-orange my-3 align-self-start">Contact us</h4>
+
+  <p class="mb-3">
+    If you have any questions or need assistance, please fill in the form below to get in touch with us.
+  </p>
+
+  {% if form.errors %}
+  <div class="alert alert-danger">
+    <strong>Please correct the errors below:</strong>
+    <ul>
+      {% for field in form %}
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-green align-self-start">Send</button>
+  </form>
+
+{% endblock %}
