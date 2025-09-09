@@ -1,4 +1,5 @@
 from django.conf import settings
+from businesses.models import WheelerVerificationApplication, WheelerVerification
 
 def os_api_key(request):
     return {
@@ -13,8 +14,7 @@ def wheeler_history(request):
     if request.user.is_authenticated:
         profile = getattr(request.user, 'profile', None)
         if profile and getattr(profile, 'is_wheeler', False):
-            from businesses.models import WheelerVerificationRequest, WheelerVerification
-            has_req = WheelerVerificationRequest.objects.filter(wheeler=request.user).exists()
+            has_req = WheelerVerificationApplication.objects.filter(wheeler=request.user).exists()
             has_ver = WheelerVerification.objects.filter(wheeler=request.user).exists()
             show = has_req or has_ver
     return {'show_wheeler_history': show}
