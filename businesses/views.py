@@ -17,7 +17,7 @@ from django.contrib import messages
 from accounts.models import UserProfile
 from businesses.models import Business, AccessibilityFeature
 from .forms import BusinessRegistrationForm, WheelerVerificationForm
-from .models import Business, WheelerVerification, MembershipTier, WheelerVerificationRequest
+from .models import Business, WheelerVerification, MembershipTier, WheelerVerificationApplication
 from checkout.models import Purchase
 from django.core.mail import mail_admins
 # custom template filter for dictionary access
@@ -132,13 +132,13 @@ def business_detail(request, pk):
     user_request_approved = False
     profile = getattr(request.user, 'profile', None)
     if request.user.is_authenticated and profile and profile.is_wheeler:
-        from .models import WheelerVerificationRequest
-        user_has_requested = WheelerVerificationRequest.objects.filter(
+        from .models import WheelerVerificationApplication
+        user_has_requested = WheelerVerificationApplication.objects.filter(
             business=business,
             wheeler=request.user,
             approved=False
         ).exists()
-        user_request_approved = WheelerVerificationRequest.objects.filter(
+        user_request_approved = WheelerVerificationApplication.objects.filter(
             business=business,
             wheeler=request.user,
             approved=True
@@ -279,7 +279,7 @@ def wheeler_verification_history(request):
         messages.error(request, "Only verified Wheelers can view their verification history.")
         return redirect('home')
 
-    requests = WheelerVerificationRequest.objects.filter(wheeler=request.user).order_by('-requested_at')
+    requests = WheelerVerificationApplication.objects.filter(wheeler=request.user).order_by('-requested_at')
     # For each request, annotate whether a verification has been submitted and approved
     # For wheelers, build status, approval, and ID mappings for their verifications
     verification_status = {}
@@ -427,9 +427,9 @@ def wheeler_verification_application(request, pk):
 
     if request.method == 'POST':
         # check if the wheeler has already applied to verify this business
-        if not WheelerVerificationRequest.objects.filter(business=business, wheeler=request.user, approved=False).exists():
+        if not WheelerVerificationApplication().objects.filter(business=business, wheeler=request.user, approved=False).exists():
             # create a new verification request
-            WheelerVerificationRequest.objects.create(business=business, wheeler=request.user)
+            WheelerVerificationApplication.objects.create(business=business, wheeler=request.user)
             mail_admins(
                 subject="New Wheeler Verification Application",
                 message=f"A new application to verify the accessibility features has been submitted for {business.business_name} by {request.user.username}. Review and approve in the admin panel.",
@@ -556,8 +556,8 @@ def pending_verification_requests(request):
         return redirect('home')
 
     businesses = Business.objects.filter(wheeler_verification_requested=True, verified_by_wheelers=False)
-    from .models import WheelerVerificationRequest, WheelerVerification
-    approved_business_ids = WheelerVerificationRequest.objects.filter(
+    from .models import WheelerVerificationApplication, WheelerVerification
+    approved_business_ids = WheelerVerificationApplication.objects.filter(
         wheeler=request.user,
         approved=True
     ).values_list('business_id', flat=True)
@@ -729,7 +729,7 @@ def cancel_wheeler_verification_request(request, business_id):
         messages.error(request, "Only verified Wheelers can cancel verification requests.")
         return redirect('account_dashboard')
     # Find and delete the pending request
-    req = WheelerVerificationRequest.objects.filter(
+    req = WheelerVerificationApplication.objects.filter(
         business_id=business_id,
         wheeler=request.user,
         approved=False

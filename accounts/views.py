@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from .forms import UserProfileForm
 
-from businesses.models import WheelerVerificationRequest, Business, WheelerVerification
+from businesses.models import WheelerVerificationApplication, Business, WheelerVerification
 
 
 @login_required
@@ -33,11 +33,11 @@ def dashboard_view(request):
     # user profile photo
     profile_photo = profile.photo.url if profile and profile.photo else None
     if profile and profile.is_wheeler:
-        approved_business_ids = WheelerVerificationRequest.objects.filter(
+        approved_business_ids = WheelerVerificationApplication.objects.filter(
             wheeler=request.user,
             approved=True
         ).values_list('business_id', flat=True)
-        pending_business_ids = WheelerVerificationRequest.objects.filter(
+        pending_business_ids = WheelerVerificationApplication.objects.filter(
             wheeler=request.user,
             approved=False
         ).values_list('business_id', flat=True)

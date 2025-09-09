@@ -5,7 +5,6 @@ Defines business tiers, business details, and accessibility/verification feature
 
 from django.contrib.gis.db import models as geomodels
 from django.db import models
-from django.utils.text import slugify
 from core.validators import validate_logo
 from django.conf import settings
 
@@ -175,7 +174,7 @@ class WheelerVerificationPhoto(models.Model):
         return f"Photo ({feat}) for verification {self.verification.id} uploaded at {self.uploaded_at}" 
 
 
-class WheelerVerificationRequest(models.Model):
+class WheelerVerificationApplication(models.Model):
     business = models.ForeignKey('Business', on_delete=models.CASCADE, related_name='verification_requests')
     wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verification_requests_made')
     requested_at = models.DateTimeField(auto_now_add=True)

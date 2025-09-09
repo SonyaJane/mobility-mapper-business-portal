@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 
-from businesses.models import Business, MembershipTier, WheelerVerificationRequest
+from businesses.models import Business, MembershipTier
 
 from .forms import PurchaseForm
 from .models import Purchase

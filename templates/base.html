@@ -89,7 +89,7 @@
                   <a class="nav-link{% if request.resolver_match.url_name == 'register_business' %} active{% endif %}" href="{% url 'register_business' %}">Register Your Business</a>
                 </li>
                 {% endif %}
-                <li class="nav-item mt-auto">
+                <li class="nav-item mb-2">
                   <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                 </li>
               {% else %}

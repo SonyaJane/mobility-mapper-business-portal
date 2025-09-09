@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib import admin
-from .models import Business, WheelerVerification, MembershipTier, Category, AccessibilityFeature, WheelerVerificationPhoto
+from .models import Business, WheelerVerification, MembershipTier, Category, AccessibilityFeature, WheelerVerificationApplication, WheelerVerificationPhoto
 from .widgets import MapLibrePointWidget
-from .models import WheelerVerificationRequest
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -81,13 +80,13 @@ class MembershipTierAdmin(admin.ModelAdmin):
     search_fields = ("tier",)
 
 
-@admin.register(WheelerVerificationRequest)
-class WheelerVerificationRequestAdmin(admin.ModelAdmin):
+@admin.register(WheelerVerificationApplication)
+class WheelerVerificationApplicationAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         # Only send email if approval status changed to True
         send_email = False
         if change:
-            old_obj = WheelerVerificationRequest.objects.get(pk=obj.pk)
+            old_obj = WheelerVerificationApplication.objects.get(pk=obj.pk)
             if not old_obj.approved and obj.approved:
                 send_email = True
         elif obj.approved:
@@ -97,10 +96,10 @@ class WheelerVerificationRequestAdmin(admin.ModelAdmin):
             from django.urls import reverse
             verification_url = settings.SITE_URL + reverse('wheeler_verification_form', args=[obj.business.pk])
             send_mail(
-                subject="Your verification request has been approved",
+                subject="Your application has been approved",
                 message=(
                     f"Hi {obj.wheeler.get_full_name() or obj.wheeler.username},\n\n"
-                    f"Your request to verify accessibility features for {obj.business.business_name} has been approved.\n\n"
+                    f"Your application to verify accessibility features for {obj.business.business_name} has been approved.\n\n"
                     f"You may now proceed with the verification process by visiting the following link:\n{verification_url}\n\n"
                     f"You can also access the verification form from your dashboard. Look for the 'Submit Verification' button next to the business.\n\n"
                     f"Thank you!"
