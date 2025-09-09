@@ -436,7 +436,7 @@ def wheeler_verification_application(request, pk):
             )
             messages.success(request, "Application submitted — we'll review it and contact you. This page shows the details of the business you have applied to verify.")
             # redirect after successful POST to avoid re-submission / silent reload
-            return redirect('business_detail', pk=pk)
+            return redirect('application_submitted', pk=pk)
         else:
             messages.info(request, "You already have a pending verification request for this business.")
             return redirect('business_detail', pk=pk)
@@ -451,6 +451,26 @@ def wheeler_verification_application(request, pk):
     })
 
 
+@login_required
+def application_submitted(request, pk):
+    business = get_object_or_404(Business, pk=pk, is_approved=True)
+    profile = getattr(request.user, 'profile', None)
+    if not request.user.is_authenticated or not profile or not profile.is_wheeler:
+        messages.error(request, "Only verified Wheelers can view this page.")
+        return redirect('accessible_business_search')
+
+    # Check if the user has a pending application for this business
+    has_pending_application = WheelerVerificationApplication.objects.filter(business=business, wheeler=request.user, approved=False).exists()
+    if not has_pending_application:
+        messages.info(request, "You do not have a pending verification application for this business.")
+        return redirect('business_detail', pk=pk)
+
+    return render(request, 'businesses/application_submitted.html', {
+        'business': business,
+        'page_title': 'Verification Request Submitted',
+    })
+    
+    
 @login_required
 def wheeler_verification_form(request, pk):
     business = get_object_or_404(Business, pk=pk)

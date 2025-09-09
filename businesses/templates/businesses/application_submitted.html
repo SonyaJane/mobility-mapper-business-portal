@@ -11,8 +11,8 @@
 <div class="content-container mw-600 p-2 mt-2">
   <h4 class="mt-2 underline-orange align-self-start">Application Submitted</h4>
   <div class="mt-2">
-    <p>Your request to verify the accessibility features at <strong>{{ business.business_name }}</strong> has been submitted.</p>
-    <p>An admin will review your request as soon as possible.</p>
+    <p>Your application to verify the accessibility features at <strong>{{ business.business_name }}</strong> has been submitted.</p>
+    <p>An admin will review your application as soon as possible.</p>
     <p>When you are approved to proceed with the verification:</p>
     <ul class="mt-2">
       <li>You will receive an email notification.</li>
@@ -21,7 +21,8 @@
     </ul>
   </div>
   <div class="d-flex flex-column align-items-center justify-content-center gap-2 mt-2">
-  <a href="{% url 'account_dashboard' %}" class="btn btn-green text-center req-sub-btn">Go to my {% if not user.profile or not user.profile.has_business %}profile{% else %}personal dashboard{% endif %}</a>
+    <a href="{% url 'business_detail' business.id %}" class="btn btn-brown btn-custom-width">View details of {{ business.business_name }}</a>
+    <a href="{% url 'account_dashboard' %}" class="btn btn-green text-center req-sub-btn">Go to my {% if not user.profile or not user.profile.has_business %}profile{% else %}personal dashboard{% endif %}</a>
     <a href="{% url 'accessible_business_search' %}" class="btn btn-coffee text-center req-sub-btn">Search for more accessible businesses</a>
   </div>
 </div>
