@@ -9,7 +9,6 @@ urlpatterns = [
     path('<int:pk>/wheeler-verification-application/', views.wheeler_verification_application, name='wheeler_verification_application'),
     path('<int:pk>/request-wheeler-verification/', views.request_wheeler_verification, name='request_wheeler_verification'),
     path('<int:pk>/verify/', views.wheeler_verification_form, name='wheeler_verification_form'),
-    path('pending-verifications/', views.pending_verification_requests, name='pending_verification_requests'),
     path('verification-report/<int:verification_id>/', views.verification_report, name='verification_report'),
     path('wheeler-verification-history/', views.wheeler_verification_history, name='wheeler_verification_history'),
     path('<int:business_id>/cancel-verification-request/', views.cancel_wheeler_verification_request, name='cancel_wheeler_verification_request'),

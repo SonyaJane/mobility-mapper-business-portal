@@ -548,32 +548,6 @@ def wheeler_verification_form(request, pk):
 
 
 @login_required
-def pending_verification_requests(request):
-    # Only show to wheelers
-    profile = getattr(request.user, 'profile', None)
-    if not profile or not profile.is_wheeler:
-        messages.error(request, "Only verified Wheelers can view pending verification requests.")
-        return redirect('home')
-
-    businesses = Business.objects.filter(wheeler_verification_requested=True, verified_by_wheelers=False)
-    from .models import WheelerVerificationApplication, WheelerVerification
-    approved_business_ids = WheelerVerificationApplication.objects.filter(
-        wheeler=request.user,
-        approved=True
-    ).values_list('business_id', flat=True)
-    already_verified_business_ids = WheelerVerification.objects.filter(
-        wheeler=request.user,
-        approved=True
-    ).values_list('business_id', flat=True)
-    return render(request, 'businesses/pending_verification_requests.html', {
-        'businesses': businesses,
-        'approved_business_ids': list(approved_business_ids),
-        'already_verified_business_ids': list(already_verified_business_ids),
-        'page_title': 'Pending Verification Requests',
-    })
-
-
-@login_required
 def verification_report(request, verification_id):
     verification = get_object_or_404(WheelerVerification, pk=verification_id)
     # Allow business owner or the Wheeler who submitted to view the report

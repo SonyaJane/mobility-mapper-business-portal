@@ -473,14 +473,14 @@ for biz in businesses:
 # add them to fixture
 fixture.extend(wheeler_verifications)
 
-# Generate corresponding WheelerVerificationRequest fixtures linking to each report
+# Generate corresponding WheelerVerificationApplication fixtures linking to each report
 wheeler_verification_requests = []
 req_pk = 1
 for ver in wheeler_verifications:
     # Use the verification date as the request and approval timestamp
     date_time = ver['fields']['date_verified']
     wheeler_verification_requests.append({
-        'model': 'businesses.wheelerverificationrequest',
+        'model': 'businesses.wheelerverificationapplication',
         'pk': req_pk,
         'fields': {
             'business': ver['fields']['business'],
