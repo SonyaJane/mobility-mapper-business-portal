@@ -427,7 +427,7 @@ def wheeler_verification_application(request, pk):
 
     if request.method == 'POST':
         # check if the wheeler has already applied to verify this business
-        if not WheelerVerificationApplication().objects.filter(business=business, wheeler=request.user, approved=False).exists():
+        if not WheelerVerificationApplication.objects.filter(business=business, wheeler=request.user, approved=False).exists():
             # create a new verification request
             WheelerVerificationApplication.objects.create(business=business, wheeler=request.user)
             mail_admins(
