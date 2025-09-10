@@ -92,7 +92,7 @@
               <a href="{% url 'register_business' %}" class="btn btn-green">Register Your Business</a>
             {% endif %}
             {% if verification_reports or approved_businesses or pending_businesses %}
-              <a href="{% url 'wheeler_verification_history' %}" class="btn btn-coffee">Your Business Accessibility Verifications</a>
+              <a href="{% url 'wheeler_verification_hub' %}" class="btn btn-coffee">Accessibility Verification Hub</a>
             {% endif %}
           </div>
         </div>
@@ -164,6 +164,7 @@
                     <div class="col-sm-4 mt-2 mt-sm-0 ms-0 px-0">
                       <div class="d-flex flex-sm-column gap-2 justify-content-sm-end align-items-sm-end">
                         <a href="{% url 'cancel_wheeler_verification_request' business.id %}" class="btn btn-orange btn-custom-width">Cancel Request</a>
+                        <a href="{% url 'business_detail' business.id %}" class="btn btn-brown btn-custom-width">View Business</a>
                       </div>
                     </div>
                   </div>

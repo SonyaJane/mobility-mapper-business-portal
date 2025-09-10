@@ -11,7 +11,7 @@ urlpatterns = [
     path('<int:pk>/request-wheeler-verification/', views.request_wheeler_verification, name='request_wheeler_verification'),
     path('<int:pk>/verify/', views.wheeler_verification_form, name='wheeler_verification_form'),
     path('verification-report/<int:verification_id>/', views.verification_report, name='verification_report'),
-    path('wheeler-verification-history/', views.wheeler_verification_history, name='wheeler_verification_history'),
+    path('accessibility-verification-hub/', views.accessibility_verification_hub, name='accessibility_verification_hub'),
     path('<int:business_id>/cancel-verification-request/', views.cancel_wheeler_verification_request, name='cancel_wheeler_verification_request'),
     # Membership cancellation endpoint
     path('cancel-membership/', views.cancel_membership, name='cancel_membership'),

@@ -81,7 +81,7 @@
                 </li>                
                 {% if show_wheeler_history %}
                 <li class="nav-item mb-2">
-                  <a class="nav-link{% if request.resolver_match.url_name == 'wheeler_verification_history' %} active{% endif %}" href="{% url 'wheeler_verification_history' %}">Accessibility Verifications</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'accessibility_verification_hub' %} active{% endif %}" href="{% url 'accessibility_verification_hub' %}">Accessibility Verification Hub</a>
                 </li>
                 {% endif %}
                 {% if not user.profile or not user.profile.has_business %}

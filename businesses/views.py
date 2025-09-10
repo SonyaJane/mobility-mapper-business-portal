@@ -272,11 +272,11 @@ def request_wheeler_verification(request, pk):
 
 
 @login_required
-def wheeler_verification_history(request):
+def accessibility_verification_hub(request):
     profile = getattr(request.user, 'profile', None)
     is_superuser = request.user.is_superuser
     if not profile or (not profile.is_wheeler and not is_superuser):
-        messages.error(request, "Only verified Wheelers can view their verification history.")
+        messages.error(request, "Only verified Wheelers can view their accessibility verification hub.")
         return redirect('home')
 
     requests = WheelerVerificationApplication.objects.filter(wheeler=request.user).order_by('-requested_at')
@@ -295,12 +295,12 @@ def wheeler_verification_history(request):
             verification_status[req.id] = False
             verification_approved[req.id] = False
             verification_id_map[req.id] = None
-    return render(request, 'businesses/wheeler_verification_history.html', {
+    return render(request, 'businesses/accessibility_verification_hub.html', {
         'requests': requests,
         'verification_status': verification_status,
         'verification_approved': verification_approved,
         'verification_id_map': verification_id_map,
-        'page_title': 'Your Verification History',
+        'page_title': 'Accessibility Verification Hub',
     })
 
 
@@ -434,7 +434,7 @@ def wheeler_verification_application(request, pk):
                 subject="New Wheeler Verification Application",
                 message=f"A new application to verify the accessibility features has been submitted for {business.business_name} by {request.user.username}. Review and approve in the admin panel.",
             )
-            messages.success(request, "Application submitted — we'll review it and contact you. This page shows the details of the business you have applied to verify.")
+            messages.success(request, "Application submitted — we'll review it and contact you.")
             # redirect after successful POST to avoid re-submission / silent reload
             return redirect('application_submitted', pk=pk)
         else:
