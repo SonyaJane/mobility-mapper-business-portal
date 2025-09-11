@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Page Not Found | Mobility Mapper{% endblock %}
+
+{% block content %}
+<div class="content-container mw-600 p-2 mt-2">
+  <h1 class="display-4">404 - Page Not Found</h1>
+  <p class="lead">
+    Oops! We can't find the page you're looking for.
+  </p>
+  <p>
+    It might have been removed, renamed, or is temporarily unavailable.
+  </p>
+  <a href="{% url 'account_dashboard' %}" class="btn btn-mango mt-3">
+    Return to Dashboard
+  </a>
+</div>
+{% endblock %}
