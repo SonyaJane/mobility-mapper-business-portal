@@ -47,13 +47,13 @@ class CustomSignupForm(SignupForm):
     county = forms.ModelChoiceField(
         queryset=County.objects.all(),
         label='County',
-        required=False,
+        required=True,
         empty_label='Select county'
     )
     age_group = forms.ModelChoiceField(
         queryset=AgeGroup.objects.all(),
         label='Age Group',
-        required=False,
+        required=True,
         empty_label='Select age group'
     )
     photo = forms.FileField(
@@ -102,18 +102,20 @@ class CustomSignupForm(SignupForm):
 
     def clean(self):
         cleaned_data = super().clean()
+        is_wheeler = cleaned_data.get('is_wheeler')
+        mobility_devices = cleaned_data.get('mobility_devices')
+        # Only require mobility_devices if is_wheeler is True
+        if is_wheeler and (not mobility_devices or len(mobility_devices) == 0):
+            self.add_error('mobility_devices', 'Please select at least one mobility device.')
+        # Existing logic for "Other" device
+        other_desc = (cleaned_data.get('mobility_devices_other') or '').strip()
+        if mobility_devices and any(getattr(d, 'code', '').lower() == 'other' for d in mobility_devices) and not other_desc:
+            self.add_error('mobility_devices_other', 'Please specify your other mobility device.')
+        # Email match logic
         email = cleaned_data.get('email')
         confirm = cleaned_data.get('confirm_email')
         if email and confirm and email.lower() != confirm.lower():
             self.add_error('confirm_email', 'Email addresses must match.')
-            
-        # Require other device description if 'Other' selected
-        devices = cleaned_data.get('mobility_devices', []) or []
-        other_desc = cleaned_data.get('mobility_devices_other', '').strip()
-        # devices is a queryset/list of MobilityDevice instances; check their code
-        if any(getattr(d, 'code', '').lower() == 'other' for d in devices) and not other_desc:
-            self.add_error('mobility_devices_other', 'Please specify your other mobility device.')
-        # No immediate validation for country/county/age/photo
         return cleaned_data
 
     def save(self, request):
@@ -204,12 +206,11 @@ class UserProfileForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Populate initial values for overridden fields
-        if hasattr(self, 'instance') and self.instance:
-            # User name
-            self.fields['first_name'].initial = getattr(self.instance.user, 'first_name', '')
-            self.fields['last_name'].initial = getattr(self.instance.user, 'last_name', '')
-            # Country
+        user = getattr(self.instance, 'user', None)
+        if user is not None:
+            self.fields['first_name'].initial = getattr(user, 'first_name', '')
+            self.fields['last_name'].initial = getattr(user, 'last_name', '')
+        if getattr(self.instance, 'pk', None) and user is not None:
             self.fields['country'].initial = self.instance.country
             # Mobility devices: use list of PKs
             self.fields['mobility_devices'].initial = list(self.instance.mobility_devices.values_list('pk', flat=True))
