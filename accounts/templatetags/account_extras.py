@@ -5,20 +5,20 @@ register = template.Library()
 @register.filter
 def device_labels(devices):
     """
-    Convert a list of mobility device keys to their display names.
+    Convert a list of mobility device keys to their display labels.
     """
     # devices may be a manager or iterable of MobilityDevice instances or their PKs
     devices_qs = devices.all() if hasattr(devices, 'all') else devices or []
-    # Collect device names, excluding 'other'
+    # Collect device labels, excluding 'other'
     labels = []
     for dev in devices_qs:
         # dev may be instance or simple value
+        label = getattr(dev, 'label', None)
         name = getattr(dev, 'name', None)
-        code = getattr(dev, 'code', None)
-        if code == 'other':
+        if name == 'other':
             continue
-        if name:
-            labels.append(name)
+        if label:
+            labels.append(label)
         else:
             labels.append(str(dev))
     return ", ".join(labels)
