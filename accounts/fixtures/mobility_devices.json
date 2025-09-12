@@ -1,0 +1,13 @@
+[
+  {"model": "accounts.mobilitydevice", "pk": 1, "fields": {"name": "manual_wheelchair", "label": "Manual Wheelchair"}},
+  {"model": "accounts.mobilitydevice", "pk": 2, "fields": {"name": "powered_wheelchair", "label": "Powered Wheelchair"}},
+  {"model": "accounts.mobilitydevice", "pk": 3, "fields": {"name": "manual_wheelchair_with_powered_front_attachment", "label": "Manual Wheelchair with Powered Front Attachment"}},
+  {"model": "accounts.mobilitydevice", "pk": 4, "fields": {"name": "all_terrain_wheelchair", "label": "All Terrain Wheelchair"}},
+  {"model": "accounts.mobilitydevice", "pk": 5, "fields": {"name": "mobility_scooter_class_2", "label": "Mobility Scooter Class 2 (for footpaths)"}},
+  {"model": "accounts.mobilitydevice", "pk": 6, "fields": {"name": "mobility_scooter_class_3", "label": "Mobility Scooter Class 3 (for road use)"}},
+  {"model": "accounts.mobilitydevice", "pk": 7, "fields": {"name": "tricycle", "label": "Tricycle"}},
+  {"model": "accounts.mobilitydevice", "pk": 8, "fields": {"name": "handcycle", "label": "Handcycle"}},
+  {"model": "accounts.mobilitydevice", "pk": 9, "fields": {"name": "adapted_bicycle", "label": "Adapted Bicycle"}},
+  {"model": "accounts.mobilitydevice", "pk": 10, "fields": {"name": "bicycle", "label": "Bicycle"}},
+  {"model": "accounts.mobilitydevice", "pk": 11, "fields": {"name": "other", "label": "Other"}}
+]

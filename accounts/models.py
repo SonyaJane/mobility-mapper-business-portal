@@ -4,34 +4,36 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-class County(models.Model):
-    """
-    Represents a UK county for user profiles.
-    """
-    name = models.CharField(max_length=64, unique=True)
-
-    def __str__(self):
-        return self.name
-
 class AgeGroup(models.Model):
     """
     Represents an age group for user profiles.
     """
-    code = models.CharField(max_length=16, unique=True)
-    description = models.CharField(max_length=50)
+    name = models.CharField(max_length=16, unique=True)
+    label = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.description
+        return self.label
+
+
+class County(models.Model):
+    """
+    Represents a UK county for user profiles.
+    """
+    name = models.CharField(max_length=100, unique=True)
+    label = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.label
 
 class MobilityDevice(models.Model):
     """
     Represents a mobility device type for Wheelers and verifications.
     """
-    code = models.CharField(max_length=100, unique=True)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=100, unique=True)
+    label = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
+        return self.label
 
 class UserProfile(models.Model):
     COUNTRY_CHOICES = (

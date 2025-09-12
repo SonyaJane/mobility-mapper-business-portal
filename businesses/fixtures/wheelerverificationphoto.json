@@ -1,0 +1,6702 @@
+[
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 1,
+    "fields": {
+      "verification": 1,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-09-03 15:28:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 2,
+    "fields": {
+      "verification": 1,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-05-30 15:26:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 3,
+    "fields": {
+      "verification": 1,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-07-20 14:48:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 4,
+    "fields": {
+      "verification": 2,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-08-03 06:18:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 5,
+    "fields": {
+      "verification": 2,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-02-23 10:39:47+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 6,
+    "fields": {
+      "verification": 2,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-02-14 22:27:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 7,
+    "fields": {
+      "verification": 3,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-06-21 21:29:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 8,
+    "fields": {
+      "verification": 3,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-03-03 08:46:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 9,
+    "fields": {
+      "verification": 3,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-05-02 13:44:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 10,
+    "fields": {
+      "verification": 4,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-08-26 04:34:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 11,
+    "fields": {
+      "verification": 5,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-06-03 12:41:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 12,
+    "fields": {
+      "verification": 6,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-02-08 19:23:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 13,
+    "fields": {
+      "verification": 6,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-05-24 23:41:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 14,
+    "fields": {
+      "verification": 7,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-08-21 21:07:19+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 15,
+    "fields": {
+      "verification": 7,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-01-23 12:30:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 16,
+    "fields": {
+      "verification": 7,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_entrance.webp",
+      "feature": 37,
+      "uploaded_at": "2025-04-24 12:19:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 17,
+    "fields": {
+      "verification": 8,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-05-27 06:39:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 18,
+    "fields": {
+      "verification": 8,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-05-26 11:23:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 19,
+    "fields": {
+      "verification": 8,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-04-17 08:51:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 20,
+    "fields": {
+      "verification": 9,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-07-24 16:31:19+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 21,
+    "fields": {
+      "verification": 9,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-01-19 21:26:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 22,
+    "fields": {
+      "verification": 9,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-08-22 00:55:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 23,
+    "fields": {
+      "verification": 10,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-06-10 05:52:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 24,
+    "fields": {
+      "verification": 10,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-03-06 22:34:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 25,
+    "fields": {
+      "verification": 10,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-06-08 13:49:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 26,
+    "fields": {
+      "verification": 10,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-07-30 13:44:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 27,
+    "fields": {
+      "verification": 11,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-01-19 18:00:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 28,
+    "fields": {
+      "verification": 11,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-07-07 14:14:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 29,
+    "fields": {
+      "verification": 11,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-01-22 11:25:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 30,
+    "fields": {
+      "verification": 11,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-08-21 10:36:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 31,
+    "fields": {
+      "verification": 12,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-02-20 08:45:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 32,
+    "fields": {
+      "verification": 12,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-07-17 21:58:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 33,
+    "fields": {
+      "verification": 12,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-02-05 10:22:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 34,
+    "fields": {
+      "verification": 13,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-07-03 08:53:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 35,
+    "fields": {
+      "verification": 13,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-07-09 08:14:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 36,
+    "fields": {
+      "verification": 14,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-04-07 16:32:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 37,
+    "fields": {
+      "verification": 15,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-05-11 12:42:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 38,
+    "fields": {
+      "verification": 15,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_entrance.webp",
+      "feature": 37,
+      "uploaded_at": "2025-08-29 21:06:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 39,
+    "fields": {
+      "verification": 16,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-03-03 01:10:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 40,
+    "fields": {
+      "verification": 17,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-07-15 11:19:11+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 41,
+    "fields": {
+      "verification": 17,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-02-07 16:21:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 42,
+    "fields": {
+      "verification": 18,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-09-10 03:34:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 43,
+    "fields": {
+      "verification": 18,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-06-11 00:05:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 44,
+    "fields": {
+      "verification": 19,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-05-01 02:04:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 45,
+    "fields": {
+      "verification": 20,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-04-07 00:02:21+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 46,
+    "fields": {
+      "verification": 20,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-07-24 00:50:49+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 47,
+    "fields": {
+      "verification": 21,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-04-07 18:57:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 48,
+    "fields": {
+      "verification": 21,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_entrance.webp",
+      "feature": 37,
+      "uploaded_at": "2025-01-29 00:43:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 49,
+    "fields": {
+      "verification": 22,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-06-06 22:37:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 50,
+    "fields": {
+      "verification": 22,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-05-13 22:43:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 51,
+    "fields": {
+      "verification": 22,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-03-02 23:49:37+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 52,
+    "fields": {
+      "verification": 22,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-08-18 16:10:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 53,
+    "fields": {
+      "verification": 23,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-08-12 10:41:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 54,
+    "fields": {
+      "verification": 23,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-01-18 00:06:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 55,
+    "fields": {
+      "verification": 23,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-07-28 23:36:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 56,
+    "fields": {
+      "verification": 23,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-01-01 23:20:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 57,
+    "fields": {
+      "verification": 24,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-03-25 05:02:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 58,
+    "fields": {
+      "verification": 24,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-04-04 11:06:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 59,
+    "fields": {
+      "verification": 24,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-06-18 17:19:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 60,
+    "fields": {
+      "verification": 25,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-04-22 12:39:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 61,
+    "fields": {
+      "verification": 25,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-08-27 13:22:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 62,
+    "fields": {
+      "verification": 25,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-08-20 00:50:55+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 63,
+    "fields": {
+      "verification": 26,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-06-07 09:23:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 64,
+    "fields": {
+      "verification": 26,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-05-02 01:15:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 65,
+    "fields": {
+      "verification": 26,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-08-24 03:49:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 66,
+    "fields": {
+      "verification": 26,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-01-21 15:05:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 67,
+    "fields": {
+      "verification": 27,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-06-15 22:38:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 68,
+    "fields": {
+      "verification": 27,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-02-05 07:27:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 69,
+    "fields": {
+      "verification": 27,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-02-17 17:50:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 70,
+    "fields": {
+      "verification": 28,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-04-08 14:04:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 71,
+    "fields": {
+      "verification": 28,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-03-03 05:14:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 72,
+    "fields": {
+      "verification": 29,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-03-02 22:44:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 73,
+    "fields": {
+      "verification": 30,
+      "image": "mobility_mapper_business_portal/verification_photos/ramp.png",
+      "feature": 5,
+      "uploaded_at": "2025-01-19 07:04:49+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 74,
+    "fields": {
+      "verification": 30,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-07-23 07:51:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 75,
+    "fields": {
+      "verification": 31,
+      "image": "mobility_mapper_business_portal/verification_photos/step_free.jpg",
+      "feature": 1,
+      "uploaded_at": "2025-04-20 10:25:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 76,
+    "fields": {
+      "verification": 31,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-06-30 09:33:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 77,
+    "fields": {
+      "verification": 31,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-01-26 16:00:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 78,
+    "fields": {
+      "verification": 32,
+      "image": "mobility_mapper_business_portal/verification_photos/step_free.jpg",
+      "feature": 1,
+      "uploaded_at": "2025-06-01 10:17:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 79,
+    "fields": {
+      "verification": 32,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-03-03 15:40:44+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 80,
+    "fields": {
+      "verification": 32,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-05-15 02:03:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 81,
+    "fields": {
+      "verification": 33,
+      "image": "mobility_mapper_business_portal/verification_photos/step_free.jpg",
+      "feature": 1,
+      "uploaded_at": "2025-08-26 04:21:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 82,
+    "fields": {
+      "verification": 33,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-02-26 03:52:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 83,
+    "fields": {
+      "verification": 34,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-01-05 23:14:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 84,
+    "fields": {
+      "verification": 34,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-08-23 10:34:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 85,
+    "fields": {
+      "verification": 34,
+      "image": "mobility_mapper_business_portal/verification_photos/designated_wheelchair_seating.png",
+      "feature": 14,
+      "uploaded_at": "2025-07-20 01:06:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 86,
+    "fields": {
+      "verification": 34,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-07-01 04:40:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 87,
+    "fields": {
+      "verification": 35,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-04-03 10:22:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 88,
+    "fields": {
+      "verification": 35,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-09-10 22:14:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 89,
+    "fields": {
+      "verification": 35,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_basins_taps.png",
+      "feature": 31,
+      "uploaded_at": "2025-08-29 09:18:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 90,
+    "fields": {
+      "verification": 35,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-05-22 09:36:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 91,
+    "fields": {
+      "verification": 36,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-06-13 02:54:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 92,
+    "fields": {
+      "verification": 36,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-06-01 01:12:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 93,
+    "fields": {
+      "verification": 36,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-02-07 21:13:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 94,
+    "fields": {
+      "verification": 37,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-01-28 21:14:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 95,
+    "fields": {
+      "verification": 37,
+      "image": "mobility_mapper_business_portal/verification_photos/designated_wheelchair_seating.png",
+      "feature": 14,
+      "uploaded_at": "2025-03-31 14:54:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 96,
+    "fields": {
+      "verification": 38,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-05-16 06:41:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 97,
+    "fields": {
+      "verification": 38,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-03-21 10:25:44+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 98,
+    "fields": {
+      "verification": 39,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-07-31 09:20:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 99,
+    "fields": {
+      "verification": 40,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-02-15 07:43:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 100,
+    "fields": {
+      "verification": 41,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-08-26 02:37:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 101,
+    "fields": {
+      "verification": 41,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-03-06 17:52:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 102,
+    "fields": {
+      "verification": 42,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-08-30 17:32:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 103,
+    "fields": {
+      "verification": 43,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-02-18 10:31:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 104,
+    "fields": {
+      "verification": 43,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-03-21 07:56:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 105,
+    "fields": {
+      "verification": 43,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-02-22 03:23:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 106,
+    "fields": {
+      "verification": 44,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-03-29 13:37:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 107,
+    "fields": {
+      "verification": 44,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-04-16 10:28:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 108,
+    "fields": {
+      "verification": 44,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-07-27 01:53:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 109,
+    "fields": {
+      "verification": 44,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-03-28 11:26:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 110,
+    "fields": {
+      "verification": 45,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-05-22 16:33:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 111,
+    "fields": {
+      "verification": 45,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-05-02 19:33:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 112,
+    "fields": {
+      "verification": 45,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-05-04 08:23:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 113,
+    "fields": {
+      "verification": 45,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-08-19 16:22:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 114,
+    "fields": {
+      "verification": 46,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-01-05 15:28:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 115,
+    "fields": {
+      "verification": 46,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_fitting_room.png",
+      "feature": 28,
+      "uploaded_at": "2025-03-10 14:05:01+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 116,
+    "fields": {
+      "verification": 46,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-03-28 15:58:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 117,
+    "fields": {
+      "verification": 47,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_fitting_room.png",
+      "feature": 28,
+      "uploaded_at": "2025-03-25 06:16:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 118,
+    "fields": {
+      "verification": 47,
+      "image": "mobility_mapper_business_portal/verification_photos/ramp.png",
+      "feature": 5,
+      "uploaded_at": "2025-03-10 11:52:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 119,
+    "fields": {
+      "verification": 47,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-01-16 13:34:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 120,
+    "fields": {
+      "verification": 48,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-05-09 11:27:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 121,
+    "fields": {
+      "verification": 48,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_fitting_room.png",
+      "feature": 28,
+      "uploaded_at": "2025-03-13 05:55:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 122,
+    "fields": {
+      "verification": 48,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-02-20 12:19:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 123,
+    "fields": {
+      "verification": 49,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-01-01 04:29:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 124,
+    "fields": {
+      "verification": 50,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-05-07 00:49:21+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 125,
+    "fields": {
+      "verification": 51,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-05-05 01:32:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 126,
+    "fields": {
+      "verification": 52,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shower.png",
+      "feature": 26,
+      "uploaded_at": "2025-07-29 16:55:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 127,
+    "fields": {
+      "verification": 52,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-04-26 22:17:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 128,
+    "fields": {
+      "verification": 52,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_basins_taps.png",
+      "feature": 31,
+      "uploaded_at": "2025-03-12 05:10:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 129,
+    "fields": {
+      "verification": 52,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-08-11 07:16:11+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 130,
+    "fields": {
+      "verification": 53,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-01-06 09:51:11+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 131,
+    "fields": {
+      "verification": 53,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_basins_taps.png",
+      "feature": 31,
+      "uploaded_at": "2025-08-15 05:30:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 132,
+    "fields": {
+      "verification": 53,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-03-11 10:47:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 133,
+    "fields": {
+      "verification": 54,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-05-16 13:09:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 134,
+    "fields": {
+      "verification": 54,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-01-25 05:26:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 135,
+    "fields": {
+      "verification": 54,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_basins_taps.png",
+      "feature": 31,
+      "uploaded_at": "2025-01-07 11:04:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 136,
+    "fields": {
+      "verification": 54,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-06-28 21:03:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 137,
+    "fields": {
+      "verification": 55,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shower.png",
+      "feature": 26,
+      "uploaded_at": "2025-08-28 10:12:01+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 138,
+    "fields": {
+      "verification": 55,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-01-15 10:49:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 139,
+    "fields": {
+      "verification": 55,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_fitting_room.png",
+      "feature": 28,
+      "uploaded_at": "2025-06-18 05:02:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 140,
+    "fields": {
+      "verification": 55,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-07-06 20:15:47+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 141,
+    "fields": {
+      "verification": 56,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shower.png",
+      "feature": 26,
+      "uploaded_at": "2025-08-11 06:16:19+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 142,
+    "fields": {
+      "verification": 56,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-07-16 12:21:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 143,
+    "fields": {
+      "verification": 56,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_fitting_room.png",
+      "feature": 28,
+      "uploaded_at": "2025-06-04 04:14:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 144,
+    "fields": {
+      "verification": 56,
+      "image": "mobility_mapper_business_portal/verification_photos/transfer_aids.png",
+      "feature": 30,
+      "uploaded_at": "2025-08-25 10:31:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 145,
+    "fields": {
+      "verification": 57,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shower.png",
+      "feature": 26,
+      "uploaded_at": "2025-02-14 22:18:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 146,
+    "fields": {
+      "verification": 57,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-02-12 14:31:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 147,
+    "fields": {
+      "verification": 57,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_fitting_room.png",
+      "feature": 28,
+      "uploaded_at": "2025-01-22 02:18:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 148,
+    "fields": {
+      "verification": 58,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_entrance.webp",
+      "feature": 37,
+      "uploaded_at": "2025-04-15 05:50:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 149,
+    "fields": {
+      "verification": 58,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_floor_paths.png",
+      "feature": 22,
+      "uploaded_at": "2025-01-17 00:55:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 150,
+    "fields": {
+      "verification": 59,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-07-18 16:23:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 151,
+    "fields": {
+      "verification": 59,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_entrance.webp",
+      "feature": 37,
+      "uploaded_at": "2025-03-24 14:26:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 152,
+    "fields": {
+      "verification": 59,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_floor_paths.png",
+      "feature": 22,
+      "uploaded_at": "2025-08-05 08:35:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 153,
+    "fields": {
+      "verification": 60,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_entrance.webp",
+      "feature": 37,
+      "uploaded_at": "2025-05-23 19:18:37+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 154,
+    "fields": {
+      "verification": 60,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_floor_paths.png",
+      "feature": 22,
+      "uploaded_at": "2025-02-10 21:34:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 155,
+    "fields": {
+      "verification": 61,
+      "image": "mobility_mapper_business_portal/verification_photos/ramp.png",
+      "feature": 5,
+      "uploaded_at": "2025-07-22 19:39:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 156,
+    "fields": {
+      "verification": 61,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_floor_paths.png",
+      "feature": 22,
+      "uploaded_at": "2025-04-30 10:57:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 157,
+    "fields": {
+      "verification": 61,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-06-19 19:16:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 158,
+    "fields": {
+      "verification": 62,
+      "image": "mobility_mapper_business_portal/verification_photos/ramp.png",
+      "feature": 5,
+      "uploaded_at": "2025-08-02 01:35:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 159,
+    "fields": {
+      "verification": 62,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-04-15 21:42:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 160,
+    "fields": {
+      "verification": 63,
+      "image": "mobility_mapper_business_portal/verification_photos/ramp.png",
+      "feature": 5,
+      "uploaded_at": "2025-02-19 14:40:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 161,
+    "fields": {
+      "verification": 63,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-06-20 04:51:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 162,
+    "fields": {
+      "verification": 64,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-01-25 20:55:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 163,
+    "fields": {
+      "verification": 64,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-03-11 09:56:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 164,
+    "fields": {
+      "verification": 64,
+      "image": "mobility_mapper_business_portal/verification_photos/designated_wheelchair_seating.png",
+      "feature": 14,
+      "uploaded_at": "2025-03-16 08:19:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 165,
+    "fields": {
+      "verification": 65,
+      "image": "mobility_mapper_business_portal/verification_photos/disabled_parking.jpg",
+      "feature": 9,
+      "uploaded_at": "2025-08-11 20:30:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 166,
+    "fields": {
+      "verification": 65,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-03-03 23:40:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 167,
+    "fields": {
+      "verification": 65,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-04-18 23:42:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 168,
+    "fields": {
+      "verification": 66,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-07-09 10:11:47+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 169,
+    "fields": {
+      "verification": 66,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-05-08 18:18:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 170,
+    "fields": {
+      "verification": 67,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shuttle_service.png",
+      "feature": 19,
+      "uploaded_at": "2025-01-09 06:49:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 171,
+    "fields": {
+      "verification": 67,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-08-30 22:02:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 172,
+    "fields": {
+      "verification": 67,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-08-11 07:09:55+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 173,
+    "fields": {
+      "verification": 67,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-06-20 23:25:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 174,
+    "fields": {
+      "verification": 68,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-01-29 08:23:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 175,
+    "fields": {
+      "verification": 68,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-03-31 00:18:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 176,
+    "fields": {
+      "verification": 68,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-05-27 18:54:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 177,
+    "fields": {
+      "verification": 69,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-02-24 22:49:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 178,
+    "fields": {
+      "verification": 69,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-02-21 11:18:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 179,
+    "fields": {
+      "verification": 69,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-04-01 21:54:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 180,
+    "fields": {
+      "verification": 69,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-04-15 15:08:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 181,
+    "fields": {
+      "verification": 70,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-07-21 20:00:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 182,
+    "fields": {
+      "verification": 70,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-06-25 22:35:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 183,
+    "fields": {
+      "verification": 71,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-04-27 16:25:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 184,
+    "fields": {
+      "verification": 72,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-07-29 21:09:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 185,
+    "fields": {
+      "verification": 72,
+      "image": "mobility_mapper_business_portal/verification_photos/transfer_aids.png",
+      "feature": 30,
+      "uploaded_at": "2025-02-24 12:10:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 186,
+    "fields": {
+      "verification": 73,
+      "image": "mobility_mapper_business_portal/verification_photos/disabled_parking.jpg",
+      "feature": 9,
+      "uploaded_at": "2025-04-01 20:57:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 187,
+    "fields": {
+      "verification": 73,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-07-27 05:40:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 188,
+    "fields": {
+      "verification": 73,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-01-29 08:21:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 189,
+    "fields": {
+      "verification": 74,
+      "image": "mobility_mapper_business_portal/verification_photos/disabled_parking.jpg",
+      "feature": 9,
+      "uploaded_at": "2025-05-04 12:34:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 190,
+    "fields": {
+      "verification": 74,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-04-18 18:25:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 191,
+    "fields": {
+      "verification": 74,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_basins_taps.png",
+      "feature": 31,
+      "uploaded_at": "2025-02-16 01:02:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 192,
+    "fields": {
+      "verification": 75,
+      "image": "mobility_mapper_business_portal/verification_photos/disabled_parking.jpg",
+      "feature": 9,
+      "uploaded_at": "2025-04-16 21:01:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 193,
+    "fields": {
+      "verification": 75,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-09-09 00:45:16+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 194,
+    "fields": {
+      "verification": 76,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-08-16 13:11:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 195,
+    "fields": {
+      "verification": 76,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-04-13 08:43:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 196,
+    "fields": {
+      "verification": 77,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-05-22 00:15:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 197,
+    "fields": {
+      "verification": 77,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-07-17 19:49:21+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 198,
+    "fields": {
+      "verification": 78,
+      "image": "mobility_mapper_business_portal/verification_photos/wide_doors.jpg",
+      "feature": 2,
+      "uploaded_at": "2025-02-08 18:44:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 199,
+    "fields": {
+      "verification": 79,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-02-04 09:15:47+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 200,
+    "fields": {
+      "verification": 79,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_floor_paths.png",
+      "feature": 22,
+      "uploaded_at": "2025-07-19 09:48:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 201,
+    "fields": {
+      "verification": 80,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-07-26 04:22:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 202,
+    "fields": {
+      "verification": 80,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-06-24 18:55:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 203,
+    "fields": {
+      "verification": 81,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-08-27 19:00:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 204,
+    "fields": {
+      "verification": 81,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_atm.png",
+      "feature": 13,
+      "uploaded_at": "2025-04-26 13:34:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 205,
+    "fields": {
+      "verification": 82,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-09-03 09:21:52+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 206,
+    "fields": {
+      "verification": 82,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-06-12 02:36:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 207,
+    "fields": {
+      "verification": 82,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-03-15 18:14:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 208,
+    "fields": {
+      "verification": 83,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-04-20 22:11:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 209,
+    "fields": {
+      "verification": 83,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-08-31 21:08:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 210,
+    "fields": {
+      "verification": 83,
+      "image": "mobility_mapper_business_portal/verification_photos/designated_wheelchair_seating.png",
+      "feature": 14,
+      "uploaded_at": "2025-08-14 01:37:52+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 211,
+    "fields": {
+      "verification": 84,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-04-09 09:43:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 212,
+    "fields": {
+      "verification": 84,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-02-02 12:46:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 213,
+    "fields": {
+      "verification": 85,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-03-28 03:22:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 214,
+    "fields": {
+      "verification": 85,
+      "image": "mobility_mapper_business_portal/verification_photos/designated_wheelchair_seating.png",
+      "feature": 14,
+      "uploaded_at": "2025-09-05 06:21:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 215,
+    "fields": {
+      "verification": 86,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shuttle_service.png",
+      "feature": 19,
+      "uploaded_at": "2025-01-22 14:45:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 216,
+    "fields": {
+      "verification": 86,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-03-24 10:42:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 217,
+    "fields": {
+      "verification": 86,
+      "image": "mobility_mapper_business_portal/verification_photos/designated_wheelchair_seating.png",
+      "feature": 14,
+      "uploaded_at": "2025-01-15 20:30:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 218,
+    "fields": {
+      "verification": 87,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-04-11 18:48:49+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 219,
+    "fields": {
+      "verification": 87,
+      "image": "mobility_mapper_business_portal/verification_photos/designated_wheelchair_seating.png",
+      "feature": 14,
+      "uploaded_at": "2025-08-30 15:58:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 220,
+    "fields": {
+      "verification": 88,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-04-27 03:51:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 221,
+    "fields": {
+      "verification": 88,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-02-18 08:04:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 222,
+    "fields": {
+      "verification": 88,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_entrance.webp",
+      "feature": 37,
+      "uploaded_at": "2025-07-11 00:31:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 223,
+    "fields": {
+      "verification": 89,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-06-25 18:36:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 224,
+    "fields": {
+      "verification": 89,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-08-14 22:50:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 225,
+    "fields": {
+      "verification": 89,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-01-31 13:41:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 226,
+    "fields": {
+      "verification": 90,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-09-01 09:58:52+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 227,
+    "fields": {
+      "verification": 90,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-06-01 06:01:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 228,
+    "fields": {
+      "verification": 91,
+      "image": "mobility_mapper_business_portal/verification_photos/disabled_parking.jpg",
+      "feature": 9,
+      "uploaded_at": "2025-07-30 16:54:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 229,
+    "fields": {
+      "verification": 91,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-03-12 17:17:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 230,
+    "fields": {
+      "verification": 91,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-03-04 05:41:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 231,
+    "fields": {
+      "verification": 92,
+      "image": "mobility_mapper_business_portal/verification_photos/disabled_parking.jpg",
+      "feature": 9,
+      "uploaded_at": "2025-02-26 21:59:49+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 232,
+    "fields": {
+      "verification": 92,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-07-30 12:13:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 233,
+    "fields": {
+      "verification": 92,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-01-06 16:51:47+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 234,
+    "fields": {
+      "verification": 93,
+      "image": "mobility_mapper_business_portal/verification_photos/disabled_parking.jpg",
+      "feature": 9,
+      "uploaded_at": "2025-09-06 03:54:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 235,
+    "fields": {
+      "verification": 93,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-08-07 08:10:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 236,
+    "fields": {
+      "verification": 94,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_hotel_room.png",
+      "feature": 25,
+      "uploaded_at": "2025-06-08 23:03:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 237,
+    "fields": {
+      "verification": 94,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-06-04 09:23:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 238,
+    "fields": {
+      "verification": 94,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_fitting_room.png",
+      "feature": 28,
+      "uploaded_at": "2025-01-10 05:53:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 239,
+    "fields": {
+      "verification": 94,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-03-27 13:51:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 240,
+    "fields": {
+      "verification": 95,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_hotel_room.png",
+      "feature": 25,
+      "uploaded_at": "2025-06-28 05:38:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 241,
+    "fields": {
+      "verification": 95,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-05-04 08:48:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 242,
+    "fields": {
+      "verification": 95,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-07-18 12:47:49+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 243,
+    "fields": {
+      "verification": 95,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-04-25 14:42:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 244,
+    "fields": {
+      "verification": 96,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_hotel_room.png",
+      "feature": 25,
+      "uploaded_at": "2025-08-03 07:51:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 245,
+    "fields": {
+      "verification": 96,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-09-07 09:13:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 246,
+    "fields": {
+      "verification": 96,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-07-13 20:07:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 247,
+    "fields": {
+      "verification": 96,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-06-25 07:11:11+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 248,
+    "fields": {
+      "verification": 97,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-06-13 18:12:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 249,
+    "fields": {
+      "verification": 97,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-02-12 22:22:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 250,
+    "fields": {
+      "verification": 98,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-01-23 14:28:17+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 251,
+    "fields": {
+      "verification": 98,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-07-01 17:40:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 252,
+    "fields": {
+      "verification": 98,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-01-14 00:42:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 253,
+    "fields": {
+      "verification": 99,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-04-09 11:44:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 254,
+    "fields": {
+      "verification": 99,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-03-17 18:50:17+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 255,
+    "fields": {
+      "verification": 99,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-08-30 08:52:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 256,
+    "fields": {
+      "verification": 100,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-02-20 04:35:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 257,
+    "fields": {
+      "verification": 101,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-05-17 19:19:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 258,
+    "fields": {
+      "verification": 102,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-03-20 05:10:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 259,
+    "fields": {
+      "verification": 103,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-07-27 10:42:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 260,
+    "fields": {
+      "verification": 103,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-05-09 20:57:37+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 261,
+    "fields": {
+      "verification": 103,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-07-10 11:44:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 262,
+    "fields": {
+      "verification": 104,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-08-03 17:26:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 263,
+    "fields": {
+      "verification": 104,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-03-31 04:57:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 264,
+    "fields": {
+      "verification": 104,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-08-13 15:49:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 265,
+    "fields": {
+      "verification": 105,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-09-08 02:36:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 266,
+    "fields": {
+      "verification": 105,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-06-01 00:37:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 267,
+    "fields": {
+      "verification": 106,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-03-14 00:08:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 268,
+    "fields": {
+      "verification": 106,
+      "image": "mobility_mapper_business_portal/verification_photos/lowered_coat_hooks.png",
+      "feature": 24,
+      "uploaded_at": "2025-06-26 04:01:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 269,
+    "fields": {
+      "verification": 106,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-06-29 22:02:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 270,
+    "fields": {
+      "verification": 107,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-08-21 04:08:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 271,
+    "fields": {
+      "verification": 107,
+      "image": "mobility_mapper_business_portal/verification_photos/lowered_coat_hooks.png",
+      "feature": 24,
+      "uploaded_at": "2025-05-14 09:07:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 272,
+    "fields": {
+      "verification": 107,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-08-28 08:43:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 273,
+    "fields": {
+      "verification": 108,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-01-19 17:42:55+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 274,
+    "fields": {
+      "verification": 108,
+      "image": "mobility_mapper_business_portal/verification_photos/lowered_coat_hooks.png",
+      "feature": 24,
+      "uploaded_at": "2025-05-13 08:31:45+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 275,
+    "fields": {
+      "verification": 108,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shuttle_service.png",
+      "feature": 19,
+      "uploaded_at": "2025-01-03 16:46:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 276,
+    "fields": {
+      "verification": 108,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-06-25 09:04:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 277,
+    "fields": {
+      "verification": 109,
+      "image": "mobility_mapper_business_portal/verification_photos/step_free.jpg",
+      "feature": 1,
+      "uploaded_at": "2025-07-21 20:44:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 278,
+    "fields": {
+      "verification": 109,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-03-21 16:17:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 279,
+    "fields": {
+      "verification": 109,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shower.png",
+      "feature": 26,
+      "uploaded_at": "2025-08-28 02:08:49+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 280,
+    "fields": {
+      "verification": 110,
+      "image": "mobility_mapper_business_portal/verification_photos/step_free.jpg",
+      "feature": 1,
+      "uploaded_at": "2025-01-05 14:04:37+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 281,
+    "fields": {
+      "verification": 110,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-01-29 11:25:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 282,
+    "fields": {
+      "verification": 111,
+      "image": "mobility_mapper_business_portal/verification_photos/step_free.jpg",
+      "feature": 1,
+      "uploaded_at": "2025-05-25 12:04:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 283,
+    "fields": {
+      "verification": 111,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-03-10 16:16:21+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 284,
+    "fields": {
+      "verification": 111,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-03-14 09:44:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 285,
+    "fields": {
+      "verification": 112,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_examination_beds.png",
+      "feature": 32,
+      "uploaded_at": "2025-02-10 11:24:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 286,
+    "fields": {
+      "verification": 113,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_examination_beds.png",
+      "feature": 32,
+      "uploaded_at": "2025-05-26 04:52:59+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 287,
+    "fields": {
+      "verification": 114,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_examination_beds.png",
+      "feature": 32,
+      "uploaded_at": "2025-04-30 06:19:01+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 288,
+    "fields": {
+      "verification": 115,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-07-21 11:17:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 289,
+    "fields": {
+      "verification": 115,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-05-21 06:24:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 290,
+    "fields": {
+      "verification": 115,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-03-31 08:14:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 291,
+    "fields": {
+      "verification": 116,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_examination_beds.png",
+      "feature": 32,
+      "uploaded_at": "2025-03-04 06:02:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 292,
+    "fields": {
+      "verification": 116,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-05-01 06:33:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 293,
+    "fields": {
+      "verification": 116,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-06-05 13:39:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 294,
+    "fields": {
+      "verification": 116,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-06-28 15:07:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 295,
+    "fields": {
+      "verification": 117,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-03-28 22:00:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 296,
+    "fields": {
+      "verification": 117,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-08-29 20:56:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 297,
+    "fields": {
+      "verification": 117,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-02-07 12:59:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 298,
+    "fields": {
+      "verification": 118,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-04-07 17:26:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 299,
+    "fields": {
+      "verification": 118,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_floor_paths.png",
+      "feature": 22,
+      "uploaded_at": "2025-01-05 03:17:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 300,
+    "fields": {
+      "verification": 118,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_basins_taps.png",
+      "feature": 31,
+      "uploaded_at": "2025-06-15 17:58:21+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 301,
+    "fields": {
+      "verification": 119,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-07-25 15:20:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 302,
+    "fields": {
+      "verification": 119,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-02-21 05:54:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 303,
+    "fields": {
+      "verification": 119,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_basins_taps.png",
+      "feature": 31,
+      "uploaded_at": "2025-04-06 21:32:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 304,
+    "fields": {
+      "verification": 120,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-02-14 10:10:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 305,
+    "fields": {
+      "verification": 120,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_basins_taps.png",
+      "feature": 31,
+      "uploaded_at": "2025-06-01 06:18:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 306,
+    "fields": {
+      "verification": 121,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-09-09 12:55:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 307,
+    "fields": {
+      "verification": 122,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-03-11 03:25:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 308,
+    "fields": {
+      "verification": 123,
+      "image": "mobility_mapper_business_portal/verification_photos/rest_area_with_seating.png",
+      "feature": 21,
+      "uploaded_at": "2025-03-08 02:46:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 309,
+    "fields": {
+      "verification": 124,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-06-24 06:08:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 310,
+    "fields": {
+      "verification": 125,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-07-27 01:13:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 311,
+    "fields": {
+      "verification": 126,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_playground.png",
+      "feature": 23,
+      "uploaded_at": "2025-08-14 04:57:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 312,
+    "fields": {
+      "verification": 127,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-02-01 10:07:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 313,
+    "fields": {
+      "verification": 127,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-06-17 03:44:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 314,
+    "fields": {
+      "verification": 127,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-05-31 07:36:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 315,
+    "fields": {
+      "verification": 127,
+      "image": "mobility_mapper_business_portal/verification_photos/quiet_area.png",
+      "feature": 12,
+      "uploaded_at": "2025-05-10 22:49:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 316,
+    "fields": {
+      "verification": 128,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-07-31 17:28:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 317,
+    "fields": {
+      "verification": 128,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-07-01 02:01:16+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 318,
+    "fields": {
+      "verification": 128,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-04-07 01:09:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 319,
+    "fields": {
+      "verification": 129,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-07-31 20:56:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 320,
+    "fields": {
+      "verification": 129,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-03-27 02:00:55+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 321,
+    "fields": {
+      "verification": 129,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-03-21 06:43:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 322,
+    "fields": {
+      "verification": 129,
+      "image": "mobility_mapper_business_portal/verification_photos/lowered_coat_hooks.png",
+      "feature": 24,
+      "uploaded_at": "2025-07-26 17:39:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 323,
+    "fields": {
+      "verification": 130,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-06-21 11:01:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 324,
+    "fields": {
+      "verification": 130,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-03-31 00:18:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 325,
+    "fields": {
+      "verification": 131,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-01-08 05:31:19+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 326,
+    "fields": {
+      "verification": 131,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-04-12 04:08:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 327,
+    "fields": {
+      "verification": 132,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-03-09 08:31:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 328,
+    "fields": {
+      "verification": 133,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-06-30 02:38:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 329,
+    "fields": {
+      "verification": 134,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-02-13 15:47:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 330,
+    "fields": {
+      "verification": 135,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-03-07 00:10:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 331,
+    "fields": {
+      "verification": 136,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-02-23 19:38:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 332,
+    "fields": {
+      "verification": 136,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-04-17 04:13:01+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 333,
+    "fields": {
+      "verification": 137,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-02-03 14:00:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 334,
+    "fields": {
+      "verification": 137,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-09-09 10:37:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 335,
+    "fields": {
+      "verification": 138,
+      "image": "mobility_mapper_business_portal/verification_photos/lowered_coat_hooks.png",
+      "feature": 24,
+      "uploaded_at": "2025-09-12 04:59:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 336,
+    "fields": {
+      "verification": 138,
+      "image": "mobility_mapper_business_portal/verification_photos/priority_seating_area.png",
+      "feature": 20,
+      "uploaded_at": "2025-03-19 23:55:52+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 337,
+    "fields": {
+      "verification": 139,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-01-28 22:16:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 338,
+    "fields": {
+      "verification": 139,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-09-02 10:01:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 339,
+    "fields": {
+      "verification": 139,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_atm.png",
+      "feature": 13,
+      "uploaded_at": "2025-03-07 20:32:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 340,
+    "fields": {
+      "verification": 140,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-06-06 01:52:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 341,
+    "fields": {
+      "verification": 140,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-02-27 05:32:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 342,
+    "fields": {
+      "verification": 140,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_atm.png",
+      "feature": 13,
+      "uploaded_at": "2025-02-14 09:50:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 343,
+    "fields": {
+      "verification": 141,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-05-19 12:16:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 344,
+    "fields": {
+      "verification": 141,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-01-20 18:06:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 345,
+    "fields": {
+      "verification": 141,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_atm.png",
+      "feature": 13,
+      "uploaded_at": "2025-02-03 02:04:47+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 346,
+    "fields": {
+      "verification": 142,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-08-07 13:19:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 347,
+    "fields": {
+      "verification": 142,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-02-07 05:06:47+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 348,
+    "fields": {
+      "verification": 143,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-02-24 13:23:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 349,
+    "fields": {
+      "verification": 144,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_drinking_fountain.png",
+      "feature": 17,
+      "uploaded_at": "2025-07-25 12:39:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 350,
+    "fields": {
+      "verification": 145,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-04-27 06:49:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 351,
+    "fields": {
+      "verification": 146,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-02-24 06:35:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 352,
+    "fields": {
+      "verification": 147,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_examination_beds.png",
+      "feature": 32,
+      "uploaded_at": "2025-09-07 02:42:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 353,
+    "fields": {
+      "verification": 147,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-08-25 09:44:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 354,
+    "fields": {
+      "verification": 148,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-06-22 22:21:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 355,
+    "fields": {
+      "verification": 148,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-06-20 17:01:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 356,
+    "fields": {
+      "verification": 149,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-05-20 01:40:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 357,
+    "fields": {
+      "verification": 149,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_signage_accessible_routes.png",
+      "feature": 34,
+      "uploaded_at": "2025-05-01 14:56:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 358,
+    "fields": {
+      "verification": 149,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-08-19 15:58:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 359,
+    "fields": {
+      "verification": 150,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-06-19 22:19:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 360,
+    "fields": {
+      "verification": 150,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-04-01 17:55:47+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 361,
+    "fields": {
+      "verification": 150,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_toilet.webp",
+      "feature": 7,
+      "uploaded_at": "2025-06-09 04:24:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 362,
+    "fields": {
+      "verification": 151,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-03-01 00:17:16+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 363,
+    "fields": {
+      "verification": 151,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_atm.png",
+      "feature": 13,
+      "uploaded_at": "2025-08-16 08:07:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 364,
+    "fields": {
+      "verification": 152,
+      "image": "mobility_mapper_business_portal/verification_photos/evacuation_chair.png",
+      "feature": 35,
+      "uploaded_at": "2025-02-20 11:59:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 365,
+    "fields": {
+      "verification": 152,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_atm.png",
+      "feature": 13,
+      "uploaded_at": "2025-02-12 17:17:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 366,
+    "fields": {
+      "verification": 153,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_atm.png",
+      "feature": 13,
+      "uploaded_at": "2025-03-11 23:54:55+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 367,
+    "fields": {
+      "verification": 154,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shower.png",
+      "feature": 26,
+      "uploaded_at": "2025-06-15 21:52:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 368,
+    "fields": {
+      "verification": 154,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-03-15 19:31:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 369,
+    "fields": {
+      "verification": 154,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-08-26 09:03:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 370,
+    "fields": {
+      "verification": 155,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shower.png",
+      "feature": 26,
+      "uploaded_at": "2025-08-16 18:40:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 371,
+    "fields": {
+      "verification": 155,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-04-12 11:30:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 372,
+    "fields": {
+      "verification": 155,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-06-11 11:45:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 373,
+    "fields": {
+      "verification": 156,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_shower.png",
+      "feature": 26,
+      "uploaded_at": "2025-04-04 19:13:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 374,
+    "fields": {
+      "verification": 156,
+      "image": "mobility_mapper_business_portal/verification_photos/electric_door_opener.jpg",
+      "feature": 3,
+      "uploaded_at": "2025-08-03 00:55:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 375,
+    "fields": {
+      "verification": 156,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-04-18 03:01:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 376,
+    "fields": {
+      "verification": 156,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-03-02 19:22:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 377,
+    "fields": {
+      "verification": 157,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_examination_beds.png",
+      "feature": 32,
+      "uploaded_at": "2025-03-02 04:10:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 378,
+    "fields": {
+      "verification": 157,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-01-01 11:05:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 379,
+    "fields": {
+      "verification": 158,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_examination_beds.png",
+      "feature": 32,
+      "uploaded_at": "2025-01-03 23:08:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 380,
+    "fields": {
+      "verification": 158,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-07-14 13:10:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 381,
+    "fields": {
+      "verification": 158,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-08-01 09:50:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 382,
+    "fields": {
+      "verification": 159,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_examination_beds.png",
+      "feature": 32,
+      "uploaded_at": "2025-03-22 09:49:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 383,
+    "fields": {
+      "verification": 159,
+      "image": "mobility_mapper_business_portal/verification_photos/mobility_device_charging_point.png",
+      "feature": 27,
+      "uploaded_at": "2025-02-02 12:46:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 384,
+    "fields": {
+      "verification": 159,
+      "image": "mobility_mapper_business_portal/verification_photos/automatic_door.jpg",
+      "feature": 4,
+      "uploaded_at": "2025-07-21 07:17:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 385,
+    "fields": {
+      "verification": 160,
+      "image": "mobility_mapper_business_portal/verification_photos/lowered_coat_hooks.png",
+      "feature": 24,
+      "uploaded_at": "2025-05-14 17:26:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 386,
+    "fields": {
+      "verification": 160,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-04-02 12:04:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 387,
+    "fields": {
+      "verification": 161,
+      "image": "mobility_mapper_business_portal/verification_photos/lowered_coat_hooks.png",
+      "feature": 24,
+      "uploaded_at": "2025-04-26 18:38:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 388,
+    "fields": {
+      "verification": 161,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-05-11 05:27:49+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 389,
+    "fields": {
+      "verification": 161,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_rental.png",
+      "feature": 18,
+      "uploaded_at": "2025-09-10 21:20:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 390,
+    "fields": {
+      "verification": 162,
+      "image": "mobility_mapper_business_portal/verification_photos/lowered_coat_hooks.png",
+      "feature": 24,
+      "uploaded_at": "2025-06-06 13:55:11+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 391,
+    "fields": {
+      "verification": 162,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-04-12 15:47:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 392,
+    "fields": {
+      "verification": 162,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_platform_lift.png",
+      "feature": 33,
+      "uploaded_at": "2025-06-07 11:01:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 393,
+    "fields": {
+      "verification": 163,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-05-11 13:37:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 394,
+    "fields": {
+      "verification": 163,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-02-14 21:18:45+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 395,
+    "fields": {
+      "verification": 164,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-01-07 09:09:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 396,
+    "fields": {
+      "verification": 165,
+      "image": "mobility_mapper_business_portal/verification_photos/staff_trained_disability_awareness.png",
+      "feature": 29,
+      "uploaded_at": "2025-06-27 05:23:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 397,
+    "fields": {
+      "verification": 166,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-07-17 16:08:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 398,
+    "fields": {
+      "verification": 166,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-09-05 13:58:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 399,
+    "fields": {
+      "verification": 166,
+      "image": "mobility_mapper_business_portal/verification_photos/clear_floor_paths.png",
+      "feature": 22,
+      "uploaded_at": "2025-03-04 01:10:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 400,
+    "fields": {
+      "verification": 167,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-01-29 03:41:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 401,
+    "fields": {
+      "verification": 167,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-08-13 21:53:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 402,
+    "fields": {
+      "verification": 168,
+      "image": "mobility_mapper_business_portal/verification_photos/accessible_emergency_exit.png",
+      "feature": 16,
+      "uploaded_at": "2025-07-31 07:06:17+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 403,
+    "fields": {
+      "verification": 168,
+      "image": "mobility_mapper_business_portal/verification_photos/lift.png",
+      "feature": 8,
+      "uploaded_at": "2025-09-06 17:15:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 404,
+    "fields": {
+      "verification": 168,
+      "image": "mobility_mapper_business_portal/verification_photos/low_no_threshold_flush_door_sill.png",
+      "feature": 36,
+      "uploaded_at": "2025-07-18 20:37:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 405,
+    "fields": {
+      "verification": 169,
+      "image": "mobility_mapper_business_portal/verification_photos/service_animal_friendly.png",
+      "feature": 10,
+      "uploaded_at": "2025-07-18 21:21:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 406,
+    "fields": {
+      "verification": 169,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-08-08 17:07:51+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 407,
+    "fields": {
+      "verification": 169,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-01-06 05:34:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 408,
+    "fields": {
+      "verification": 170,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-02-01 01:35:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 409,
+    "fields": {
+      "verification": 170,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-07-16 08:45:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 410,
+    "fields": {
+      "verification": 171,
+      "image": "mobility_mapper_business_portal/verification_photos/wheelchair_accessible_table.jpg",
+      "feature": 11,
+      "uploaded_at": "2025-08-25 18:20:55+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 411,
+    "fields": {
+      "verification": 171,
+      "image": "mobility_mapper_business_portal/verification_photos/low_counter.webp",
+      "feature": 6,
+      "uploaded_at": "2025-01-14 12:26:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 412,
+    "fields": {
+      "verification": 171,
+      "image": "mobility_mapper_business_portal/verification_photos/adjustable_height_table.png",
+      "feature": 15,
+      "uploaded_at": "2025-05-22 22:39:52+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 413,
+    "fields": {
+      "verification": 1,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-03-21 11:25:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 414,
+    "fields": {
+      "verification": 3,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-06-12 20:48:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 415,
+    "fields": {
+      "verification": 3,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-06-18 20:34:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 416,
+    "fields": {
+      "verification": 4,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-01-31 07:57:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 417,
+    "fields": {
+      "verification": 5,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-05-26 20:40:16+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 418,
+    "fields": {
+      "verification": 6,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-06-13 11:30:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 419,
+    "fields": {
+      "verification": 6,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-04-13 13:15:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 420,
+    "fields": {
+      "verification": 7,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-06-15 10:17:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 421,
+    "fields": {
+      "verification": 7,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-06-20 08:44:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 422,
+    "fields": {
+      "verification": 7,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-01-01 08:04:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 423,
+    "fields": {
+      "verification": 9,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-04-08 01:33:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 424,
+    "fields": {
+      "verification": 9,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-05-10 21:20:55+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 425,
+    "fields": {
+      "verification": 10,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-03-21 20:03:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 426,
+    "fields": {
+      "verification": 10,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-06-25 03:31:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 427,
+    "fields": {
+      "verification": 12,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-04-25 02:59:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 428,
+    "fields": {
+      "verification": 16,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-08-28 00:22:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 429,
+    "fields": {
+      "verification": 16,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-03-28 13:25:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 430,
+    "fields": {
+      "verification": 16,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-04-27 15:17:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 431,
+    "fields": {
+      "verification": 17,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-08-22 20:58:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 432,
+    "fields": {
+      "verification": 17,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-02-24 10:23:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 433,
+    "fields": {
+      "verification": 18,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-05-05 14:02:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 434,
+    "fields": {
+      "verification": 19,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-01-16 14:01:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 435,
+    "fields": {
+      "verification": 19,
+      "image": "mobility_mapper_business_portal/other/other_9.png",
+      "feature": null,
+      "uploaded_at": "2025-02-24 17:20:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 436,
+    "fields": {
+      "verification": 21,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-06-11 10:38:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 437,
+    "fields": {
+      "verification": 21,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-01-05 22:31:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 438,
+    "fields": {
+      "verification": 24,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-07-04 21:13:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 439,
+    "fields": {
+      "verification": 24,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-01-14 06:26:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 440,
+    "fields": {
+      "verification": 25,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-04-09 01:33:19+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 441,
+    "fields": {
+      "verification": 25,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-04-02 18:01:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 442,
+    "fields": {
+      "verification": 26,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-08-07 19:08:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 443,
+    "fields": {
+      "verification": 27,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-05-18 13:34:59+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 444,
+    "fields": {
+      "verification": 27,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-01-08 17:37:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 445,
+    "fields": {
+      "verification": 27,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-03-19 18:13:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 446,
+    "fields": {
+      "verification": 28,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-01-28 21:54:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 447,
+    "fields": {
+      "verification": 28,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-01-08 03:13:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 448,
+    "fields": {
+      "verification": 28,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-08-29 00:01:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 449,
+    "fields": {
+      "verification": 29,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-09-05 05:00:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 450,
+    "fields": {
+      "verification": 32,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-06-16 21:55:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 451,
+    "fields": {
+      "verification": 33,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-05-09 03:05:17+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 452,
+    "fields": {
+      "verification": 33,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-04-13 11:35:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 453,
+    "fields": {
+      "verification": 34,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-09-10 12:18:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 454,
+    "fields": {
+      "verification": 34,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-02-20 13:22:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 455,
+    "fields": {
+      "verification": 34,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-05-14 09:03:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 456,
+    "fields": {
+      "verification": 35,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-07-06 11:40:21+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 457,
+    "fields": {
+      "verification": 36,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-02-16 18:22:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 458,
+    "fields": {
+      "verification": 38,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-05-01 12:43:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 459,
+    "fields": {
+      "verification": 40,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-01-18 02:46:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 460,
+    "fields": {
+      "verification": 40,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-07-11 21:29:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 461,
+    "fields": {
+      "verification": 41,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-09-06 08:52:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 462,
+    "fields": {
+      "verification": 42,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-07-25 04:07:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 463,
+    "fields": {
+      "verification": 42,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-02-12 18:05:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 464,
+    "fields": {
+      "verification": 43,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-02-28 01:00:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 465,
+    "fields": {
+      "verification": 44,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-06-03 07:48:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 466,
+    "fields": {
+      "verification": 44,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-01-05 00:33:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 467,
+    "fields": {
+      "verification": 45,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-02-10 11:35:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 468,
+    "fields": {
+      "verification": 45,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-09-01 16:42:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 469,
+    "fields": {
+      "verification": 49,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-04-12 16:26:59+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 470,
+    "fields": {
+      "verification": 49,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-07-12 20:34:01+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 471,
+    "fields": {
+      "verification": 49,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-08-31 03:41:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 472,
+    "fields": {
+      "verification": 50,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-03-21 22:40:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 473,
+    "fields": {
+      "verification": 50,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-04-02 09:32:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 474,
+    "fields": {
+      "verification": 50,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-08-28 17:44:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 475,
+    "fields": {
+      "verification": 54,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-06-02 06:35:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 476,
+    "fields": {
+      "verification": 54,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-06-14 15:08:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 477,
+    "fields": {
+      "verification": 55,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-05-23 14:07:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 478,
+    "fields": {
+      "verification": 55,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-07-18 17:04:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 479,
+    "fields": {
+      "verification": 55,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-01-30 06:19:44+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 480,
+    "fields": {
+      "verification": 56,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-01-03 14:46:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 481,
+    "fields": {
+      "verification": 56,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-03-03 07:41:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 482,
+    "fields": {
+      "verification": 56,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-05-27 15:17:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 483,
+    "fields": {
+      "verification": 57,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-08-14 02:05:16+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 484,
+    "fields": {
+      "verification": 59,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-07-09 18:01:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 485,
+    "fields": {
+      "verification": 60,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-08-17 16:04:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 486,
+    "fields": {
+      "verification": 61,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-08-21 09:09:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 487,
+    "fields": {
+      "verification": 62,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-04-06 00:00:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 488,
+    "fields": {
+      "verification": 63,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-07-25 05:35:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 489,
+    "fields": {
+      "verification": 63,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-03-05 21:31:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 490,
+    "fields": {
+      "verification": 63,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-06-08 11:22:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 491,
+    "fields": {
+      "verification": 64,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-06-13 01:09:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 492,
+    "fields": {
+      "verification": 64,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-03-20 22:59:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 493,
+    "fields": {
+      "verification": 64,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-03-29 02:47:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 494,
+    "fields": {
+      "verification": 65,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-01-07 02:41:16+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 495,
+    "fields": {
+      "verification": 67,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-05-17 10:55:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 496,
+    "fields": {
+      "verification": 67,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-05-29 10:45:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 497,
+    "fields": {
+      "verification": 67,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-02-15 13:44:50+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 498,
+    "fields": {
+      "verification": 68,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-04-09 18:05:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 499,
+    "fields": {
+      "verification": 68,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-08-09 10:02:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 500,
+    "fields": {
+      "verification": 69,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-01-20 13:45:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 501,
+    "fields": {
+      "verification": 70,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-05-14 14:45:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 502,
+    "fields": {
+      "verification": 72,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-01-08 17:29:01+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 503,
+    "fields": {
+      "verification": 72,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-05-21 00:44:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 504,
+    "fields": {
+      "verification": 73,
+      "image": "mobility_mapper_business_portal/other/other_9.png",
+      "feature": null,
+      "uploaded_at": "2025-01-27 08:44:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 505,
+    "fields": {
+      "verification": 73,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-05-01 07:28:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 506,
+    "fields": {
+      "verification": 74,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-08-07 00:24:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 507,
+    "fields": {
+      "verification": 74,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-08-07 13:24:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 508,
+    "fields": {
+      "verification": 76,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-07-22 19:42:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 509,
+    "fields": {
+      "verification": 76,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-03-25 11:32:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 510,
+    "fields": {
+      "verification": 76,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-06-13 14:05:01+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 511,
+    "fields": {
+      "verification": 78,
+      "image": "mobility_mapper_business_portal/other/other_9.png",
+      "feature": null,
+      "uploaded_at": "2025-07-16 06:24:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 512,
+    "fields": {
+      "verification": 78,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-03-18 11:31:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 513,
+    "fields": {
+      "verification": 78,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-05-22 15:19:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 514,
+    "fields": {
+      "verification": 81,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-06-28 12:06:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 515,
+    "fields": {
+      "verification": 82,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-03-15 16:39:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 516,
+    "fields": {
+      "verification": 82,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-07-04 13:51:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 517,
+    "fields": {
+      "verification": 83,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-01-01 14:57:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 518,
+    "fields": {
+      "verification": 84,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-07-05 16:35:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 519,
+    "fields": {
+      "verification": 84,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-06-25 07:39:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 520,
+    "fields": {
+      "verification": 84,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-04-23 02:26:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 521,
+    "fields": {
+      "verification": 89,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-05-13 09:14:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 522,
+    "fields": {
+      "verification": 89,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-07-03 21:34:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 523,
+    "fields": {
+      "verification": 89,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-07-09 11:47:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 524,
+    "fields": {
+      "verification": 90,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-09-05 14:45:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 525,
+    "fields": {
+      "verification": 90,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-03-21 19:37:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 526,
+    "fields": {
+      "verification": 91,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-04-16 21:57:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 527,
+    "fields": {
+      "verification": 91,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-07-13 13:28:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 528,
+    "fields": {
+      "verification": 91,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-06-11 01:58:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 529,
+    "fields": {
+      "verification": 94,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-02-13 02:20:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 530,
+    "fields": {
+      "verification": 94,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-07-25 20:39:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 531,
+    "fields": {
+      "verification": 95,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-07-14 03:01:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 532,
+    "fields": {
+      "verification": 95,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-05-18 21:46:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 533,
+    "fields": {
+      "verification": 95,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-01-13 02:57:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 534,
+    "fields": {
+      "verification": 96,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-08-27 16:57:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 535,
+    "fields": {
+      "verification": 97,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-07-12 10:34:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 536,
+    "fields": {
+      "verification": 98,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-04-23 14:37:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 537,
+    "fields": {
+      "verification": 98,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-01-15 22:31:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 538,
+    "fields": {
+      "verification": 98,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-01-28 14:29:16+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 539,
+    "fields": {
+      "verification": 100,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-04-26 21:06:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 540,
+    "fields": {
+      "verification": 100,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-03-09 08:06:11+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 541,
+    "fields": {
+      "verification": 100,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-05-26 21:33:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 542,
+    "fields": {
+      "verification": 101,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-06-29 01:48:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 543,
+    "fields": {
+      "verification": 102,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-06-05 13:31:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 544,
+    "fields": {
+      "verification": 103,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-03-10 09:36:10+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 545,
+    "fields": {
+      "verification": 103,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-01-22 03:44:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 546,
+    "fields": {
+      "verification": 104,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-01-20 01:53:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 547,
+    "fields": {
+      "verification": 104,
+      "image": "mobility_mapper_business_portal/other/other_9.png",
+      "feature": null,
+      "uploaded_at": "2025-06-01 21:35:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 548,
+    "fields": {
+      "verification": 104,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-03-10 21:52:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 549,
+    "fields": {
+      "verification": 106,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-08-03 11:03:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 550,
+    "fields": {
+      "verification": 106,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-04-04 01:36:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 551,
+    "fields": {
+      "verification": 108,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-09-03 05:46:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 552,
+    "fields": {
+      "verification": 108,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-02-08 23:02:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 553,
+    "fields": {
+      "verification": 111,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-06-26 01:32:19+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 554,
+    "fields": {
+      "verification": 111,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-04-26 05:46:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 555,
+    "fields": {
+      "verification": 112,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-02-02 06:49:37+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 556,
+    "fields": {
+      "verification": 112,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-04-14 03:02:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 557,
+    "fields": {
+      "verification": 113,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-01-22 13:37:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 558,
+    "fields": {
+      "verification": 113,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-06-09 00:15:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 559,
+    "fields": {
+      "verification": 114,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-08-02 14:40:21+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 560,
+    "fields": {
+      "verification": 114,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-08-12 15:05:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 561,
+    "fields": {
+      "verification": 114,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-05-16 05:32:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 562,
+    "fields": {
+      "verification": 115,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-08-22 19:28:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 563,
+    "fields": {
+      "verification": 115,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-03-29 11:54:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 564,
+    "fields": {
+      "verification": 115,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-06-13 14:04:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 565,
+    "fields": {
+      "verification": 116,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-02-04 06:41:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 566,
+    "fields": {
+      "verification": 116,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-01-28 20:11:21+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 567,
+    "fields": {
+      "verification": 116,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-06-08 09:14:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 568,
+    "fields": {
+      "verification": 117,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-04-24 05:25:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 569,
+    "fields": {
+      "verification": 117,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-08-20 04:58:52+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 570,
+    "fields": {
+      "verification": 118,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-08-03 08:21:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 571,
+    "fields": {
+      "verification": 118,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-07-16 22:25:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 572,
+    "fields": {
+      "verification": 120,
+      "image": "mobility_mapper_business_portal/other/other_9.png",
+      "feature": null,
+      "uploaded_at": "2025-07-03 21:53:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 573,
+    "fields": {
+      "verification": 120,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-06-22 06:04:59+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 574,
+    "fields": {
+      "verification": 120,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-06-13 03:41:27+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 575,
+    "fields": {
+      "verification": 121,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-02-27 19:57:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 576,
+    "fields": {
+      "verification": 121,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-04-01 18:03:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 577,
+    "fields": {
+      "verification": 122,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-08-08 22:41:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 578,
+    "fields": {
+      "verification": 122,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-04-12 01:37:53+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 579,
+    "fields": {
+      "verification": 123,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-08-21 02:45:11+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 580,
+    "fields": {
+      "verification": 123,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-03-25 17:34:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 581,
+    "fields": {
+      "verification": 125,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-08-08 10:35:30+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 582,
+    "fields": {
+      "verification": 126,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-04-08 08:07:35+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 583,
+    "fields": {
+      "verification": 127,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-04-09 19:33:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 584,
+    "fields": {
+      "verification": 127,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-06-22 02:14:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 585,
+    "fields": {
+      "verification": 127,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-04-14 00:48:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 586,
+    "fields": {
+      "verification": 128,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-01-07 00:01:59+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 587,
+    "fields": {
+      "verification": 128,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-09-09 21:56:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 588,
+    "fields": {
+      "verification": 128,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-02-10 02:56:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 589,
+    "fields": {
+      "verification": 130,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-04-13 17:21:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 590,
+    "fields": {
+      "verification": 131,
+      "image": "mobility_mapper_business_portal/other/other_9.png",
+      "feature": null,
+      "uploaded_at": "2025-06-15 16:21:20+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 591,
+    "fields": {
+      "verification": 132,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-07-30 05:02:25+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 592,
+    "fields": {
+      "verification": 132,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-08-25 03:20:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 593,
+    "fields": {
+      "verification": 132,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-06-08 08:27:46+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 594,
+    "fields": {
+      "verification": 133,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-06-26 10:29:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 595,
+    "fields": {
+      "verification": 133,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-09-04 09:01:55+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 596,
+    "fields": {
+      "verification": 133,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-05-16 16:21:44+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 597,
+    "fields": {
+      "verification": 134,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-07-21 11:58:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 598,
+    "fields": {
+      "verification": 135,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-07-02 01:56:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 599,
+    "fields": {
+      "verification": 135,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-09-05 22:39:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 600,
+    "fields": {
+      "verification": 136,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-05-09 17:51:45+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 601,
+    "fields": {
+      "verification": 136,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-08-12 05:51:56+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 602,
+    "fields": {
+      "verification": 140,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-01-09 00:12:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 603,
+    "fields": {
+      "verification": 140,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-01-27 08:34:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 604,
+    "fields": {
+      "verification": 140,
+      "image": "mobility_mapper_business_portal/other/other_6.png",
+      "feature": null,
+      "uploaded_at": "2025-05-15 11:36:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 605,
+    "fields": {
+      "verification": 141,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-05-31 22:52:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 606,
+    "fields": {
+      "verification": 142,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-04-05 04:08:13+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 607,
+    "fields": {
+      "verification": 142,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-08-11 23:03:37+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 608,
+    "fields": {
+      "verification": 143,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-03-28 11:38:31+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 609,
+    "fields": {
+      "verification": 143,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-02-05 03:41:39+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 610,
+    "fields": {
+      "verification": 143,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-09-08 02:40:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 611,
+    "fields": {
+      "verification": 144,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-07-24 22:42:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 612,
+    "fields": {
+      "verification": 144,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-07-23 09:59:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 613,
+    "fields": {
+      "verification": 145,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-07-04 23:18:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 614,
+    "fields": {
+      "verification": 146,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-06-20 18:21:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 615,
+    "fields": {
+      "verification": 146,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-06-06 01:26:59+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 616,
+    "fields": {
+      "verification": 146,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-01-19 04:11:45+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 617,
+    "fields": {
+      "verification": 147,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-06-30 14:17:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 618,
+    "fields": {
+      "verification": 147,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-06-02 00:26:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 619,
+    "fields": {
+      "verification": 148,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-08-23 05:30:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 620,
+    "fields": {
+      "verification": 148,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-01-02 02:43:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 621,
+    "fields": {
+      "verification": 148,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-01-13 05:08:07+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 622,
+    "fields": {
+      "verification": 149,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-07-12 10:42:00+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 623,
+    "fields": {
+      "verification": 149,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-03-27 12:53:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 624,
+    "fields": {
+      "verification": 149,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-09-10 22:38:03+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 625,
+    "fields": {
+      "verification": 150,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-08-07 05:54:38+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 626,
+    "fields": {
+      "verification": 150,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-04-21 03:26:12+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 627,
+    "fields": {
+      "verification": 150,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-06-24 10:39:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 628,
+    "fields": {
+      "verification": 151,
+      "image": "mobility_mapper_business_portal/other/other_9.png",
+      "feature": null,
+      "uploaded_at": "2025-08-18 22:19:59+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 629,
+    "fields": {
+      "verification": 151,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-08-04 10:48:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 630,
+    "fields": {
+      "verification": 153,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-01-25 23:54:26+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 631,
+    "fields": {
+      "verification": 153,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-08-03 15:00:34+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 632,
+    "fields": {
+      "verification": 153,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-07-12 00:48:57+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 633,
+    "fields": {
+      "verification": 154,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-02-16 13:32:49+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 634,
+    "fields": {
+      "verification": 154,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-04-21 23:56:48+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 635,
+    "fields": {
+      "verification": 155,
+      "image": "mobility_mapper_business_portal/other/other_9.png",
+      "feature": null,
+      "uploaded_at": "2025-04-28 01:12:18+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 636,
+    "fields": {
+      "verification": 156,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-05-13 06:16:28+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 637,
+    "fields": {
+      "verification": 156,
+      "image": "mobility_mapper_business_portal/other/other_8.png",
+      "feature": null,
+      "uploaded_at": "2025-07-19 20:53:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 638,
+    "fields": {
+      "verification": 156,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-08-30 10:27:29+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 639,
+    "fields": {
+      "verification": 157,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-02-23 00:21:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 640,
+    "fields": {
+      "verification": 157,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-07-16 19:43:05+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 641,
+    "fields": {
+      "verification": 157,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-01-31 17:05:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 642,
+    "fields": {
+      "verification": 160,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-06-13 03:38:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 643,
+    "fields": {
+      "verification": 162,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-01-30 07:59:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 644,
+    "fields": {
+      "verification": 162,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-04-25 10:52:14+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 645,
+    "fields": {
+      "verification": 162,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-02-19 10:12:33+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 646,
+    "fields": {
+      "verification": 163,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-04-24 16:16:04+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 647,
+    "fields": {
+      "verification": 163,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-09-04 12:27:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 648,
+    "fields": {
+      "verification": 163,
+      "image": "mobility_mapper_business_portal/other/other_5.png",
+      "feature": null,
+      "uploaded_at": "2025-07-17 15:21:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 649,
+    "fields": {
+      "verification": 164,
+      "image": "mobility_mapper_business_portal/other/other_2.png",
+      "feature": null,
+      "uploaded_at": "2025-05-11 03:22:08+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 650,
+    "fields": {
+      "verification": 164,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-09-05 18:02:42+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 651,
+    "fields": {
+      "verification": 164,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-03-01 15:47:22+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 652,
+    "fields": {
+      "verification": 165,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-01-12 10:41:37+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 653,
+    "fields": {
+      "verification": 165,
+      "image": "mobility_mapper_business_portal/other/other_4.png",
+      "feature": null,
+      "uploaded_at": "2025-04-21 07:30:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 654,
+    "fields": {
+      "verification": 165,
+      "image": "mobility_mapper_business_portal/other/other_7.png",
+      "feature": null,
+      "uploaded_at": "2025-02-25 16:06:06+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 655,
+    "fields": {
+      "verification": 166,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-06-18 00:20:01+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 656,
+    "fields": {
+      "verification": 166,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-03-04 11:47:09+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 657,
+    "fields": {
+      "verification": 166,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-06-30 04:34:24+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 658,
+    "fields": {
+      "verification": 167,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-07-06 02:31:36+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 659,
+    "fields": {
+      "verification": 167,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-05-24 21:43:32+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 660,
+    "fields": {
+      "verification": 167,
+      "image": "mobility_mapper_business_portal/other/other_14.png",
+      "feature": null,
+      "uploaded_at": "2025-08-04 12:44:43+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 661,
+    "fields": {
+      "verification": 168,
+      "image": "mobility_mapper_business_portal/other/other_13.png",
+      "feature": null,
+      "uploaded_at": "2025-03-09 12:00:37+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 662,
+    "fields": {
+      "verification": 169,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-06-14 22:28:40+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 663,
+    "fields": {
+      "verification": 169,
+      "image": "mobility_mapper_business_portal/other/other_11.png",
+      "feature": null,
+      "uploaded_at": "2025-01-05 19:07:02+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 664,
+    "fields": {
+      "verification": 169,
+      "image": "mobility_mapper_business_portal/other/other_15.png",
+      "feature": null,
+      "uploaded_at": "2025-07-08 17:59:23+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 665,
+    "fields": {
+      "verification": 170,
+      "image": "mobility_mapper_business_portal/other/other_12.png",
+      "feature": null,
+      "uploaded_at": "2025-01-30 23:34:15+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 666,
+    "fields": {
+      "verification": 170,
+      "image": "mobility_mapper_business_portal/other/other_10.png",
+      "feature": null,
+      "uploaded_at": "2025-08-10 02:09:16+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 667,
+    "fields": {
+      "verification": 170,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-04-11 03:05:41+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 668,
+    "fields": {
+      "verification": 171,
+      "image": "mobility_mapper_business_portal/other/other_1.png",
+      "feature": null,
+      "uploaded_at": "2025-05-27 00:21:54+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 669,
+    "fields": {
+      "verification": 171,
+      "image": "mobility_mapper_business_portal/other/other_3.png",
+      "feature": null,
+      "uploaded_at": "2025-05-15 01:33:58+00:00"
+    }
+  },
+  {
+    "model": "businesses.wheelerverificationphoto",
+    "pk": 670,
+    "fields": {
+      "verification": 171,
+      "image": "mobility_mapper_business_portal/other/other_16.png",
+      "feature": null,
+      "uploaded_at": "2025-06-20 15:30:53+00:00"
+    }
+  }
+]

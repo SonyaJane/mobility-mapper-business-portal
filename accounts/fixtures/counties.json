@@ -1,0 +1,487 @@
+[
+  {
+    "model": "accounts.county",
+    "pk": 1,
+    "fields": {"name": "bedfordshire", "label": "Bedfordshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 2,
+    "fields": {"name": "berkshire", "label": "Berkshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 3,
+    "fields": {"name": "bristol", "label": "Bristol"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 4,
+    "fields": {"name": "buckinghamshire", "label": "Buckinghamshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 5,
+    "fields": {"name": "cambridgeshire", "label": "Cambridgeshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 6,
+    "fields": {"name": "cheshire", "label": "Cheshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 7,
+    "fields": {"name": "city_of_london", "label": "City of London"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 8,
+    "fields": {"name": "cornwall", "label": "Cornwall"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 9,
+    "fields": {"name": "cumbria", "label": "Cumbria"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 10,
+    "fields": {"name": "derbyshire", "label": "Derbyshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 11,
+    "fields": {"name": "devon", "label": "Devon"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 12,
+    "fields": {"name": "dorset", "label": "Dorset"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 13,
+    "fields": {"name": "durham", "label": "Durham"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 14,
+    "fields": {"name": "east_riding_of_yorkshire", "label": "East Riding of Yorkshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 15,
+    "fields": {"name": "east_sussex", "label": "East Sussex"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 16,
+    "fields": {"name": "essex", "label": "Essex"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 17,
+    "fields": {"name": "gloucestershire", "label": "Gloucestershire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 18,
+    "fields": {"name": "greater_london", "label": "Greater London"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 19,
+    "fields": {"name": "greater_manchester", "label": "Greater Manchester"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 20,
+    "fields": {"name": "hampshire", "label": "Hampshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 21,
+    "fields": {"name": "herefordshire", "label": "Herefordshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 22,
+    "fields": {"name": "hertfordshire", "label": "Hertfordshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 23,
+    "fields": {"name": "isle_of_wight", "label": "Isle of Wight"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 24,
+    "fields": {"name": "kent", "label": "Kent"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 25,
+    "fields": {"name": "lancashire", "label": "Lancashire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 26,
+    "fields": {"name": "leicestershire", "label": "Leicestershire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 27,
+    "fields": {"name": "lincolnshire", "label": "Lincolnshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 28,
+    "fields": {"name": "merseyside", "label": "Merseyside"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 29,
+    "fields": {"name": "norfolk", "label": "Norfolk"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 30,
+    "fields": {"name": "north_yorkshire", "label": "North Yorkshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 31,
+    "fields": {"name": "northamptonshire", "label": "Northamptonshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 32,
+    "fields": {"name": "northumberland", "label": "Northumberland"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 33,
+    "fields": {"name": "nottinghamshire", "label": "Nottinghamshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 34,
+    "fields": {"name": "oxfordshire", "label": "Oxfordshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 35,
+    "fields": {"name": "rutland", "label": "Rutland"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 36,
+    "fields": {"name": "shropshire", "label": "Shropshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 37,
+    "fields": {"name": "somerset", "label": "Somerset"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 38,
+    "fields": {"name": "south_yorkshire", "label": "South Yorkshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 39,
+    "fields": {"name": "staffordshire", "label": "Staffordshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 40,
+    "fields": {"name": "suffolk", "label": "Suffolk"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 41,
+    "fields": {"name": "surrey", "label": "Surrey"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 42,
+    "fields": {"name": "tyne_and_wear", "label": "Tyne and Wear"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 43,
+    "fields": {"name": "warwickshire", "label": "Warwickshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 44,
+    "fields": {"name": "west_midlands", "label": "West Midlands"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 45,
+    "fields": {"name": "west_sussex", "label": "West Sussex"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 46,
+    "fields": {"name": "west_yorkshire", "label": "West Yorkshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 47,
+    "fields": {"name": "wiltshire", "label": "Wiltshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 48,
+    "fields": {"name": "worcestershire", "label": "Worcestershire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 49,
+    "fields": {"name": "anglesey", "label": "Anglesey"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 50,
+    "fields": {"name": "brecknockshire", "label": "Brecknockshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 51,
+    "fields": {"name": "caernarfonshire", "label": "Caernarfonshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 52,
+    "fields": {"name": "cardiganshire", "label": "Cardiganshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 53,
+    "fields": {"name": "carmarthenshire", "label": "Carmarthenshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 54,
+    "fields": {"name": "clwyd", "label": "Clwyd"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 55,
+    "fields": {"name": "denbighshire", "label": "Denbighshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 56,
+    "fields": {"name": "flintshire", "label": "Flintshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 57,
+    "fields": {"name": "glamorgan", "label": "Glamorgan"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 58,
+    "fields": {"name": "merionethshire", "label": "Merionethshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 59,
+    "fields": {"name": "monmouthshire", "label": "Monmouthshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 60,
+    "fields": {"name": "montgomeryshire", "label": "Montgomeryshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 61,
+    "fields": {"name": "pembrokeshire", "label": "Pembrokeshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 62,
+    "fields": {"name": "powys", "label": "Powys"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 63,
+    "fields": {"name": "radnorshire", "label": "Radnorshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 64,
+    "fields": {"name": "swansea", "label": "Swansea"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 65,
+    "fields": {"name": "wrexham", "label": "Wrexham"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 66,
+    "fields": {"name": "aberdeen_city", "label": "Aberdeen City"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 67,
+    "fields": {"name": "aberdeenshire", "label": "Aberdeenshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 68,
+    "fields": {"name": "angus", "label": "Angus"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 69,
+    "fields": {"name": "argyll_and_bute", "label": "Argyll and Bute"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 70,
+    "fields": {"name": "clackmannanshire", "label": "Clackmannanshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 71,
+    "fields": {"name": "dumfries_and_galloway", "label": "Dumfries and Galloway"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 72,
+    "fields": {"name": "dundee_city", "label": "Dundee City"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 73,
+    "fields": {"name": "east_ayrshire", "label": "East Ayrshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 74,
+    "fields": {"name": "east_dunbartonshire", "label": "East Dunbartonshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 75,
+    "fields": {"name": "east_lothian", "label": "East Lothian"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 76,
+    "fields": {"name": "east_renfrewshire", "label": "East Renfrewshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 77,
+    "fields": {"name": "edinburgh", "label": "Edinburgh"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 78,
+    "fields": {"name": "falkirk", "label": "Falkirk"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 79,
+    "fields": {"name": "fife", "label": "Fife"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 80,
+    "fields": {"name": "glasgow_city", "label": "Glasgow City"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 81,
+    "fields": {"name": "highland", "label": "Highland"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 82,
+    "fields": {"name": "inverclyde", "label": "Inverclyde"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 83,
+    "fields": {"name": "midlothian", "label": "Midlothian"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 84,
+    "fields": {"name": "moray", "label": "Moray"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 85,
+    "fields": {"name": "north_ayrshire", "label": "North Ayrshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 86,
+    "fields": {"name": "north_lanarkshire", "label": "North Lanarkshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 87,
+    "fields": {"name": "orkney_islands", "label": "Orkney Islands"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 88,
+    "fields": {"name": "perth_and_kinross", "label": "Perth and Kinross"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 89,
+    "fields": {"name": "renfrewshire", "label": "Renfrewshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 90,
+    "fields": {"name": "scottish_borders", "label": "Scottish Borders"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 91,
+    "fields": {"name": "shetland_islands", "label": "Shetland Islands"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 92,
+    "fields": {"name": "south_ayrshire", "label": "South Ayrshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 93,
+    "fields": {"name": "south_lanarkshire", "label": "South Lanarkshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 94,
+    "fields": {"name": "stirling", "label": "Stirling"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 95,
+    "fields": {"name": "west_dunbartonshire", "label": "West Dunbartonshire"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 96,
+    "fields": {"name": "west_lothian", "label": "West Lothian"}
+  },
+  {
+    "model": "accounts.county",
+    "pk": 97,
+    "fields": {"name": "western_isles", "label": "Western Isles"}
+  }
+]

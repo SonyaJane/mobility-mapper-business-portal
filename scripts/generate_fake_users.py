@@ -1,8 +1,8 @@
 # Dev
 # python manage.py flush --no-input
-# python manage.py loaddata .\fixtures\accessibility_features.json .\fixtures\business_categories.json .\fixtures\membership_tiers.json .\fixtures\counties.json .\fixtures\age_groups.json .\fixtures\mobility_devices.json
+# python manage.py loaddata accounts\fixtures\counties.json businesses\fixtures\accessibility_features.json businesses\fixtures\business_categories.json businesses\fixtures\membership_tiers.json accounts\fixtures\age_groups.json accounts\fixtures\mobility_devices.json
 # python scripts/generate_fake_users.py
-# python manage.py loaddata fixtures\fake_users_fixture.json
+# python manage.py loaddata fixtures/user.json accounts/fixtures/userprofile.json fixtures/emailaddress.json businesses/fixtures/business.json businesses/fixtures/wheelerverification.json businesses/fixtures/wheelerverificationapplication.json businesses/fixtures/wheelerverificationphoto.json
 # python manage.py createsuperuser
 
 # Prod
@@ -574,10 +574,36 @@ for ver in wheeler_verifications:
         
 fixture.extend(photo_fixtures)
 
-fixtures_dir = os.path.join(base_dir, "fixtures")
-os.makedirs(fixtures_dir, exist_ok=True)
-fixture_path = os.path.join(fixtures_dir, "fake_users_fixture.json")
-with open(fixture_path, "w") as f_out:
-    json.dump(fixture, f_out, indent=2)
+# Group fixtures by app and model
+app_model_fixtures = {}
 
-print(f"Fixture file '{fixture_path}' created.")
+for obj in fixture:
+    model = obj.get("model", "")
+    if "." in model:
+        app, model_name = model.split(".", 1)
+        if app not in app_model_fixtures:
+            app_model_fixtures[app] = {}
+        if model_name not in app_model_fixtures[app]:
+            app_model_fixtures[app][model_name] = []
+        app_model_fixtures[app][model_name].append(obj)
+
+# Write fixtures to their respective app/model fixtures folders
+def write_fixture(app_name, model_name, data):
+    if not data:
+        return
+    # Place 'auth' and 'account' fixtures in the project-level 'fixtures' folder
+    if app_name in ("auth", "account"):
+        app_fixtures_dir = os.path.join(base_dir, "fixtures")
+    else:
+        app_fixtures_dir = os.path.join(base_dir, app_name, "fixtures")
+    os.makedirs(app_fixtures_dir, exist_ok=True)
+    path = os.path.join(app_fixtures_dir, f"{model_name}.json")
+    with open(path, "w") as f_out:
+        json.dump(data, f_out, indent=2)
+    print(f"Fixture file '{path}' created.")
+
+for app, models in app_model_fixtures.items():
+    for model_name, data in models.items():
+        write_fixture(app, model_name, data)
+
+print(f"Fixture files created.")
