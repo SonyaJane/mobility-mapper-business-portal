@@ -34,8 +34,8 @@
 
     {% comment %} Photo {% endcomment %}
     <div class="mb-4">
-      <h5 class="mb-2">Profile Photo</h5>
       {% if form.instance.photo %}
+      <h5 class="mb-2">Profile Photo</h5>
         <div class="mb-2">
           <img src="{{ form.instance.photo.url }}" alt="Profile photo" class="img-thumbnail" style="max-width:200px;">
         </div>
