@@ -349,7 +349,6 @@ Feature | Outcome | Pass/Fail
 Navigation Bar | Link is working as expected. | Pass
 Menu | Links are working as expected. | Pass
 Page title | Dynamically set and updates in browser tab and header | Pass
-CSRF tokens | Present in all forms for security | Pass
 Bootstrap toasts | Multiple messages can be shown at once, each in its own alert box | Pass
 Consistent branding | Mobility Mapper logo and color scheme are used throughout | Pass
 Meta tags & favicons | Multiple favicon sizes and meta tags included for cross-device/browser compatibility | Pass
@@ -359,8 +358,6 @@ Custom CSS/JS | Custom styles and scripts load correctly, with per-page addition
 Logo | Logo is visible and links to the home/dashboard page | Pass
 Responsive sidebar | Sidebar appears on large screens, collapses to hamburger menu on small screens | Pass
 Hamburger menu | Appears on mobile, toggles navigation links as expected | Pass
-User avatar/profile photo | Displays current user’s photo or placeholder; links to profile/dashboard | Pass
-Flash messages | Success, error, and info messages display at the top of the page and are dismissible | Pass
 Accessibility: Skip to content link | Present and works as expected for keyboard users | Pass
 Accessibility: ARIA labels and roles | Present on navigation and interactive elements | Pass
 Accessibility: Keyboard navigation | All interactive elements are accessible via keyboard | Pass
@@ -398,21 +395,6 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
 | Registration form is visible | Form is centered in a card and clearly labeled "Sign Up" | Pass |
-| First name and last name fields | Present, required, and validated | Pass |
-| Email and confirm email fields | Present, required, validated, and must match | Pass |
-| Username field | Present, required, and validated for uniqueness | Pass |
-| "Are you a business owner?" checkbox | Present and toggles business owner status | Pass |
-| "Are you a wheeler?" checkbox | Present and toggles wheeler-specific fields | Pass |
-| Mobility devices multi-select | Appears if "wheeler" is selected; allows multiple selections | Pass |
-| "Other" mobility device field | Appears if "Other" is selected in mobility devices | Pass |
-| Country and county fields | Country is always present; county appears for relevant countries | Pass |
-| Age group dropdown | Present and required | Pass |
-| Profile photo upload | Allows PNG, JPEG, or WEBP, square, max 5MB; preview shown | Pass |
-| Password and confirm password fields | Present, required, strong password validation, must match | Pass |
-| CSRF token | Present in the form for security | Pass |
-| Inline validation | Errors shown next to fields if invalid or missing | Pass |
-| Submit button | Clearly labeled, submits form, and shows loading state | Pass |
-| Success feedback | User is prompted to verify their email after successful registration | Pass |
 | Responsive layout | Form and card display correctly on all screen sizes | Pass |
 
 
@@ -420,45 +402,15 @@ Logout button | Logs user out and redirects to home/login page | Pass
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
-| Profile photo | Displays user's uploaded photo or a placeholder if none is set | Pass |
-| User name and dashboard label | User's full name and "Dashboard" label are shown prominently | Pass |
-| Profile details card | Shows username, email, country, and (if available) county and age group | Pass |
-| Mobility devices | For wheelers, displays selected mobility devices (including "Other" if set) | Pass |
-| Business link | For business owners, displays a link to their business dashboard if a business is registered | Pass |
-| Edit Profile button | Present and links to the Edit Profile page | Pass |
-| Change Password button | Present and links to the Change Password page | Pass |
-| Register Your Business button | Visible for eligible users who have not yet registered a business | Pass |
-| Accessibility Verification Hub button | Visible for wheelers or users with verification activity; links to the hub | Pass |
-| Businesses approved to verify | For wheelers, lists businesses they are approved to verify, with "Start Verification" and "View Business" buttons | Pass |
-| Businesses applied to verify | For wheelers, lists businesses they have applied to verify, with "Cancel Request" and "View Business" buttons | Pass |
-| Wheeler verification instructions card | Visible for wheelers, explains verification process and reward | Pass |
-| Link to Accessible Business Search | Present in instructions card; navigates to search page | Pass |
 | Responsive layout | Dashboard adapts to all screen sizes (desktop, tablet, mobile) | Pass |
-| Conditional content | Dashboard content updates based on user role and activity (e.g., business owner, wheeler, verification status) | Pass |
 
 **Edit Profile Page**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
 | Page heading | "Edit Profile" heading is visible at the top of the form | Pass |
-| Profile photo preview | Current photo is displayed if set; placeholder if not | Pass |
-| Upload new photo | Allows PNG, JPEG, or WEBP, square, max 5MB; file input is present and works | Pass |
-| Delete photo option | Checkbox to delete current photo without replacing is present and works | Pass |
-| First name and last name fields | Present, pre-filled, required, and validated | Pass |
-| Country field | Present, pre-filled, required, and validated | Pass |
-| County field | Appears dynamically for relevant countries; pre-filled and validated | Pass |
-| "Are you a business owner?" checkbox | Present and toggles business owner status | Pass |
-| "Are you a wheeler?" checkbox | Present and toggles wheeler-specific fields | Pass |
-| Mobility devices multi-select | Appears if "wheeler" is selected; allows multiple selections | Pass |
-| "Other" mobility device field | Appears if "Other" is selected in mobility devices | Pass |
-| Age group dropdown | Present, pre-filled, and required | Pass |
-| Inline validation | Errors shown next to fields if invalid or missing | Pass |
-| CSRF token | Present in the form for security | Pass |
-| Save Changes button | Present, submits the form, and shows loading state | Pass |
 | Cancel button | Present, returns user to dashboard without saving | Pass |
-| Success feedback | User is redirected to dashboard with confirmation after saving | Pass |
 | Responsive layout | Form and card display correctly on all screen sizes | Pass |
-| JavaScript enhancements | Dynamic field visibility and resets work as expected | Pass |
 
 
 **Business Registration Page**
