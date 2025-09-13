@@ -653,7 +653,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Admin review notice | Informs the user that an admin will review their application as soon as possible | Pass |
 | Next steps list | Explains that, upon approval, the user will receive an email, see a link to the verification form in their Accessibility Verification Hub and dashboard/profile, and can then complete and submit their verification report | Pass |
 | Accessibility Verification Hub button | Prominent button links to the Accessibility Verification Hub | Pass |
-| Success/info/error messages | Any feedback messages are displayed at the top of the page | Pass |
+| Success/error messages | Any feedback messages are displayed at the top of the page | Pass |
 | Responsive layout | Page and all sections adapt correctly to all screen sizes | Pass |
 
 
@@ -741,7 +741,6 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Opening hours | Table displays hours for each day; "Closed" or "No hours set" as appropriate | Pass |
 | Context-sensitive actions | Shows apply/verify/report buttons or status messages based on user and business state | Pass |
 | Responsive layout | All cards, tables, and content adapt correctly to all screen sizes | Pass |
-| Dynamic content | All information and actions update based on business data and user status | Pass |
 
 
 **Checkout Flow**
@@ -817,3 +816,89 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Error messages in forms | All forms throughout the portal display clear, specific error messages for validation and server errors | Pass |
 | Inline validation | Form fields with errors are highlighted and show messages next to the relevant field | Pass |
 | Feedback messages | Success, error, and info messages are displayed as Bootstrap toasts or alerts and are dismissible | Pass |
+
+
+## Automated Tests for the Accounts App
+
+`accounts/tests.py` implements a comprehensive suite of automated tests to ensure the reliability, correctness, and security of the accounts app. These tests cover the following key areas:
+
+
+---
+
+## Test Coverage Table
+
+| Area / Feature                        | Test Description                                                                                   | Test Class / Method(s)                              |
+|---------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| **Dashboard View**                    | Dashboard view access, template rendering, and content                                            | `DashboardViewTests`                                |
+|                                       | Authenticated user can access dashboard                                                           | `DashboardViewTests.test_account_dashboard_view_authenticated` |
+|                                       | Unauthenticated user is redirected from dashboard                                                 | `DashboardViewTests.test_account_dashboard_view_unauthenticated` |
+|                                       | Unauthenticated users redirected to login with next param                                         | `DashboardViewTests.test_account_dashboard_view_unauthenticated_redirect_url` |
+|                                       | Unauthenticated users are redirected from dashboard                                               | `DashboardViewTests.test_dashboard_redirects_unauthenticated` |
+|                                       | Correct template is used for dashboard                                                            | `DashboardViewTests.test_dashboard_template_used`    |
+|                                       | Dashboard displays all profile fields rendered in template                                        | `DashboardViewTests.test_dashboard_renders_profile_fields` |
+|                                       | Dashboard shows placeholder image if no profile photo                                             | `DashboardViewTests.test_dashboard_profile_photo_placeholder` |
+|                                       | Wheeler-specific sections rendered if user is_wheeler                                             | `DashboardViewTests.test_dashboard_wheeler_section_shown` |
+|                                       | Wheeler-specific sections not rendered if user is not a wheeler                                   | `DashboardViewTests.test_dashboard_wheeler_section_hidden_for_non_wheeler` |
+|                                       | Dashboard displays mobility_devices_other if set                                                  | `DashboardViewTests.test_dashboard_displays_mobility_devices_other` |
+|                                       | Dashboard handles missing profile gracefully                                                      | `DashboardViewTests.test_dashboard_handles_missing_profile` |
+| **Edit Profile View**                 | Edit profile view access, form submission, permissions, and field logic                           | `EditProfileViewTests`                              |
+|                                       | Authenticated user can access edit profile page                                                   | `EditProfileViewTests.test_edit_profile_view_authenticated` |
+|                                       | Unauthenticated user is redirected from edit profile page                                         | `EditProfileViewTests.test_edit_profile_view_unauthenticated` |
+|                                       | Edit profile template contains expected fields, buttons, and JS                                   | `EditProfileViewTests.test_edit_profile_template_content` |
+|                                       | Another user cannot edit this user's profile                                                      | `EditProfileViewTests.test_edit_profile_permission`  |
+|                                       | Submitting valid edit profile form updates user and redirects                                     | `EditProfileViewTests.test_edit_profile_post_valid`  |
+|                                       | Submitting invalid data does not update and shows errors                                          | `EditProfileViewTests.test_edit_profile_post_invalid` |
+|                                       | Selecting multiple mobility devices works                                                         | `EditProfileViewTests.test_edit_profile_post_multiple_mobility_devices` |
+|                                       | Submitting form with no changes does not alter profile                                            | `EditProfileViewTests.test_edit_profile_no_changes`  |
+|                                       | Submitting form with only optional fields changed works                                           | `EditProfileViewTests.test_edit_profile_optional_fields` |
+|                                       | Submitting form with invalid foreign keys returns validation error                                | `EditProfileViewTests.test_edit_profile_invalid_foreign_keys` |
+|                                       | Removing a profile photo via the form works                                                       | `EditProfileViewTests.test_edit_profile_remove_photo` |
+|                                       | Uploading a valid profile photo works                                                             | `EditProfileViewTests.test_edit_profile_photo_upload` |
+|                                       | Uploading an invalid photo file type shows error                                                  | `EditProfileViewTests.test_edit_profile_invalid_photo_upload` |
+|                                       | Uploading a non-image file as photo returns validation error                                      | `EditProfileViewTests.test_edit_profile_invalid_image_extension` |
+|                                       | Omitting required field (country) returns validation error                                        | `EditProfileViewTests.test_edit_profile_missing_required_field` |
+|                                       | Changing only one field updates only that field                                                   | `EditProfileViewTests.test_edit_profile_change_single_field` |
+|                                       | Clearing all optional fields removes them from profile                                            | `EditProfileViewTests.test_edit_profile_remove_all_optional_fields` |
+|                                       | Toggling is_wheeler checkbox on and off                                                          | `EditProfileViewTests.test_edit_profile_set_and_unset_is_wheeler` |
+|                                       | Toggling has_business checkbox on and off                                                         | `EditProfileViewTests.test_edit_profile_set_and_unset_has_business` |
+| **Profile Photo**                     | Profile photo display, upload, removal, and validation                                            | `ProfilePhotoTests`                                  |
+|                                       | Dashboard displays uploaded profile photo, not placeholder                                        | `ProfilePhotoTests.test_dashboard_displays_actual_profile_photo` |
+|                                       | Uploading a valid profile photo works                                                             | `ProfilePhotoTests.test_edit_profile_photo_upload`    |
+|                                       | Removing a profile photo clears the photo                                                         | `ProfilePhotoTests.test_edit_profile_remove_photo`    |
+|                                       | Uploading an invalid photo file type shows error                                                  | `ProfilePhotoTests.test_edit_profile_invalid_photo_upload` |
+|                                       | Remove and upload new photo sequence works                                                        | `ProfilePhotoTests.test_delete_and_upload_new_photo`  |
+|                                       | Uploading too large or invalid photo returns correct error                                        | `ProfilePhotoTests.test_upload_too_large_or_invalid_photo` |
+| **UserProfileForm**                   | UserProfileForm validation                                                                        | `UserProfileFormTests`                               |
+|                                       | Form is valid with correct data                                                                   | `UserProfileFormTests.test_valid_form`               |
+|                                       | Form is invalid if required fields are missing                                                    | `UserProfileFormTests.test_invalid_form_missing_required` |
+|                                       | Edge cases: invalid types, blank/extra fields, all fields blank, optional fields                  | `UserProfileFormTests.test_form_edge_cases`          |
+|                                       | Handles mobility_devices_other field                                                              | `UserProfileFormTests.test_other_device`             |
+| **CustomSignupForm**                  | CustomSignupForm validation                                                                       | `CustomSignupFormTests`                              |
+|                                       | Signup form is valid with correct data                                                            | `CustomSignupFormTests.test_signup_form_valid`       |
+|                                       | Password mismatch returns error                                                                   | `CustomSignupFormTests.test_signup_form_password_mismatch` |
+|                                       | Email mismatch returns error                                                                      | `CustomSignupFormTests.test_signup_form_email_mismatch` |
+|                                       | Duplicate username returns error                                                                  | `CustomSignupFormTests.test_signup_form_duplicate_username` |
+|                                       | Signup with profile photo works                                                                   | `CustomSignupFormTests.test_signup_form_with_profile_photo` |
+|                                       | Required fields present/missing validation                                                        | `CustomSignupFormTests.test_signup_form_required_fields` |
+|                                       | Business fields and missing business fields validation                                            | `CustomSignupFormTests.test_signup_form_business_fields` |
+| **UserProfile Signals**               | UserProfile creation signal                                                                       | `UserProfileSignalTests`                             |
+|                                       | Profile auto-created on user creation                                                             | `UserProfileSignalTests.test_userprofile_created_on_user_creation` |
+|                                       | Profile deleted on user deletion                                                                  | `UserProfileSignalTests.test_userprofile_deleted_on_user_deletion` |
+|                                       | Profile not created twice                                                                         | `UserProfileSignalTests.test_userprofile_not_created_twice` |
+| **Context Processor**                 | user_profile context processor                                                                    | `UserProfileContextProcessorTests`                   |
+|                                       | Adds user_profile for authenticated users                                                         | `UserProfileContextProcessorTests.test_user_profile_injected_for_authenticated` |
+|                                       | Does not add user_profile for anonymous users                                                     | `UserProfileContextProcessorTests.test_user_profile_not_injected_for_anonymous` |
+| **UserProfile Model Methods**         | UserProfile model methods and related functionality                                               | `UserProfileModelMethodTests`                        |
+|                                       | Profile fields can be set and retrieved                                                           | `UserProfileModelMethodTests.test_profile_fields`    |
+|                                       | Mobility devices many-to-many relationship                                                        | `UserProfileModelMethodTests.test_mobility_devices_many_to_many` |
+|                                       | get_full_name method returns correct full name                                                    | `UserProfileModelMethodTests.test_get_full_name`     |
+|                                       | is_business_owner property/method                                                                 | `UserProfileModelMethodTests.test_is_business_owner` |
+|                                       | String representation (__str__) returns username                                                  | `UserProfileModelMethodTests.test_userprofile_str`   |
+| **Template Tags**                     | Custom template tags in account_extras.py                                                         | `TemplateTagTest`                                    |
+|                                       | device_labels filter returns comma-separated string of device names                                | `TemplateTagTest.test_device_labels_filter`          |
+|                                       | dict_get filter retrieves correct value from dictionary                                            | `TemplateTagTest.test_dict_get_filter`               |
+|                                       | filter_unverified filter returns only unverified businesses                                       | `TemplateTagTest.test_filter_unverified_filter`      |
+| **AJAX Username Validation**          | validate_username view (AJAX username availability check)                                         | `ValidateUsernameViewTests`                          |
+|                                       | New username is reported as available                                                             | `ValidateUsernameViewTests.test_username_available`  |
+|                                       | Existing username is reported as taken                                                            | `ValidateUsernameViewTests.test_username_taken`      |
+|                                       | Blank username is reported as not taken (or as invalid)                                           | `ValidateUsernameViewTests.test_username_blank`      |
