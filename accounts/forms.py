@@ -150,8 +150,18 @@ class CustomSignupForm(SignupForm):
 # Model form for editing user profile
 class UserProfileForm(forms.ModelForm):
     # Include user name fields
-    first_name = forms.CharField(max_length=30, required=True, label='First Name')
-    last_name = forms.CharField(max_length=30, required=True, label='Last Name')
+    first_name = forms.CharField(
+        max_length=30, 
+        required=True, label='First Name')
+    last_name = forms.CharField(
+        max_length=30, 
+        required=True, label='Last Name')
+    
+    age_group = forms.ModelChoiceField(
+        queryset=AgeGroup.objects.all(),
+        required=True,
+        empty_label=None
+    )
     # Country field (extend model)
     country = forms.ChoiceField(
         choices=UserProfile.COUNTRY_CHOICES,
@@ -199,7 +209,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = [
-            'has_business', 'is_wheeler',
+            'first_name', 'last_name', 'has_business', 'is_wheeler',
             'mobility_devices', 'mobility_devices_other',
             'country', 'county', 'age_group', 'photo'
         ]
@@ -247,11 +257,14 @@ class UserProfileForm(forms.ModelForm):
         return cleaned
 
     def save(self, commit=True):
-        # Save profile fields and customized mobility selections
         profile = super().save(commit=False)
         # Save business and mobility flags
         profile.has_business = self.cleaned_data.get('has_business', False)
         profile.is_wheeler = self.cleaned_data.get('is_wheeler', False)
+        # Save all editable fields from cleaned_data
+        profile.country = self.cleaned_data.get('country') or ''
+        profile.county = self.cleaned_data.get('county') or None
+        profile.age_group = self.cleaned_data.get('age_group') or None
         # Update other device text only when wheeler; clear otherwise
         if profile.is_wheeler:
             profile.mobility_devices_other = self.cleaned_data.get('mobility_devices_other', '')
@@ -261,12 +274,15 @@ class UserProfileForm(forms.ModelForm):
         user = profile.user
         user.first_name = self.cleaned_data.get('first_name', user.first_name)
         user.last_name = self.cleaned_data.get('last_name', user.last_name)
+        # Handle photo removal
+        if self.cleaned_data.get('photo', None) is False:
+            profile.photo.delete(save=False)
+            profile.photo = None
         if commit:
             user.save()
             profile.save()
             # Persist many-to-many only when wheeler; clear otherwise
             if profile.is_wheeler:
-                # let the ModelForm handle m2m from cleaned_data
                 self.save_m2m()
             else:
                 profile.mobility_devices.clear()

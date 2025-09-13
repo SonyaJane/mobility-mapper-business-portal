@@ -1,11 +1,12 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from accounts.models import UserProfile
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
+
+from accounts.models import UserProfile
+from businesses.models import WheelerVerificationApplication, Business, WheelerVerification
 from .forms import UserProfileForm
 
-from businesses.models import WheelerVerificationApplication, Business, WheelerVerification
 
 
 @login_required
