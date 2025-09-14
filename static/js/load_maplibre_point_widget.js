@@ -70,8 +70,6 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
             // Use Turf.js to check if point is inside UK boundary
             if (ukPolygon && turf.booleanPointInPolygon([lng, lat], ukPolygon)) {
                 setMarker([lng, lat], true);
-            } else {
-                alert("Please select a location within the UK boundary.");
             }
         });
 
