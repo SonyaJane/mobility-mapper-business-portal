@@ -13,6 +13,16 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
             .then(res => res.json())
             .then(data => { ukBoundary = data; });
 
+        // Determine the UK polygon from the boundary data
+        let ukPolygon = null;
+        if (ukBoundary.type === "FeatureCollection") {
+            ukPolygon = ukBoundary.features[0]; // or combine features if there are multiple
+        } else if (ukBoundary.type === "Feature") {
+            ukPolygon = ukBoundary;
+        } else {
+            ukPolygon = ukBoundary; // already a Polygon/MultiPolygon
+        }
+
         // If a location value already exists, show marker and make it draggable, and center map
         const initial = document.getElementById(widgetAttrsId).value;
 
@@ -58,7 +68,7 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
             const lat = e.lngLat.lat
             const lng = e.lngLat.lng;
             // Use Turf.js to check if point is inside UK boundary
-            if (ukBoundary && turf.booleanPointInPolygon([lng, lat], ukBoundary)) {
+            if (ukPolygon && turf.booleanPointInPolygon([lng, lat], ukPolygon)) {
                 setMarker([lng, lat], true);
             } else {
                 alert("Please select a location within the UK boundary.");
