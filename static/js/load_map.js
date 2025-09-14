@@ -7,9 +7,9 @@ export default function load_map(containerId) {
     const style = {
       version: 8,
       sources: {
-        "osm-tiles": {
+        "basemap": {
           type: "raster",
-          tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+          tiles: [`https://api.maptiler.com/tiles/streets-v2/{z}/{x}/{y}.png?key=cCcGqLo0AembUVq7bScM`],
           minzoom: 0,
           maxzoom: 7,
           tileSize: 256
@@ -24,9 +24,9 @@ export default function load_map(containerId) {
       },
       layers: [
         {
-          id: "osm-zxy",
+          id: "basemap-zxy",
           type: "raster",
-          source: "osm-tiles",
+          source: "basemap",
           minzoom: 0,
           maxzoom: 7
         },
