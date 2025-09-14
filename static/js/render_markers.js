@@ -19,8 +19,10 @@ export default function renderMarkers(businesses) {
                 if (arrow) arrow.remove();
                 popupContent = clone.innerHTML;
             }
-            // Append a link to show more info in an overlay
-            popupContent += `<div><a href="#" data-id="${biz.id}" class="show-more-info">Show more info</a></div>`;
+            // On mobile screens, append a link to show more info in an overlay
+            if (window.innerWidth < 768) {
+                popupContent += `<div><a href="#" data-id="${biz.id}" class="show-more-info text-orange mt-2">Show more info</a></div>`;
+            }
             // Create a marker at the business location with a popup
             const marker = new maplibregl.Marker()
                 .setLngLat([lng, lat])
