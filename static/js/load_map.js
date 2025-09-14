@@ -7,10 +7,10 @@ export default function load_map(containerId) {
     const style = {
       version: 8,
       sources: {
-        "basemap": {
+        "maptiler": {
           type: "raster",
           tiles: [`https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=cCcGqLo0AembUVq7bScM`],
-          minzoom: 1,
+          minzoom: 0,
           maxzoom: 7,
           tileSize: 256
         },
@@ -24,9 +24,9 @@ export default function load_map(containerId) {
       },
       layers: [
         {
-          id: "basemap-zxy",
+          id: "maptiler-zxy",
           type: "raster",
-          source: "basemap",
+          source: "maptiler",
           minzoom: 0,
           maxzoom: 7
         },
@@ -47,7 +47,7 @@ export default function load_map(containerId) {
       style: style,
       center: [-4.350224, 54.272122], // UK center
       zoom: 4,
-      // we'll manage bounds dynamically based on zoom
+      // manage bounds dynamically based on zoom
       attributionControl: false // disable default, we'll add our own
     });
      // Once the map has initialized and finished loading tiles, remove the loading overlay
@@ -77,7 +77,7 @@ export default function load_map(containerId) {
     MAP.map.addControl(navControl, 'top-right');
 
     // Dynamic bounds: world for OSM tiles (<6), UK for OS tiles (>=6)
-    const mapTilerBounds = [[-50, 10], [50, 80]];
+    const mapTilerBounds = [[-40, 10], [40, 50]];
     const osBounds = [[ -10.76418, 49.528423 ],[ 1.9134116, 61.331151 ]];
     // Set initial bounds
     MAP.map.setMaxBounds(MAP.map.getZoom() >= 6 ? osBounds : mapTilerBounds);
