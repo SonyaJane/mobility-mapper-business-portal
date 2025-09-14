@@ -5,13 +5,17 @@ export default function load_map_business(containerId, business) {
         "raster-tiles": {
           type: "raster",
           tiles: ["/tiles/{z}/{x}/{y}.png"],
-          tileSize: 256
+          tileSize: 256,          
+          minzoom: 8,
+          maxzoom: 20,
         }
       },
       layers: [{
         id: "os-maps-zxy",
         type: "raster",
-        source: "raster-tiles"
+        source: "raster-tiles",
+        minzoom: 8,
+        maxzoom: 20
       }]
     };
 

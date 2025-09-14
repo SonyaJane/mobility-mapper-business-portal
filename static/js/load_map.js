@@ -77,7 +77,7 @@ export default function load_map(containerId) {
     MAP.map.addControl(navControl, 'top-right');
 
     // Dynamic bounds: world for OSM tiles (<6), UK for OS tiles (>=6)
-    const mapTilerBounds = [[-40, 10], [40, 50]];
+    const mapTilerBounds = [[-13, 44], [4, 63]];
     const osBounds = [[ -10.76418, 49.528423 ],[ 1.9134116, 61.331151 ]];
     // Set initial bounds
     MAP.map.setMaxBounds(MAP.map.getZoom() >= 6 ? osBounds : mapTilerBounds);
