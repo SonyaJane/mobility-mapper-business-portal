@@ -1,5 +1,5 @@
 from django.conf import settings
-from businesses.models import WheelerVerificationApplication, WheelerVerification
+from verification.models import WheelerVerificationApplication, WheelerVerification
 
 def os_api_key(request):
     return {
