@@ -1,13 +1,18 @@
 import load_map from "./load_map.js";
 
 export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
-    document.addEventListener('DOMContentLoaded', function () {
-
+    document.addEventListener('DOMContentLoaded', async function () {
         // Load the map into the specified container
-        load_map(containerId)
-        
+        load_map(containerId);
+
         let marker;
-        
+        let ukBoundary = null;
+
+        // Load UK boundary GeoJSON
+        await fetch('/static/geojson/uk-boundary.geojson')
+            .then(res => res.json())
+            .then(data => { ukBoundary = data; });
+
         // If a location value already exists, show marker and make it draggable, and center map
         const initial = document.getElementById(widgetAttrsId).value;
 
@@ -52,7 +57,12 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
         MAP.map.on('click', function (e) {
             const lat = e.lngLat.lat
             const lng = e.lngLat.lng;
-            setMarker([lng, lat], true);
+            // Use Turf.js to check if point is inside UK boundary
+            if (ukBoundary && turf.booleanPointInPolygon([lng, lat], ukBoundary)) {
+                setMarker([lng, lat], true);
+            } else {
+                alert("Please select a location within the UK boundary.");
+            }
         });
 
         MAP.map.on('load', () => {

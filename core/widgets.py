@@ -20,6 +20,7 @@ class MapLibrePointWidget(forms.TextInput):
         }
         js = [
             'https://unpkg.com/maplibre-gl@5.6.1/dist/maplibre-gl.js',
+            'https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js',
         ]
         
     def format_value(self, value):
