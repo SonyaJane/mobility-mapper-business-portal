@@ -3,16 +3,16 @@ export default function load_map(containerId) {
     window.MAP = window.MAP || {}; // || {} ensures that if the namespace already exists, it won't be overwritten
     window.MAP.markers = []; // Store markers globally
     
-    // Define the map style with two raster sources: OSM (0-6) and OS (7-20)
+    // Define the map style with two raster sources: Maptiler (1-6) and OS (7-20)
     const style = {
       version: 8,
       sources: {
         "basemap": {
           type: "raster",
-          tiles: [`https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cCcGqLo0AembUVq7bScM`],
+          tiles: [`https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=cCcGqLo0AembUVq7bScM`],
           minzoom: 1,
           maxzoom: 7,
-          tileSize: 512
+          tileSize: 256
         },
         "os-tiles": {
           type: "raster",
@@ -77,15 +77,15 @@ export default function load_map(containerId) {
     MAP.map.addControl(navControl, 'top-right');
 
     // Dynamic bounds: world for OSM tiles (<6), UK for OS tiles (>=6)
-    const osmBounds = [[-13, 44], [4, 63]];
+    const mapTilerBounds = [[-50, 10], [50, 80]];
     const osBounds = [[ -10.76418, 49.528423 ],[ 1.9134116, 61.331151 ]];
     // Set initial bounds
-    MAP.map.setMaxBounds(MAP.map.getZoom() >= 6 ? osBounds : osmBounds);
+    MAP.map.setMaxBounds(MAP.map.getZoom() >= 6 ? osBounds : mapTilerBounds);
     MAP.map.on('zoomend', () => {
         if (MAP.map.getZoom() >= 6) {
             MAP.map.setMaxBounds(osBounds);
         } else {
-            MAP.map.setMaxBounds(osmBounds);
+            MAP.map.setMaxBounds(mapTilerBounds);
         }
     });
 
