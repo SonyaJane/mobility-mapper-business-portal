@@ -9,7 +9,7 @@ export default function load_map(containerId) {
       sources: {
         "basemap": {
           type: "raster",
-          tiles: [`https://api.maptiler.com/tiles/streets-v2/{z}/{x}/{y}.png?key=cCcGqLo0AembUVq7bScM`],
+          tiles: [`https://api.maptiler.com/tiles/streets-v2/256/{z}/{x}/{y}.png?key=cCcGqLo0AembUVq7bScM`],
           minzoom: 0,
           maxzoom: 7,
           tileSize: 256
