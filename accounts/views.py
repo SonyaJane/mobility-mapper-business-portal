@@ -10,7 +10,6 @@ from verification.models import WheelerVerificationApplication, WheelerVerificat
 from .forms import UserProfileForm
 
 
-
 @login_required
 def edit_profile(request):
     # Ensure a UserProfile exists for the current user

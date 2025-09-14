@@ -1,33 +1,43 @@
 import json
 import random
 from datetime import timedelta
+from urllib.parse import urlencode
+
+from django import template
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from urllib.parse import urlencode
 from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 from django.views.decorators.http import require_GET
-from django import template
-from django.contrib import messages
+
+from .forms import BusinessRegistrationForm
+from .models import Category
+from .models import Business, MembershipTier
 from accounts.models import UserProfile
 from businesses.models import Business, AccessibilityFeature
-from .forms import BusinessRegistrationForm
-from .models import Business, MembershipTier
 from checkout.models import Purchase
+from verification.models import WheelerVerification
 
 register = template.Library()
 
 
 @register.filter
 def get_item(dictionary, key):
+    """Return the value for a given key from a dictionary."""
     return dictionary.get(key)
 
 
 @login_required
 def register_business(request):
-    
+    """
+    Handle the registration of a new business by a user.
+    If the user already owns a business, redirect to the dashboard.
+    On POST, validate and save the business and update the user profile.
+    On GET, display the registration form.
+    """
     # Get or create the user profile
     user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
     
@@ -102,7 +112,10 @@ def register_business(request):
 
 @login_required
 def business_dashboard(request):
-    import json
+    """
+    Display the business dashboard for the current user.
+    Shows business details, logo, verifications, and opening hours.
+    """
     try:
         business = Business.objects.get(business_owner=getattr(request.user, 'profile', None))
     except Business.DoesNotExist:
@@ -116,7 +129,6 @@ def business_dashboard(request):
     verification_approved = None
     profile = getattr(request.user, 'profile', None)
     if profile and profile.is_wheeler:
-        from .models import WheelerVerification
         user_verifications = WheelerVerification.objects.filter(wheeler=request.user)
         verification_status = {}
         verification_approved = {}
@@ -184,6 +196,10 @@ def business_dashboard(request):
 
 @login_required
 def edit_business(request):
+    """
+    Allow the business owner to edit their business details.
+    Handles form validation, updates business and related categories/features.
+    """
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     membership_tiers = MembershipTier.objects.filter(is_active=True)
     
@@ -212,8 +228,6 @@ def edit_business(request):
             # Handle custom 'Other' category text
             other_cat = form.cleaned_data.get('other_category')
             if other_cat:
-                from django.template.defaultfilters import slugify
-                from .models import Category
                 slug = slugify(other_cat)
                 category_obj, created = Category.objects.get_or_create(
                     code=slug,
@@ -247,8 +261,11 @@ def edit_business(request):
     
 
 @login_required
-def upgrade_membership(request):    
-    """Display available membership plans for businesses to review and select."""
+def upgrade_membership(request):
+    """
+    Display available membership plans for businesses to review and select.
+    Shows upgrade options based on current membership tier.
+    """
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     current_tier = business.membership_tier
     # get all membership tiers (ordered by the membership price field)
@@ -268,6 +285,10 @@ def upgrade_membership(request):
 
 @login_required
 def delete_business(request):
+    """
+    Allow the business owner to delete their business.
+    Updates the user profile to reflect the deletion.
+    """
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     if request.method == 'POST':
         business.delete()
@@ -287,6 +308,11 @@ def delete_business(request):
 @login_required
 @require_GET
 def ajax_search_businesses(request):
+    """
+    AJAX endpoint to search businesses based on filters.
+    Supports search by name, description, category, accessibility features, and map bounds.
+    Returns a JSON response with matching businesses.
+    """
     term = request.GET.get('q', '').strip()
     cat_id = request.GET.get('category')
     # allow multiple accessibility filters
@@ -333,8 +359,6 @@ def ajax_search_businesses(request):
         (b.membership_tier.tier if getattr(b, 'membership_tier', None) and getattr(b.membership_tier, 'tier', None) else 'free').lower(),
         4
     ))
-    # print membership tiers of sorted results for debugging (optional)
-    #print("Sorted membership tiers:", [b.membership_tier.tier if b.membership_tier else 'free' for b in qs])
     results = []
     for biz in qs:
         # Determine membership tier (default to 'free' if not set)
@@ -373,10 +397,12 @@ def ajax_search_businesses(request):
 
 @login_required
 def accessible_business_search(request):
-    """JavaScript carries out initial search."""
+    """
+    Render the accessible business search page.
+    Provides a list of accessibility features for filtering.
+    """
     user_profile = None
     if request.user.is_authenticated:
-        from accounts.models import UserProfile
         user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
     
     # Provide full list of accessibility features for the filter dropdown
@@ -393,7 +419,10 @@ def accessible_business_search(request):
     
 @login_required
 def cancel_membership(request):
-    """Downgrade the user's business to the free tier on membership cancellation."""
+    """
+    Downgrade the user's business to the free tier on membership cancellation.
+    Updates the business and notifies the user.
+    """
     profile = getattr(request.user, 'profile', None)
     if not profile:
         messages.error(request, "Unable to find your business profile.")
@@ -420,7 +449,10 @@ def cancel_membership(request):
 
 @login_required
 def view_existing_membership(request):
-    """Display current membership details."""
+    """
+    Display current membership details for the user's business.
+    Shows membership tier, start date, and end date.
+    """
     profile = getattr(request.user, 'profile', None)
     if not profile:
         messages.error(request, "Unable to find your business profile.")
