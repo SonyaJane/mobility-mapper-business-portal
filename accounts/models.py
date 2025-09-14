@@ -12,6 +12,9 @@ class AgeGroup(models.Model):
     label = models.CharField(max_length=50)
 
     def __str__(self):
+        """
+        Return the display label for the age group.
+        """
         return self.label
 
 
@@ -23,6 +26,9 @@ class County(models.Model):
     label = models.CharField(max_length=200)
 
     def __str__(self):
+        """
+        Return the display label for the county.
+        """
         return self.label
 
 class MobilityDevice(models.Model):
@@ -33,9 +39,16 @@ class MobilityDevice(models.Model):
     label = models.CharField(max_length=200)
 
     def __str__(self):
+        """
+        Return the display label for the mobility device.
+        """
         return self.label
 
 class UserProfile(models.Model):
+    """
+    Extends the User model with additional profile fields such as country, county,
+    photo, mobility device information, age group, and business-related flags.
+    """
     COUNTRY_CHOICES = (
         ("UK", "United Kingdom"),
         ("Other", "Other"),
@@ -53,7 +66,6 @@ class UserProfile(models.Model):
         blank=True,
         help_text="County of residence"
     )
-    """User profile model to extend the User model with additional fields."""
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -95,11 +107,18 @@ class UserProfile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """
+        Return the username associated with this profile.
+        """
         return self.user.username
 
-# Automatically create/update UserProfile when User is saved
 @receiver(post_save, sender=get_user_model())
 def create_or_update_user_profile(sender, instance, created, **kwargs):
+    """
+    Signal receiver to automatically create or update a UserProfile
+    whenever a User instance is created or saved.
+    Skips auto-creation when loading fixtures (raw=True).
+    """
     # Skip auto-creation when loading fixtures (raw=True)
     if kwargs.get('raw', False):
         return

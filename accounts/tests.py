@@ -1,25 +1,29 @@
+"""Test suite for the accounts app covering forms, models, views, signals,
+context processors, template tags, and profile photo handling."""
+
 from io import BytesIO
 from PIL import Image
 
-from django.contrib.admin.sites import site
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.gis.geos import Point
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.management import call_command
 from django.template import Template, Context
-from django.test import TestCase, RequestFactory, Client
+from django.test import TestCase, RequestFactory
 from django.urls import reverse
 
 from .models import UserProfile, AgeGroup, County, MobilityDevice
 from .forms import UserProfileForm, CustomSignupForm
 from .context_processors import user_profile
+from businesses.models import Business
+from verification.models import WheelerVerificationApplication
 
+        
 User = get_user_model()
 
 def get_test_image():
-    # Create a simple 100x100 red square JPEG image in memory
+    """Return an in-memory valid JPEG image wrapped as SimpleUploadedFile for upload tests."""
     img = Image.new('RGB', (100, 100), color='red')
     buf = BytesIO()
     img.save(buf, format='JPEG')
@@ -27,53 +31,50 @@ def get_test_image():
     return SimpleUploadedFile("test.jpg", buf.read(), content_type="image/jpeg")
 
 def add_session_to_request(request):
-    # Add a session to the request object
+    """Attach a session to a RequestFactory request instance (helper for form save tests)."""
     middleware = SessionMiddleware()
     middleware.process_request(request)
     request.session.save()
 
 
 class ValidateUsernameViewTests(TestCase):
-    """
-    Tests for the validate_username view (AJAX username availability check).
-    """
+    """Tests for the validate_username view (AJAX username availability check)."""
 
     def setUp(self):
+        """Create an existing user and store the validation endpoint URL."""
         self.url = reverse('validate_username')
         self.user = User.objects.create_user(username='existinguser', email='existing@example.com', password='testpass123')
 
     def test_username_available(self):
-        # Test that a new username is reported as available
+        """Username not in use should return available=True JSON response."""
         response = self.client.get(self.url, {'username': 'newuser'})
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {'available': True})
 
     def test_username_taken(self):
-        # Test that an existing username is reported as taken
+        """Existing username should return available=False JSON response."""
         response = self.client.get(self.url, {'username': 'existinguser'})
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {'available': False})
 
     def test_username_blank(self):
-        # Test that a blank username is reported as not taken (or as invalid, depending on your logic)
+        """Blank username should be treated as available (no collision)."""
         response = self.client.get(self.url, {'username': ''})
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {'available': True})
 
     
 class CustomSignupFormTests(TestCase):
-    """
-    Tests for the CustomSignupForm validation.
-    """
+    """Tests for the CustomSignupForm validation and save behavior."""
 
     def setUp(self):
-        # Set up age group, county, and mobility device for use in signup form tests
+        """Create base related objects for signup form tests."""
         self.age_group = AgeGroup.objects.create(name='36-45', label='36 to 45')
         self.county = County.objects.create(name='signupshire', label='Signupshire')
         self.mobility_device, _ = MobilityDevice.objects.get_or_create(name='scooter', defaults={'label': 'Scooter'})
 
     def test_signup_form_valid(self):
-        # Test that the signup form is valid with correct data
+        """Form with complete correct data should be valid."""
         form = CustomSignupForm(data={
             'username': 'signupuser',
             'email': 'signup@example.com',
@@ -92,7 +93,7 @@ class CustomSignupFormTests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_signup_form_password_mismatch(self):
-        # Test that the signup form is invalid if passwords do not match
+        """Different password1/password2 should invalidate the form."""
         form = CustomSignupForm(data={
             'username': 'signupuser2',
             'email': 'signup2@example.com',
@@ -103,7 +104,7 @@ class CustomSignupFormTests(TestCase):
         self.assertIn('password2', form.errors)
 
     def test_signup_form_email_mismatch(self):
-        # Test that the signup form is invalid if emails do not match
+        """Mismatched email and confirm_email should raise error on confirm_email."""
         form = CustomSignupForm(data={
             'username': 'signupuser3',
             'email': 'signup3@example.com',
@@ -123,7 +124,7 @@ class CustomSignupFormTests(TestCase):
         self.assertIn('confirm_email', form.errors)
 
     def test_signup_form_duplicate_username(self):
-        # Test that the signup form is invalid if the username already exists
+        """Duplicate username should produce a validation error on username field."""
         User.objects.create_user(username='dupeuser', email='dupe@example.com', password='testpass123')
         form = CustomSignupForm(data={
             'username': 'dupeuser',
@@ -143,7 +144,7 @@ class CustomSignupFormTests(TestCase):
         self.assertIn('username', form.errors)
 
     def test_signup_form_with_profile_photo(self):
-        # Test that the signup form is valid and saves a profile photo
+        """Valid signup including a profile photo should save the image to profile."""
         photo = get_test_image()
         form = CustomSignupForm(data={
             'username': 'signupwithphoto',
@@ -172,12 +173,11 @@ class CustomSignupFormTests(TestCase):
         self.assertTrue(bool(profile.photo))
 
     def test_signup_form_required_fields(self):
-        # Use get_or_create to avoid duplicate errors
+        """Verify presence/absence of required fields drives validity and related error keys."""
         age_group, _ = AgeGroup.objects.get_or_create(name='46-55', defaults={'label': '46 to 55'})
         county, _ = County.objects.get_or_create(name='SignupCounty', defaults={'label': 'Signup County'})
         mobility_device, _ = MobilityDevice.objects.get_or_create(name='walker', defaults={'label': 'Walker'})
 
-        # All fields present (should be valid)
         form = CustomSignupForm(data={
             'username': 'signupuser4',
             'email': 'signup4@example.com',
@@ -195,7 +195,6 @@ class CustomSignupFormTests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
-        # Omit first_name
         form = CustomSignupForm(data={
             'username': 'signupuser5',
             'email': 'signup5@example.com',
@@ -213,7 +212,6 @@ class CustomSignupFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('first_name', form.errors)
 
-        # Omit last_name
         form = CustomSignupForm(data={
             'username': 'signupuser6',
             'email': 'signup6@example.com',
@@ -231,7 +229,6 @@ class CustomSignupFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('last_name', form.errors)
 
-        # Omit county
         form = CustomSignupForm(data={
             'username': 'signupuser7',
             'email': 'signup7@example.com',
@@ -249,7 +246,6 @@ class CustomSignupFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('county', form.errors)
 
-        # Omit age_group
         form = CustomSignupForm(data={
             'username': 'signupuser8',
             'email': 'signup8@example.com',
@@ -268,7 +264,7 @@ class CustomSignupFormTests(TestCase):
         self.assertIn('age_group', form.errors)
 
     def test_signup_form_business_fields(self):
-        # Test that business-related fields are handled correctly
+        """Check business/wheeler combos, missing mobility devices, and invalid foreign keys."""
         county = County.objects.create(name='BusinessCounty', label='Business County')
         mobility_device, _ = MobilityDevice.objects.get_or_create(name='scooter', defaults={'label': 'Scooter'})
         form = CustomSignupForm(data={
@@ -288,7 +284,6 @@ class CustomSignupFormTests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
-        # Test missing business fields
         form = CustomSignupForm(data={
             'username': 'incompleteuser',
             'email': 'incomplete@example.com',
@@ -307,7 +302,6 @@ class CustomSignupFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('mobility_devices', form.errors)
 
-        # Test with non-existent county and mobility device
         form = CustomSignupForm(data={
             'username': 'usernocountymob',
             'email': 'usernocountymob@example.com',
@@ -366,18 +360,17 @@ class CustomSignupFormTests(TestCase):
 
     
 class UserProfileModelMethodTests(TestCase):
-    """
-    Tests for UserProfile model methods and related functionality.
-    """
+    """Tests for UserProfile model relations and string output behavior."""
 
     def setUp(self):
+        """Create a user and related reference objects for model tests."""
         self.user = User.objects.create_user(username='testuser', email='test@example.com', password='testpass123')
         self.age_group = AgeGroup.objects.create(name='18-25', label='18 to 25')
         self.county = County.objects.create(name='Testshire', label='Testshire')
         self.mobility_device = MobilityDevice.objects.create(name='manual_wheelchair', label='Manual wheelchair')
 
     def test_profile_fields(self):
-        # Ensure profile fields can be set and retrieved correctly
+        """Assign and retrieve profile foreign key fields correctly."""
         profile = self.user.profile
         profile.age_group = self.age_group
         profile.county = self.county
@@ -386,13 +379,13 @@ class UserProfileModelMethodTests(TestCase):
         self.assertEqual(profile.county.name, 'Testshire')
 
     def test_mobility_devices_many_to_many(self):
-        # Ensure mobility devices can be added to a profile (many-to-many relationship)
+        """Add mobility device to M2M and ensure membership."""
         profile = self.user.profile
         profile.mobility_devices.add(self.mobility_device)
         self.assertIn(self.mobility_device, profile.mobility_devices.all())
 
     def test_get_full_name(self):
-        # Test the get_full_name method returns the correct full name
+        """Check full name retrieval (direct or fallback)."""
         self.user.first_name = "Test"
         self.user.last_name = "User"
         self.user.save()
@@ -403,42 +396,37 @@ class UserProfileModelMethodTests(TestCase):
             self.assertEqual(f"{self.user.first_name} {self.user.last_name}", "Test User")
 
     def test_is_business_owner(self):
-        # Test the is_business_owner property or method
+        """Validate business ownership flag or property behavior toggling has_business."""
         profile = self.user.profile
-        # Simulate not a business owner
         if hasattr(profile, "is_business_owner"):
             self.assertFalse(profile.is_business_owner)
-            # Simulate business owner if possible
             profile.has_business = True
             profile.save()
             self.assertTrue(profile.is_business_owner)
         else:
-            # Fallback: just check has_business field
             self.assertFalse(profile.has_business)
             profile.has_business = True
             profile.save()
             self.assertTrue(profile.has_business)
 
     def test_userprofile_str(self):
-        # Test that the string representation of UserProfile returns the username
+        """__str__ of profile should return associated username."""
         profile = self.user.profile
         self.assertEqual(str(profile), 'testuser')
             
  
 class UserProfileFormTests(TestCase):
-    """
-    Tests for the UserProfileForm validation.
-    """
+    """Tests for the UserProfileForm validation edge cases and success paths."""
 
     def setUp(self):
-        # Set up a user, age group, county, and mobility device for use in form tests
+        """Create user and standard reference objects for form tests."""
         self.user = User.objects.create_user(username='formuser', email='form@example.com', password='testpass123')
         self.age_group = AgeGroup.objects.create(name='26-35', label='26 to 35')
         self.county = County.objects.create(name='formshire', label='Formshire')
         self.mobility_device = MobilityDevice.objects.create(name='power_wheelchair', label='Power wheelchair')
 
     def test_valid_form(self):
-        # Test that the form is valid with correct data
+        """Complete form with required fields should validate successfully."""
         form = UserProfileForm(data={
             'first_name': 'Test',
             'last_name': 'User',
@@ -452,19 +440,18 @@ class UserProfileFormTests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_invalid_form_missing_required(self):
-        # Test that the form is invalid if required fields are missing
+        """Missing all required fields should produce errors (e.g., first_name)."""
         form = UserProfileForm(data={})
         self.assertFalse(form.is_valid())
         self.assertIn('first_name', form.errors)
 
     def test_form_edge_cases(self):
-        # Test various edge cases for the form
-        # Invalid county type
+        """Validate multiple edge scenarios: bad IDs, blanks, unexpected fields, types."""
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
             'country': 'UK',
-            'county': 'not_an_id',  # Invalid type
+            'county': 'not_an_id',
             'age_group': self.age_group.id,
             'has_business': True,
             'is_wheeler': True,
@@ -473,7 +460,6 @@ class UserProfileFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('county', form.errors)
 
-        # Blank mobility_devices_other (should be valid)
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
@@ -486,20 +472,18 @@ class UserProfileFormTests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
-        # Invalid age_group type
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
             'country': 'UK',
             'county': self.county.id,
-            'age_group': 'not_an_id',  # Invalid type
+            'age_group': 'not_an_id',
             'has_business': True,
             'is_wheeler': True,
         })
         self.assertFalse(form.is_valid())
         self.assertIn('age_group', form.errors)
 
-        # Missing country
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
@@ -511,7 +495,6 @@ class UserProfileFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('country', form.errors)
 
-        # Invalid mobility_devices type
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
@@ -520,19 +503,17 @@ class UserProfileFormTests(TestCase):
             'age_group': self.age_group.id,
             'has_business': True,
             'is_wheeler': True,
-            'mobility_devices': 'not_a_list',  # Invalid type
+            'mobility_devices': 'not_a_list',
         })
         self.assertFalse(form.is_valid())
         self.assertIn('mobility_devices', form.errors)
 
-        # All fields blank
         form = UserProfileForm(data={})
         self.assertFalse(form.is_valid())
         self.assertIn('first_name', form.errors)
         self.assertIn('last_name', form.errors)
         self.assertIn('country', form.errors)
 
-        # Extra unexpected field (should be ignored)
         form = UserProfileForm(data={
             'first_name': 'Test',
             'last_name': 'User',
@@ -548,39 +529,37 @@ class UserProfileFormTests(TestCase):
 
 
 class UserProfileSignalTests(TestCase):
-    """
-    Tests for the UserProfile creation signal.
-    """
+    """Tests for automatic UserProfile creation and uniqueness via signals."""
 
     def test_userprofile_created_on_user_creation(self):
+        """Creating a user should automatically create its profile via signal."""
         user = get_user_model().objects.create_user(username='signaluser', email='signal@example.com', password='testpass123')
         self.assertTrue(UserProfile.objects.filter(user=user).exists())
 
     def test_userprofile_deleted_on_user_deletion(self):
+        """Deleting a user should delete related profile (cascade)."""
         user = get_user_model().objects.create_user(username='signaluser2', email='signal2@example.com', password='testpass123')
         profile_id = user.profile.id
         user.delete()
         self.assertFalse(UserProfile.objects.filter(id=profile_id).exists())
 
     def test_userprofile_not_created_twice(self):
-        # Create user and profile should be created automatically
+        """Signal should not create duplicate profiles on repeated get_or_create calls."""
         user = get_user_model().objects.create_user(username='signaluser3', email='signal3@example.com', password='testpass123')
         profile_count = UserProfile.objects.filter(user=user).count()
-        # Try to create another profile for the same user (should not create a duplicate)
         UserProfile.objects.get_or_create(user=user)
         self.assertEqual(UserProfile.objects.filter(user=user).count(), profile_count)
         
         
 class UserProfileContextProcessorTests(TestCase):
-    """
-    Tests for the user_profile context processor.
-    """
+    """Tests for the user_profile context processor injecting profile only when authenticated."""
 
     def setUp(self):
+        """Create a test user for context processor tests."""
         self.user = get_user_model().objects.create_user(username='contextuser', email='context@example.com', password='testpass123')
 
     def test_user_profile_injected_for_authenticated(self):
-        # Simulate a request with an authenticated user
+        """Authenticated request should include user_profile in context."""
         factory = RequestFactory()
         request = factory.get('/')
         request.user = self.user
@@ -589,7 +568,7 @@ class UserProfileContextProcessorTests(TestCase):
         self.assertEqual(context['user_profile'], self.user.profile)
 
     def test_user_profile_not_injected_for_anonymous(self):
-        # Simulate a request with an anonymous user
+        """Anonymous user should not receive user_profile key in context."""
         factory = RequestFactory()
         request = factory.get('/')
         request.user = AnonymousUser()
@@ -598,11 +577,10 @@ class UserProfileContextProcessorTests(TestCase):
 
     
 class EditProfileViewTests(TestCase):
-    """
-    Tests for edit profile view access, form submission, permissions, and field logic.
-    """
+    """Tests for edit profile view: auth, form processing, and field logic."""
 
     def setUp(self):
+        """Create user, profile, and reference objects for the edit profile tests."""
         self.user = User.objects.create_user(
             username='edituser', 
             email='edit@example.com', 
@@ -615,19 +593,19 @@ class EditProfileViewTests(TestCase):
         self.mobility_device = MobilityDevice.objects.create(name='power_wheelchair', label='Power wheelchair')
 
     def test_edit_profile_view_authenticated(self):
-        # Test that an authenticated user can access the edit profile page
+        """Authenticated user should get 200 for edit profile page."""
         self.client.login(username='edituser', password='testpass123')
         response = self.client.get(reverse('edit_profile'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Edit Profile')
 
     def test_edit_profile_view_unauthenticated(self):
-        # Test that an unauthenticated user is redirected from the edit profile page
+        """Unauthenticated user should be redirected when accessing edit profile."""
         response = self.client.get(reverse('edit_profile'))
-        self.assertEqual(response.status_code, 302)  # Redirect to login
+        self.assertEqual(response.status_code, 302)
 
     def test_edit_profile_template_content(self):
-        # Test that the edit profile template contains expected fields, buttons, and JS
+        """Edit profile page should contain expected form elements and JS includes."""
         self.client.login(username='edituser', password='testpass123')
         response = self.client.get(reverse('edit_profile'))
         content = response.content.decode()
@@ -649,10 +627,10 @@ class EditProfileViewTests(TestCase):
         self.assertIn('src="/static/js/edit_profile', content)
 
     def test_edit_profile_permission(self):
-        # Test that another user cannot edit this user's profile
+        """Changes posted by another user should not modify target user's data."""
         other_user = User.objects.create_user(username='otheruser', email='other@example.com', password='testpass123')
         self.client.login(username='otheruser', password='testpass123')
-        response = self.client.post(reverse('edit_profile'), {
+        self.client.post(reverse('edit_profile'), {
             'first_name': 'Hacker',
             'last_name': 'User',
             'country': self.county.id,
@@ -666,7 +644,7 @@ class EditProfileViewTests(TestCase):
         self.assertNotEqual(self.user.first_name, 'Hacker')
 
     def test_edit_profile_post_valid(self):
-        # Test that submitting the edit profile form updates the user's first name and redirects
+        """Valid POST should redirect and persist updates."""
         self.client.login(username='edituser', password='testpass123')
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Edit',
@@ -683,10 +661,10 @@ class EditProfileViewTests(TestCase):
         self.assertEqual(self.user.first_name, 'Edit')
 
     def test_edit_profile_post_invalid(self):
-        # Test that submitting invalid data does not update and shows errors
+        """Invalid POST should return form errors without persisting changes."""
         self.client.login(username='edituser', password='testpass123')
         response = self.client.post(reverse('edit_profile'), {
-            'first_name': '',  # Invalid: required
+            'first_name': '',
             'last_name': '',
             'country': '',
             'county': '',
@@ -701,11 +679,10 @@ class EditProfileViewTests(TestCase):
         self.assertIn('is_wheeler', form.errors)
         self.user.refresh_from_db()
         self.user.profile.refresh_from_db()
-        # On invalid form submission, the user’s name should not be updated.
         self.assertEqual(self.user.first_name, 'Edit')
 
     def test_edit_profile_post_multiple_mobility_devices(self):
-        # Test selecting multiple mobility devices
+        """Selecting multiple mobility devices should persist both to profile."""
         device2 = MobilityDevice.objects.create(name='walker', label='Walker')
         self.client.login(username='edituser', password='testpass123')
         response = self.client.post(reverse('edit_profile'), {
@@ -723,7 +700,7 @@ class EditProfileViewTests(TestCase):
         self.assertEqual(self.user.profile.mobility_devices.count(), 2)
 
     def test_edit_profile_no_changes(self):
-        # Test submitting the form with no changes does not alter the profile
+        """Posting unchanged data should not alter stored profile values."""
         self.client.login(username='edituser', password='testpass123')
         profile = self.user.profile
         profile.country = "UK"
@@ -739,11 +716,12 @@ class EditProfileViewTests(TestCase):
             'is_wheeler': profile.is_wheeler,
             'has_business': profile.has_business,
         }
-        response = self.client.post(reverse('edit_profile'), data)
+        self.client.post(reverse('edit_profile'), data)
         profile.refresh_from_db()
         self.assertEqual(profile.country, "UK")
 
     def test_edit_profile_change_single_field(self):
+        """Changing a subset of fields should only update those fields."""
         self.client.login(username='edituser', password='testpass123')
         old_last_name = self.user.last_name
         data = {
@@ -757,14 +735,14 @@ class EditProfileViewTests(TestCase):
             'is_wheeler': 'True',
             'has_business': 'True',
         }
-        response = self.client.post(reverse('edit_profile'), data)
-        # Refresh user from DB after POST to get updated values
+        self.client.post(reverse('edit_profile'), data)
         self.user.profile.refresh_from_db()
-        self.user = User.objects.get(pk=self.user.pk)  # Ensure we have the latest user instance
+        self.user = User.objects.get(pk=self.user.pk)
         self.assertEqual(self.user.first_name, 'Changed')
         self.assertEqual(self.user.last_name, old_last_name)
 
     def test_edit_profile_optional_fields(self):
+        """Optional field updates (county, age_group, devices) should persist correctly."""
         county = County.objects.create(name='EdgeCounty', label='Edge County')
         age_group = AgeGroup.objects.create(name='18-25', label='18 to 25')
         device = MobilityDevice.objects.create(name='manual_wheelchair', label='Manual wheelchair')
@@ -780,25 +758,24 @@ class EditProfileViewTests(TestCase):
             'is_wheeler': 'True',
             'has_business': 'True',
         }
-        response = self.client.post(reverse('edit_profile'), data)
+        self.client.post(reverse('edit_profile'), data)
         profile = self.user.profile
         profile.refresh_from_db()
-        self.user.profile.refresh_from_db()
         self.assertEqual(profile.county, county)
         self.assertEqual(profile.age_group, age_group)
         self.assertIn(device, profile.mobility_devices.all())
         self.assertEqual(profile.mobility_devices_other, 'Test device')
 
     def test_edit_profile_invalid_foreign_keys(self):
-        # Test submitting the form with invalid foreign keys returns a validation error
+        """Invalid FK values should trigger validation errors on those fields."""
         self.client.login(username='edituser', password='testpass123')
         data = {
             'first_name': self.user.first_name,
             'last_name': self.user.last_name,
             'country': 'UK',
-            'county': 9999,  # invalid pk
-            'age_group': 9999,  # invalid pk
-            'mobility_devices': [9999],  # invalid pk
+            'county': 9999,
+            'age_group': 9999,
+            'mobility_devices': [9999],
             'mobility_devices_other': '',
             'is_wheeler': False,
             'has_business': False,
@@ -810,12 +787,12 @@ class EditProfileViewTests(TestCase):
         self.assertFormError(form, 'age_group', 'Select a valid choice. That choice is not one of the available choices.')
 
     def test_edit_profile_remove_photo(self):
-        # Test removing a profile photo via the edit profile form
+        """Submitting with photo-clear should remove existing profile photo."""
         self.client.login(username='edituser', password='testpass123')
         profile = self.user.profile
         photo = get_test_image()
         profile.photo.save('test.jpg', photo, save=True)
-        response = self.client.post(reverse('edit_profile'), {
+        self.client.post(reverse('edit_profile'), {
             'first_name': 'Remove',
             'last_name': 'Photo',
             'country': 'UK',
@@ -829,7 +806,7 @@ class EditProfileViewTests(TestCase):
         self.assertFalse(bool(self.user.profile.photo))
 
     def test_edit_profile_photo_upload(self):
-        # Test uploading a valid profile photo using a real in-memory image
+        """Uploading a valid image should store it on the profile."""
         self.client.login(username='edituser', password='testpass123')
         img = Image.new('RGB', (100, 100), color='red')
         buf = BytesIO()
@@ -852,7 +829,7 @@ class EditProfileViewTests(TestCase):
         self.assertTrue(bool(self.user.profile.photo))
 
     def test_edit_profile_invalid_photo_upload(self):
-        # Test uploading an invalid photo file type
+        """Invalid file type should raise validation error on photo field."""
         self.client.login(username='edituser', password='testpass123')
         bad_photo = SimpleUploadedFile("test.txt", b"not an image", content_type="text/plain")
         response = self.client.post(reverse('edit_profile'), {
@@ -1062,11 +1039,10 @@ class ProfilePhotoTests(TestCase):
         self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.')
 
     def test_delete_and_upload_new_photo(self):
-        # Upload a photo
+        """Removing then re-uploading a profile photo should persist the new image."""
         photo = get_test_image()
         self.profile.photo.save('test.jpg', photo, save=True)
-        # Remove photo
-        response = self.client.post(reverse('edit_profile'), {
+        self.client.post(reverse('edit_profile'), {
             'first_name': 'Remove',
             'last_name': 'Photo',
             'country': 'UK',
@@ -1078,9 +1054,8 @@ class ProfilePhotoTests(TestCase):
         })
         self.profile.refresh_from_db()
         self.assertFalse(bool(self.profile.photo))
-        # Upload new photo
         photo2 = get_test_image()
-        response = self.client.post(reverse('edit_profile'), {
+        self.client.post(reverse('edit_profile'), {
             'first_name': 'Reupload',
             'last_name': 'Photo',
             'country': 'UK',
@@ -1094,7 +1069,7 @@ class ProfilePhotoTests(TestCase):
         self.assertTrue(bool(self.profile.photo))
 
     def test_upload_too_large_or_invalid_photo(self):
-        # Too large
+        """Oversized or invalid formatted images should trigger appropriate errors."""
         big_file = SimpleUploadedFile("big.jpg", b"x" * (6 * 1024 * 1024), content_type="image/jpeg")
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Big',
@@ -1108,7 +1083,6 @@ class ProfilePhotoTests(TestCase):
         })
         form = response.context['form']
         self.assertFormError(form, 'photo', 'Profile photo file too large (maximum 5 MB).')
-        # Invalid format
         bad_file = SimpleUploadedFile("bad.txt", b"notanimage", content_type="text/plain")
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Bad',
@@ -1125,54 +1099,46 @@ class ProfilePhotoTests(TestCase):
         
        
 class DashboardViewTests(TestCase):
-    """
-    Tests for dashboard view access, template rendering, and content.
-    """
+    """Tests for account dashboard visibility, redirects, and conditional content."""
 
     def setUp(self):
-        # Set up a user for use in view tests
+        """Create a user to exercise dashboard scenarios."""
         self.user = User.objects.create_user(username='viewuser', email='view@example.com', password='testpass123')
 
     def test_account_dashboard_view_authenticated(self):
-        # Test that an authenticated user can access the dashboard
+        """Authenticated user should see dashboard (status 200)."""
         self.client.login(username='viewuser', password='testpass123')
         response = self.client.get(reverse('account_dashboard'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.user.username)
 
     def test_account_dashboard_view_unauthenticated(self):
-        # Test that an unauthenticated user is redirected from the dashboard
+        """Unauthenticated user should be redirected from dashboard."""
         response = self.client.get(reverse('account_dashboard'))
-        self.assertEqual(response.status_code, 302)  # Redirect to login
+        self.assertEqual(response.status_code, 302)
 
     def test_account_dashboard_view_unauthenticated_redirect_url(self):
-        # Test that unauthenticated users are redirected to the login page with next param
+        """Redirect URL should contain login path with next parameter."""
         response = self.client.get(reverse('account_dashboard'))
         self.assertRedirects(response, f'/accounts/login/?next={reverse("account_dashboard")}')
 
     def test_dashboard_redirects_unauthenticated(self):
-        """Test that unauthenticated users are redirected from the dashboard."""
+        """Dashboard should redirect to login for anonymous users."""
         response = self.client.get(reverse('account_dashboard'))
-        # Checks that unauthenticated users are redirected to the login page
         self.assertEqual(response.status_code, 302)
         self.assertIn('/accounts/login/', response.url)
 
     def test_dashboard_template_used(self):
-        """Test that the correct template is used for the dashboard view."""
+        """Correct template should be used for dashboard view."""
         self.client.login(username='viewuser', password='testpass123')
         response = self.client.get(reverse('account_dashboard'))
-        # Checks that the dashboard uses the expected template file
         self.assertTemplateUsed(response, 'accounts/account_dashboard.html')
 
     def test_dashboard_renders_profile_fields(self):
-        """
-        Test that the dashboard displays all profile fields that are rendered in the template.
-        """
+        """Dashboard should display both core and optional profile information when present."""
         self.client.login(username='viewuser', password='testpass123')
         profile = self.user.profile
         profile.country = "UK"
-        # Set up optional fields
-        from .models import County, AgeGroup, MobilityDevice
         county = County.objects.create(name='Testshire', label='Testshire')
         age_group = AgeGroup.objects.create(name='18-25', label='18 to 25')
         device = MobilityDevice.objects.create(name='manual_wheelchair', label='Manual wheelchair')
@@ -1195,30 +1161,22 @@ class DashboardViewTests(TestCase):
         self.assertContains(response, f"{self.user.first_name} {self.user.last_name}")
 
     def test_dashboard_profile_photo_placeholder(self):
-        """Test that the dashboard shows the placeholder image if no profile photo is set."""
+        """Placeholder image should render when no profile photo exists."""
         self.client.login(username='viewuser', password='testpass123')
         response = self.client.get(reverse('account_dashboard'))
-        # Checks that the placeholder image is present in the dashboard HTML
         self.assertContains(response, 'profile_photo_placeholder')
 
     def test_dashboard_wheeler_section_shown(self):
-        """
-        Test that all wheeler-specific sections are rendered if user is_wheeler.
-        """
+        """Wheeler-specific sections should render for wheeler users with related data."""
         self.client.login(username='viewuser', password='testpass123')
         profile = self.user.profile
         profile.is_wheeler = True
         profile.save()
 
-        from businesses.models import Business, WheelerVerificationApplication
-        from django.contrib.gis.geos import Point
-        from django.contrib.auth import get_user_model
-
-        # Use the existing profile as the business_owner for the approved business
         business = Business.objects.create(
             business_owner=profile,
             business_name="Test Biz",
-            location=Point(-0.1278, 51.5074),  # Example: London coordinates
+            location=Point(-0.1278, 51.5074),
         )
         WheelerVerificationApplication.objects.create(
             wheeler=self.user,
@@ -1226,9 +1184,8 @@ class DashboardViewTests(TestCase):
             approved=True
         )
 
-        # Create a second user/profile for the pending business
-        User = get_user_model()
-        other_user = User.objects.create_user(username='pendinguser', email='pending@example.com', password='testpass123')
+        UserModel = get_user_model()
+        other_user = UserModel.objects.create_user(username='pendinguser', email='pending@example.com', password='testpass123')
         other_profile = other_user.profile
 
         pending_business = Business.objects.create(
@@ -1252,25 +1209,19 @@ class DashboardViewTests(TestCase):
         self.assertContains(response, "Businesses you have applied to verify")
 
     def test_dashboard_wheeler_section_hidden_for_non_wheeler(self):
-        """
-        Test that all wheeler-specific sections are not rendered if user is not a wheeler.
-        Ensures all unique headings are absent.
-        """
+        """Non-wheeler users should not see wheeler-only headings/content."""
         self.client.login(username='viewuser', password='testpass123')
         profile = self.user.profile
         profile.is_wheeler = False
         profile.save()
         response = self.client.get(reverse('account_dashboard'))
         content = response.content.decode()
-        # None of the wheeler-specific section headings should be present
         self.assertNotIn("Wheeler Accessibility Verification", content)
         self.assertNotIn("Businesses you have been approved to verify", content)
         self.assertNotIn("Businesses you have applied to verify", content)
 
     def test_dashboard_displays_mobility_devices_other(self):
-        """
-        If mobility_devices_other is set, it appears in the dashboard.
-        """
+        """mobility_devices_other text should display if set on profile."""
         self.client.login(username='viewuser', password='testpass123')
         profile = self.user.profile
         profile.is_wheeler = True
@@ -1280,28 +1231,21 @@ class DashboardViewTests(TestCase):
         self.assertContains(response, "Hoverboard")
 
     def test_dashboard_handles_missing_profile(self):
-        """
-        If a user has no profile, the dashboard should not 500.
-        """
+        """Dashboard should render safely (no 500) if profile missing unexpectedly."""
         self.client.login(username='viewuser', password='testpass123')
         UserProfile.objects.filter(user=self.user).delete()
         response = self.client.get(reverse('account_dashboard'))
-        # Should not 500, should render a page (likely with a message or fallback)
         self.assertNotEqual(response.status_code, 500)
-        # Optionally, check for a fallback message or safe rendering
         self.assertIn("Personal Dashboard", response.content.decode())
 
 
 class TemplateTagTest(TestCase):
-    """
-    Tests for custom template tags in account_extras.py.
-    """
+    """Tests for custom template tag filters in account_extras module."""
 
     def test_device_labels_filter(self):
-        # Test that device_labels filter returns a comma-separated string of device names
+        """device_labels filter should output comma-separated labels for devices."""
         device1 = MobilityDevice.objects.create(name='Manual wheelchair', label='Manual wheelchair')
         device2 = MobilityDevice.objects.create(name='Power wheelchair', label='Power wheelchair')
-        # Simulate a queryset-like object with .all()
         class Devices:
             def all(self_inner):
                 return [device1, device2]
@@ -1311,25 +1255,24 @@ class TemplateTagTest(TestCase):
         self.assertIn('Power wheelchair', rendered)
 
     def test_dict_get_filter(self):
-        # Test that dict_get filter retrieves the correct value from a dictionary
+        """dict_get filter should retrieve correct value for given key."""
         template = Template("{% load account_extras %}{{ mydict|dict_get:'foo' }}")
         rendered = template.render(Context({'mydict': {'foo': 'bar'}}))
         self.assertIn('bar', rendered)
 
     def test_filter_unverified_filter(self):
-        # Test that filter_unverified filter returns only unverified businesses
-        class Business:
+        """filter_unverified should return only items marked unverified per status dict."""
+        class BusinessObj:
             def __init__(self, id):
                 self.id = id
-        b1 = Business(1)
-        b2 = Business(2)
+        b1 = BusinessObj(1)
+        b2 = BusinessObj(2)
         businesses = [b1, b2]
         verification_status = {1: True, 2: False}
         template = Template(
             "{% load account_extras %}{% for b in businesses|filter_unverified:verification_status %}{{ b.id }},{% endfor %}"
         )
         rendered = template.render(Context({'businesses': businesses, 'verification_status': verification_status}))
-        # Only b2 (id=2) is unverified
         self.assertIn('2,', rendered)
         self.assertNotIn('1,', rendered)
 
