@@ -126,7 +126,7 @@ def request_wheeler_verification(request, pk):
             business.wheeler_verification_requested = True
             business.save()
             messages.success(request, 'Verification requested — no payment required for your current plan.')
-            return redirect('businesses:business_dashboard')
+            return redirect('business_dashboard')
         url = reverse('checkout', args=[business.id])
         return redirect(f"{url}?{urlencode({'purchase_type': 'verification'})}")
     return render(request, 'verification/request_wheeler_verification.html', {
@@ -199,7 +199,7 @@ def wheeler_verification_application(request, pk):
     profile = getattr(request.user, 'profile', None)
     if not request.user.is_authenticated or not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can request to verify a business.")
-        return redirect('businesses:accessible_business_search')
+        return redirect('accessible_business_search')
 
     # Count current verifications
     verification_count = business.verifications.count()
@@ -210,7 +210,7 @@ def wheeler_verification_application(request, pk):
     # check if the wheeler has already verified this business
     if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
         messages.info(request, "You have already verified this business.")
-        return redirect('verification:business_detail', pk=pk)
+        return redirect('business_detail', pk=pk)
     if request.method == 'POST':
         exists_pending = WheelerVerificationApplication.objects.filter(
             business=business, wheeler=request.user, approved=False
@@ -252,13 +252,13 @@ def application_submitted(request, pk):
     profile = getattr(request.user, 'profile', None)
     if not request.user.is_authenticated or not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can view this page.")
-        return redirect('businesses:accessible_business_search')
+        return redirect('accessible_business_search')
     has_pending = WheelerVerificationApplication.objects.filter(
         business=business, wheeler=request.user, approved=False
     ).exists()
     if not has_pending:
         messages.info(request, "You do not have a pending verification application for this business.")
-        return redirect('verification:business_detail', pk=pk)
+        return redirect('business_detail', pk=pk)
     return render(request, 'verification/application_submitted.html', {
         'business': business,
         'page_title': 'Verification Request Submitted',
@@ -288,10 +288,10 @@ def wheeler_verification_form(request, pk):
     profile = getattr(request.user, 'profile', None)
     if not profile or not profile.is_wheeler:
         messages.error(request, "You must be a verified Wheeler to submit a verification.")
-        return redirect('accounts:account_dashboard')
+        return redirect('account_dashboard')
     if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
         messages.info(request, "You have already verified this business.")
-        return redirect('accounts:account_dashboard')
+        return redirect('account_dashboard')
     devices = MobilityDevice.objects.all()
     if request.method == 'POST':
         form = WheelerVerificationForm(request.POST, request.FILES, business=business)
@@ -355,7 +355,7 @@ def wheeler_verification_form(request, pk):
             # Debug statement (optional)
             _ = [(p.id, p.feature_id, p.image.name) for p in verification.photos.all()]
             messages.success(request, "Thank you for verifying this business! Please check your email for confirmation.")
-            return redirect('accounts:account_dashboard')
+            return redirect('account_dashboard')
     else:
         form = WheelerVerificationForm(business=business)
     return render(request, 'verification/wheeler_verification_form.html', {
@@ -393,7 +393,7 @@ def verification_report(request, verification_id):
     is_superuser = request.user.is_superuser
     if not (is_owner or is_wheeler or is_superuser):
         messages.error(request, "You do not have permission to view this report.")
-        return redirect('businesses:business_dashboard')
+        return redirect('business_dashboard')
 
     # Hide wheeler name if business owner is viewing
     show_wheeler_name = not (hasattr(request.user, 'profile') and verification.business.business_owner == getattr(request.user, 'profile', None))
@@ -445,7 +445,7 @@ def cancel_wheeler_verification_request(request, business_id):
     profile = getattr(request.user, 'profile', None)
     if not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can cancel verification requests.")
-        return redirect('accounts:account_dashboard')
+        return redirect('account_dashboard')
     # Find and delete the pending request
     req = WheelerVerificationApplication.objects.filter(
         business_id=business_id,
@@ -457,4 +457,4 @@ def cancel_wheeler_verification_request(request, business_id):
         messages.success(request, "Your verification request has been cancelled.")
     else:
         messages.info(request, "No pending verification request found to cancel.")
-    return redirect('accounts:account_dashboard')
+    return redirect('account_dashboard')
