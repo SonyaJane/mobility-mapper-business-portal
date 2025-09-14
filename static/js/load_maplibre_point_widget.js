@@ -13,14 +13,14 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
             .then(res => res.json())
             .then(data => { ukBoundary = data; });
 
-        // Determine the UK polygon from the boundary data
-        let ukPolygon = null;
+        // Determine the UK polygons from the boundary data
+        let ukPolygons = [];
         if (ukBoundary.type === "FeatureCollection") {
-            ukPolygon = ukBoundary.features[0]; // or combine features if there are multiple
+            ukPolygons = ukBoundary.features;
         } else if (ukBoundary.type === "Feature") {
-            ukPolygon = ukBoundary;
+            ukPolygons = [ukBoundary];
         } else {
-            ukPolygon = ukBoundary; // already a Polygon/MultiPolygon
+            ukPolygons = [ukBoundary]; // already a Polygon/MultiPolygon
         }
 
         // If a location value already exists, show marker and make it draggable, and center map
@@ -65,16 +65,19 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
         }
 
         MAP.map.on('click', function (e) {
-            const lat = e.lngLat.lat
+            const lat = e.lngLat.lat;
             const lng = e.lngLat.lng;
-            // Use Turf.js to check if point is inside UK boundary
-            if (ukPolygon && turf.booleanPointInPolygon([lng, lat], ukPolygon)) {
+            // Check if point is inside any UK polygon
+            const insideUK = ukPolygons.some(feature =>
+                turf.booleanPointInPolygon([lng, lat], feature)
+            );
+            if (insideUK) {
                 setMarker([lng, lat], true);
             }
         });
 
         MAP.map.on('load', () => {
-            MAP.map.resize();  // critical!
+            MAP.map.resize();
         });
     });
 }
