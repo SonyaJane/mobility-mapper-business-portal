@@ -2,7 +2,7 @@
 # python manage.py flush --no-input
 # python manage.py loaddata accounts\fixtures\counties.json businesses\fixtures\accessibility_features.json businesses\fixtures\business_categories.json businesses\fixtures\membership_tiers.json accounts\fixtures\age_groups.json accounts\fixtures\mobility_devices.json
 # python scripts/generate_fake_users.py
-# python manage.py loaddata fixtures/user.json accounts/fixtures/userprofile.json fixtures/emailaddress.json businesses/fixtures/business.json businesses/fixtures/wheelerverification.json businesses/fixtures/wheelerverificationapplication.json businesses/fixtures/wheelerverificationphoto.json
+# python manage.py loaddata fixtures/user.json accounts/fixtures/userprofile.json fixtures/emailaddress.json businesses/fixtures/business.json verification/fixtures/wheelerverification.json verification/fixtures/wheelerverificationapplication.json verification/fixtures/wheelerverificationphoto.json
 # python manage.py createsuperuser
 
 # Prod
@@ -36,10 +36,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
-from accounts.models import UserProfile, County, AgeGroup, MobilityDevice
-from businesses.models import Business, TIER_CHOICES
-from businesses.models import Category, AccessibilityFeature, MembershipTier
-from django.conf import settings  # (may remain for future use; safe if unused)
+from accounts.models import County, AgeGroup, MobilityDevice
+from businesses.models import Category, AccessibilityFeature, MembershipTier, TIER_CHOICES
 
 fake = Faker("en_GB")
 
@@ -456,7 +454,7 @@ for biz in businesses:
                 if possible_extras:
                     additional_features = [random.choice(possible_extras)]
             wheeler_verifications.append({
-                'model': 'businesses.wheelerverification',
+                'model': 'verification.wheelerverification',
                 'pk': ver_pk,
                 'fields': {
                     'business': biz_pk,
@@ -480,7 +478,7 @@ for ver in wheeler_verifications:
     # Use the verification date as the request and approval timestamp
     date_time = ver['fields']['date_verified']
     wheeler_verification_requests.append({
-        'model': 'businesses.wheelerverificationapplication',
+        'model': 'verification.wheelerverificationapplication',
         'pk': req_pk,
         'fields': {
             'business': ver['fields']['business'],
@@ -536,7 +534,7 @@ for ver in wheeler_verifications:
             fname = f"{code}{ext}"
             if fname in available_photos:
                 photo_fixtures.append({
-                    'model': 'businesses.wheelerverificationphoto',
+                    'model': 'verification.wheelerverificationphoto',
                     'pk': photo_pk,
                     'fields': {
                         'verification': ver['pk'],
@@ -561,7 +559,7 @@ for ver in wheeler_verifications:
     chosen = random.sample(other_photos, k=min(count, len(other_photos)))
     for fname in chosen:
         photo_fixtures.append({
-            'model': 'businesses.wheelerverificationphoto',
+            'model': 'verification.wheelerverificationphoto',
             'pk': photo_pk,
             'fields': {
                 'verification': ver['pk'],

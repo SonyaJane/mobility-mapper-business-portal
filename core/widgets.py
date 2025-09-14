@@ -3,7 +3,6 @@ from django.conf import settings
 from django.forms.widgets import TextInput
 
 
-
 class MapLibrePointWidget(forms.TextInput):
     """A custom widget for rendering a point on a MapLibre map
     This widget does three things:
@@ -11,7 +10,7 @@ class MapLibrePointWidget(forms.TextInput):
     Uses the custom HTML template maplibre_point_widget.html 
     Passes the selected point back via value_from_datadict
     """
-    template_name = "businesses/widgets/maplibre_point_widget.html"
+    template_name = "core/widgets/maplibre_point_widget.html"
 
     class Media:
         css = {

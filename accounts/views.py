@@ -4,7 +4,9 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from accounts.models import UserProfile
-from businesses.models import WheelerVerificationApplication, Business, WheelerVerification
+from businesses.models import Business
+from verification.models import WheelerVerificationApplication, WheelerVerification
+
 from .forms import UserProfileForm
 
 
