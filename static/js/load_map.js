@@ -9,10 +9,10 @@ export default function load_map(containerId) {
       sources: {
         "basemap": {
           type: "raster",
-          tiles: [`https://api.maptiler.com/tiles/streets-v2/256/{z}/{x}/{y}.png?key=cCcGqLo0AembUVq7bScM`],
-          minzoom: 0,
+          tiles: [`https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=cCcGqLo0AembUVq7bScM`],
+          minzoom: 1,
           maxzoom: 7,
-          tileSize: 256
+          tileSize: 512
         },
         "os-tiles": {
           type: "raster",
@@ -65,7 +65,7 @@ export default function load_map(containerId) {
     MAP.map.addControl(new maplibregl.AttributionControl({
       compact: true,
       customAttribution: [
-        'Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>',
+        "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\" rel=\"noopener\">OpenStreetMap contributors</a>",
         'Tiles © <a href="https://www.ordnancesurvey.co.uk/" target="_blank" rel="noopener">Ordnance Survey</a>'
       ]
     }), 'bottom-right');
