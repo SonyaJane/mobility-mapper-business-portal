@@ -386,6 +386,7 @@ def verification_report(request, verification_id):
         HttpResponse: Rendered report template or redirect if unauthorized.
     """
     verification = get_object_or_404(WheelerVerification, pk=verification_id)
+    print(f"Verification ID: {verification.id}, Business: {verification.business.business_name}, Wheeler: {verification.wheeler.username}")
     # Allow business owner or the Wheeler who submitted to view the report
     is_owner = (verification.business.business_owner == getattr(request.user, 'profile', None))
     is_wheeler = (verification.wheeler == request.user)
@@ -399,7 +400,10 @@ def verification_report(request, verification_id):
     show_wheeler_name = not (hasattr(request.user, 'profile') and verification.business.business_owner == getattr(request.user, 'profile', None))
     feature_photos_list = []
     confirmed_features = verification.confirmed_features.all()
-    for feature in confirmed_features:
+    additional_features = verification.additional_features.all()
+    # combine confirmed and additional features for photo display
+    all_features = confirmed_features.union(additional_features)
+    for feature in all_features:
         photo = verification.photos.filter(feature=feature).first()
         if photo:
             try:
