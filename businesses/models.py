@@ -82,12 +82,7 @@ class Business(models.Model):
     logo = models.ImageField(
         upload_to='mobility_mapper_business_portal/business_logos/',
         blank=True,
-        null=True,
-        validators=[validate_logo],  # ensure model-level validation for logos
-        error_messages={
-            # Message used when Pillow/Django can't read the file (corrupted/unreadable)
-            'invalid_image': 'The uploaded image appears corrupted or unreadable.'
-        }
+        null=True
     )
     website = models.URLField(blank=True, null=True)
     opening_hours = models.TextField(blank=True, null=True)

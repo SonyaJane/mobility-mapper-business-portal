@@ -23,7 +23,9 @@ export default function load_map_business(containerId, business) {
       container: containerId,
       style: style,
       center: [business.location.x, business.location.y],
-      zoom: 14
+      zoom: 14,
+      minzoom: 8,
+      maxZoom: 20
     });
 
     new maplibregl.Marker()
