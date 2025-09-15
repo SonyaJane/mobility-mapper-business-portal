@@ -845,7 +845,7 @@ class EditProfileViewTests(TestCase):
         })
         self.assertEqual(response.status_code, 200)
         form = response.context['form']
-        self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.')
+        self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP profile photo. SVG or other formats are not allowed.')
 
     def test_edit_profile_invalid_image_extension(self):
         # Purpose: Ensure that uploading a non-image file as a profile photo returns a validation error.
@@ -857,7 +857,7 @@ class EditProfileViewTests(TestCase):
         })
         form = response.context['form']
         self.assertFalse(form.is_valid())
-        self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.')
+        self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP profile photo. SVG or other formats are not allowed.')
 
     def test_edit_profile_missing_required_field(self):
         # Purpose: Ensure that omitting a required field (country) in the edit profile form returns a validation error.
@@ -1036,7 +1036,7 @@ class ProfilePhotoTests(TestCase):
         })
         self.assertEqual(response.status_code, 200)
         form = response.context['form']
-        self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.')
+        self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP profile photo. SVG or other formats are not allowed.')
 
     def test_delete_and_upload_new_photo(self):
         """Removing then re-uploading a profile photo should persist the new image."""
@@ -1095,7 +1095,7 @@ class ProfilePhotoTests(TestCase):
             'photo': bad_file,
         })
         form = response.context['form']
-        self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.')
+        self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP profile photo. SVG or other formats are not allowed.')
         
        
 class DashboardViewTests(TestCase):
