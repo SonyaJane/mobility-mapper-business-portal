@@ -8,9 +8,8 @@
 
 {% block page_title %}Accessibility Verification Report{% endblock %}
 
-
 {% block content %}
-<div class="content-container p-3">
+<div class="content-container p-1 p-sm-2">
 
   <div class="my-4">
     <h4 class="text-center">
@@ -49,7 +48,7 @@
         <h5>Mobility Device Used</h5>
         <p>
           {% if verification.mobility_device %}
-            {{ verification.mobility_device.name }}
+            {{ verification.mobility_device.label }}
           {% else %}
             Not provided
           {% endif %}
@@ -87,7 +86,7 @@
 
   <div class="row mb-2 mt-0 g-2">
     <div class="col-md-6">
-      <div class="border rounded h-100">
+      <div class="border rounded h-md-100">
         <div class="p-3">      
           <h5 class="mb-3">Feature Photos</h5>
           <div id="featurePhotosCarousel" class="carousel slide{% if feature_photos_list|length <= 1 %} single-photo{% endif %}" data-bs-interval="false">
@@ -95,7 +94,7 @@
               {% for item in feature_photos_list %}
                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
                   <div class="feature-wrapper mx-auto text-center">
-                    <img src="{{ item.url }}" class="w-100" alt="{{ item.feature }} photo">
+                    <img src="{{ item.url }}" alt="{{ item.feature }} photo">
                     <h5 class="mt-2 d-inline-block px-2">{{ item.feature.name }}</h5>
                   </div>
                 </div>
@@ -116,7 +115,7 @@
     </div>
 
     <div class="col-md-6">
-      <div class="border rounded h-100">
+      <div class="border rounded h-md-100">
         <div class="p-3">      
           <h5 class="mb-3">Other Photos Submitted</h5>
           {% if other_photo_urls %}
@@ -125,7 +124,7 @@
               {% for url in other_photo_urls %}
                 <div class="carousel-item{% if forloop.first %} active{% endif %}">
                   <div class="feature-wrapper mx-auto text-center">
-                    <img src="{{ url }}" class="w-100" alt="Verification photo">
+                    <img src="{{ url }}" alt="Verification photo">
                   </div>
                 </div>
               {% endfor %}
