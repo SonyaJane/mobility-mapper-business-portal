@@ -3,16 +3,18 @@
 {% load allauth i18n %}
 {% load static %}
 
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
 {% block head_title %}
     {% trans "Signup" %}
 {% endblock head_title %}
 {% block inner_content %}
   <div class="d-flex justify-content-center align-items-center mt-4">
-    <div class="card shadow-sm" style="max-width:400px; width:100%;">
+    <div class="card signup-card p-3">
       <div class="card-body">
-        <div class="text-center mb-3">
-          <h3 class="card-title underline-orange d-inline-block mb-0">{% trans "Sign Up" %}</h3>
-        </div>
+        <h4 class="card-title underline-orange align-self-start mb-3">Sign Up</h4 >
         {% setvar link %}
             <a href="{{ login_url }}">
             {% endsetvar %}
@@ -22,44 +24,39 @@
         {% element p %}
             {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
         {% endelement %}
-        {% if not SOCIALACCOUNT_ONLY %}
           {% url 'account_signup' as action_url %}
-          <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.first_name|as_crispy_field }}
-            {{ form.last_name|as_crispy_field }}
-            {{ form.email|as_crispy_field }}
-            {{ form.confirm_email|as_crispy_field }}
-            {{ form.username|as_crispy_field }}
-            {{ form.has_business|as_crispy_field }}
-            {{ form.is_wheeler|as_crispy_field }}
-            <div id="mobility-devices-field">
-              {{ form.mobility_devices|as_crispy_field }}
-            </div>
-            <div id="mobility-other-field">
-              {{ form.mobility_devices_other|as_crispy_field }}
-            </div>
-            {{ form.country|as_crispy_field }}
-            {{ form.county|as_crispy_field }}
-            {{ form.age_group|as_crispy_field }}
-            {{ form.photo|as_crispy_field }}
-            {{ form.password1|as_crispy_field }}
-            {{ form.password2|as_crispy_field }}
-            {{ redirect_field }}
-            <div class="d-flex justify-content-center mt-3">
-              <button type="submit" class="btn btn-green px-5">{% trans "Sign Up" %}</button>
-            </div>
-          </form>
-        {% endif %}
+        <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.first_name|as_crispy_field }}
+          {{ form.last_name|as_crispy_field }}
+          {{ form.email|as_crispy_field }}
+          {{ form.confirm_email|as_crispy_field }}
+          {{ form.username|as_crispy_field }}
+          {{ form.has_business|as_crispy_field }}
+          {{ form.is_wheeler|as_crispy_field }}
+          <div id="mobility-devices-field">
+            {{ form.mobility_devices|as_crispy_field }}
+          </div>
+          <div id="mobility-other-field">
+            {{ form.mobility_devices_other|as_crispy_field }}
+          </div>
+          {{ form.country|as_crispy_field }}
+          {{ form.county|as_crispy_field }}
+          {{ form.age_group|as_crispy_field }}
+          {{ form.photo|as_crispy_field }}
+          {{ form.password1|as_crispy_field }}
+          {{ form.password2|as_crispy_field }}
+          {{ redirect_field }}
+          <div class="align-self-start mt-3">
+            <button type="submit" class="btn btn-green px-5">{% trans "Sign Up" %}</button>
+          </div>
+        </form>
         {% if PASSKEY_SIGNUP_ENABLED %}
           {% element hr %}
           {% endelement %}
           {% element button href=signup_by_passkey_url tags="prominent,signup,outline,primary" %}
               {% trans "Sign up using a passkey" %}
           {% endelement %}
-        {% endif %}
-        {% if SOCIALACCOUNT_ENABLED %}
-          {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
         {% endif %}
   </div>
     </div>
