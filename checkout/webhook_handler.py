@@ -63,27 +63,19 @@ class StripeWebHookHandler:
         """
         Handle the payment_intent.succeeded webhook from Stripe
         """
-        print('In handle_payment_intent_succeeded')
         intent = event.data.object
         pid = intent.get('id')
-        print('PaymentIntent ID:', pid)
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         # Try to find an existing Purchase by the PaymentIntent id
         purchase = Purchase.objects.filter(stripe_payment_intent_id=pid).first()
-        print('Found purchase:', purchase)
         # If there isn't a Purchase, create one using metadata stored on the PI
         if purchase is None:
-            print('Creating new purchase (get_or_create)')
             # Use the server-side cache data in a CheckoutCache object referenced by
             # cc_ref in PI metadata to create the Purchase (defensively)
             metadata = intent.get('metadata') or {}
-            print('Metadata from PaymentIntent:', metadata)
             cc_ref = metadata.get('cc_ref')
-            print('CheckoutCache reference ID:', cc_ref)
-
             cache = CheckoutCache.objects.filter(id=cc_ref).first() if cc_ref else None
-            print('Found CheckoutCache:', cache)
             form = getattr(cache, 'form_data', {}) or {}
             # Attach business and membership tier from the cache top-level fields
             biz_id = getattr(cache, 'business_id', None)
@@ -127,20 +119,17 @@ class StripeWebHookHandler:
             tier_id = purchase.membership_tier.id
             # If this was a membership purchase, upgrade the Business tier.
             business = Business.objects.filter(pk=int(biz_id)).first()
-            print('business:', business)
             purchase_type = purchase.purchase_type
             biz_id = purchase.business.id
             tier_id = purchase.membership_tier.id
             
             if purchase_type == 'membership':
-                print('upgrading business membership tier')
                 tier = MembershipTier.objects.filter(pk=int(tier_id)).first()
                 business.membership_tier = tier
                 business.save()
                 
             # If this was a verification purchase, set verification_requested to true
             if purchase_type == 'verification':
-                print('setting wheeler_verification_requested to true')
                 business.wheeler_verification_requested = True
                 business.save()
 

@@ -10,7 +10,6 @@ from django.core.mail import send_mail
 
 @login_required
 def proxy_os_tile(request, z, x, y):
-    print(f"OS tile request: z={z}, x={x}, y={y}")
     # Limit the maximum zoom level to 20
     max_zoom = 20
     if z > max_zoom:
@@ -20,8 +19,6 @@ def proxy_os_tile(request, z, x, y):
     tile_url = f"https://api.os.uk/maps/raster/v1/zxy/Road_3857/{z}/{x}/{y}.png?key={api_key}"
     
     response = requests.get(tile_url)
-
-    print(f"Tile response status: {response.status_code}")
 
     if response.status_code == 200:
         # Return the image content with appropriate content-type
