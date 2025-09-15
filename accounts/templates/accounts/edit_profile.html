@@ -62,8 +62,13 @@
     <div id="county-field">
       {{ form.county|as_crispy_field }}
     </div>
+    
+    {# Age group #}
+    {{ form.age_group|as_crispy_field }}
+
     {{ form.has_business|as_crispy_field }}
     {{ form.is_wheeler|as_crispy_field }}
+
     <!-- Mobility devices fields always rendered and toggled via JS -->
     <div id="mobility-devices-field" style="display:none">
       {{ form.mobility_devices|as_crispy_field }}
@@ -71,11 +76,9 @@
     <div id="mobility-other-field" style="display:none">
       {{ form.mobility_devices_other|as_crispy_field }}
     </div>
-    {# Age group #}
-    {{ form.age_group|as_crispy_field }}
     
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-    <a href="{% url 'account_dashboard' %}" class="btn btn-secondary ms-2">Cancel</a>
+    <button type="submit" class="btn btn-green">Save Changes</button>
+    <a href="{% url 'account_dashboard' %}" class="btn btn-orange-outline ms-2">Cancel</a>
   </form>
 </div>
 {% endblock %}

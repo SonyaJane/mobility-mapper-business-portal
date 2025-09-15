@@ -50,8 +50,8 @@ class WheelerVerification(models.Model):
 class WheelerVerificationPhoto(models.Model):
     verification = models.ForeignKey(WheelerVerification, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(
-    upload_to='mobility_mapper_business_portal/verification_photos/',
-    max_length=255,
+        upload_to='mobility_mapper_business_portal/verification_photos/',
+        max_length=255,
     )
     feature = models.ForeignKey(
         'businesses.AccessibilityFeature',
