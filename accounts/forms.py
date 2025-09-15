@@ -189,7 +189,6 @@ class UserProfileForm(forms.ModelForm):
     last_name = forms.CharField(
         max_length=30, 
         required=True, label='Last Name')
-    
     age_group = forms.ModelChoiceField(
         queryset=AgeGroup.objects.all(),
         required=True,
@@ -213,7 +212,6 @@ class UserProfileForm(forms.ModelForm):
         label='Please specify other device',
         widget=forms.TextInput(attrs={'placeholder': 'Specify other device'})
     )
-    
     photo = forms.FileField(
         label='Profile Photo',
         required=False,
@@ -272,27 +270,30 @@ class UserProfileForm(forms.ModelForm):
         - Delegates deep validation to validate_profile_photo
         Returns validated file or None.
         """
+        # Check if 'delete current photo' was ticked
+        clear_name = f"{self.add_prefix('photo')}-clear"
+        if self.data.get(clear_name):
+            # signal deletion
+            return False
+
+        # No new upload, keep existing photo, skip all validation
+        if 'photo' not in self.files or not self.files.get('photo'):
+            return getattr(self.instance, 'photo', None)
+
+        # New upload do validation
         photo = self.cleaned_data.get('photo')
         if not photo:
             return photo
-
-        name = getattr(photo, 'name', '') or ''
-        content_type = getattr(photo, 'content_type', '') or ''
-        allowed_exts = ('.png', '.jpg', '.jpeg', '.webp')
-        allowed_mimes = ('image/png', 'image/jpeg', 'image/webp')
-
-        if name and not name.lower().endswith(allowed_exts):
-            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
-        if content_type and content_type not in allowed_mimes:
-            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
 
         return validate_profile_photo(photo, purpose="profile photo")
 
     def clean(self):
         """
         Perform cross-field validation for mobility devices:
-        - If 'Other' device selected, require accompanying description.
-        Returns cleaned data after adding any field errors.
+        - If 'Other' device is selected, require a description in 'mobility_devices_other'.
+        - Only applies validation if at least one device is selected.
+        - Adds an error to 'mobility_devices_other' if required and missing.
+        - Returns cleaned data after adding any field errors.
         """
         cleaned = super().clean()
         devices = cleaned.get('mobility_devices') or []
@@ -303,29 +304,38 @@ class UserProfileForm(forms.ModelForm):
 
     def save(self, commit=True):
         """
-        Persist profile updates and synchronize related User:
-        - Updates business and wheeler flags
-        - Clears mobility devices + 'other' text if no longer a wheeler
-        - Handles optional photo removal via falsy sentinel
-        - Saves many-to-many relations only when user is a wheeler
-        Returns the saved UserProfile instance.
+        Save changes to the user profile and synchronize related User fields:
+        - Updates business ownership and wheeler status flags.
+        - Clears mobility devices and 'other' text if the user is no longer a wheeler.
+        - Handles optional profile photo removal if requested.
+        - Saves many-to-many mobility device relations only if the user is a wheeler.
+        Returns the updated UserProfile instance.
         """
-        profile = super().save(commit=False)
+        # handle photo deletion if requested
+        original_photo = getattr(self.instance, 'photo', None)
+        profile = super().save(commit=False) # get unsaved profile instance
+        # if "clear" was ticked, delete the original file from storage
+        if self.cleaned_data.get('photo') is False and original_photo:
+            original_photo.delete(save=False)
+            profile.photo = None
+
+        # update profile fields from form data
         profile.has_business = self.cleaned_data.get('has_business', False)
         profile.is_wheeler = self.cleaned_data.get('is_wheeler', False)
         profile.country = self.cleaned_data.get('country') or ''
         profile.county = self.cleaned_data.get('county') or None
         profile.age_group = self.cleaned_data.get('age_group') or None
+        # only set mobility devices if user is a wheeler
         if profile.is_wheeler:
             profile.mobility_devices_other = self.cleaned_data.get('mobility_devices_other', '')
         else:
             profile.mobility_devices_other = ''
         user = profile.user
+        # update user fields from form data
         user.first_name = self.cleaned_data.get('first_name', user.first_name)
         user.last_name = self.cleaned_data.get('last_name', user.last_name)
-        if self.cleaned_data.get('photo', None) is False:
-            profile.photo.delete(save=False)
-            profile.photo = None
+        
+        # save both user and profile if commit=True
         if commit:
             user.save()
             profile.save()
