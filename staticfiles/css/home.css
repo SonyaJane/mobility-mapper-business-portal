@@ -1,0 +1,68 @@
+/* Highlight the hero image and heading */
+.hero-image {
+    max-height: 250px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+
+.display-4 {
+    font-weight: 700;
+    color: #2d3e50;
+}
+
+.lead {
+    color: #555;
+}
+
+/* Card enhancements */
+.card {
+    border: none;
+    border-radius: 16px;
+    transition: box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    transform: translateY(-2px) scale(1.02);
+}
+.card-title {
+    color: #f47c20; /* Mango accent */
+    font-weight: 600;
+}
+.card-text {
+    color: #444;
+}
+
+/* CTA buttons */
+.btn-primary, .btn-outline-primary {
+    border-radius: 24px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+.btn-link {
+    color: #f47c20;
+    font-weight: 500;
+    text-decoration: underline;
+}
+.btn-link:hover {
+    color: #d65a00;
+    text-decoration: none;
+}
+
+/* Blockquote styling */
+.blockquote {
+    background: #f8f9fa;
+    border-left: 5px solid #f47c20;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: #333;
+}
+.blockquote-footer {
+    color: #888;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
