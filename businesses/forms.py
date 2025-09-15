@@ -224,15 +224,30 @@ class BusinessUpdateForm(BusinessRegistrationForm):
     class Meta(BusinessRegistrationForm.Meta):
         # remove the 'membership_tier' field from the registration form
         fields = [f for f in BusinessRegistrationForm.Meta.fields if f != 'membership_tier']
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # pop it again in case parent __init__ already added it
         self.fields.pop('membership_tier', None)
-    
+
     def clean_logo(self):
-        # if no new upload, leave the existing logo untouched
+        clear_name = f"{self.add_prefix('logo')}-clear"
+        if self.data.get(clear_name):
+            # wipe out the logo
+            return None
         if 'logo' not in self.files or not self.files.get('logo'):
             return self.instance.logo
-        # otherwise do the usual validation
         return super().clean_logo()
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        # if the user ticked the clear box, kick off a delete
+        clear_name = f"{self.add_prefix('logo')}-clear"
+        if self.data.get(clear_name) and instance.logo:
+            # deletes the file from storage
+            instance.logo.delete(save=False)
+            instance.logo = None
+        if commit:
+            instance.save()
+            self.save_m2m()
+        return instance
