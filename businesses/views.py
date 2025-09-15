@@ -13,7 +13,7 @@ from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.views.decorators.http import require_GET
 
-from .forms import BusinessRegistrationForm
+from .forms import BusinessRegistrationForm, BusinessUpdateForm
 from .models import Category
 from .models import Business, MembershipTier
 from accounts.models import UserProfile
@@ -216,7 +216,7 @@ def edit_business(request):
                 json.loads(post_data['opening_hours'])
         except Exception:
             post_data['opening_hours'] = ''
-        form = BusinessRegistrationForm(post_data, request.FILES, instance=business)
+        form = BusinessUpdateForm(post_data, request.FILES, instance=business)
         if form.is_valid():
             business = form.save(commit=False)
             business.business_owner = getattr(request.user, 'profile', None)
@@ -239,7 +239,7 @@ def edit_business(request):
     else:
         # Deserialize opening_hours JSON for the form field
         initial = business.opening_hours if business.opening_hours else ''
-        form = BusinessRegistrationForm(instance=business, initial={'opening_hours': initial})
+        form = BusinessUpdateForm(instance=business, initial={'opening_hours': initial})
 
     days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     # Determine selected values for pre-selecting in template

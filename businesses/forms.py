@@ -1,10 +1,9 @@
 from django import forms
-from .models import Business, MembershipTier
-from core.widgets import MapLibrePointWidget
-from .models import AccessibilityFeature, Category
-from core.validators import validate_logo
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
+from .models import Business, MembershipTier, AccessibilityFeature, Category
+from core.widgets import MapLibrePointWidget
+from core.validators import validate_logo
 
 
 class BusinessRegistrationForm(forms.ModelForm):
@@ -135,19 +134,23 @@ class BusinessRegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        
+        # only configure membership_tier if it still exists
+        if 'membership_tier' in self.fields:
+            self.fields['membership_tier'].queryset = MembershipTier.objects.filter(is_active=True)
+            self.fields['membership_tier'].queryset = MembershipTier.objects.filter(is_active=True)
+            self.fields['membership_tier'].empty_label = "Select a membership tier"
+            try:
+                free_tier = MembershipTier.objects.filter(tier__iexact='Free', is_active=True).first()
+                if free_tier:
+                    self.initial['membership_tier'] = free_tier.pk
+            except MembershipTier.DoesNotExist:
+                pass
         # Make location input required in HTML
         self.fields['location'].widget.attrs['required'] = True
         # purchase categories by group and name so grouping works correctly
         self.fields['categories'].queryset = Category.objects.all().order_by('group_description', 'name')
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
-        self.fields['membership_tier'].queryset = MembershipTier.objects.filter(is_active=True)
-        self.fields['membership_tier'].empty_label = "Select a membership tier"
-        try:
-            free_tier = MembershipTier.objects.filter(tier__iexact='Free', is_active=True).first()
-            if free_tier:
-                self.initial['membership_tier'] = free_tier.pk
-        except MembershipTier.DoesNotExist:
-            pass
 
     def clean_location(self):
         """
@@ -216,3 +219,20 @@ class BusinessRegistrationForm(forms.ModelForm):
                 instance.categories.add(category)
         return instance
 
+
+class BusinessUpdateForm(BusinessRegistrationForm):
+    class Meta(BusinessRegistrationForm.Meta):
+        # remove the 'membership_tier' field from the registration form
+        fields = [f for f in BusinessRegistrationForm.Meta.fields if f != 'membership_tier']
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # pop it again in case parent __init__ already added it
+        self.fields.pop('membership_tier', None)
+    
+    def clean_logo(self):
+        # if no new upload, leave the existing logo untouched
+        if 'logo' not in self.files or not self.files.get('logo'):
+            return self.instance.logo
+        # otherwise do the usual validation
+        return super().clean_logo()
