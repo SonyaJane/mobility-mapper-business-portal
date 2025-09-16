@@ -58,7 +58,7 @@
                 <td class="align-middle ps-3"><i class="bi bi-geo-alt fs-5 me-2 text-brown"></i><strong>Address:</strong></td>
                 {% if business.address %}
                 <td class="align-middle">
-                    {{ business.address }}
+                    {{ business.street_address1 }}{% if business.street_address2 %}, {{ business.street_address2 }}{% endif %}, {{ business.town_or_city }}{% if business.county %}, {{ business.county }}{% endif %} {{ business.postcode }}
                   {% else %}
                   <td class="align-left">
                     <a href="{% url 'edit_business' %}" class="btn btn-sm btn-coffee-outline">Add address</a>
