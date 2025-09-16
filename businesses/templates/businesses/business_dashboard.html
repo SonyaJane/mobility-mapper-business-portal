@@ -293,12 +293,12 @@
           <a href="{% url 'request_wheeler_verification' business.id %}" class="btn btn-mango-outline my-2 align-self-start">Request Wheeler Verification</a>
         {% endif %}
         {% if business.verifications.exists %}
-        <h3 class="mt-3">Verification Reports</h3>
+        <h3>Verification Reports</h3>
         <ul class="mb-3 ps-0">
           {% for verification in business.verifications.all %}
           <li class="list-group-item mb-2">
-            <a href="{% url 'verification_report' verification.id %}">
-              <i class="bi bi-file-earmark-text"></i> Report #{{ forloop.counter }} on {{ verification.date_verified|date:"F j, Y" }}
+            <a href="{% url 'verification_report' verification.id %}" class="text-orange">
+              <i class="bi bi-file-earmark-text text-orange"></i> Report #{{ forloop.counter }} on {{ verification.date_verified|date:"F j, Y" }}
             </a>
           </li>
           {% endfor %}
