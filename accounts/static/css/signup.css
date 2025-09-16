@@ -7,7 +7,7 @@
 /* remove card border and shadow on smaller screens */
 @media (max-width: 576px) {
     .signup-card {
-        --bs-border-width: 0;
+        border-width: 0;
         box-shadow: none;
     }
 }
