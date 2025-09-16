@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+import django.contrib.messages as messages
+
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-
 from accounts.models import UserProfile
 from businesses.models import Business
 from verification.models import WheelerVerificationApplication, WheelerVerification
@@ -31,6 +32,7 @@ def edit_profile(request):
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
+            messages.success(request, "Your profile has been updated successfully.")
             return redirect('account_dashboard')
     else:
         form = UserProfileForm(instance=profile)
