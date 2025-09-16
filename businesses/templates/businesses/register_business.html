@@ -9,150 +9,147 @@
 
 {% block content %}
 
-<div class="content-container p-2 p-sm-3 custom-constrained-width">
-    <div class="text-center mb-3">
-      <h3 class="underline-orange align-self-center tier-heading">Register Your Accessible Business</h3>
+<div class="content-container my-3 p-2 p-sm-3 custom-constrained-width">
+  <h3 class="underline-orange align-self-start mb-3 tier-heading">Register Your Accessible Business</h3>
+  <p class="mt-1">The details you enter below will appear in the public 
+    search results on the 
+    <a href="{% url 'accessible_business_search' %}" class="text-orange">
+    Search for Accessible Businesses</a> page. Therefore, the more complete and 
+    accurate your listing, the better potential customers can find and choose your business.</p>
+
+  <p>After registering, you can request verification of your business' 
+    accessibility features via your business profile. 
+    Wheelers can then apply to carry out the verification. 
+    Once verified, your business will display a special badge 
+    (shown below) in the search results to indicate trusted, accessible locations.</p>
+
+  <div class="text-center mt-1 mb-3">
+    <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
+      <span class="fw-bold">
+        <i class="bi bi-check-circle-fill pe-2"></i>
+        Verified by Wheelers
+      </span>
     </div>
+  </div>
 
-    <p class="mt-1">The details you enter below will appear in the public 
-      search results on the 
-      <a href="{% url 'accessible_business_search' %}" class="text-orange">
-      Search for Accessible Businesses</a> page. Therefore, the more complete and 
-      accurate your listing, the better potential customers can find and choose your business.</p>
-
-    <p>After registering, you can request verification of your business' 
-      accessibility features via your business profile. 
-      Wheelers can then apply to carry out the verification. 
-      Once verified, your business will display a special badge 
-      (shown below) in the search results to indicate trusted, accessible locations.</p>
-
-    <div class="text-center mt-1 mb-3">
-      <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
-        <span class="fw-bold">
-          <i class="bi bi-check-circle-fill pe-2"></i>
-          Verified by Wheelers
-        </span>
+  <form method="POST" enctype="multipart/form-data" class="business-registration-form">
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <strong>Please correct the errors below:</strong>
+        <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            {% if field.name == 'categories' or field.name == 'accessibility_features' %}
+              <li>
+                <strong>{{ field.label }}</strong><br>
+                {{ error }}
+              </li>
+            {% else %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
       </div>
-    </div>
+    {% endif %}
 
-    <form method="POST" enctype="multipart/form-data" class="business-registration-form">
-      {% if form.errors %}
-        <div class="alert alert-danger">
-          <strong>Please correct the errors below:</strong>
-          <ul>
-          {% for field in form %}
-            {% for error in field.errors %}
-              {% if field.name == 'categories' or field.name == 'accessibility_features' %}
-                <li>
-                  <strong>{{ field.label }}</strong><br>
-                  {{ error }}
-                </li>
-              {% else %}
-                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-              {% endif %}
-            {% endfor %}
-          {% endfor %}
-          {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-          </ul>
-        </div>
+    {% csrf_token %}
+    {{ form.media }} 
+    
+    <!-- Other Form Fields -->
+    {% for field in form.visible_fields %}
+      {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'membership_tier' and field.name != 'opening_hours' and field.name != 'special_offers' %}
+        {{ field|as_crispy_field }}
       {% endif %}
+    {% endfor %}
 
-      {% csrf_token %}
-      {{ form.media }} 
-      
-      <!-- Other Form Fields -->
-      {% for field in form.visible_fields %}
-        {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'membership_tier' and field.name != 'opening_hours' and field.name != 'special_offers' %}
-          {{ field|as_crispy_field }}
-        {% endif %}
-      {% endfor %}
-
-      <!-- Categories (grouped multi-select dropdown) -->
-      <div class="mb-3">
-        <label for="id_categories" class="form-label">
-          Business Categories
-          <br>
-          <span class="form-text">Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</span>
-        </label>
-        {% regroup form.fields.categories.queryset by group_description as grouped_categories %}
-        <select name="categories" id="id_categories" class="form-select" multiple size="8">
+    <!-- Categories (grouped multi-select dropdown) -->
+    <div class="mb-3">
+      <label for="id_categories" class="form-label">
+        Business Categories
+        <br>
+        <span class="form-text">Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</span>
+      </label>
+      {% regroup form.fields.categories.queryset by group_description as grouped_categories %}
+      <select name="categories" id="id_categories" class="form-select mb-3" multiple size="8">
+        {% for group in grouped_categories %}
+          {% if group.grouper %}
+          <optgroup label="{{ group.grouper }}">
+            {% for category in group.list %}
+              <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected_categories %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+          </optgroup>
+          {% endif %}
+        {% endfor %}
+        <optgroup label="Other">
           {% for group in grouped_categories %}
-            {% if group.grouper %}
-            <optgroup label="{{ group.grouper }}">
+            {% if not group.grouper %}
               {% for category in group.list %}
                 <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected_categories %}selected{% endif %}>{{ category.name }}</option>
               {% endfor %}
-            </optgroup>
             {% endif %}
           {% endfor %}
-          <optgroup label="Other">
-            {% for group in grouped_categories %}
-              {% if not group.grouper %}
-                {% for category in group.list %}
-                  <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected_categories %}selected{% endif %}>{{ category.name }}</option>
-                {% endfor %}
-              {% endif %}
-            {% endfor %}
-            <option value="__other__" {% if '__other__' in selected_categories %}selected{% endif %}>Other</option>
-          </optgroup>
-        </select>
-        <div id="other-category-field" class="my-3" style="display: none;">
-          {{ form.other_category|as_crispy_field }}
-        </div>
-      </div>
-
-      <!-- Accessibility Features -->
-      <div class="mb-3">
-        <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
-        <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
-          {% for feature in form.fields.accessibility_features.queryset %}
-            <option value="{{ feature.pk }}" {% if form.accessibility_features.value and feature.pk|stringformat:'s' in form.accessibility_features.value %}selected{% endif %}>{{ feature.name }}</option>
-          {% endfor %}
-        </select>
-      </div>
-
-      <!-- Opening Hours Widget -->
-      <div class="mb-3">
-        <label class="form-label">
-          Business Hours<br>
-          <span class="form-text text-muted">Set opening and closing times for each day that your business is open.</span>
-        </label>
-        <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
-        <table class="table table-bordered" id="opening-hours-table">
-          <thead>
-            <tr><th>Day</th><th>Periods</th><!-- <th>Closed</th> removed -->
-            </tr>
-          </thead>
-          <tbody>
-            {% for day in days_of_week %}
-            <tr data-day="{{ day }}">
-              <td>{{ day }}</td>
-              <td>
-                <div class="periods-container"></div>
-                <div class="d-flex justify-content-end gap-2 flex-column flex-sm-row">
-                  <button type="button" class="btn btn-sm btn-orange-outline add-period-btn" data-day="{{ day }}">Add period</button>
-                  <button type="button" class="btn btn-sm btn-coffee-outline copy-down-btn" data-day="{{ day }}">Copy to next day</button>
-                </div>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Special Offers -->
-      <div class="mb-3">
-        <label for="id_special_offers" class="form-label">
-          Special Offers for Wheelers
-        </label>
-        {{ form.special_offers }}
+          <option value="__other__" {% if '__other__' in selected_categories %}selected{% endif %}>Other</option>
+        </optgroup>
+      </select>
+      <div id="other-category-field" class="mb-3" style="display: none;">
+        {{ form.other_category|as_crispy_field }}
       </div>
     </div>
 
+    <!-- Accessibility Features -->
+    <div class="mb-3">
+      <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
+      <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
+        {% for feature in form.fields.accessibility_features.queryset %}
+          <option value="{{ feature.pk }}" {% if form.accessibility_features.value and feature.pk|stringformat:'s' in form.accessibility_features.value %}selected{% endif %}>{{ feature.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Opening Hours Widget -->
+    <div class="mb-3">
+      <label class="form-label">
+        Business Hours<br>
+        <span class="form-text text-muted">Set opening and closing times for each day that your business is open.</span>
+      </label>
+      <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
+      <table class="table table-bordered" id="opening-hours-table">
+        <thead>
+          <tr><th>Day</th><th>Periods</th><!-- <th>Closed</th> removed -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for day in days_of_week %}
+          <tr data-day="{{ day }}">
+            <td>{{ day }}</td>
+            <td>
+              <div class="periods-container"></div>
+              <div class="d-flex justify-content-end gap-2 flex-column flex-sm-row">
+                <button type="button" class="btn btn-sm btn-orange-outline add-period-btn" data-day="{{ day }}">Add period</button>
+                <button type="button" class="btn btn-sm btn-coffee-outline copy-down-btn" data-day="{{ day }}">Copy to next day</button>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Special Offers -->
+    <div class="mb-3">
+      <label for="id_special_offers" class="form-label">
+        Special Offers for Wheelers
+      </label>
+      {{ form.special_offers }}
+    </div>
+  </div>
+
   <!-- Membership Tiers -->
-  <div class="content-container p-3">
+  <div class="content-container p-2">
     <h4 class="mb-4">Choose a Membership Tier</h4>
     <input type="hidden" name="membership_tier" id="selected-membership-tier" value="{{ form.initial.membership_tier }}">
 
