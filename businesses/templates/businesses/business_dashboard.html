@@ -253,7 +253,7 @@
                 <p class="mb-3">You're on the Free tier. Upgrade to make your business stand out!</p>
                 <a href="{% url 'upgrade_membership' %}" class="btn btn-green-outline">Explore Plans</a>                
               {% elif business.membership_tier.tier == 'standard' %}
-                <p class="mb-2">You're on the Standard tier. Upgrade to Premium for highlighted placement and included verification!</p>
+                <p class="mb-3">You're on the Standard tier. Upgrade to Premium for highlighted placement and included verification!</p>
                 {% comment %} View existing membership: {% endcomment %}
                 <div class="d-flex gap-2 flex-wrap">
                   <a href="{% url 'upgrade_membership' %}" class="btn btn-green-outline">Upgrade to Premium</a>
@@ -273,7 +273,7 @@
     <div class="col-12 col-md-6">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
-        <h3 class="card-title mb-2">Accessibility Verification</h3>
+        <h3 class="card-title mb-3">Accessibility Verification</h3>
         {% if business.verified_by_wheelers %}
         <div class="mt-1 mb-3">
           <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
@@ -293,8 +293,8 @@
           <a href="{% url 'request_wheeler_verification' business.id %}" class="btn btn-mango-outline my-2 align-self-start">Request Wheeler Verification</a>
         {% endif %}
         {% if business.verifications.exists %}
-        <h3>Verification Reports</h3>
-        <ul class="mb-3 ps-0">
+        <h3 class="mb-3">Verification Reports</h3>
+        <ul class="mb-0 ps-0">
           {% for verification in business.verifications.all %}
           <li class="list-group-item mb-2">
             <a href="{% url 'verification_report' verification.id %}" class="text-orange">
