@@ -57,7 +57,7 @@
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-geo-alt fs-5 me-2 text-brown"></i><strong>Address:</strong></td>
                 {% if business.street_address1 %}
-                <td class="align-middle">
+                <td class="align-middle pe-3">
                     {{ business.street_address1 }}{% if business.street_address2 %}, {{ business.street_address2 }}{% endif %}, {{ business.town_or_city }}{% if business.county %}, {{ business.county }}{% endif %} {{ business.postcode }}
                   {% else %}
                   <td class="align-left">
@@ -260,7 +260,7 @@
                   <a href="{% url 'view_existing_membership' %}" class="btn btn-orange-outline">View Current Membership</a>
                 </div>
               {% else %}
-                <p class="mb-2">You're on the Premium tier. Enjoy highlighted placement and included verification!</p>
+                <p class="mb-3">You're on the Premium tier. Enjoy highlighted placement and included verification!</p>
                 <a href="{% url 'view_existing_membership' %}" class="btn btn-orange-outline">View Current Membership</a>
               {% endif %}
             {% endif %}
@@ -275,7 +275,14 @@
         <div class="card-body">
         <h3 class="card-title mb-2">Accessibility Verification</h3>
         {% if business.verified_by_wheelers %}
-          <p class="text-success fw-bold mt-2">✅ Verified by Wheelers</p>
+        <div class="mt-1 mb-3">
+          <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
+            <span class="fw-bold">
+              <i class="bi bi-check-circle-fill pe-2"></i>
+              Verified by Wheelers
+            </span>
+          </div>
+        </div>
         {% elif business.wheeler_verification_requested %}
           {% if business.verifications.exists %}
           <div class="alert alert-warning mt-2">⏳ Verification in progress</div>
