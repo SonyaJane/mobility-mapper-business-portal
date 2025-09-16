@@ -68,7 +68,7 @@
               {% if user.is_authenticated %}
                 <li class="nav-item mb-2">
                   <a class="nav-link{% if request.resolver_match.url_name == 'account_dashboard' %} active{% endif %}" href="{% url 'account_dashboard' %}">
-                    {% if not user.profile or not user.profile.has_business %}Your Profile{% else %}Personal Dashboard{% endif %}
+                    Personal Dashboard
                   </a>
                 </li>
                 {% if user.profile and user.profile.has_business %}
@@ -120,7 +120,7 @@
               {% if user.is_authenticated %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'account_dashboard' %}">
-                    {% if not user.profile or not user.profile.has_business %}Your Profile{% else %}Personal Dashboard{% endif %}
+                    Personal Dashboard
                   </a>
                 </li>
                 {% if user.profile and user.profile.has_business %}
