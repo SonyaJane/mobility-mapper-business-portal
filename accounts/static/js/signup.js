@@ -39,7 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
     updateDevicesVisibility();
     // Show/hide other device text input when 'Other' checkbox changes
     function updateOtherVisibility() {
-    const otherCheckbox = document.querySelector('#mobility-devices-field input[type="checkbox"][value="other"]');
+    // Find the checkbox whose label text is "Other"
+    const otherCheckbox = Array.from(devicesField.querySelectorAll('input[type="checkbox"]'))
+    .find(cb => cb.parentElement.textContent.trim().toLowerCase() === 'other');
     if (otherCheckbox && otherCheckbox.checked) {
         otherField.style.display = 'block';
     } else {
