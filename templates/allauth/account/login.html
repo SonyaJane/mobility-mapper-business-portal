@@ -6,8 +6,8 @@
 {% block head_title %}
     {% trans "Sign In" %}
 {% endblock head_title %}
-{% block inner_content %}
-  <div class="d-flex justify-content-center align-items-center mt-4">
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center my-md-4 p-2">
     <div class="card shadow-sm" style="max-width:400px; width:100%;">
       <div class="card-body">
         <h3 class="card-title underline-orange align-self-start mb-3">Sign In</h3>        
@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-{% endblock inner_content %}
+{% endblock content %}
 {% block extra_body %}
     {{ block.super }}
     {% if PASSKEY_LOGIN_ENABLED %}
