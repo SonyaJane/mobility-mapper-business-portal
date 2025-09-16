@@ -10,8 +10,8 @@
 {% block head_title %}
     {% trans "Signup" %}
 {% endblock head_title %}
-{% block inner_content %}
-  <div class="d-flex justify-content-center align-items-center mt-4">
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center mt-sm-4">
     <div class="card signup-card p-3">
       <div class="card-body">
         <h4 class="card-title underline-orange align-self-start mb-3">Sign Up</h4 >
@@ -61,7 +61,7 @@
   </div>
     </div>
   </div>
-{% endblock inner_content %}
+{% endblock content %}
 
 {% block extra_js %}
   <script src="{% static 'js/signup.js' %}"></script>
