@@ -257,12 +257,11 @@
                 {% comment %} View existing membership: {% endcomment %}
                 <div class="d-flex gap-2 flex-wrap">
                   <a href="{% url 'upgrade_membership' %}" class="btn btn-green-outline">Upgrade to Premium</a>
-                  <a href="{% url 'view_existing_membership' %}" class="btn btn-orange-outline">View Current Membership</a>
                 </div>
               {% else %}
                 <p class="mb-3">You're on the Premium tier. Enjoy highlighted placement and included verification!</p>
+                {% endif %}
                 <a href="{% url 'view_existing_membership' %}" class="btn btn-orange-outline">View Current Membership</a>
-              {% endif %}
             {% endif %}
           </div>
         </div>
