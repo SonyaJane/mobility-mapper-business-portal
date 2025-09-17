@@ -222,7 +222,6 @@ def wheeler_verification_application(request, pk):
                 message=(f"A new application to verify the accessibility features has been submitted for "
                          f"{business.business_name} by {request.user.username}. Review in admin.")
             )
-            messages.success(request, "Application submitted — we'll review it and contact you.")
             return redirect('application_submitted', pk=pk)
         messages.info(request, "You already have a pending verification request for this business.")
         return redirect('business_detail', pk=pk)
