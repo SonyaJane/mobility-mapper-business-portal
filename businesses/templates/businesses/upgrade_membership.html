@@ -4,9 +4,9 @@
 {% block page_title %}Membership Options{% endblock %}
 
 {% block content %}
-<div class="content-container custom-constrained-width p-3">
+<div class="content-container custom-constrained-width p-1 p-sm-3 mt-1 my-md-3">
 
-  <h4 class="underline-orange my-3 align-self-start">Membership Options</h4>
+  <h4 class="underline-orange align-self-start mb-3">Membership Options</h4>
 
   {% if current_tier %}
   <p class="mb-3">You're currently on the <strong>{{ current_tier.get_tier_display }}</strong> tier, which includes the following benefits:</p>
