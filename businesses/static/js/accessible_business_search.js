@@ -48,7 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (clearAccessBtn) {
             accessibilityChoices.passedElement.element.addEventListener('change', () => {
                 const hasSelected = accessibilityChoices.getValue(true).length > 0;
-                clearAccessBtn.classList.remove('hide', !hasSelected);
+                if (hasSelected) {
+                    clearAccessBtn.classList.remove('hide');
+                } else {
+                    clearAccessBtn.classList.add('hide');
+                }
             });
         }
     }
