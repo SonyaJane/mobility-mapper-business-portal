@@ -251,17 +251,19 @@
             {% if business.membership_tier %}
               {% if business.membership_tier.tier == 'free' %}
                 <p class="mb-3">You're on the Free tier. Upgrade to make your business stand out!</p>
-                <a href="{% url 'upgrade_membership' %}" class="btn btn-green-outline">Explore Plans</a>                
+                <div class="d-flex gap-2 flex-wrap">
+                  <a href="{% url 'upgrade_membership' %}" class="btn btn-green-outline">Explore Plans</a>                
               {% elif business.membership_tier.tier == 'standard' %}
                 <p class="mb-3">You're on the Standard tier. Upgrade to Premium for highlighted placement and included verification!</p>
-                {% comment %} View existing membership: {% endcomment %}
                 <div class="d-flex gap-2 flex-wrap">
                   <a href="{% url 'upgrade_membership' %}" class="btn btn-green-outline">Upgrade to Premium</a>
-                </div>
               {% else %}
                 <p class="mb-3">You're on the Premium tier. Enjoy highlighted placement and included verification!</p>
-                {% endif %}
-                <a href="{% url 'view_existing_membership' %}" class="btn btn-orange-outline">View Current Membership</a>
+                <div>
+              {% endif %}
+                  {% comment %} Always show view current membership button {% endcomment %}
+                  <a href="{% url 'view_existing_membership' %}" class="btn btn-orange-outline">View Current Membership</a>
+                </div>
             {% endif %}
           </div>
         </div>
