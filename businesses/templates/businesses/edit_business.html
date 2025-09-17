@@ -11,7 +11,7 @@
 
 <div id="edit-business" class="content-container mw-600 p-3">
 
-  <h4 class="my-3 underline-orange align-self-start">Edit your business</h4>
+  <h4 class="mt-1 mb-3 my-md-3 underline-orange align-self-start">Edit your business</h4>
   
   <p class="mt-1">The details you enter below will appear in the public search results on the <a href="{% url 'accessible_business_search' %}" class="link-body-emphasis">Search for Accessible Businesses</a> page. Therefore, the more complete and accurate your listing, the better potential customers can find and choose your business.</p>
 
@@ -158,13 +158,14 @@
       {{ form.membership_tier.as_hidden }}
     {% endif %}
 
-    <button type="submit" class="btn btn-success">Save Changes</button>
-    <a href="{% url 'business_dashboard' %}" class="btn btn-secondary">Cancel</a>
-
-    <!-- Delete Business Button -->
-    <button type="button" class="btn btn-danger float-end ms-2" data-bs-toggle="modal" data-bs-target="#deleteBusinessModal">
-      Delete Business
-    </button>
+    <div class="d-flex flex-wrap gap-2">
+      <button type="submit" class="btn btn-green text-nowrap">Save Changes</button>
+      <a href="{% url 'business_dashboard' %}" class="btn btn-orange text-nowrap">Cancel</a>
+      <!-- Delete Business Button -->
+      <button type="button" class="btn btn-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#deleteBusinessModal">
+        Delete Business
+      </button>
+    </div>
 
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteBusinessModal" tabindex="-1" aria-labelledby="deleteBusinessModalLabel" aria-hidden="true">
@@ -180,7 +181,7 @@
           <div class="modal-footer">
             <form method="post" action="{% url 'delete_business' %}">
               {% csrf_token %}
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-orange-outline" data-bs-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>
           </div>
