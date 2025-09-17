@@ -1,8 +1,8 @@
 # Dev
 # python manage.py flush --no-input
-# python manage.py loaddata accounts\fixtures\counties.json businesses\fixtures\accessibility_features.json businesses\fixtures\business_categories.json businesses\fixtures\membership_tiers.json accounts\fixtures\age_groups.json accounts\fixtures\mobility_devices.json
+# python manage.py loadpython manage.py loaddata fixtures/user.json accounts/fixtures/userprofile.json fixtures/emailaddress.json businesses/fixtures/business.json verification/fixtures/wheelerverification.json verification/fixtures/wheelerverificationapplication.json verification/fixtures/wheelerverificationphoto.json checkout/fixtures/purchase.jsondata accounts\fixtures\counties.json businesses\fixtures\accessibility_features.json businesses\fixtures\business_categories.json businesses\fixtures\membership_tiers.json accounts\fixtures\age_groups.json accounts\fixtures\mobility_devices.json
 # python scripts/generate_fake_users.py
-# python manage.py loaddata fixtures/user.json accounts/fixtures/userprofile.json fixtures/emailaddress.json businesses/fixtures/business.json verification/fixtures/wheelerverification.json verification/fixtures/wheelerverificationapplication.json verification/fixtures/wheelerverificationphoto.json
+# 
 # python manage.py createsuperuser
 
 # Prod
@@ -261,7 +261,7 @@ for user in users:
 
 
 # Load UK boundary GeoJSON
-with open("static/geojson/uk-boundary.geojson", "r") as f:
+with open("businesses/static/geojson/uk-boundary.geojson", "r") as f:
     uk_geojson = geojson.load(f)
 uk_polygon = shape(uk_geojson["features"][0]["geometry"])
 
@@ -571,6 +571,124 @@ for ver in wheeler_verifications:
         photo_pk += 1
         
 fixture.extend(photo_fixtures)
+
+# --- PATCH: Generate Purchase fixtures for paid memberships ---
+
+# Map tier PK to tier code for quick lookup
+tier_pk_to_code = {tier.pk: tier.tier for tier in membership_tiers}
+
+purchase_fixtures = []
+purchase_pk = 1
+
+for biz in businesses:
+    fields = biz['fields']
+    owner_pk = fields['business_owner']
+    membership_tier_pk = fields.get('membership_tier')
+    if not membership_tier_pk:
+        continue
+    tier_code = tier_pk_to_code.get(membership_tier_pk)
+    if tier_code == 'free':
+        continue
+    # Set amount based on tier
+    amount = 100 if tier_code == 'standard' else 250 if tier_code == 'premium' else 0
+
+    # Get user info for owner
+    user = user_map.get(owner_pk, {})
+    purchase = {
+        "model": "checkout.purchase",
+        "pk": purchase_pk,
+        "fields": {
+            "purchase_number": f"FAKE{purchase_pk:08d}",
+            "purchase_type": "membership",
+            "user": owner_pk,
+            "business": biz["pk"],
+            "membership_tier": membership_tier_pk,
+            "full_name": f"{user.get('first_name', '')} {user.get('last_name', '')}".strip(),
+            "email": user.get("email", ""),
+            "phone_number": fields.get("contact_phone", ""),
+            "street_address1": fields.get("street_address1", ""),
+            "street_address2": fields.get("street_address2", ""),
+            "town_or_city": fields.get("town_or_city", ""),
+            "county": fields.get("county", ""),
+            "postcode": fields.get("postcode", ""),
+            "status": "completed",
+            "amount": amount,
+            "stripe_payment_intent_id": f"pi_fake_{purchase_pk}",
+            "raw_payload": {},
+            "metadata": {},
+            "created_at": str(fake.date_time_this_year(tzinfo=timezone.utc)),
+            "updated_at": str(fake.date_time_this_year(tzinfo=timezone.utc)),
+        }
+    }
+    purchase_fixtures.append(purchase)
+    purchase_pk += 1
+
+# Write to checkout/fixtures/purchase.json
+checkout_fixtures_dir = os.path.join(base_dir, "checkout", "fixtures")
+os.makedirs(checkout_fixtures_dir, exist_ok=True)
+purchase_fixture_path = os.path.join(checkout_fixtures_dir, "purchase.json")
+with open(purchase_fixture_path, "w") as f:
+    json.dump(purchase_fixtures, f, indent=2)
+print(f"Fixture file '{purchase_fixture_path}' created.")
+
+# --- PATCH: Generate Purchase fixtures for wheeler verification requests/completions ---
+
+verification_purchase_fixtures = []
+verification_purchase_pk = purchase_pk  # continue PKs from previous purchases
+
+for biz in businesses:
+    fields = biz['fields']
+    owner_pk = fields['business_owner']
+    membership_tier_pk = fields.get('membership_tier')
+    tier_code = tier_pk_to_code.get(membership_tier_pk)
+    # Skip premium tier
+    if tier_code == 'premium':
+        continue
+    # Only process if verification requested or received
+    if not (fields.get('wheeler_verification_requested') or fields.get('verified_by_wheelers')):
+        continue
+    # Set amount based on tier
+    amount = 60 if tier_code == 'free' else 30 if tier_code == 'standard' else 0
+    if amount == 0:
+        continue
+
+    user = user_map.get(owner_pk, {})
+    verification_purchase = {
+        "model": "checkout.purchase",
+        "pk": verification_purchase_pk,
+        "fields": {
+            "purchase_number": f"VERIF{verification_purchase_pk:08d}",
+            "purchase_type": "verification",
+            "user": owner_pk,
+            "business": biz["pk"],
+            "membership_tier": membership_tier_pk,
+            "full_name": f"{user.get('first_name', '')} {user.get('last_name', '')}".strip(),
+            "email": user.get("email", ""),
+            "phone_number": fields.get("contact_phone", ""),
+            "street_address1": fields.get("street_address1", ""),
+            "street_address2": fields.get("street_address2", ""),
+            "town_or_city": fields.get("town_or_city", ""),
+            "county": fields.get("county", ""),
+            "postcode": fields.get("postcode", ""),
+            "status": "completed",
+            "amount": amount,
+            "stripe_payment_intent_id": f"pi_verif_fake_{verification_purchase_pk}",
+            "raw_payload": {},
+            "metadata": {},
+            "created_at": str(fake.date_time_this_year(tzinfo=timezone.utc)),
+            "updated_at": str(fake.date_time_this_year(tzinfo=timezone.utc)),
+        }
+    }
+    verification_purchase_fixtures.append(verification_purchase)
+    verification_purchase_pk += 1
+
+# Append to the same purchase.json file
+purchase_fixtures.extend(verification_purchase_fixtures)
+
+# Overwrite the purchase fixture file with the new combined list
+with open(purchase_fixture_path, "w") as f:
+    json.dump(purchase_fixtures, f, indent=2)
+print(f"Fixture file '{purchase_fixture_path}' updated with verification purchases.")
 
 # Group fixtures by app and model
 app_model_fixtures = {}
