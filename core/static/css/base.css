@@ -489,14 +489,6 @@ h5, .h5 {
     padding: 12px; 
 }
 
-/* Request wheeler verification */
-/* Buttons: horizontal above 350px, stacked on very narrow screens */
-.btn-stack-350 {
-    display: flex !important;
-    gap: 0.5rem;
-    flex-direction: row;
-}
-
 #edit-profile label,
 #edit-profile legend {
   font-size: 1.1rem !important;
