@@ -10,8 +10,8 @@
 
 {% block content %}
 
-<div class="content-container custom-constrained-width p-3">
-    <h4 class="underline-orange my-3 align-self-start">Your Current Membership</h4>
+<div class="content-container custom-constrained-width p-3 my-1 my-md-3">
+    <h4 class="underline-orange mb-3 align-self-start">Your Current Membership</h4>
     <div class="mb-2">
         <p class="mb-1"><strong>Membership Tier:</strong> {{ membership.get_tier_display }}</p>
         <p class="mb-1"><strong>Start Date:</strong> {{ start_date|date:"N j, Y" }}</p>
@@ -22,7 +22,12 @@
                 <li>{{ benefit }}</li>
             {% endfor %}
         </ul>
+        <div class="d-flex flex-wrap gap-2">
+            {% if membership.tier == "standard" or membership.tier == "free" %}
+            <a href="{% url 'upgrade_membership' %}" class="btn btn-green mt-2 align-self-start">Upgrade Membership</a>
+            {% endif %}
+            <a href="{% url 'business_dashboard' %}" class="btn btn-orange-outline mt-2 align-self-start">Back to Dashboard</a>
+        </div>
     </div>
-    <a href="{% url 'upgrade_membership' %}" class="btn btn-green mt-2 align-self-start">Upgrade Membership</a>
 </div>
 {% endblock %}
