@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load dict_extras %}
 {% block content %}
-<div class="content-container m-1">
+<div class="content-container m-0 m-md-1">
   <div class="p-2">
 
-    <h3 class="my-3 underline-orange align-self-start">Accessibility Verification Hub</h3>
+    <h4 class="my-3 underline-orange align-self-start">Accessibility Verification Hub</h4>
     {% if requests %}
     <p class="mb-3">Welcome to the Accessibility Verification Hub, where you can manage your accessibility verification applications and reports.</p>
     <div class="table-responsive h-100 w-100" style="overflow:auto;">
@@ -22,7 +22,7 @@
         <tbody>
           {% for req in requests %}
           <tr>
-            <td>{{ req.business.business_name }}</td>
+            <td><a href="{% url 'business_details' req.business.id %}">{{ req.business.business_name }}</a></td>
             <td>
               {% if req.approved %}
                 <span class="badge bg-success">Approved</span>
@@ -32,10 +32,10 @@
                 <span class="badge bg-warning text-dark">Submitted</span>
               {% endif %}
             </td>
-            <td>{{ req.requested_at|date:"F j, Y" }}</td>
+            <td>{{ req.requested_at|date:"j F Y" }}</td>
             <td>
               {% if req.approved_at %}
-                {{ req.approved_at|date:"F j, Y" }}
+                {{ req.approved_at|date:"j F Y" }}
               {% else %}
                 <span class="text-muted">Waiting for approval</span>
               {% endif %}
