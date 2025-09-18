@@ -88,7 +88,9 @@
       </table>
     </div>
     {% else %}
-    <p>You have not made any verification requests yet. Please visit the <a href="{% url 'accessible_business_search' %}" class="text-orange">Accessible Business Search page</a> to find businesses looking for verification.</p>
+    <p>You have not made any verification requests yet.</p>
+    <p>Please visit the <a href="{% url 'accessible_business_search' %}" class="text-orange">Accessible Business Search page</a> to find businesses looking for verification.</p>
+    <a href="{% url 'accessible_business_search' %}" class="btn btn-green my-2">Go to Accessible Business Search</a>
     {% endif %}
   </div>
 </div>
