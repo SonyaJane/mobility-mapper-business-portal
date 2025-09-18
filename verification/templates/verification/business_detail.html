@@ -166,7 +166,7 @@
 
   <div class="row mb-3 g-3 d-flex align-items-stretch">  
     <!-- Accessibility Features Card -->
-    <div class="col-12 {% if opening_hours_dict %}col-sm-6{% endif %}">
+    <div class="col-12 {% if opening_hours %}col-sm-6{% endif %}">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
           <h5 class="card-title mb-3">Accessibility Features</h5>
@@ -192,7 +192,7 @@
             <div class="table-responsive">
               <table class="table table-sm table-striped table-hover mb-0" id="opening-hours-table-dashboard">
                 <tbody>
-                  {% for day, info in opening_hours_dict.items %}
+                  {% for day, info in opening_hours.items %}
                     <tr>
                       <td class="px-3 pe-sm-2"><strong>{{ day }}</strong></td>
                       <td class="px-4 px-sm-2">
