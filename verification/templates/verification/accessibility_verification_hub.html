@@ -22,7 +22,7 @@
         <tbody>
           {% for req in requests %}
           <tr>
-            <td><a href="{% url 'business_detail' req.business.id %}">{{ req.business.business_name }}</a></td>
+            <td><a href="{% url 'business_detail' req.business.id %}" class="text-orange">{{ req.business.business_name }}</a></td>
             <td>
               {% if req.approved %}
                 <span class="badge bg-success">Approved</span>
