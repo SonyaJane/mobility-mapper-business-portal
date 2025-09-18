@@ -88,8 +88,8 @@
       </table>
     </div>
     {% else %}
-    <p class="alert alert-info">You have not made any verification requests yet.</p>
-  {% endif %}
+    <p>You have not made any verification requests yet. Please visit the <a href="{% url 'accessible_business_search' %}" class="text-orange">Accessible Business Search page</a> to find businesses looking for verification.</p>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
