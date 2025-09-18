@@ -147,28 +147,18 @@ def business_dashboard(request):
                 "y": business.location.y,
             },
         }
-        # Parse and normalize opening_hours JSON for server-side table rendering
+        # Parse and normalise opening_hours JSON for server-side table rendering
         if business.opening_hours:
             try:
                 raw = json.loads(business.opening_hours)
                 normalized = {}
                 for day, info in raw.items():
                     periods = []
-                    # Legacy format: dict with 'closed' and 'periods'
-                    if isinstance(info, dict) and 'periods' in info:
-                        if not info.get('closed', False):
-                            for p in info.get('periods', []):
-                                start = p.get('open')
-                                end = p.get('close')
-                                if start and end:
-                                    periods.append({'start': start, 'end': end})
-                    # New list-only format
-                    elif isinstance(info, list):
-                        for p in info:
-                            start = p.get('start') or p.get('open')
-                            end = p.get('end') or p.get('close')
-                            if start and end:
-                                periods.append({'start': start, 'end': end})
+                    for p in info:
+                        start = p.get('start') or p.get('open')
+                        end = p.get('end') or p.get('close')
+                        if start and end:
+                            periods.append({'start': start, 'end': end})
                     normalized[day] = periods
                 opening_hours_dict = normalized
             except Exception:
