@@ -1,3 +1,5 @@
+import json
+
 import re
 from datetime import timedelta
 from decimal import Decimal
@@ -53,13 +55,24 @@ def business_detail(request, pk):
         HttpResponse: Rendered business detail template.
     """
     business = get_object_or_404(Business, pk=pk, is_approved=True)
-    import json
-    opening_hours = None
-    try:
-        if business.opening_hours:
-            opening_hours = json.loads(business.opening_hours)
-    except Exception:
-        opening_hours = None
+    # Parse and normalize opening_hours JSON for server-side table rendering
+    if business.opening_hours:
+        try:
+            raw = json.loads(business.opening_hours)
+            normalized = {}
+            for day, info in raw.items():
+                periods = []
+                for p in info:
+                    start = p.get('start') or p.get('open')
+                    end = p.get('end') or p.get('close')
+                    if start and end:
+                        periods.append({'start': start, 'end': end})
+                normalized[day] = periods
+            opening_hours_dict = normalized
+        except Exception:
+            opening_hours_dict = None
+    else:
+        opening_hours_dict = None
     # Prepare JSON for client-side map rendering
     business_json = {
         "business_name": business.business_name,
@@ -84,7 +97,7 @@ def business_detail(request, pk):
         ).exists()
     return render(request, 'verification/business_detail.html', {
         'business': business,
-        'opening_hours': opening_hours,
+        'opening_hours_dict': opening_hours_dict,
         'page_title': business.business_name,
         'business_json': business_json,
         'user_has_requested': user_has_requested,

@@ -12,21 +12,18 @@
 {% block content %}
 <div class="content-container mx-1">
   
-  <div class="row align-items-center my-4 mx-2 gy-4 gx-2 border rounded shadow-sm">
-  {% if business.logo %}
+  <div class="row align-items-center my-3 mx-2 gy-4 gx-2 border rounded shadow-sm">
     <div class="p-0 m-0 col-md-6 text-center">
-      <img src="{{ business.logo.url }}" alt="{{ business.business_name }} Logo" class="img-fluid rounded my-4 business-logo">
+      {% if logo_url %}
+      <img src="{{ logo_url }}" alt="{{ business.business_name }} Logo" class="img-fluid rounded my-4 business-logo">
+      {% else %}
+      <img src="{% static 'images/business_logo_placeholder.png' %}" alt="Business Logo Placeholder" class="img-fluid rounded my-4 business-logo">
+      {% endif %}
     </div>
-    <div class="col-md-6 text-center">
+    <div class="p-0 col-md-6 text-center">
       <h1 class="fw-bold">{{ business.business_name }}</h1>
     </div>
-  {% else %}
-    <div class="col-12 text-center">
-      <h1 class="fw-bold">{{ business.business_name }}</h1>
-    </div>
-  {% endif %}
   </div>
-
 
   <div class="row mb-3 g-3">
 
@@ -165,8 +162,9 @@
   </div>
 
   <div class="row mb-3 g-3 d-flex align-items-stretch">  
+    
     <!-- Accessibility Features Card -->
-    <div class="col-12 {% if opening_hours %}col-sm-6{% endif %}">
+    <div class="col-12 {% if business.opening_hours and opening_hours_dict %}col-sm-6{% endif %}">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
           <h5 class="card-title mb-3">Accessibility Features</h5>
@@ -184,26 +182,24 @@
     </div>
 
     <!-- Opening Hours Card -->
-    {% if opening_hours %}
     <div class="col-12 col-sm-6">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title ms-3 my-3">Opening Hours</h5>          
+          <h3 class="card-title ms-3 my-3">Opening Hours</h3>
+          {% if business.opening_hours and opening_hours_dict %}
             <div class="table-responsive">
               <table class="table table-sm table-striped table-hover mb-0" id="opening-hours-table-dashboard">
                 <tbody>
-                  {% for day, info in opening_hours.items %}
+                  {% for day, info in opening_hours_dict.items %}
                     <tr>
                       <td class="px-3 pe-sm-2"><strong>{{ day }}</strong></td>
                       <td class="px-4 px-sm-2">
-                        {% if info.closed %}
-                          <span class="text-muted">Closed</span>
-                        {% elif info.periods %}
-                          {% for period in info.periods %}
-                            <span>{{ period.open|format_time }} - {{ period.close|format_time }}</span>{% if not forloop.last %}<br>{% endif %}
+                        {% if info %}
+                          {% for period in info %}
+                            <span>{{ period.start|format_time }} - {{ period.end|format_time }}</span>{% if not forloop.last %}<br>{% endif %}
                           {% endfor %}
                         {% else %}
-                          <span class="text-muted">No hours set</span>
+                          <span class="text-muted">Closed</span>
                         {% endif %}
                       </td>
                     </tr>
@@ -211,10 +207,14 @@
                 </tbody>
               </table>
             </div>
+          {% else %}
+            <div class="p-3">
+              <p class="text-muted mb-0">No opening hours have been set for this business.</p>
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>
-    {% endif %}
   </div>
 
 </div>
