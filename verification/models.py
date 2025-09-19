@@ -5,6 +5,7 @@ Models for the verification app
 from django.conf import settings
 from django.db import models
 from businesses.models import AccessibilityFeature 
+from accounts.models import MobilityDevice
 
 class WheelerVerification(models.Model):
     """
@@ -15,8 +16,7 @@ class WheelerVerification(models.Model):
     business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='verifications')
     wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verifications_made')
     date_verified = models.DateTimeField(auto_now_add=True)
-    comments = models.TextField()  # required comments field
-    from accounts.models import MobilityDevice
+    comments = models.TextField()
     mobility_device = models.ForeignKey(
         MobilityDevice,
         on_delete=models.SET_NULL,
@@ -25,18 +25,17 @@ class WheelerVerification(models.Model):
         related_name='verifications',
         help_text="Type of wheeled mobility device used during verification."
     )
-    # Selfie of the Wheeler at the business
     selfie = models.ImageField(
         upload_to='mobility_mapper_business_portal/wheeler_selfies/',
-    max_length=255,
-    blank=True,
-    null=True,
-        help_text="A selfie of the Wheeler taken at the business."
+        help_text="A selfie of the Wheeler taken at the business.",
+        max_length=255,
+        null=True,
+        blank=True 
     )
     approved = models.BooleanField(default=False, help_text="Has this verification been approved by an admin?")
-    # Store which features the wheeler confirmed
+    # features the wheeler confirmed
     confirmed_features = models.ManyToManyField(AccessibilityFeature, blank=False, related_name='confirmed_in_verifications')
-    # Store any additional features the wheeler found
+    # additional features the wheeler found
     additional_features = models.ManyToManyField(AccessibilityFeature, blank=True, related_name='additional_in_verifications')
 
     class Meta:
@@ -48,6 +47,9 @@ class WheelerVerification(models.Model):
 
 
 class WheelerVerificationPhoto(models.Model):
+    """Represents a photo submitted by a Wheeler during the verification process.
+    Each photo is linked to a specific verification and to an accessibility feature.
+    """
     verification = models.ForeignKey(WheelerVerification, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(
         upload_to='mobility_mapper_business_portal/verification_photos/',
@@ -68,11 +70,11 @@ class WheelerVerificationPhoto(models.Model):
 
 
 class WheelerVerificationApplication(models.Model):
+    """Tracks applications by wheelers to verify a business's accessibility."""
     business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='verification_requests')
     wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verification_requests_made')
     requested_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
-    reviewed = models.BooleanField(default=False)
     # Timestamp when the request was approved
     approved_at = models.DateTimeField(null=True, blank=True)
 

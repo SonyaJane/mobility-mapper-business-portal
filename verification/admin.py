@@ -71,9 +71,9 @@ class WheelerVerificationApplicationAdmin(admin.ModelAdmin):
                 recipient_list=[obj.wheeler.email],
                 fail_silently=True,
             )
-    list_display = ('business', 'wheeler', 'requested_at', 'approved_at', 'approved', 'reviewed')
+    list_display = ('business', 'wheeler', 'requested_at', 'approved_at', 'approved')
     readonly_fields = ('approved_at',)
-    list_filter = ('approved', 'reviewed', 'business')
+    list_filter = ('approved', 'business')
     search_fields = ('business__business_name', 'wheeler__username')
     actions = ['approve_requests']
 

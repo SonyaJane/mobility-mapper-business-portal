@@ -15,17 +15,13 @@ TIER_CHOICES = [
     
 class MembershipTier(models.Model):
     """
-    Represents a membership tier for businesses.
-    Includes annual membership, Stripe integration, tier type, and active status.
+    Represents a membership tier for businesses, including tier type (free, standard or premium), 
+    annual membership price, and verification price.
     """
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, default='free')
     description = models.JSONField()
     membership_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    # Numeric price for a Wheeler verification when purchased separately
     verification_price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    # Note: Stripe Price IDs were removed from models; pricing is stored locally as
-    # `membership_price` and `verification_price`. To reintroduce Stripe Price
-    # references later, add fields and migrations.
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -63,11 +59,10 @@ class Category(models.Model):
 class Business(models.Model):
     """
     Represents a business registered on the platform.
-    Stores owner, details, location, accessibility, membership tier, and verification info.
     """
     class Meta:
         verbose_name_plural = "Businesses"
-    # Owner is a UserProfile, which extends the User model
+    # Owner is a UserProfile, which links to the User model
     business_owner = models.OneToOneField('accounts.UserProfile', on_delete=models.CASCADE)
     business_name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -96,7 +91,6 @@ class Business(models.Model):
     instagram_url = models.URLField(blank=True, null=True, help_text="Instagram profile URL")
     membership_tier = models.ForeignKey(MembershipTier, on_delete=models.SET_NULL, null=True, blank=True, related_name='businesses')
     wheeler_verification_requested = models.BooleanField(default=False)
-    # Indicate if the business premises has been verified by Wheelers:
     verified_by_wheelers = models.BooleanField(default=False)
     # Indicate if the business is approved by the admin:
     is_approved = models.BooleanField(default=False) 

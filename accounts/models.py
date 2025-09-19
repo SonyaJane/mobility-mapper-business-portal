@@ -46,12 +46,18 @@ class MobilityDevice(models.Model):
 
 class UserProfile(models.Model):
     """
-    Extends the User model with additional profile fields such as country, county,
-    photo, mobility device information, age group, and business-related flags.
+    Links additional profile information with each User via a one-to-one relationship.
+    Profile fields include country, county, photo, mobility device information,
+    age group, and business-related flags.
     """
     COUNTRY_CHOICES = (
         ("UK", "United Kingdom"),
         ("Other", "Other"),
+    )
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='profile',
     )
     country = models.CharField(
         max_length=32,
@@ -62,28 +68,18 @@ class UserProfile(models.Model):
     county = models.ForeignKey(
         County,
         on_delete=models.SET_NULL,
+        help_text="County of residence.",
         null=True,
         blank=True,
-        help_text="County of residence"
     )
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='profile',
-    )
-    photo = models.ImageField(
-        upload_to='mobility_mapper_business_portal/profile_photos/',
-        blank=True,
+    age_group = models.ForeignKey(
+        AgeGroup,
+        on_delete=models.SET_NULL,
+        help_text="Age group of the user.",
         null=True,
+        blank=True,
     )
     is_wheeler = models.BooleanField(default=False)
-    has_business = models.BooleanField(default=False)
-    has_registered_business = models.BooleanField(
-        default=False,
-        help_text="Whether the user has registered their business on the site."
-    )
-
-    # Allow multiple mobility devices
     mobility_devices = models.ManyToManyField(
         MobilityDevice,
         blank=True,
@@ -95,13 +91,15 @@ class UserProfile(models.Model):
         null=True,
         help_text="Other mobility device description (if 'Other' selected)."
     )
-
-    # Age group is now a ForeignKey to AgeGroup model
-    age_group = models.ForeignKey(
-        AgeGroup,
-        on_delete=models.SET_NULL,
+    has_business = models.BooleanField(default=False)
+    has_registered_business = models.BooleanField(
+        default=False,
+        help_text="Whether the user has registered their business on the site."
+    )
+    photo = models.ImageField(
+        upload_to='mobility_mapper_business_portal/profile_photos/',
+        blank=True,
         null=True,
-        blank=True
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -111,6 +109,7 @@ class UserProfile(models.Model):
         Return the username associated with this profile.
         """
         return self.user.username
+
 
 @receiver(post_save, sender=get_user_model())
 def create_or_update_user_profile(sender, instance, created, **kwargs):

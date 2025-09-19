@@ -6,10 +6,9 @@ from django.db import IntegrityError
 
 
 class CheckoutCache(models.Model):
-    """Tiny cache of checkout form data referenced from Stripe PaymentIntent metadata.
-
-    We store a short server-side record and write only its id into the
-    PaymentIntent metadata as `cc_ref`. This keeps PII out of Stripe.
+    """Cache of checkout form data referenced from Stripe PaymentIntent metadata.
+    Stores a short server-side record and write only its id into the
+    PaymentIntent metadata as `cc_ref`. This keeps Personal Identifiable Information (PII) out of Stripe.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     payment_intent_id = models.CharField(max_length=255, blank=True, null=True, db_index=True)
@@ -72,9 +71,7 @@ class Purchase(models.Model):
     
     # unique=True prevents duplicate PaymentIntent IDs
     stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True, unique=True)
-    # Previously stored Stripe Price ID for membership; removed to keep the
-    # codebase relying on local numeric pricing fields. If you need to store
-    # the Stripe Price ID again add the field and run migrations.
+    
     # Raw Stripe session payload for audit/reconciliation
     raw_payload = models.JSONField(blank=True, null=True)
     
