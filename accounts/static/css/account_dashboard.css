@@ -14,8 +14,8 @@
 }
 
 #profile-details td {
-  white-space: normal;       /* allow wrapping */
-  word-wrap: break-word;     /* break long words if needed */
+  white-space: normal;   /* allow wrapping */
+  word-wrap: break-word; /* break long words if needed */
 }
 
 /* Vertically center cell contents in dashboard tables */
