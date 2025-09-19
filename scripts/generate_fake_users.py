@@ -1,23 +1,32 @@
-# Dev
+"""
+generate_fake_users.py
+
+This script generates comprehensive fake data for development and testing of the Mobility Mapper Business Portal.
+
+**What it does:**
+- Creates fake users (wheelers and business owners) with unique profiles and optional profile photos.
+- Generates businesses, each linked to a business owner, with realistic addresses, categories, accessibility features, and membership tiers.
+- Produces WheelerVerification reports, applications, and associated photos for verified businesses.
+- Simulates purchases for memberships and wheeler verifications, with correct pricing logic for each tier.
+- Ensures all relationships (users, profiles, businesses, verifications, purchases) are consistent and realistic.
+
+**Output:**
+- Writes Django fixture files for each model to their respective `fixtures/` folders, ready for `loaddata`.
+- Handles all required dependencies and lookups for foreign keys and many-to-many relationships.
+- Includes logic for unique usernames, emails, and realistic timestamps.
+
+**Usage:**
+- Run after loading core lookup data (counties, categories, membership tiers, etc.).
+- Example: `python scripts/generate_fake_users.py`
+- See the script header for full recommended workflow.
+
+"""
 # python manage.py flush --no-input
-# python manage.py loadpython manage.py loaddata fixtures/user.json accounts/fixtures/userprofile.json fixtures/emailaddress.json businesses/fixtures/business.json verification/fixtures/wheelerverification.json verification/fixtures/wheelerverificationapplication.json verification/fixtures/wheelerverificationphoto.json checkout/fixtures/purchase.jsondata accounts\fixtures\counties.json businesses\fixtures\accessibility_features.json businesses\fixtures\business_categories.json businesses\fixtures\membership_tiers.json accounts\fixtures\age_groups.json accounts\fixtures\mobility_devices.json
+# python manage.py loaddata accounts\fixtures\counties.json businesses\fixtures\accessibility_features.json businesses\fixtures\business_categories.json businesses\fixtures\membership_tiers.json accounts\fixtures\age_groups.json accounts\fixtures\mobility_devices.json
 # python scripts/generate_fake_users.py
-# 
+# python manage.py loaddata fixtures/user.json accounts/fixtures/userprofile.json fixtures/emailaddress.json businesses/fixtures/business.json verification/fixtures/wheelerverification.json verification/fixtures/wheelerverificationapplication.json verification/fixtures/wheelerverificationphoto.json checkout/fixtures/purchase.json
 # python manage.py createsuperuser
 
-# Prod
-# heroku run python manage.py flush
-# heroku run python manage.py loaddata ./fixtures/accessibility_features.json
-# heroku run python manage.py loaddata ./fixtures/business_categories.json
-# heroku run python manage.py loaddata ./fixtures/membership_tiers.json
-# heroku run python manage.py loaddata ./fixtures/counties.json
-# heroku run python manage.py loaddata ./fixtures/age_groups.json
-# heroku run python manage.py loaddata ./fixtures/mobility_devices.json
-# heroku run python manage.py loaddata fixtures/fake_users_fixture.json
-# heroku run python manage.py createsuperuser
-
-"""Generate fake users, businesses, verifications and associated image references.
-"""
 import os
 import re
 import django

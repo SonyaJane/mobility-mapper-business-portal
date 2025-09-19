@@ -774,11 +774,6 @@ Logout button | Logs user out and redirects to home/login page | Pass
 
 `accounts/tests.py` implements a comprehensive suite of automated tests to ensure the reliability, correctness, and security of the accounts app. These tests cover the following key areas:
 
-
----
-
-## Test Coverage Table
-
 | Area / Feature                        | Test Description                                                                                   | Test Class / Method(s)                              |
 |---------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------|
 | **Dashboard View**                    | Dashboard view access, template rendering, and content                                            | `DashboardViewTests`                                |
