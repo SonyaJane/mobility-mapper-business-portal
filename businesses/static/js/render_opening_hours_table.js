@@ -17,7 +17,7 @@ export default function renderOpeningHoursTable(opening_hours) {
     let html = `
         <div class="my-2"><i class='bi bi-clock fs-5 me-2 text-green'></i>Opening Hours:</div>
         <div class="table-responsive">
-            <table class="table table-bordered table-sm w-auto mb-0" id="opening-hours-table-dashboard">
+            <table class="table table-bordered table-sm w-auto mb-0 opening-hours-table-dashboard">
                 <tbody>
     `;
     Object.entries(oh).forEach(([day, info]) => {

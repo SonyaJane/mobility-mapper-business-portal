@@ -774,6 +774,8 @@ Logout button | Logs user out and redirects to home/login page | Pass
 
 `accounts/tests.py` implements a comprehensive suite of automated tests to ensure the reliability, correctness, and security of the accounts app. These tests cover the following key areas:
 
+## Test Coverage Table
+
 | Area / Feature                        | Test Description                                                                                   | Test Class / Method(s)                              |
 |---------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------|
 | **Dashboard View**                    | Dashboard view access, template rendering, and content                                            | `DashboardViewTests`                                |
@@ -849,3 +851,56 @@ Logout button | Logs user out and redirects to home/login page | Pass
 |                                       | New username is reported as available                                                             | `ValidateUsernameViewTests.test_username_available`  |
 |                                       | Existing username is reported as taken                                                            | `ValidateUsernameViewTests.test_username_taken`      |
 |                                       | Blank username is reported as not taken (or as invalid)                                           | `ValidateUsernameViewTests.test_username_blank`      |
+
+
+
+
+
+
+## Code Validation
+
+### HTML
+
+The [W3C Markup Validator](https://validator.w3.org/) was used to validate the project HTML code to ensure there were no syntax errors.
+ 
+W3C Markup Validator found the following errors for the business search page:
+
+<img src="readme_files/error_files/html_validator_error_1.png" alt="Search Page Validator Error" style="width:600px;">
+
+This error is caused by the third-party JavaScript library Choices.js, which dynamically generates dropdowns and lists using <div> elements, but does not add the appropriate ARIA role attributes for accessibility.
+
+<img src="readme_files/error_files/html_validator_error_1.png" alt="Search Page Validator Error" style="width:600px;">
+
+This error was solved by changing the id to a class, as the copening hours table is being rendered for each business.
+
+
+W3C Markup Validator found the following errors in the add report (map) page:
+
+
+### CSS
+
+[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) service was used to validate the CSS code to ensure there were no syntax errors. 
+
+One error was found.
+
+<img src="readme-files/css_validator_error.png" alt="CSS validation image" style="width:700px;">
+
+This was fixed by using the longhand properties for SVG masking.
+
+### JavaScript
+
+[JSHints JavaScript Code Quality Tool](https://jshint.com/) was used to validate the JavaScript code. 
+
+Missing colons were found and added.
+
+### Python
+
+Pylint was used continuously during the development process to check the Python code for programming errors.
+
+[The Code Institute Python Linter](https://pep8ci.herokuapp.com/) was also used to validate the Python code 
+for PEP8 requirements. The validation results are shown below. All errors were fixed. 
+
+
+## Accessibility
+
+## Tools Testing

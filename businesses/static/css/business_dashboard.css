@@ -60,20 +60,17 @@ img.business-logo {
 }
 
 /* Vertically center cell contents in dashboard tables */
-#business-details td,
-#description-services-table td,
-#opening-hours-table-dashboard td {
-    vertical-align: middle;
-}
-
 /* Uniform row height for dashboard table cells */
 #business-details td,
 #description-services-table td,
-#opening-hours-table-dashboard td {
+.opening-hours-table-dashboard td {
+    vertical-align: middle;
     min-height: 3rem;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
 }
+
+
 
 @media (min-width: 576px) {
     #business-details td:first-child {

@@ -212,7 +212,7 @@
           <h3 class="card-title ms-3 my-3">Opening Hours</h3>
           {% if business.opening_hours and opening_hours_dict %}
             <div class="table-responsive">
-              <table class="table table-sm table-striped table-hover mb-0" id="opening-hours-table-dashboard">
+              <table class="table table-sm table-striped table-hover mb-0 opening-hours-table-dashboard">
                 <tbody>
                   {% for day, info in opening_hours_dict.items %}
                     <tr>

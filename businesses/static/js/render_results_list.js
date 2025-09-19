@@ -47,7 +47,7 @@ export default function renderResultsList(businesses) {
                             ${categories ? `<div class="mb-0 category">${categories}</div>` : ''}
                         </div>
                     </div>
-                    <i class="bi bi-chevron-down fs-6 toggle-arrow" aria-label="Click to expand business details"></i>
+                    <i class="bi bi-chevron-down fs-6 toggle-arrow"></i>
                 </div>                
                 ${address}
                 ${verified}
