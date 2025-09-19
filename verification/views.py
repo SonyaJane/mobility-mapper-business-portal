@@ -95,8 +95,15 @@ def business_detail(request, pk):
             wheeler=request.user,
             approved=True
         ).exists()
+        
+    if business and business.logo:
+        logo_url = business.logo.url  
+    else:
+        logo_url = ''
+        
     return render(request, 'verification/business_detail.html', {
         'business': business,
+        'logo_url': logo_url,
         'opening_hours_dict': opening_hours_dict,
         'page_title': business.business_name,
         'business_json': business_json,
