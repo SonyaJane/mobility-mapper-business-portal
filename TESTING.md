@@ -873,33 +873,21 @@ This error is caused by the third-party JavaScript library Choices.js, which dyn
 
 This error was solved by changing the id to a class, as the copening hours table is being rendered for each business.
 
-
-W3C Markup Validator found the following errors in the add report (map) page:
-
-
 ### CSS
 
-[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) service was used to validate the CSS code to ensure there were no syntax errors. 
-
-One error was found.
-
-<img src="readme-files/css_validator_error.png" alt="CSS validation image" style="width:700px;">
-
-This was fixed by using the longhand properties for SVG masking.
+[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) service was used to validate the CSS code to ensure there were no syntax errors. No errors were found.
 
 ### JavaScript
 
 [JSHints JavaScript Code Quality Tool](https://jshint.com/) was used to validate the JavaScript code. 
 
-Missing colons were found and added.
+One missing colon was found and added.
 
 ### Python
 
 Pylint was used continuously during the development process to check the Python code for programming errors.
 
-[The Code Institute Python Linter](https://pep8ci.herokuapp.com/) was also used to validate the Python code 
-for PEP8 requirements. The validation results are shown below. All errors were fixed. 
-
+[The Code Institute Python Linter](https://pep8ci.herokuapp.com/) was also used to validate the Python code for PEP8 requirements. Erroneous whitespace issues were found and corrected.
 
 ## Accessibility
 

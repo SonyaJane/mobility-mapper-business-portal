@@ -40,7 +40,7 @@ def register_business(request):
     """
     # Get or create the user profile
     user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
-    
+
     if Business.objects.filter(business_owner=user_profile).exists():
         return redirect('business_dashboard')
 
@@ -50,15 +50,15 @@ def register_business(request):
 
     if request.method == 'POST':
         post_data = request.POST.copy()
-        
+
         opening_hours = post_data.get('opening_hours')
         if opening_hours:
             json.loads(opening_hours)
         else:
             opening_hours = ''
-            
+
         form = BusinessRegistrationForm(post_data, request.FILES)
-        
+
         if form.is_valid():
             # save business
             business = form.save(commit=False)
@@ -78,28 +78,28 @@ def register_business(request):
             business.save()
             # Persist categories and accessibility features
             form.save_m2m()
-            
+
             # Update user profile flags
             user_profile.has_business = True
             user_profile.has_registered_business = True
             user_profile.save()
-            
+
             # If the user selected a paid tier, redirect to checkout using the intended tier id
             # (the business itself remains on Free until the webhook upgrades it on successful payment).
             if intended_tier and intended_tier.tier in ['standard', 'premium']:
                 url = reverse('checkout', args=[business.id])
                 # send both membership_tier and purchase type so to checkout
                 return redirect(f"{url}?{urlencode({'membership_tier': intended_tier.id, 'purchase_type': 'membership'})}")
-            
+
             # otherwise, go to dashboard
-            return redirect('business_dashboard')    
+            return redirect('business_dashboard')
     else:
         form = BusinessRegistrationForm()
 
     # Preserve selections for form errors
     selected_categories = request.POST.getlist('categories') if request.method == 'POST' else []
     selected_accessibility_features = request.POST.getlist('accessibility_features') if request.method == 'POST' else []
-        
+
     return render(request, 'businesses/register_business.html', {
         'form': form,
         'membership_tiers': membership_tiers,
@@ -167,10 +167,10 @@ def business_dashboard(request):
             opening_hours_dict = None
 
     if business and business.logo:
-        logo_url = business.logo.url  
+        logo_url = business.logo.url
     else:
         logo_url = ''
-        
+
     return render(request, 'businesses/business_dashboard.html', {
         'business': business,
         'logo_url': logo_url,
@@ -192,7 +192,7 @@ def edit_business(request):
     """
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     membership_tiers = MembershipTier.objects.filter(is_active=True)
-    
+
     if request.method == 'POST':
         post_data = request.POST.copy()
         # Remove '__other__' marker so categories field validation passes
@@ -248,7 +248,7 @@ def edit_business(request):
         'selected_accessibility_features': selected_accessibility_features,
         'page_title': 'Edit Your Business',
     })
-    
+
 
 @login_required
 def upgrade_membership(request):
@@ -394,19 +394,20 @@ def accessible_business_search(request):
     user_profile = None
     if request.user.is_authenticated:
         user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
-    
+
     # Provide full list of accessibility features for the filter dropdown
     accessibility_features = AccessibilityFeature.objects.all()
     return render(
-        request, 
-        'businesses/accessible_business_search.html', 
+        request,
+        'businesses/accessible_business_search.html',
         {
             'is_verified_wheeler': bool(user_profile and user_profile.is_wheeler),
             'accessibility_features': accessibility_features,
             'page_title': 'Accessible Business Search',
         }
     )
-    
+
+
 @login_required
 def cancel_membership(request):
     """

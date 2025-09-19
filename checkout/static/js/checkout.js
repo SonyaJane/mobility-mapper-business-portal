@@ -86,7 +86,7 @@ form.addEventListener('submit', async e => {
     // get data for cache
 
     // get membership tier from form
-    const membershipTier = form.elements['membership_tier'].value
+    const membershipTier = form.elements['membership_tier'].value;
 
     // Determine purchase_type from URL query param `purchase_type`
     const urlParams = new URLSearchParams(window.location.search);

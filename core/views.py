@@ -14,10 +14,10 @@ def proxy_os_tile(request, z, x, y):
     max_zoom = 20
     if z > max_zoom:
         z = min(int(z), max_zoom)
-        
+
     api_key = settings.OS_MAPS_API_KEY    
     tile_url = f"https://api.os.uk/maps/raster/v1/zxy/Road_3857/{z}/{x}/{y}.png?key={api_key}"
-    
+
     response = requests.get(tile_url)
 
     if response.status_code == 200:
@@ -58,4 +58,3 @@ def contact(request):
     else:
         form = ContactForm(initial=initial)
     return render(request, "core/contact.html", {"form": form, "page_title": "Contact Us"})
-

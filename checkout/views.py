@@ -31,10 +31,10 @@ def checkout(request, business_id):
     # Get the business object
     business = get_object_or_404(Business, pk=business_id)
 
-    if request.method == 'POST': 
+    if request.method == 'POST':
         purchase_form = PurchaseForm(request.POST)
         if purchase_form.is_valid():
-            
+
             # Get the PaymentIntent ID from the form data
             posted_pi = request.POST.get('payment_intent_id')
             # check if it exists
@@ -48,7 +48,6 @@ def checkout(request, business_id):
             except Exception:
                 logger.exception('Failed to retrieve PaymentIntent %s', posted_pi)
                 return HttpResponse('invalid payment intent', status=400)
-
 
             # Check if a Purchase already exists for this PaymentIntent
             purchase = Purchase.objects.filter(stripe_payment_intent_id=intent.id).first()
@@ -111,8 +110,7 @@ def checkout(request, business_id):
             # Get the existing membership tier object
             membership_tier = business.membership_tier  
             # get the price and convert to pence
-            amount = int((membership_tier.verification_price) * 100)      
-        
+            amount = int((membership_tier.verification_price) * 100)
 
         # prepare initial form data        
         purchase_form = PurchaseForm(initial={
@@ -136,7 +134,7 @@ def checkout(request, business_id):
         )
         client_secret = payment_intent.client_secret
         payment_intent_id = payment_intent.id
-        
+
         # Get all paid membership tiers for context
         paid_membership_tiers = MembershipTier.objects.filter(is_active=True).exclude(tier='free')
 
@@ -157,16 +155,14 @@ def checkout(request, business_id):
         return render(request, template, context)
 
 
-
 def payment_success(request, purchase_number):
     # get the purchase
-    purchase= get_object_or_404(Purchase, purchase_number=purchase_number)
-    
+    purchase= get_object_or_404(Purchase, purchase_number = purchase_number)
     template = 'checkout/payment_success.html'
     context = {
         'purchase': purchase,
     }
-    return render(request, template , context)
+    return render(request, template, context)
 
 
 def payment_failed(request):
@@ -217,4 +213,3 @@ def cache_checkout_data(request):
         logger.exception('Failed to cache checkout data for PaymentIntent %s', locals().get('pi_id'))
         messages.error(request, 'Sorry, your payment cannot be processed right now. Please try again later.')
         return HttpResponse(content=str(e), status=400)
-

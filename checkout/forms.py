@@ -1,6 +1,7 @@
 from django import forms
 from .models import Purchase
 
+
 class PurchaseForm(forms.ModelForm):
     """Form for creating a Purchase for on-site Stripe Elements (PaymentIntent) payments."""
 
@@ -27,7 +28,7 @@ class PurchaseForm(forms.ModelForm):
             'purchase_type': forms.HiddenInput(),
             'membership_tier': forms.HiddenInput(),
         }
-        
+
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated
@@ -42,7 +43,7 @@ class PurchaseForm(forms.ModelForm):
             'street_address2': 'Street Address 2',
             'town_or_city': 'Town or City',
             'county': 'County',
-            'postcode': 'Postal Code',            
+            'postcode': 'Postal Code',
         }
         self.fields['full_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
@@ -55,4 +56,3 @@ class PurchaseForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             # Add styling class and hide labels for all fields
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
-

@@ -21,6 +21,7 @@ class CheckoutCache(models.Model):
     def __str__(self):
         return f'CheckoutCache {self.id}'
 
+
 class Purchase(models.Model):
     """Model to track Stripe purchases and their status."""
 
@@ -52,29 +53,29 @@ class Purchase(models.Model):
 
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
-    
+
     phone_number = models.CharField(max_length=20, null=False, blank=False)
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
     county = models.CharField(max_length=80, null=False, blank=False)
     postcode = models.CharField(max_length=20, null=False, blank=False)
-    
+
     # purchase status using defined choices
     status = models.CharField(
         max_length=20,
         choices=PURCHASE_STATUS_CHOICES,
         default='pending'
     )
-    
-    amount = models.DecimalField(max_digits=10, decimal_places=2)    
-    
+
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+
     # unique=True prevents duplicate PaymentIntent IDs
     stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True, unique=True)
-    
+
     # Raw Stripe session payload for audit/reconciliation
     raw_payload = models.JSONField(blank=True, null=True)
-    
+
     metadata = models.JSONField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -99,4 +100,3 @@ class Purchase(models.Model):
 
     def __str__(self):
         return f'Purchase {self.purchase_number} ({self.status})'
-    

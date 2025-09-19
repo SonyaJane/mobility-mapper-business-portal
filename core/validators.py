@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.conf import settings
 from PIL import Image, UnidentifiedImageError
 
+
 def validate_image_file(
     image_file,
     *,

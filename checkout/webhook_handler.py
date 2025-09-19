@@ -1,6 +1,6 @@
 # handles signals (webhooks) from Stripe when an event occurs
 # We specify URL the signals are sent to
-# The webhook handler determines what we want to given a particular event signal 
+# The webhook handler determines what we want to given a particular event signal
 from django.http import HttpResponse
 from django.conf import settings
 import stripe
@@ -122,12 +122,12 @@ class StripeWebHookHandler:
             purchase_type = purchase.purchase_type
             biz_id = purchase.business.id
             tier_id = purchase.membership_tier.id
-            
+
             if purchase_type == 'membership':
                 tier = MembershipTier.objects.filter(pk=int(tier_id)).first()
                 business.membership_tier = tier
                 business.save()
-                
+
             # If this was a verification purchase, set verification_requested to true
             if purchase_type == 'verification':
                 business.wheeler_verification_requested = True
@@ -136,7 +136,7 @@ class StripeWebHookHandler:
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
-        
+
     def handle_payment_intent_payment_failed(self, event):
         """
         Handle the payment_intent.payment_failed webhook from Stripe

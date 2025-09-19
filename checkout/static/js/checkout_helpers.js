@@ -38,4 +38,4 @@ export function handleFailure(message, card) {
             errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     }
-};
+}

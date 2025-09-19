@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Purchase
 
+
 class PurchaseAdmin(admin.ModelAdmin):
     # Make audit fields readonly
     readonly_fields = ('purchase_number', 'created_at', 'updated_at', 'stripe_payment_intent_id', 'raw_payload', 'metadata')

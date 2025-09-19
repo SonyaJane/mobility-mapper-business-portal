@@ -18,11 +18,11 @@ from .forms import WheelerVerificationForm
 from .models import WheelerVerification, WheelerVerificationApplication, WheelerVerificationPhoto
 from accounts.models import MobilityDevice
 from businesses.models import Business, AccessibilityFeature
-from businesses.models import Business, MembershipTier
-from checkout.models import Purchase
+from businesses.models import Business
 
 # custom template filter for dictionary access
 register = template.Library()
+
 
 @register.filter
 def get_item(dictionary, key):
@@ -35,7 +35,7 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 
-@login_required    
+@login_required
 @require_GET
 def business_detail(request, pk):
     """
@@ -95,12 +95,12 @@ def business_detail(request, pk):
             wheeler=request.user,
             approved=True
         ).exists()
-        
+
     if business and business.logo:
-        logo_url = business.logo.url  
+        logo_url = business.logo.url
     else:
         logo_url = ''
-        
+
     return render(request, 'verification/business_detail.html', {
         'business': business,
         'logo_url': logo_url,

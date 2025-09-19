@@ -7,8 +7,8 @@ class WheelerVerificationForm(forms.ModelForm):
     # verify business accessibility features
     confirmed_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
-        widget=forms.CheckboxSelectMultiple, # built-in checkbox widget
-        required=False # allows no selections
+        widget=forms.CheckboxSelectMultiple,  # built-in checkbox widget
+        required=False  # allows no selections
     )
     additional_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
@@ -77,4 +77,3 @@ class WheelerVerificationForm(forms.ModelForm):
         if errors:
             raise forms.ValidationError(errors)
         return cleaned_data
-

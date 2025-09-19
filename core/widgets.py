@@ -7,7 +7,7 @@ class MapLibrePointWidget(forms.TextInput):
     """A custom widget for rendering a point on a MapLibre map
     This widget does three things:
     Tells Django to load the MapLibre CSS/JS.
-    Uses the custom HTML template maplibre_point_widget.html 
+    Uses the custom HTML template maplibre_point_widget.html
     Passes the selected point back via value_from_datadict
     """
     template_name = "core/widgets/maplibre_point_widget.html"
@@ -30,7 +30,7 @@ class MapLibrePointWidget(forms.TextInput):
 
     def value_from_datadict(self, data, files, name):
         return data.get(name)
-    
+
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
         context['widget']['OS_MAPS_API_KEY'] = settings.OS_MAPS_API_KEY

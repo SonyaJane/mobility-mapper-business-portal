@@ -19,8 +19,9 @@ from .context_processors import user_profile
 from businesses.models import Business
 from verification.models import WheelerVerificationApplication
 
-        
+
 User = get_user_model()
+
 
 def get_test_image():
     """Return an in-memory valid JPEG image wrapped as SimpleUploadedFile for upload tests."""
@@ -29,6 +30,7 @@ def get_test_image():
     img.save(buf, format='JPEG')
     buf.seek(0)
     return SimpleUploadedFile("test.jpg", buf.read(), content_type="image/jpeg")
+
 
 def add_session_to_request(request):
     """Attach a session to a RequestFactory request instance (helper for form save tests)."""
@@ -63,7 +65,7 @@ class ValidateUsernameViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {'available': True})
 
-    
+
 class CustomSignupFormTests(TestCase):
     """Tests for the CustomSignupForm validation and save behavior."""
 
@@ -320,7 +322,7 @@ class CustomSignupFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('county', form.errors)
         self.assertIn('mobility_devices', form.errors)
-        
+
         # Test: is_wheeler True, no mobility_devices (should be invalid)
         form = CustomSignupForm(data={
             'username': 'incompleteuser',
@@ -358,7 +360,7 @@ class CustomSignupFormTests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
-    
+
 class UserProfileModelMethodTests(TestCase):
     """Tests for UserProfile model relations and string output behavior."""
 
@@ -413,8 +415,8 @@ class UserProfileModelMethodTests(TestCase):
         """__str__ of profile should return associated username."""
         profile = self.user.profile
         self.assertEqual(str(profile), 'testuser')
-            
- 
+      
+
 class UserProfileFormTests(TestCase):
     """Tests for the UserProfileForm validation edge cases and success paths."""
 
@@ -549,8 +551,8 @@ class UserProfileSignalTests(TestCase):
         profile_count = UserProfile.objects.filter(user=user).count()
         UserProfile.objects.get_or_create(user=user)
         self.assertEqual(UserProfile.objects.filter(user=user).count(), profile_count)
-        
-        
+
+
 class UserProfileContextProcessorTests(TestCase):
     """Tests for the user_profile context processor injecting profile only when authenticated."""
 
@@ -575,15 +577,15 @@ class UserProfileContextProcessorTests(TestCase):
         context = user_profile(request)
         self.assertNotIn('user_profile', context)
 
-    
+
 class EditProfileViewTests(TestCase):
     """Tests for edit profile view: auth, form processing, and field logic."""
 
     def setUp(self):
         """Create user, profile, and reference objects for the edit profile tests."""
         self.user = User.objects.create_user(
-            username='edituser', 
-            email='edit@example.com', 
+            username='edituser',
+            email='edit@example.com',
             password='testpass123',
             first_name='Edit',
             last_name='Jones')
@@ -885,8 +887,8 @@ class EditProfileViewTests(TestCase):
             'age_group': self.age_group.id,
             'mobility_devices': [],
             'mobility_devices_other': '',
-            'is_wheeler': 'False',     
-            'has_business': 'True',   
+            'is_wheeler': 'False',
+            'has_business': 'True',
         }
         response = self.client.post(reverse('edit_profile'), data)
         profile.refresh_from_db()
@@ -953,8 +955,8 @@ class ProfilePhotoTests(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(
-            username='photouser', 
-            email='photo@example.com', 
+            username='photouser',
+            email='photo@example.com',
             password='testpass123',
             first_name='Edit',
             last_name='Photo'
@@ -967,7 +969,7 @@ class ProfilePhotoTests(TestCase):
         self.profile.has_business = 'False'
         self.profile.is_wheeler = 'False'
         self.profile.save()
-        
+
     def test_dashboard_displays_actual_profile_photo(self):
         """
         If the user has uploaded a profile photo, the dashboard displays it (not the placeholder).
@@ -1096,8 +1098,8 @@ class ProfilePhotoTests(TestCase):
         })
         form = response.context['form']
         self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP profile photo. SVG or other formats are not allowed.')
-        
-       
+
+
 class DashboardViewTests(TestCase):
     """Tests for account dashboard visibility, redirects, and conditional content."""
 
@@ -1246,6 +1248,7 @@ class TemplateTagTest(TestCase):
         """device_labels filter should output comma-separated labels for devices."""
         device1 = MobilityDevice.objects.create(name='Manual wheelchair', label='Manual wheelchair')
         device2 = MobilityDevice.objects.create(name='Power wheelchair', label='Power wheelchair')
+
         class Devices:
             def all(self_inner):
                 return [device1, device2]
@@ -1275,4 +1278,3 @@ class TemplateTagTest(TestCase):
         rendered = template.render(Context({'businesses': businesses, 'verification_status': verification_status}))
         self.assertIn('2,', rendered)
         self.assertNotIn('1,', rendered)
-

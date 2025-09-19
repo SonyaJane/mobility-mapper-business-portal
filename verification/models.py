@@ -4,7 +4,7 @@ Models for the verification app
 
 from django.conf import settings
 from django.db import models
-from businesses.models import AccessibilityFeature 
+from businesses.models import AccessibilityFeature
 from accounts.models import MobilityDevice
 
 class WheelerVerification(models.Model):
@@ -30,7 +30,7 @@ class WheelerVerification(models.Model):
         help_text="A selfie of the Wheeler taken at the business.",
         max_length=255,
         null=True,
-        blank=True 
+        blank=True
     )
     approved = models.BooleanField(default=False, help_text="Has this verification been approved by an admin?")
     # features the wheeler confirmed
@@ -66,7 +66,7 @@ class WheelerVerificationPhoto(models.Model):
 
     def __str__(self):
         feat = self.feature.name if self.feature else 'General'
-        return f"Photo ({feat}) for verification {self.verification.id} uploaded at {self.uploaded_at}" 
+        return f"Photo ({feat}) for verification {self.verification.id} uploaded at {self.uploaded_at}"
 
 
 class WheelerVerificationApplication(models.Model):

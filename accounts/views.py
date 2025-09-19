@@ -15,13 +15,13 @@ from .forms import UserProfileForm
 def edit_profile(request):
     """
     Display and process the user profile edit form.
-    
+
     GET: Renders the profile edit form pre-populated with the current user's data.
     POST: Validates and saves submitted profile changes, then redirects to the account dashboard.
-    
+
     Parameters:
         request (HttpRequest): The incoming request object (must be authenticated).
-    
+
     Returns:
         HttpResponse: Rendered edit profile template on GET or invalid POST.
         HttpResponseRedirect: Redirect to 'account_dashboard' after successful save.
@@ -43,17 +43,17 @@ def edit_profile(request):
 def dashboard_view(request):
     """
     Render the personal dashboard for the authenticated user.
-    
+
     If the user is a wheeler, aggregates:
       - Approved and pending business verification applications
       - Whether the user has submitted verifications for approved businesses
       - A list of businesses the user has verified and related report data
-    
+
     Always includes the user's profile photo (if present).
 
     Parameters:
         request (HttpRequest): The authenticated request.
-    
+
     Returns:
         HttpResponse: Rendered dashboard template with context data.
     """
@@ -103,13 +103,13 @@ def dashboard_view(request):
 def postlogin_redirect(request):
     """
     Decide post-login routing based on the user's profile.
-    
+
     If the user owns/manages a business, redirect to the business dashboard;
     otherwise redirect to the personal account dashboard. Ensures a profile exists.
-    
+
     Parameters:
         request (HttpRequest): The authenticated request.
-    
+
     Returns:
         HttpResponseRedirect: Redirect to 'business_dashboard' or 'account_dashboard'.
     """
@@ -122,12 +122,12 @@ def postlogin_redirect(request):
 
 def validate_username(request):
     """AJAX endpoint to check if a username is available.
-    
+
     Expects 'username' as a GET parameter.
-    
+
     Parameters:
         request (HttpRequest): The incoming request.
-    
+
     Returns:
         JsonResponse: {'available': bool} indicating availability.
     """

@@ -26,10 +26,10 @@ class UserAdmin(HijackUserAdminMixin, DefaultUserAdmin):
     def get_hijack_user(self, obj):
         """
         This enables admin users to "hijack" (log in as) another user.
-        Returns the user instance to be impersonated by the django-hijack admin integration. 
+        Returns the user instance to be impersonated by the django-hijack admin integration.
         """
         return obj
-    
+
     def is_wheeler(self, obj):
         """
         Check if the user is a wheeler based on their profile.
@@ -71,11 +71,12 @@ class UserProfileAdmin(admin.ModelAdmin):
         return obj.user.email
     email.short_description = 'Email'
     search_fields = ('user__username', 'user__email')
-    
+
     def mobility_devices_list(self, obj):
         """Show mobility devices in a comma-separated list"""
         return ", ".join(device.name for device in obj.mobility_devices.all())
     mobility_devices_list.short_description = 'Mobility Devices'
-    
-admin.site.unregister(User) # Unregister the default User admin
-admin.site.register(User, UserAdmin) # Register the custom User admin
+
+
+admin.site.unregister(User)  # Unregister the default User admin
+admin.site.register(User, UserAdmin)  # Register the custom User admin

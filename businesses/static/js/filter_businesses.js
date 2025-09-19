@@ -90,8 +90,7 @@ export default function filterBusinesses() {
             businesses = businesses.filter(b => {
                 const loc = b.location;
                 if (!loc) return false;
-                return loc.lat >= sw.lat && loc.lat <= ne.lat
-                    && loc.lng >= sw.lng && loc.lng <= ne.lng;
+                return loc.lat >= sw.lat && loc.lat <= ne.lat && loc.lng >= sw.lng && loc.lng <= ne.lng;
             });
         }       
         // On md+ screens with no search or accessibility filters, randomise initial list

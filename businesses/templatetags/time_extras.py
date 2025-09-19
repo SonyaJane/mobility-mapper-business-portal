@@ -3,6 +3,7 @@ import datetime
 
 register = template.Library()
 
+
 @register.filter
 def format_time(value):
     """

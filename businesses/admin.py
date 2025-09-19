@@ -4,6 +4,7 @@ from .models import Business, MembershipTier, Category, AccessibilityFeature
 from core.widgets import MapLibrePointWidget
 from verification.admin import WheelerVerificationInline
 
+
 class BusinessAdminForm(forms.ModelForm):
     class Meta:
         model = Business
@@ -11,6 +12,7 @@ class BusinessAdminForm(forms.ModelForm):
         widgets = {
             'location': MapLibrePointWidget(),
         }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Set choices for categories and accessibility_features
@@ -49,5 +51,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(AccessibilityFeature)
 class AccessibilityFeatureAdmin(admin.ModelAdmin):
-    list_display = ('code','name')
-
+    list_display = ('code', 'name')

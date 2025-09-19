@@ -134,7 +134,7 @@ class BusinessRegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         # only configure membership_tier if it still exists
         if 'membership_tier' in self.fields:
             self.fields['membership_tier'].queryset = MembershipTier.objects.filter(is_active=True)

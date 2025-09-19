@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class AgeGroup(models.Model):
     """
     Represents an age group for user profiles.
@@ -31,6 +32,7 @@ class County(models.Model):
         """
         return self.label
 
+
 class MobilityDevice(models.Model):
     """
     Represents a mobility device type for Wheelers and verifications.
@@ -43,6 +45,7 @@ class MobilityDevice(models.Model):
         Return the display label for the mobility device.
         """
         return self.label
+
 
 class UserProfile(models.Model):
     """

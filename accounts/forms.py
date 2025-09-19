@@ -1,12 +1,12 @@
 from django import forms
-from core.validators import validate_profile_photo
 from django.core.exceptions import ValidationError
-from allauth.account.forms import SignupForm
 from django.contrib.auth import get_user_model
-
+from allauth.account.forms import SignupForm
+from core.validators import validate_profile_photo
 from .models import UserProfile, County, AgeGroup, MobilityDevice
 
 User = get_user_model()
+
 
 class CustomSignupForm(SignupForm):
     """
@@ -76,8 +76,8 @@ class CustomSignupForm(SignupForm):
     )
     field_order = [
         'first_name', 'last_name', 
-        'email', 'confirm_email', 'username', 
-        'has_business', 'is_wheeler', 'mobility_devices', 'mobility_devices_other', 
+        'email', 'confirm_email', 'username',
+        'has_business', 'is_wheeler', 'mobility_devices', 'mobility_devices_other',
         'country', 'county', 'age_group', 'photo',
         'password1', 'password2'
     ]
@@ -184,10 +184,10 @@ class UserProfileForm(forms.ModelForm):
     Ensures synchronization between User and UserProfile models.
     """
     first_name = forms.CharField(
-        max_length=30, 
+        max_length=30,
         required=True, label='First Name')
     last_name = forms.CharField(
-        max_length=30, 
+        max_length=30,
         required=True, label='Last Name')
     age_group = forms.ModelChoiceField(
         queryset=AgeGroup.objects.all(),
@@ -232,7 +232,7 @@ class UserProfileForm(forms.ModelForm):
         widget=forms.RadioSelect,
         label='Do you use a wheeled mobility device?'
     )
-    
+
     class Meta:
         """
         Configuration for the model form specifying model binding and editable fields.
@@ -243,7 +243,7 @@ class UserProfileForm(forms.ModelForm):
             'mobility_devices', 'mobility_devices_other',
             'country', 'county', 'age_group', 'photo'
         ]
-        
+
     def __init__(self, *args, **kwargs):
         """
         Initialize the form:
@@ -313,7 +313,7 @@ class UserProfileForm(forms.ModelForm):
         """
         # handle photo deletion if requested
         original_photo = getattr(self.instance, 'photo', None)
-        profile = super().save(commit=False) # get unsaved profile instance
+        profile = super().save(commit=False)  # get unsaved profile instance
         # if "clear" was ticked, delete the original file from storage
         if self.cleaned_data.get('photo') is False and original_photo:
             original_photo.delete(save=False)
@@ -334,7 +334,7 @@ class UserProfileForm(forms.ModelForm):
         # update user fields from form data
         user.first_name = self.cleaned_data.get('first_name', user.first_name)
         user.last_name = self.cleaned_data.get('last_name', user.last_name)
-        
+
         # save both user and profile if commit=True
         if commit:
             user.save()
