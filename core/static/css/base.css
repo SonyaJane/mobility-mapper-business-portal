@@ -87,22 +87,23 @@ header {
 h2 {
     font-family: var(--primary-font), sans-serif;
     font-weight: 600;
+    font-size: calc(1.325rem + .9vw);
 }
 
 h3, .h3 {
     font-family: var(--primary-font), sans-serif;
-    font-size: 1.3rem;
+    font-size: calc(1.3rem + .8vw);
     font-weight: 500;
 }
 
 h4, .h4 {
     font-family: var(--primary-font), sans-serif;
-    font-size: 1.25rem;
+    font-size: calc(1.25rem + .7vw);
     font-weight: 500;
 }
 h5, .h5 {
     font-family: var(--primary-font), sans-serif;
-    font-size: 1.1rem;
+    font-size: calc(1.1rem + .5vw);
     font-weight: 500;
 }
 
