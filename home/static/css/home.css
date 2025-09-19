@@ -8,11 +8,6 @@
 
 .display-4 {
     font-weight: 700;
-    color: #2d3e50;
-}
-
-.lead {
-    color: #555;
 }
 
 /* Card enhancements */
@@ -27,42 +22,24 @@
     transform: translateY(-2px) scale(1.02);
 }
 .card-title {
-    color: #f47c20; /* Mango accent */
+    color: var(--color-orange-4);
     font-weight: 600;
 }
 .card-text {
-    color: #444;
+    color: #000;
 }
 
-/* CTA buttons */
-.btn-primary, .btn-outline-primary {
-    border-radius: 24px;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    font-weight: 600;
-    font-size: 1.15rem;
-}
-.btn-link {
-    color: #f47c20;
-    font-weight: 500;
-    text-decoration: underline;
-}
-.btn-link:hover {
-    color: #d65a00;
-    text-decoration: none;
-}
 
 /* Blockquote styling */
 .blockquote {
     background: #f8f9fa;
-    border-left: 5px solid #f47c20;
+    border-left: 5px solid var(--color-orange-4)    ;
     padding: 1.5rem 2rem;
     border-radius: 8px;
     font-size: 1.1rem;
-    color: #333;
+    font-weight: 500;
 }
 .blockquote-footer {
-    color: #888;
     font-size: 0.95rem;
     margin-top: 0.5rem;
 }
