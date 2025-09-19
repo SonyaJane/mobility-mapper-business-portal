@@ -891,4 +891,129 @@ Pylint was used continuously during the development process to check the Python 
 
 ## Accessibility
 
+Lighthouse in Chrome DevTools was used to confirm that the colours and fonts used 
+in the website are easy to read and accessible. See reports in the table below:
+
+### Lighthouse Reports
+
+<table>
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Lighthouse Report</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Home</td>
+      <td><img src="/readme_files/lighthouse/home.png" alt="Lighthouse report Home page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Landing Page</td>
+      <td><img src="/readme_files/lighthouse/landing_page.png" alt="Lighthouse report Landing Page page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Sign Up</td>
+      <td><img src="/readme_files/lighthouse/sign_up.png" alt="Lighthouse report Sign Up page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Verify Email</td>
+      <td><img src="/readme_files/lighthouse/verify_email.png" alt="Lighthouse report Verify Email page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Sign In</td>
+      <td><img src="/readme_files/lighthouse/sign_in.png" alt="Lighthouse report Sign In page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Sign Out</td>
+      <td><img src="/readme_files/lighthouse/sign_out.png" alt="Lighthouse report Sign Out page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Change Password</td>
+      <td><img src="/readme_files/lighthouse/change_password.png" alt="Lighthouse report Change Password page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Reset Password</td>
+      <td><img src="/readme_files/lighthouse/reset_password.png" alt="Lighthouse report Reset Password page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Personal Dashboard</td>
+      <td><img src="/readme_files/lighthouse/personal_dashboard.png" alt="Lighthouse report Personal Dashboard page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Edit Profile</td>
+      <td><img src="/readme_files/lighthouse/edit_profile.png" alt="Lighthouse report Edit Profile page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Register Business</td>
+      <td><img src="/readme_files/lighthouse/register_business.png" alt="Lighthouse report Register Business page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Business Dashboard</td>
+      <td><img src="/readme_files/lighthouse/business_dashboard.png" alt="Lighthouse report Business Dashboard page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Edit Business</td>
+      <td><img src="/readme_files/lighthouse/edit_business.png" alt="Lighthouse report Edit Business page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>View Membership</td>
+      <td><img src="/readme_files/lighthouse/view_membership.png" alt="Lighthouse report View Membership page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Upgrade Membership</td>
+      <td><img src="/readme_files/lighthouse/upgrade_membership.png" alt="Lighthouse report Upgrade Membership page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Request Verification</td>
+      <td><img src="/readme_files/lighthouse/request_verification.png" alt="Lighthouse report Request Verification page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Business Search</td>
+      <td><img src="/readme_files/lighthouse/business_search.png" alt="Lighthouse report Business Search page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Apply to Verify Accessibility</td>
+      <td><img src="/readme_files/lighthouse/apply_to_verify_accessibility.png" alt="Lighthouse report Apply to Verify Accessibility page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Application Submitted</td>
+      <td><img src="/readme_files/lighthouse/application_submitted.png" alt="Lighthouse report Application Submitted page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Accessibility Verification Hub</td>
+      <td><img src="/readme_files/lighthouse/accessibility_verification_hub.png" alt="Lighthouse report Accessibility Verification Hub page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Accessibility Verification Form</td>
+      <td><img src="/readme_files/lighthouse/accessibility_verification_form.png" alt="Lighthouse report Accessibility Verification Form page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Accessibility Verification Report</td>
+      <td><img src="/readme_files/lighthouse/accessibility_verification_report.png" alt="Lighthouse report Accessibility Verification Report page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Business Details</td>
+      <td><img src="/readme_files/lighthouse/business_details.png" alt="Lighthouse report Business Details page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Checkout</td>
+      <td><img src="/readme_files/lighthouse/checkout.png" alt="Lighthouse report Checkout page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Payment Success</td>
+      <td><img src="/readme_files/lighthouse/payment_success.png" alt="Lighthouse report Payment Success page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>Contact</td>
+      <td><img src="/readme_files/lighthouse/contact.png" alt="Lighthouse report Contact page" style="width:400px;"></td>
+    </tr>
+    <tr>
+      <td>404 Error</td>
+      <td><img src="/readme_files/lighthouse/404_error.png" alt="Lighthouse report 404 Error page" style="width:400px;"></td>
+    </tr>
+  </tbody>
+</table>
+
+
 ## Tools Testing
