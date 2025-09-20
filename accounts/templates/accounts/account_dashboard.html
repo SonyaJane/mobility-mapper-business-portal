@@ -29,7 +29,7 @@
     <div class="col-md-8">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h3 class="card-title mb-3">Profile Details</h3>
+          <h2 class="card-title mb-3 h3">Profile Details</h2>
           <div class="table-responsive">
             <table id="profile-details" class="table table-sm table-striped table-hover mb-0">
               <tbody>
@@ -84,7 +84,7 @@
     <div class="col-md-4">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h3 class="card-title mb-3">Account Actions</h3>
+          <h2 class="card-title mb-3 h3">Account Actions</h2>
           <div class="d-flex flex-column gap-2">
             <a href="{% url 'edit_profile' %}" class="btn btn-orange">Edit Profile</a>
             <a href="{% url 'account_change_password' %}" class="btn btn-mango">Change Password</a>
@@ -109,14 +109,14 @@
         <div class="col-12">
           <div class="card shadow-sm">
             <div class="card-body">
-              <h3 class="card-title mb-3">Businesses you have been approved to verify</h3>
+              <h2 class="card-title mb-3 h3">Businesses you have been approved to verify</h2>
               <ul class="list-group">
                 {% for business in unverified_businesses %}
                 <li class="list-group-item">
                     <div class="row align-items-center">
 
                       <div class="col-sm-8 ms-0 ps-0">
-                        <h4 class="mb-1 business text-orange">{{ business.business_name }}</h4>
+                        <h3 class="mb-1 business text-orange h4">{{ business.business_name }}</h3>
                         {% if business.categories.all %}
                             <div class="mb-0 category">{{ business.categories.all|join:", " }}</div>
                         {% endif %}
@@ -145,15 +145,15 @@
       <div class="col-12">
         <div class="card shadow-sm">
           <div class="card-body">
-            <h3 class="card-title mb-3">Businesses you have applied to verify</h3>
+            <h2 class="card-title mb-3 h3">Businesses you have applied to verify</h2>
             <ul class="list-group">
               {% for business in pending_businesses %}
                 <li class="list-group-item">
                   <div class="row align-items-center">
                     <div class="col-sm-8 ms-0 ps-0">
-                      <h4 class="mb-1 business text-orange">
+                      <h3 class="mb-1 business text-orange h4">
                         <a href="{% url 'business_detail' business.id %}" class="text-decoration-none text-orange">{{ business.business_name }}</a>
-                      </h4>
+                      </h3>
                       {% if business.categories.all %}
                         <div class="mb-0 category">{{ business.categories.all|join:", " }}</div>
                       {% endif %}
@@ -181,7 +181,7 @@
     <div class="col-12">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h3 class="card-title mb-3">Wheeler Accessibility Verification</h3>
+          <h2 class="card-title mb-3 h3">Wheeler Accessibility Verification</h2>
           <p class="mb-2">As a wheeler, you can help improve accessibility for everyone by verifying the accessibility features of businesses you visit. Your reports help other users find accessible places and encourage businesses to improve their facilities.</p>
           <ul class="mb-2">
             <li>For every report you verify, you will receive a <strong>£10 Amazon voucher</strong> as a thank you for your contribution.</li>
