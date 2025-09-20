@@ -121,12 +121,12 @@
     <div class="mb-3">
       <label class="form-label">
         Business Hours<br>
-        <small class="form-text text-muted">Set opening and closing times for each day, or mark as closed.</small>
+        <span class="form-text text-muted">Set opening and closing times for each day that your business is open.</span>
       </label>
       <input type="hidden" name="opening_hours" id="id_opening_hours" value="{{ form.opening_hours.value|default:'' }}">
       <table class="table table-bordered" id="opening-hours-table">
         <thead>
-          <tr><th>Day</th><th>Periods</th><th>Closed</th></tr>
+          <tr><th>Day</th><th>Periods</th>
         </thead>
         <tbody>
           {% for day in days_of_week %}
@@ -134,10 +134,11 @@
             <td>{{ day }}</td>
             <td>
               <div class="periods-container"></div>
-              <button type="button" class="btn btn-sm btn-outline-secondary add-period-btn" data-day="{{ day }}">Add period</button>
-              <button type="button" class="btn btn-sm btn-outline-primary copy-down-btn" data-day="{{ day }}">Copy to next day</button>
+              <div class="d-flex justify-content-end gap-2 flex-column flex-sm-row">
+                <button type="button" class="btn btn-sm btn-orange-outline add-period-btn" data-day="{{ day }}">Add period</button>
+                <button type="button" class="btn btn-sm btn-coffee-outline copy-down-btn" data-day="{{ day }}">Copy to next day</button>
+              </div>
             </td>
-            <td><input type="checkbox" class="closed-checkbox" data-day="{{ day }}"></td>
           </tr>
           {% endfor %}
         </tbody>

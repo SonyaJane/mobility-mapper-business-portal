@@ -900,7 +900,7 @@ Improvements made based on Lighthouse reports:
 - Navbar: Darkened active link colour for better contrast.
 - Landing page: Changed header from h5 to h2 and added h5 class instead for better semantic structure.
 
-Note that the 96% score for the Accessible Business Search page is due to the Maplibre map markers using aria-label="Map marker", which Lighthouse flags as "ARIA attributes in roles where they are prohibited". This is a limitation of the library.
+Note that the 96% score for the Accessible Business Search, Business Dashboard pages is due to the Maplibre map markers using aria-label="Map marker", which Lighthouse flags as "ARIA attributes in roles where they are prohibited". This is a limitation of the library.
 
 <table>
   <thead>
