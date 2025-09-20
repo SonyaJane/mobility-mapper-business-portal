@@ -1,5 +1,4 @@
 import json
-
 import re
 from datetime import timedelta
 from decimal import Decimal
@@ -140,7 +139,8 @@ def business_detail(request, pk):
 def request_wheeler_verification(request, pk):
     """
     Allow a business owner to request Wheeler accessibility verification for their business.
-
+    Checks that the business belongs to the current user and hasn't already been verified or requested.
+    
     Workflow:
       - GET: Render confirmation/request screen.
       - POST: Determine verification price based on membership tier.
@@ -154,6 +154,17 @@ def request_wheeler_verification(request, pk):
         HttpResponse: Rendered request page (GET) or redirect to dashboard/checkout (POST).
     """
     business = get_object_or_404(Business, pk=pk, business_owner=getattr(request.user, 'profile', None))
+    
+    # check if hey have already been verified
+    if business.verified_by_wheelers:
+        messages.info(request, "This business has already been verified by Wheelers.")
+        return redirect('business_dashboard')
+    
+    # check they havent already requested verification
+    if business.wheeler_verification_requested:
+        messages.info(request, "You have already requested Wheeler verification for this business.")
+        return redirect('business_dashboard')
+    
     if request.method == 'POST':
         tier = business.membership_tier
         price = Decimal('0')
@@ -173,6 +184,7 @@ def request_wheeler_verification(request, pk):
             return redirect('business_dashboard')
         url = reverse('checkout', args=[business.id])
         return redirect(f"{url}?{urlencode({'purchase_type': 'verification'})}")
+    
     return render(request, 'verification/request_wheeler_verification.html', {
         'business': business,
         'page_title': 'Request Wheeler Verification'
@@ -255,6 +267,12 @@ def wheeler_verification_application(request, pk):
     if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
         messages.info(request, "You have already verified this business.")
         return redirect('business_detail', pk=pk)
+    
+    # check if the wheeler has a pending application
+    if WheelerVerificationApplication.objects.filter(business=business, wheeler=request.user, approved=False).exists():
+        messages.info(request, "You already have a pending verification request for this business.")
+        return redirect('business_detail', pk=pk)
+    
     if request.method == 'POST':
         exists_pending = WheelerVerificationApplication.objects.filter(
             business=business, wheeler=request.user, approved=False
@@ -269,6 +287,7 @@ def wheeler_verification_application(request, pk):
             return redirect('application_submitted', pk=pk)
         messages.info(request, "You already have a pending verification request for this business.")
         return redirect('business_detail', pk=pk)
+    
     return render(request, 'verification/wheeler_verification_application.html', {
         'business': business,
         'verification_count': verification_count,
@@ -329,12 +348,22 @@ def wheeler_verification_form(request, pk):
     """
     business = get_object_or_404(Business, pk=pk)
     profile = getattr(request.user, 'profile', None)
+    
+    # Ensure user is a wheeler
     if not profile or not profile.is_wheeler:
         messages.error(request, "You must be a verified Wheeler to submit a verification.")
         return redirect('account_dashboard')
+    
+    # check they are approved to verify this business
+    if not WheelerVerificationApplication.objects.filter(business=business, wheeler=request.user, approved=True).exists():
+        messages.error(request, "You must be approved to verify this business before submitting a verification.")
+        return redirect('account_dashboard')
+    
+    # Prevent duplicate verifications
     if WheelerVerification.objects.filter(business=business, wheeler=request.user).exists():
         messages.info(request, "You have already verified this business.")
         return redirect('account_dashboard')
+
     devices = MobilityDevice.objects.all()
     if request.method == 'POST':
         form = WheelerVerificationForm(request.POST, request.FILES, business=business)
@@ -429,10 +458,11 @@ def verification_report(request, verification_id):
         HttpResponse: Rendered report template or redirect if unauthorized.
     """
     verification = get_object_or_404(WheelerVerification, pk=verification_id)
-    print(f"Verification ID: {verification.id}, Business: {verification.business.business_name}, Wheeler: {verification.wheeler.username}")
+
     # Allow business owner or the Wheeler who submitted to view the report
     is_owner = (verification.business.business_owner == getattr(request.user, 'profile', None))
     is_wheeler = (verification.wheeler == request.user)
+    
     # Allow superusers to view any report
     is_superuser = request.user.is_superuser
     if not (is_owner or is_wheeler or is_superuser):
@@ -473,7 +503,7 @@ def verification_report(request, verification_id):
 
 
 @login_required
-def cancel_wheeler_verification_request(request, business_id):
+def cancel_wheeler_verification_application(request, business_id):
     """
     Allow a Wheeler to cancel a pending (unapproved) verification application.
 
@@ -489,19 +519,19 @@ def cancel_wheeler_verification_request(request, business_id):
     Returns:
         HttpResponseRedirect: Redirect to account dashboard.
     """
-    profile = getattr(request.user, 'profile', None)
-    if not profile or not profile.is_wheeler:
-        messages.error(request, "Only verified Wheelers can cancel verification requests.")
-        return redirect('account_dashboard')
-    # Find and delete the pending request
+    # Find pending request
     req = WheelerVerificationApplication.objects.filter(
-        business_id=business_id,
-        wheeler=request.user,
+        business_id=business_id,  # specific business
+        wheeler=request.user,  # only their own requests
         approved=False
     ).first()
+
+    # Delete the pending request
     if req:
         req.delete()
         messages.success(request, "Your verification request has been cancelled.")
+        return redirect('account_dashboard')
     else:
         messages.info(request, "No pending verification request found to cancel.")
-    return redirect('account_dashboard')
+        return redirect('account_dashboard')
+

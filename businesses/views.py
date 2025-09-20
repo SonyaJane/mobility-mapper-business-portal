@@ -41,6 +41,7 @@ def register_business(request):
     # Get or create the user profile
     user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
 
+    # If the user already has a business, redirect to dashboard
     if Business.objects.filter(business_owner=user_profile).exists():
         return redirect('business_dashboard')
 

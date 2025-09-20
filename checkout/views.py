@@ -28,8 +28,9 @@ def checkout(request, business_id):
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     # Set the currency of the checkout session
     currency = settings.STRIPE_CURRENCY
-    # Get the business object
-    business = get_object_or_404(Business, pk=business_id)
+    
+    # Get the business object and make sure the user owns it
+    business = get_object_or_404(Business, pk=business_id, business_owner=request.user.profile)
 
     if request.method == 'POST':
         purchase_form = PurchaseForm(request.POST)
@@ -156,8 +157,8 @@ def checkout(request, business_id):
 
 
 def payment_success(request, purchase_number):
-    # get the purchase
-    purchase= get_object_or_404(Purchase, purchase_number = purchase_number)
+    # get the purchase and make sure it belongs to the user
+    purchase= get_object_or_404(Purchase, purchase_number = purchase_number, user=request.user)
     template = 'checkout/payment_success.html'
     context = {
         'purchase': purchase,
