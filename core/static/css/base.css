@@ -84,6 +84,11 @@ header {
     height: 62px;
 }
 
+h1, .h1 {
+    font-family: var(--primary-font), sans-serif;
+    font-weight: 700;
+    font-size: calc(1.5rem);
+}
 h2, .h2 {
     font-family: var(--primary-font), sans-serif;
     font-weight: 600;
