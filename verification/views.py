@@ -41,6 +41,11 @@ def business_detail(request, pk):
     """
     Display a public-facing, verification-aware business detail page.
 
+    Only allows access if the user is a wheeler who has:
+      - applied to verify the business,
+      - been approved to verify the business,
+      - or has already verified the business
+
     Includes:
       - Opening hours parsed from JSON (if present)
       - Basic geo JSON payload for client-side map
@@ -55,6 +60,25 @@ def business_detail(request, pk):
         HttpResponse: Rendered business detail template.
     """
     business = get_object_or_404(Business, pk=pk, is_approved=True)
+    profile = getattr(request.user, 'profile', None)
+
+    # Restrict access: Only allow wheelers who have applied, been approved, or have verified
+    has_applied = WheelerVerificationApplication.objects.filter(
+        business=business,
+        wheeler=request.user
+    ).exists()
+    has_verified = WheelerVerification.objects.filter(
+        business=business,
+        wheeler=request.user
+    ).exists()
+
+    if not (has_applied or has_verified):
+        messages.error(
+            request,
+            "You must apply to verify, or have verified this business to view its details."
+        )
+        return redirect('account_dashboard')
+
     # Parse and normalize opening_hours JSON for server-side table rendering
     if business.opening_hours:
         try:
