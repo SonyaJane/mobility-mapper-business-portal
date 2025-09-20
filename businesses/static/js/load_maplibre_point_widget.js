@@ -1,5 +1,22 @@
+/**
+ * load_maplibre_point_widget.js
+ *
+ * Exports a function to initialise a MapLibre map widget for selecting a geographic point.
+ * - Loads the map into the specified container.
+ * - Loads UK boundary GeoJSON and restricts marker placement to within the UK.
+ * - Allows users to set or move a draggable marker by clicking on the map.
+ * - Updates a hidden input with the selected POINT (longitude latitude) value.
+ * - If an initial value exists, centers the map and places a marker at that location.
+ * - Smoothly pans and zooms the map when a marker is set or moved.
+ * - Ensures the map resizes correctly when loaded.
+ */
+
 import load_map from "./load_map.js";
 
+/**
+ * Initializes a MapLibre map widget for selecting a geographic point.
+ * Loads the map, restricts marker placement to the UK, and updates the hidden input with the selected point.
+ */
 export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
     document.addEventListener('DOMContentLoaded', async function () {
         // Load the map into the specified container
@@ -39,7 +56,10 @@ export default function load_maplibre_point_widget(containerId, widgetAttrsId) {
         }
         }
 
-        // move or create map marker
+        /**
+         * Moves or creates the map marker at the given coordinates.
+         * Updates the hidden input and optionally centers the map.
+         */
         function setMarker(coords, centerMap = true) {
             if (marker) { // If marker already exists, just update its position
                 marker.setLngLat(coords);

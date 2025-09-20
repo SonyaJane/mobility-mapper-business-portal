@@ -1,3 +1,12 @@
+/**
+ * toggle_business_accordion.js
+ *
+ * Exports a function to handle toggling the business accordion panel in the results list.
+ * - Opens or closes the accordion panel for a business.
+ * - Highlights the selected business and its marker on the map.
+ * - Ensures only one panel is open at a time.
+ * - Handles arrow icon direction and result visibility.
+ */
 export default function toggleBusinessAccordion(li, infoPanel, arrowIcon, biz) {
     // Get all results in the list
     const allResults = document.querySelectorAll('#results-list > li');

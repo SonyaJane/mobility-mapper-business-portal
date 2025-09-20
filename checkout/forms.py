@@ -6,6 +6,10 @@ class PurchaseForm(forms.ModelForm):
     """Form for creating a Purchase for on-site Stripe Elements (PaymentIntent) payments."""
 
     class Meta:
+        """
+        Meta class for PurchaseForm.
+        Specifies model, fields, labels, and widgets for the form.
+        """
         model = Purchase
         fields = [
             'full_name', 'email', 'phone_number',
@@ -31,8 +35,9 @@ class PurchaseForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         """
-        Add placeholders and classes, remove auto-generated
-        labels and set autofocus on first field
+        Initialise the PurchaseForm.
+        Adds placeholders and classes, removes auto-generated labels,
+        and sets autofocus on the first field.
         """
         super().__init__(*args, **kwargs)
         placeholders = {

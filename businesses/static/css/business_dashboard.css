@@ -77,7 +77,7 @@ img.business-logo {
         width: 173px;
     }
 }
-/* Description & Services table fixed first column and responsive behavior */
+/* Description & Services table fixed first column and responsive behaviour */
 #description-services-table td:first-child {
     white-space: nowrap;
 }

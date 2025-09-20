@@ -1,3 +1,14 @@
+/**
+ * render_results_list.js
+ *
+ * Exports a function to render the list of businesses in the search results panel.
+ * - Creates list items for each business, including logo, name, categories, address, and badges.
+ * - Handles verified and verification-requested badges.
+ * - Renders an accordion panel with detailed business info.
+ * - Handles toggling of the accordion and prevents toggling when clicking the verification badge.
+ * - Displays a "No results found" message if the list is empty.
+ */
+
 import renderBusinessAccordion from './render_business_accordion.js';
 import toggleBusinessAccordion from './toggle_business_accordion.js';
 

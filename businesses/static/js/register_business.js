@@ -1,10 +1,25 @@
+/**
+ * register_business.js
+ *
+ * Handles dynamic interactivity for the Register Business page:
+ * - Initialises Choices.js for accessibility features and categories dropdowns.
+ * - Manages membership tier card selection and highlights the selected tier.
+ * - Sets the hidden input value for the selected membership tier.
+ * - Supports keyboard accessibility for card selection.
+ * - Toggles the "Other" category field based on selection.
+ * - Enables auto-resizing for textareas.
+ * - Initialises the opening hours widget.
+ *
+ * All logic is executed after DOMContentLoaded to ensure elements are present.
+ */
+
 import { initChoices, initOtherCategoryToggle, initAutoResize, initOpeningHours } from './form_helpers.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.membership-tier-card');
     const hiddenInput = document.getElementById('selected-membership-tier');
 
-    // Initialize shared form helpers
+    // Initialise shared form helpers
     initChoices('#id_accessibility_features', {
       removeItemButton: true,
       shouldSort: false,

@@ -1,15 +1,33 @@
+/**
+ * accessible_business_search.js
+ *
+ * Handles all interactivity for the Accessible Business Search page:
+ * - Loads and initializes the map.
+ * - Filters businesses in real time or on button click (depending on device width).
+ * - Integrates Choices.js for accessibility feature filtering.
+ * - Handles map and list view toggling on mobile.
+ * - Manages clear buttons for search and accessibility filters.
+ * - Displays detailed info overlays for businesses.
+ * 
+ * All logic is executed after DOMContentLoaded to ensure elements are present.
+ */
+
 import renderMarkers from './render_markers.js';
 import load_map from './load_map.js';
 import filterBusinesses from './filter_businesses.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-
-    // Load map
+    /**
+     * Loads the map into the map container.
+     */
     const mapContainer = document.getElementById('map');
     load_map(mapContainer);
 
-    // Listen for search input 
-    // On desktop: real-time filtering; on mobile: wait for Search button
+    /**
+     * Sets up search input filtering:
+     * - On desktop, filters in real time as the user types.
+     * - On mobile, filters when the Search button is clicked.
+     */
     const searchInput = document.getElementById('business-search');
     if (window.matchMedia('(min-width: 768px)').matches) {
         searchInput.addEventListener('input', filterBusinesses);
@@ -20,7 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // listen for map panning or zoom changes to trigger filtering only on desktop
+    /**
+     * Triggers filtering when the map is panned or zoomed (desktop only).
+     */
     if (window.MAP && window.MAP.map && window.matchMedia('(min-width: 768px)').matches) {
         // Only re-filter once the user finishes dragging (panning) or zooming on larger screens
         window.MAP.map.on('dragend', () => {
@@ -32,6 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    /**
+     * Initializes Choices.js for accessibility feature filtering.
+     * Shows/hides the clear-all button based on selection.
+     */
     const accessibilitySelect = document.getElementById('accessibility-select');
     let accessibilityChoices;
     if (accessibilitySelect) {
@@ -57,11 +81,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Initial random results on md+ when no input yet
+    /**
+     * Shows random results on desktop when no input is present.
+     */
     if (window.matchMedia('(min-width: 768px)').matches) {
         filterBusinesses();
     }
-    // Clear all accessibility selections when clear button is clicked
+
+    /**
+     * Clears all accessibility selections when the clear button is clicked.
+     */
     const clearAccessBtn = document.getElementById('clear-accessibility');
     if (clearAccessBtn && accessibilityChoices) {
         clearAccessBtn.addEventListener('click', () => {
@@ -72,7 +101,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Clear search box when X button is clicked
+    /**
+     * Clears the search box and refreshes the list/map when the X button is clicked.
+     */
     const clearSearchBtn = document.getElementById('clear-search');
     const businessSearchInput = document.getElementById('business-search');
     if (clearSearchBtn && businessSearchInput) {
@@ -86,9 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Mobile view toggle
-
-    // Wire up list view and map view buttons
+    /**
+     * Handles mobile view toggling between map and list.
+     */
     const mapViewBtn = document.getElementById('show-map-view-btn');
     const listViewBtn = document.getElementById('show-list-view-btn');
     const resultsContainer = document.getElementById('results-container');
@@ -108,7 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
         listViewBtn.classList.add('hide');
     });
 
-    // Show detailed info overlay when clicking 'Show more info' in popup
+    /**
+     * Displays a detailed info overlay when 'Show more info' is clicked in a popup.
+     * Closes the overlay when the close button is clicked.
+     */
     document.addEventListener('click', function(e) {
         if (e.target.matches('.show-more-info')) {
             e.preventDefault();

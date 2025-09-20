@@ -67,7 +67,7 @@ class ValidateUsernameViewTests(TestCase):
 
 
 class CustomSignupFormTests(TestCase):
-    """Tests for the CustomSignupForm validation and save behavior."""
+    """Tests for the CustomSignupForm validation and save behaviour."""
 
     def setUp(self):
         """Create base related objects for signup form tests."""
@@ -362,7 +362,7 @@ class CustomSignupFormTests(TestCase):
 
 
 class UserProfileModelMethodTests(TestCase):
-    """Tests for UserProfile model relations and string output behavior."""
+    """Tests for UserProfile model relations and string output behaviour."""
 
     def setUp(self):
         """Create a user and related reference objects for model tests."""
@@ -398,7 +398,7 @@ class UserProfileModelMethodTests(TestCase):
             self.assertEqual(f"{self.user.first_name} {self.user.last_name}", "Test User")
 
     def test_is_business_owner(self):
-        """Validate business ownership flag or property behavior toggling has_business."""
+        """Validate business ownership flag or property behaviour toggling has_business."""
         profile = self.user.profile
         if hasattr(profile, "is_business_owner"):
             self.assertFalse(profile.is_business_owner)

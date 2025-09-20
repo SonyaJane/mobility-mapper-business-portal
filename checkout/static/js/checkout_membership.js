@@ -1,4 +1,18 @@
-// Membership-specific UI logic: tier selection, live amount update
+/**
+ * checkout_membership.js
+ *
+ * Handles membership-specific UI logic for the checkout page:
+ * - Updates the displayed amount and warning when a membership tier is selected.
+ * - Manages tier selection interactions and redirects to the correct checkout URL.
+ * - Highlights the currently selected membership tier.
+ * 
+ * All logic is executed after DOMContentLoaded to ensure elements are present.
+ */
+
+/**
+ * Updates the displayed membership amount and warning message
+ * based on the currently selected membership tier.
+ */
 function updateAmount() {
     const selectedTierInput = document.querySelector('input[name="membership_tier"]');
     const summaryAmtEl = document.getElementById('summary-amount');
@@ -15,14 +29,20 @@ function updateAmount() {
     warningStrong.textContent = `£${amount}`;
 }
 
-// Membership page interactions
+/**
+ * Initializes membership tier selection UI:
+ * - Handles showing/hiding tier options.
+ * - Handles tier card selection and redirects to the correct checkout URL.
+ * - Highlights the currently selected tier.
+ * - Updates the displayed amount on load.
+ */
 function initMembershipUI() {
     // Tier toggles
     const changeBtn = document.getElementById('change-tier-btn');
     const tierOptions = document.getElementById('checkout-tier-options');
     const selectedTierHidden = document.querySelector('input[name="membership_tier"]');
     const summaryDisplay = document.getElementById('summary-tier-display');
-    // Require the canonical hidden `membership_tier` input when initializing.
+    // Require the canonical hidden `membership_tier` input when initialising.
     if (changeBtn && tierOptions && selectedTierHidden && summaryDisplay) {
         changeBtn.addEventListener('click', () => {
             tierOptions.style.display = tierOptions.style.display === 'none' ? 'flex' : 'none';
@@ -53,4 +73,5 @@ function initMembershipUI() {
     updateAmount();
 }
 
+// Initialise membership UI logic after DOM is loaded
 document.addEventListener('DOMContentLoaded', initMembershipUI);

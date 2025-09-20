@@ -1,3 +1,11 @@
+/**
+ * render_opening_hours_table.js
+ *
+ * Exports a function to render a table of opening hours from a JSON object or string.
+ * - Converts 24h times to 12h format.
+ * - Displays each day's opening periods or "Closed" if none.
+ * - Returns a string of HTML for use in business detail views.
+ */
 export default function renderOpeningHoursTable(opening_hours) {
     if (!opening_hours) return '';
     // Helper to convert 24h HH:MM to 12h format (e.g., '15:00' -> '3pm')

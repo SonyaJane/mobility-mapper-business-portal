@@ -1,3 +1,13 @@
+/**
+ * render_business_accordion.js
+ *
+ * Exports a function to render the HTML for a business accordion body.
+ * - Displays accessibility features as badges.
+ * - Shows website, social links, email, phone, description, services, offers, and opening hours.
+ * - Uses renderOpeningHoursTable to format opening hours if present.
+ * - Returns a string of HTML for use in the accordion component.
+ */
+
 import renderOpeningHoursTable from './render_opening_hours_table.js';
 
 export default function renderBusinessAccordion(biz) {

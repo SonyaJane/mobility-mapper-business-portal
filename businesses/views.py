@@ -1,3 +1,11 @@
+"""
+Views for the businesses app.
+
+- Handles business registration, editing, dashboard, and membership management.
+- Provides AJAX search and accessible business search functionality.
+- Integrates with user profiles, membership tiers, accessibility features, and verification.
+"""
+
 import json
 import random
 from datetime import timedelta
@@ -26,7 +34,10 @@ register = template.Library()
 
 @register.filter
 def get_item(dictionary, key):
-    """Return the value for a given key from a dictionary."""
+    """
+    Return the value for a given key from a dictionary.
+    Used as a template filter.
+    """
     return dictionary.get(key)
 
 
@@ -34,9 +45,11 @@ def get_item(dictionary, key):
 def register_business(request):
     """
     Handle the registration of a new business by a user.
-    If the user already owns a business, redirect to the dashboard.
-    On POST, validate and save the business and update the user profile.
-    On GET, display the registration form.
+
+    - Redirects to dashboard if the user already owns a business.
+    - On POST: validates and saves the business, sets membership tier, and updates user profile.
+    - On GET: displays the registration form.
+    - If a paid tier is selected, redirects to checkout.
     """
     # Get or create the user profile
     user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
@@ -115,7 +128,10 @@ def register_business(request):
 def business_dashboard(request):
     """
     Display the business dashboard for the current user.
-    Shows business details, logo, verifications, and opening hours.
+
+    - Shows business details, logo, verifications, and opening hours.
+    - For wheelers, shows their submitted verifications and approval status.
+    - Prepares JSON data for map display.
     """
     try:
         business = Business.objects.get(business_owner=getattr(request.user, 'profile', None))
@@ -189,7 +205,9 @@ def business_dashboard(request):
 def edit_business(request):
     """
     Allow the business owner to edit their business details.
-    Handles form validation, updates business and related categories/features.
+
+    - Handles form validation and updates business and related categories/features.
+    - Supports updating opening hours and adding custom categories.
     """
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     membership_tiers = MembershipTier.objects.filter(is_active=True)
@@ -255,7 +273,9 @@ def edit_business(request):
 def upgrade_membership(request):
     """
     Display available membership plans for businesses to review and select.
-    Shows upgrade options based on current membership tier.
+
+    - Shows upgrade options based on current membership tier.
+    - Provides all active membership tiers ordered by price.
     """
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     current_tier = business.membership_tier
@@ -278,7 +298,9 @@ def upgrade_membership(request):
 def delete_business(request):
     """
     Allow the business owner to delete their business.
-    Updates the user profile to reflect the deletion.
+
+    - Updates the user profile to reflect the deletion.
+    - Confirms deletion via POST.
     """
     business = get_object_or_404(Business, business_owner=getattr(request.user, 'profile', None))
     if request.method == 'POST':
@@ -301,8 +323,9 @@ def delete_business(request):
 def ajax_search_businesses(request):
     """
     AJAX endpoint to search businesses based on filters.
-    Supports search by name, description, category, accessibility features, and map bounds.
-    Returns a JSON response with matching businesses.
+
+    - Supports search by name, description, category, accessibility features, and map bounds.
+    - Returns a JSON response with matching businesses, sorted by membership tier.
     """
     term = request.GET.get('q', '').strip()
     cat_id = request.GET.get('category')
@@ -390,7 +413,9 @@ def ajax_search_businesses(request):
 def accessible_business_search(request):
     """
     Render the accessible business search page.
-    Provides a list of accessibility features for filtering.
+
+    - Provides a list of accessibility features for filtering.
+    - Ensures the user profile exists.
     """
     user_profile = None
     if request.user.is_authenticated:
@@ -413,7 +438,9 @@ def accessible_business_search(request):
 def cancel_membership(request):
     """
     Downgrade the user's business to the free tier on membership cancellation.
-    Updates the business and notifies the user.
+
+    - Updates the business and notifies the user.
+    - Handles missing profile or business gracefully.
     """
     profile = getattr(request.user, 'profile', None)
     if not profile:
@@ -443,7 +470,9 @@ def cancel_membership(request):
 def view_existing_membership(request):
     """
     Display current membership details for the user's business.
-    Shows membership tier, start date, and end date.
+
+    - Shows membership tier, start date, and end date.
+    - Handles missing profile or business gracefully.
     """
     profile = getattr(request.user, 'profile', None)
     if not profile:

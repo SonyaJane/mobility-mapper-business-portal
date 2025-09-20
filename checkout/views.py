@@ -23,6 +23,14 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def checkout(request, business_id):
+    """
+    Handle the checkout process for a business.
+
+    - Validates ownership of the business.
+    - Handles POST requests to create or update a Purchase and redirect to payment success.
+    - Handles GET requests to prepare the checkout form, create a PaymentIntent, and render the checkout page.
+    - Supports both membership and verification purchases.
+    """
     # get Stripe API keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -157,6 +165,12 @@ def checkout(request, business_id):
 
 
 def payment_success(request, purchase_number):
+    """
+    Display the payment success page for a completed purchase.
+
+    - Ensures the purchase belongs to the current user.
+    - Renders the payment success template with purchase details.
+    """
     # get the purchase and make sure it belongs to the user
     purchase= get_object_or_404(Purchase, purchase_number = purchase_number, user=request.user)
     template = 'checkout/payment_success.html'
@@ -169,11 +183,13 @@ def payment_success(request, purchase_number):
 @require_POST
 @login_required
 def cache_checkout_data(request):
-    """Cache checkout form data on the Stripe PaymentIntent so webhooks can
-    retrieve it later. Accepts form-encoded POST body.
-    Expects a 'payment_intent_id' field and checkout fields: membership_tier,
-    purchase_type, full_name, email, phone, and address fields. Attaches them to the
-    PaymentIntent metadata.
+    """
+    Cache checkout form data on the Stripe PaymentIntent so webhooks can retrieve it later.
+
+    - Accepts form-encoded POST body.
+    - Persists form data server-side in CheckoutCache and links to PaymentIntent by id.
+    - Attaches only a short cache reference to the PaymentIntent metadata.
+    - Returns HTTP 200 on success or HTTP 400 on failure.
     """
     # Parse incoming data from POST payload
     try:

@@ -1,8 +1,8 @@
+from hijack.contrib.admin import HijackUserAdminMixin
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 from .models import UserProfile
-from hijack.contrib.admin import HijackUserAdminMixin
 
 
 class UserProfileInline(admin.StackedInline):

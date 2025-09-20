@@ -1,9 +1,15 @@
-// Checkout helpers - small reusable functions for the checkout flow
+/**
+ * checkout_helpers.js
+ *
+ * Contains small reusable function for the checkout flow.
+ */
 
-// handleFailure shows a friendly error message and re-enables the checkout UI
-// Accepts an optional `card` Element if the caller wants to explicitly pass it.
-
-// handleFailure shows a friendly error message and re-enables the checkout UI
+/**
+ * handleFailure
+ * 
+ * Displays a friendly error message and re-enables the checkout UI after a payment failure.
+ * Also moves focus to the error container for accessibility.
+ */
 export function handleFailure(message, card) {
     const errorDiv = document.getElementById('card-errors');
     const submitButton = document.getElementById('submit-button');
@@ -30,7 +36,7 @@ export function handleFailure(message, card) {
     // Move focus to the error container so screen readers announce the message
     // and the user is taken directly to the visible error.
     if (errorDiv) {
-        // make the div programmatically focusable if it isn't already
+        // make the div focusable if it isn't already
         errorDiv.setAttribute('tabindex', '-1');
         errorDiv.focus();
         // smooth-scroll it into view for better UX

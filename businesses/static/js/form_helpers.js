@@ -1,5 +1,16 @@
-// Utility functions for both register and edit business forms
+/**
+ * form_helpers.js
+ *
+ * Utility functions for both register and edit business forms:
+ * - Initialises Choices.js dropdowns for select fields.
+ * - Toggles the "Other" category input based on selection.
+ * - Enables auto-resizing for textareas.
+ * - Initialises and manages the opening hours widget, including period copying and JSON serialisation.
+ */
 
+/**
+ * Initialises Choices.js on the given select element.
+ */
 export function initChoices(selector, options) {
   const select = document.querySelector(selector);
   if (select && window.Choices) {
@@ -7,6 +18,10 @@ export function initChoices(selector, options) {
   }
 }
 
+/**
+ * Toggles the visibility of the "Other" category input field
+ * based on whether the "__other__" option is selected in the categories dropdown.
+ */
 export function initOtherCategoryToggle(selectSelector, inputSelector) {
   const catSelect = document.querySelector(selectSelector);
   const otherField = document.querySelector(inputSelector);
@@ -19,6 +34,9 @@ export function initOtherCategoryToggle(selectSelector, inputSelector) {
   toggleOther();
 }
 
+/**
+ * Enables auto-resizing for all textareas matching the selector.
+ */
 export function initAutoResize(textareaSelector) {
   document.querySelectorAll(textareaSelector).forEach(textarea => {
     function resize() {
@@ -30,6 +48,12 @@ export function initAutoResize(textareaSelector) {
   });
 }
 
+/**
+ * Initialises the opening hours widget:
+ * - Allows adding/removing periods for each day.
+ * - Supports copying periods to the next day.
+ * - Serializes the opening hours as JSON into a hidden field on form submit.
+ */
 export function initOpeningHours(tableSelector, hiddenFieldSelector) {
   const openingHoursField = document.querySelector(hiddenFieldSelector);
   const table = document.querySelector(tableSelector);
@@ -55,7 +79,7 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
   rows.forEach((row, idx) => {
     const day = row.dataset.day;
     const container = row.querySelector('.periods-container');
-    // Initialize with existing periods list (array of {start, end})
+    // Initialise with existing periods list (array of {start, end})
     const initialPeriods = Array.isArray(initial[day]) ? initial[day] : [];
     if (initialPeriods.length) {
       initialPeriods.forEach(p => addPeriod(container, p.start, p.end));
@@ -63,7 +87,7 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
       addPeriod(container);
     }
 
-  row.querySelector('.add-period-btn').onclick = () => addPeriod(container);
+    row.querySelector('.add-period-btn').onclick = () => addPeriod(container);
 
     const copyBtn = row.querySelector('.copy-down-btn');
     if (copyBtn) copyBtn.onclick = () => {

@@ -1,12 +1,27 @@
+"""
+Admin configuration for the checkout app.
+
+- Customises the admin interface for the Purchase model.
+- Organises fields into logical sections and sets audit fields as read-only.
+- Provides list display, filtering, and search for purchases.
+"""
+
 from django.contrib import admin
 from .models import Purchase
 
 
 class PurchaseAdmin(admin.ModelAdmin):
+    """
+    Admin configuration for the Purchase model.
+
+    - Makes audit fields read-only.
+    - Uses fieldsets to organise the admin form.
+    - Configures list display, filters, search, and ordering.
+    """
     # Make audit fields readonly
     readonly_fields = ('purchase_number', 'created_at', 'updated_at', 'stripe_payment_intent_id', 'raw_payload', 'metadata')
 
-    # Use fieldsets for a compact, organized admin form. Address fields are
+    # Use fieldsets for a compact, organised admin form. Address fields are
     # placed in a collapsible section; metadata/raw_payload are in an Audit
     # section at the bottom.
     fieldsets = (

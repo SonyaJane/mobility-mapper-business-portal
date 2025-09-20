@@ -1,3 +1,12 @@
+/**
+ * render_markers.js
+ *
+ * Exports a function to render business markers on the MapLibre map.
+ * - Removes old markers before rendering new ones.
+ * - Creates a marker for each business with a popup showing business info.
+ * - On mobile, adds a "Show more info" link to the popup.
+ * - Keeps track of all markers for easy removal.
+ */
 export default function renderMarkers(businesses) {
     // Render businesses on map
     // Remove old markers (MapLibre)

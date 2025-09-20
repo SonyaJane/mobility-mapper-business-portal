@@ -47,15 +47,19 @@
 
 /* Stack Profile Details on extra small screens */
 @media (max-width: 575.98px) {
+
   #profile-details {
     display: block;
   }
+
   #profile-details tbody {
     display: block;
   }
+
   #profile-details tr {
     display: block;
   }
+
   #profile-details td {
     display: block;
     width: 100%;
@@ -67,19 +71,24 @@
     overflow-wrap: anywhere;    /* break words anywhere needed */
     word-break: break-all;      /* force break of long strings */
   }
+
   #profile-details td:first-child {
     font-weight: 600;
     padding-left: 0;
   }
+
   .list-group-item {
     border: none;
     padding-left: 0;
     padding-right: 0;
   }
+
 }
 
 @media (min-width: 576px) {
+  
     #profile-details td:first-child {
         width: 195px;
     }
+    
 }

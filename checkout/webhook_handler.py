@@ -12,13 +12,6 @@ from django.template.loader import render_to_string
 from .models import Purchase, CheckoutCache
 from businesses.models import Business, MembershipTier
 
-#from django.conf import settings
-
-# from accounts.models import UserProfile
-
-# import json
-# import time
-
 
 class StripeWebHookHandler:
     """

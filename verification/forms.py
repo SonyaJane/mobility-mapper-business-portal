@@ -4,6 +4,11 @@ from .models import AccessibilityFeature
 
 
 class WheelerVerificationForm(forms.ModelForm):
+    """
+    Form for submitting a Wheeler verification of business accessibility features.
+    Allows selection of confirmed and additional features, comments, and selfie upload.
+    Validates that a mobility device is selected and that photos are uploaded for each selected feature.
+    """
     # verify business accessibility features
     confirmed_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
@@ -32,6 +37,11 @@ class WheelerVerificationForm(forms.ModelForm):
     selfie = forms.ImageField(required=True, label="Upload a photo of yourself")
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize the WheelerVerificationForm.
+        Sets up querysets for confirmed and additional features based on the business.
+        Cleans blank values from confirmed_features in POST data.
+        """
         business = kwargs.pop('business', None)  # optional business instance to filter features
         super().__init__(*args, **kwargs)
 
@@ -56,6 +66,11 @@ class WheelerVerificationForm(forms.ModelForm):
         )
 
     def clean(self):
+        """
+        Validate the form:
+        - Ensures a mobility device is selected.
+        - Ensures a photo is uploaded for each selected feature.
+        """
         cleaned_data = super().clean()
         # Ensure a mobility device is selected
         if not (self.data.get('mobility_device')):

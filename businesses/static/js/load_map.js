@@ -1,3 +1,15 @@
+/**
+ * load_map.js
+ *
+ * Exports a function to initialise and display a MapLibre map for the accessible business search page.
+ * - Sets up a hybrid raster tile map style using Maptiler (zoom 0-7) and Ordnance Survey tiles (zoom 8-20).
+ * - Initialises the map centered on the UK with custom attribution and navigation controls.
+ * - Dynamically manages map bounds based on zoom level (world for OSM, UK for OS).
+ * - Adds geolocation and custom attribution controls.
+ * - Removes the loading overlay once the map is ready.
+ * - Stores the map and markers in a global MAP namespace for use by other scripts.
+ */
+
 export default function load_map(containerId) {
     // Create MAP global namespace to store global variables
     window.MAP = window.MAP || {}; // || {} ensures that if the namespace already exists, it won't be overwritten
@@ -39,7 +51,7 @@ export default function load_map(containerId) {
         }
       ]
     };
-    // Initialize the map with custom attribution
+    // Initialise the map with custom attribution
     MAP.map = new maplibregl.Map({
       container: containerId,
       minZoom: 0,
@@ -50,7 +62,7 @@ export default function load_map(containerId) {
       // manage bounds dynamically based on zoom
       attributionControl: false // disable default, we'll add our own
     });
-     // Once the map has initialized and finished loading tiles, remove the loading overlay
+     // Once the map has initialised and finished loading tiles, remove the loading overlay
      function hideMapLoading() {
        const loadingEl = document.getElementById('map-loading');
        if (loadingEl) {

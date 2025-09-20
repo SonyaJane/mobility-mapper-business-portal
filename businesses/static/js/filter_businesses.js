@@ -1,3 +1,17 @@
+/**
+ * filter_businesses.js
+ *
+ * Handles filtering and displaying businesses on the Accessible Business Search page:
+ * - Fetches businesses from the server based on search input, accessibility filters, and map bounds.
+ * - Randomizes results on desktop when no filters are applied.
+ * - Updates the results list and map markers in real time.
+ * - Shows a loading spinner while fetching results.
+ * - Handles stale/outdated AJAX responses to avoid race conditions.
+ * - Stores the latest filtered businesses globally for use in other UI components.
+ *
+ * All logic is executed when filterBusinesses() is called (typically on input or filter change).
+ */
+
 import renderResultsList from './render_results_list.js';
 import renderMarkers from './render_markers.js';
 

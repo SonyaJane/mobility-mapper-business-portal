@@ -1,3 +1,12 @@
+/**
+ * load_map_business.js
+ *
+ * Exports a function to initialize and display a MapLibre map for a single business.
+ * - Sets up a raster tile map style.
+ * - Centers the map on the business location.
+ * - Adds a marker at the business location.
+ */
+
 export default function load_map_business(containerId, business) {
     const style = {
       version: 8,

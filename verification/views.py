@@ -51,12 +51,7 @@ def business_detail(request, pk):
       - Flags indicating whether the authenticated wheeler user
         (if any) has a pending or approved verification application
 
-    Parameters:
-        request (HttpRequest): Authenticated request (login required).
-        pk (int): Business primary key.
-
-    Returns:
-        HttpResponse: Rendered business detail template.
+    Returns the rendered business detail template or redirects if unauthorized.
     """
     business = get_object_or_404(Business, pk=pk, is_approved=True)
     profile = getattr(request.user, 'profile', None)
@@ -146,12 +141,7 @@ def request_wheeler_verification(request, pk):
       - POST: Determine verification price based on membership tier.
               If price is zero, flag business directly; otherwise redirect to checkout.
 
-    Parameters:
-        request (HttpRequest): Authenticated request.
-        pk (int): Business primary key (must belong to current user).
-
-    Returns:
-        HttpResponse: Rendered request page (GET) or redirect to dashboard/checkout (POST).
+    Returns the rendered request page (GET) or redirects to dashboard/checkout (POST).
     """
     business = get_object_or_404(Business, pk=pk, business_owner=getattr(request.user, 'profile', None))
     
@@ -204,8 +194,7 @@ def accessibility_verification_hub(request):
     Access:
       - Wheeler profiles or superusers only.
 
-    Returns:
-        HttpResponse: Rendered hub template or redirect with error.
+    Returns the rendered hub template or redirects with error.
     """
     profile = getattr(request.user, 'profile', None)
     is_superuser = request.user.is_superuser
@@ -248,8 +237,7 @@ def wheeler_verification_application(request, pk):
     POST:
       - Create WheelerVerificationApplication and notify admins.
 
-    Returns:
-        HttpResponse: Form page (GET) or redirect after submission/duplicate detection.
+    Returns the form page (GET) or redirects after submission/duplicate detection.
     """
     business = get_object_or_404(Business, pk=pk, is_approved=True)
     profile = getattr(request.user, 'profile', None)
@@ -307,8 +295,7 @@ def application_submitted(request, pk):
       - The user is a Wheeler.
       - The application is still pending for the given business.
 
-    Returns:
-        HttpResponse: Confirmation page or redirect if invalid.
+    Returns the confirmation page or redirects if invalid.
     """
     business = get_object_or_404(Business, pk=pk, is_approved=True)
     profile = getattr(request.user, 'profile', None)
@@ -339,12 +326,7 @@ def wheeler_verification_form(request, pk):
       - Handles general and feature-specific photo uploads.
       - Marks business as verified if threshold (>=3) reached.
 
-    Parameters:
-        request (HttpRequest)
-        pk (int): Business primary key.
-
-    Returns:
-        HttpResponse: Form page (GET/invalid POST) or redirect to account dashboard (success).
+    Returns the form page (GET/invalid POST) or redirects to account dashboard (success).
     """
     business = get_object_or_404(Business, pk=pk)
     profile = getattr(request.user, 'profile', None)
@@ -450,12 +432,7 @@ def verification_report(request, verification_id):
 
     Hides Wheeler identity when viewed by the business owner to preserve privacy.
 
-    Parameters:
-        request (HttpRequest)
-        verification_id (int): Verification primary key.
-
-    Returns:
-        HttpResponse: Rendered report template or redirect if unauthorized.
+    Returns the rendered report template or redirects if unauthorized.
     """
     verification = get_object_or_404(WheelerVerification, pk=verification_id)
 
@@ -507,17 +484,12 @@ def cancel_wheeler_verification_application(request, business_id):
     """
     Allow a Wheeler to cancel a pending (unapproved) verification application.
 
-    Parameters:
-        request (HttpRequest)
-        business_id (int): Business primary key for which the request was made.
-
-    Behavior:
+    Behaviour:
         - If pending application exists: delete it and show success.
         - If not: show informational message.
         - Only processed for Wheeler profiles.
 
-    Returns:
-        HttpResponseRedirect: Redirect to account dashboard.
+    Returns a redirect to account dashboard.
     """
     # Find pending request
     req = WheelerVerificationApplication.objects.filter(

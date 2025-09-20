@@ -1,3 +1,10 @@
+"""
+Forms for the businesses app.
+
+- BusinessRegistrationForm: Handles business registration with custom validation and widget logic.
+- BusinessUpdateForm: Handles business updates, omitting membership tier and supporting logo removal.
+"""
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
@@ -7,6 +14,15 @@ from core.validators import validate_logo
 
 
 class BusinessRegistrationForm(forms.ModelForm):
+    """
+    Form for registering a new business.
+
+    - Provides custom widgets and help text for business fields.
+    - Validates and parses location input as a GEOS Point.
+    - Validates uploaded logo file type and delegates further checks to a centralised validator.
+    - Handles 'Other' category creation and assignment.
+    - Ensures at least one category or an 'Other' category is provided.
+    """
     public_phone = forms.CharField(
         required=False,
         label="Public phone number",
@@ -133,6 +149,10 @@ class BusinessRegistrationForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialises the form, sets queryset and default for membership tier,
+        configures category and accessibility feature querysets, and ensures location is required.
+        """
         super().__init__(*args, **kwargs)
 
         # only configure membership_tier if it still exists
@@ -155,6 +175,7 @@ class BusinessRegistrationForm(forms.ModelForm):
     def clean_location(self):
         """
         Ensure location WKT is parsed into a GEOS Point for the model field.
+        Raises ValidationError if the input is missing or invalid.
         """
         from django.contrib.gis.geos import GEOSGeometry
         location = self.cleaned_data.get('location')
@@ -167,6 +188,10 @@ class BusinessRegistrationForm(forms.ModelForm):
         return geom
 
     def clean_logo(self):
+        """
+        Validates the uploaded logo file for allowed extensions and MIME types.
+        Delegates further validation to a centralised validator.
+        """
         logo = self.cleaned_data.get('logo')
         if not logo:
             return logo
@@ -182,11 +207,15 @@ class BusinessRegistrationForm(forms.ModelForm):
         if content_type and content_type not in allowed_mimes:
             raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
 
-        # Delegate to centralized validator (verify/reopen + size/dimension checks)
+        # Delegate to centralised validator (verify/reopen + size/dimension checks)
         validate_logo(logo, purpose="logo")
         return logo
 
     def clean_categories(self):
+        """
+        Ensures at least one category or an 'Other' category is provided.
+        Removes any special '__other__' marker from posted category values.
+        """
         # Remove the special '__other__' marker from posted category values
         raw = self.data.getlist('categories') if hasattr(self.data, 'getlist') else self.data.get('categories', [])
         # Ensure we have a list
@@ -202,6 +231,10 @@ class BusinessRegistrationForm(forms.ModelForm):
         return categories
 
     def save(self, commit=True):
+        """
+        Saves the business instance and its many-to-many relationships.
+        Handles creation and assignment of a new 'Other' category if provided.
+        """
         # Save instance and m2m, then handle 'Other' category
         instance = super().save(commit=False)
         if commit:
@@ -221,16 +254,29 @@ class BusinessRegistrationForm(forms.ModelForm):
 
 
 class BusinessUpdateForm(BusinessRegistrationForm):
+    """
+    Form for updating an existing business.
+
+    - Inherits from BusinessRegistrationForm but removes the 'membership_tier' field.
+    - Supports clearing (removing) the business logo.
+    """
     class Meta(BusinessRegistrationForm.Meta):
         # remove the 'membership_tier' field from the registration form
         fields = [f for f in BusinessRegistrationForm.Meta.fields if f != 'membership_tier']
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialises the form and removes the 'membership_tier' field.
+        """
         super().__init__(*args, **kwargs)
         # pop it again in case parent __init__ already added it
         self.fields.pop('membership_tier', None)
 
     def clean_logo(self):
+        """
+        Handles clearing the logo if the clear checkbox is ticked.
+        Returns None if the logo should be removed.
+        """
         clear_name = f"{self.add_prefix('logo')}-clear"
         if self.data.get(clear_name):
             # wipe out the logo
@@ -240,6 +286,10 @@ class BusinessUpdateForm(BusinessRegistrationForm):
         return super().clean_logo()
 
     def save(self, commit=True):
+        """
+        Saves the updated business instance.
+        Deletes the logo file from storage if the clear box was ticked.
+        """
         instance = super().save(commit=False)
         # if the user ticked the clear box, kick off a delete
         clear_name = f"{self.add_prefix('logo')}-clear"

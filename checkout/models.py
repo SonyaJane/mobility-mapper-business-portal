@@ -19,6 +19,7 @@ class CheckoutCache(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
+        """Return a string representation of the CheckoutCache instance."""
         return f'CheckoutCache {self.id}'
 
 
@@ -81,8 +82,9 @@ class Purchase(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        # Generate purchase_number if not set. Retry on IntegrityError
-        # to defend against the unlikely case of a purchase_number collision
+        """Generate a unique purchase_number if not set and save the Purchase instance.
+        Retries up to 3 times if a unique constraint is hit.
+        """
         attempts = 0
         while True:
             if not self.purchase_number:
@@ -99,4 +101,5 @@ class Purchase(models.Model):
                 self.purchase_number = None
 
     def __str__(self):
+        """Return a string representation of the Purchase instance."""
         return f'Purchase {self.purchase_number} ({self.status})'

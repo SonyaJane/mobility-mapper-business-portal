@@ -1,3 +1,17 @@
+/**
+ * checkout.js
+ *
+ * Handles Stripe Elements integration and payment flow for the checkout page.
+ *
+ * - Initialises Stripe Elements and mounts the card input.
+ * - Handles real-time validation errors on the card element.
+ * - Collects and caches checkout form data before payment.
+ * - Submits payment to Stripe and handles success or failure.
+ * - Prevents duplicate submissions and provides user feedback with loading overlays and error messages.
+ *
+ * All logic is executed after the DOM is loaded and expects template-provided Stripe keys and data attributes.
+ */
+
 import { handleFailure } from "./checkout_helpers.js";
 
 // use a window-scoped guard so helpers running in a different module can reset it
@@ -18,7 +32,10 @@ const errorDiv = document.getElementById('card-errors');
 let stripe = Stripe(stripePublicKey);
 let elements = stripe.elements();
 
-// Create a card Element style
+/**
+ * Stripe Elements card style configuration.
+ * Customises the appearance of the card input field.
+ */
 const style = {
     base: {
         iconColor: '#5f2c16',
@@ -45,7 +62,10 @@ let card = elements.create('card', {style: style, hidePostalCode: true});
 // mount the card Element
 card.mount('#card-element');
 
-// Handle realtime validation errors on the card element
+/**
+ * Handles real-time validation errors on the card element.
+ * Displays error messages in the errorDiv.
+ */
 card.addEventListener('change', event => {
     if (event.error) {
         const html = `
@@ -65,6 +85,13 @@ const form = document.getElementById('payment-form');
 const submitButton = document.getElementById('submit-button');
 const loadingOverlay = document.getElementById('loading-overlay');
 
+/**
+ * Handles the payment form submission:
+ * - Prevents duplicate submissions.
+ * - Caches checkout data to the server.
+ * - Confirms payment with Stripe.
+ * - Handles success or failure and provides user feedback.
+ */
 form.addEventListener('submit', async e => {
     e.preventDefault(); // Prevent default form submission
 
@@ -105,6 +132,9 @@ form.addEventListener('submit', async e => {
     // Read amount from container data-attribute (template provides this)
     const amount = parseFloat(document.querySelector('[data-amount]').dataset.amount);
 
+    /**
+     * Data to be cached on the server before payment confirmation.
+     */
     const cacheData = {
         'payment_intent_id': paymentIntentId,
         'business_id': businessId,

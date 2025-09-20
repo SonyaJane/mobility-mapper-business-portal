@@ -1,3 +1,14 @@
+/**
+ * wheeler_verification_form.js
+ *
+ * Handles client-side validation and interactivity for the Wheeler Verification Form:
+ * - Validates required fields (selfie, mobility device, feature photos) before submission.
+ * - Displays inline error messages above relevant sections and scrolls to the first error.
+ * - Manages feature photo upload, preview, and removal for each accessibility feature.
+ * - Syncs feature photo selection with the corresponding checkbox.
+ * - Ensures a smooth user experience with dynamic UI updates.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     // Clear existing errors and add inline errors per section
