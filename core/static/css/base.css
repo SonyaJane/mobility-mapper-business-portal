@@ -113,7 +113,7 @@ h5, .h5 {
 }
 
 .navbar-nav .nav-link.active {
-    color: var(--color-orange-4); /* Active menu link color */
+    color: var(--color-orange-6); /* Active menu link color */
     font-weight: 600;
 }
 
