@@ -34,7 +34,7 @@
     <div class="col-md-6">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h3 class="card-title m-3">Business Details</h3>
+          <h2 class="card-title m-3 h3">Business Details</h2>
           <div class="table-responsive">
             <table id="business-details" class="table table-sm table-striped table-hover mb-0">
             <tbody>
@@ -83,7 +83,7 @@
                     <a href="mailto:{{ business.public_email }}" class="text-decoration-none text-orange">{{ business.public_email }}</a>
                   {% else %}
                   <td class="align-left">
-                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-outline-primary">Add email</a>
+                    <a href="{% url 'edit_business' %}" class="btn btn-sm btn-coffee">Add email</a>
                   {% endif %}
                 </td>
               </tr>
@@ -115,9 +115,9 @@
                   {% if not business.facebook_url and not business.x_twitter_url and not business.instagram_url %}
                     <a href="{% url 'edit_business' %}" class="btn btn-sm btn-coffee-outline">Add social media links</a>
                   {% endif %}
-                  {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2"><i class="bi bi-facebook text-orange"></i></a>{% endif %}
-                  {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2"><i class="bi bi-twitter-x text-mango"></i></a>{% endif %}
-                  {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank" class="me-2"><i class="bi bi-instagram text-coffee"></i></a>{% endif %}
+                  {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2" aria-label="Facebook link"><i class="bi bi-facebook text-orange"></i></a>{% endif %}
+                  {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2" aria-label="Twitter link"><i class="bi bi-twitter-x text-mango"></i></a>{% endif %}
+                  {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank" class="me-2" aria-label="Instagram link"><i class="bi bi-instagram text-coffee"></i></a>{% endif %}
                 </td>
               </tr>
             </tbody>
@@ -131,7 +131,7 @@
     <div class="col-md-6">
       <div class="card shadow-sm h-100">
         <div class="card-body p-0">
-          <h3 class="card-title ms-3 my-3">Location</h3> 
+          <h2 class="card-title ms-3 my-3 h3">Location</h2>
           <div id="public-map"></div>
         </div>
       </div>
@@ -141,7 +141,7 @@
     <div class="col-12">
       <div class="card shadow-sm">
         <div class="card-body p-0">
-          <h3 class="card-title ms-3 my-3">Description & Services</h3>
+          <h2 class="card-title ms-3 my-3 h3">Description & Services</h2>
           <div class="table-responsive">
             <table id="description-services-table" class="table table-sm table-striped table-hover mb-0">
             <tbody>
@@ -191,7 +191,7 @@
     <div class="col-12 col-sm-6">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
-          <h3 class="card-title mb-3">Accessibility Features</h3>
+          <h2 class="card-title mb-3 h3">Accessibility Features</h2>
           <div>
             {% if business.accessibility_features.all %}
               {% for feature in business.accessibility_features.all %}
@@ -209,7 +209,7 @@
     <div class="col-12 col-sm-6">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h3 class="card-title ms-3 my-3">Opening Hours</h3>
+          <h2 class="card-title ms-3 my-3 h3">Opening Hours</h2>
           {% if business.opening_hours and opening_hours_dict %}
             <div class="table-responsive">
               <table class="table table-sm table-striped table-hover mb-0 opening-hours-table-dashboard">
@@ -246,7 +246,7 @@
     <div class="col-12 col-md-6">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
-          <h3 class="card-title mb-3">Membership Tier</h3>
+          <h2 class="card-title mb-3 h3">Membership Tier</h2>
           <div>
             {% if business.membership_tier %}
               {% if business.membership_tier.tier == 'free' %}
@@ -274,7 +274,7 @@
     <div class="col-12 col-md-6">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
-        <h3 class="card-title mb-3">Accessibility Verification</h3>
+        <h2 class="card-title mb-3 h3">Accessibility Verification</h2>
         {% if business.verified_by_wheelers %}
         <div class="mt-1 mb-3">
           <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
@@ -294,7 +294,7 @@
           <a href="{% url 'request_wheeler_verification' business.id %}" class="btn btn-mango-outline my-2 align-self-start">Request Wheeler Verification</a>
         {% endif %}
         {% if business.verifications.exists %}
-        <h3 class="mb-3">Verification Reports</h3>
+        <h2 class="mb-3 h3">Verification Reports</h2>
         <ul class="mb-0 ps-0">
           {% for verification in business.verifications.all %}
           <li class="list-group-item mb-2">

@@ -948,7 +948,7 @@ Note that the 96% score for the Accessible Business Search page is due to the Ma
     </tr>
     <tr>
       <td>Register Business</td>
-      <td><img src="/readme_files/lighthouse/register_business.png" alt="Lighthouse report Register Business page" style="width:400px;"></td>
+      <td><img src="/readme_files/lighthouse/register_business.png" alt="Lighthouse report Register Business page"style="width:400px;"></td>
     </tr>
     <tr>
       <td>Business Dashboard</td>
