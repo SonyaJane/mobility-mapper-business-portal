@@ -31,7 +31,7 @@
     <div class="col-md-6">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title m-3">Business Details</h5>
+          <h2 class="card-title m-3 h5">Business Details</h2>
           <div class="table-responsive">
             <table id="business-details" class="table table-sm table-striped table-hover mb-0">
             <tbody>
@@ -56,28 +56,28 @@
               {% if business.website %}
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-globe fs-5 me-2 text-mango"></i><strong>Website:</strong></td>
-                <td class="align-middle"><a href="{{ business.website }}" target="_blank" class="text-decoration-none">{{ business.website }}</a></td>
+                <td class="align-middle"><a href="{{ business.website }}" target="_blank" class="text-decoration-none text-orange">{{ business.website }}</a></td>
               </tr>
               {% endif %}
               {% if business.public_email %}
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-envelope fs-5 me-2 text-brown"></i><strong>Email:</strong></td>
-                <td class="align-middle"><a href="mailto:{{ business.public_email }}" class="text-decoration-none">{{ business.public_email }}</a></td>
+                <td class="align-middle"><a href="mailto:{{ business.public_email }}" class="text-decoration-none text-orange">{{ business.public_email }}</a></td>
               </tr>
               {% endif %}
               {% if business.public_phone %}
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-telephone fs-5 me-2 text-coffee"></i><strong>Phone:</strong></td>
-                <td class="align-middle"><a href="tel:{{ business.public_phone }}" class="text-decoration-none">{{ business.public_phone }}</a></td>
+                <td class="align-middle"><a href="tel:{{ business.public_phone }}" class="text-decoration-none text-orange">{{ business.public_phone }}</a></td>
               </tr>
               {% endif %}
               {% if business.facebook_url or business.x_twitter_url or business.instagram_url %}
               <tr>
                 <td class="align-middle ps-3"><i class="bi bi-share fs-6 me-2 text-coffee"></i><strong>Social Media:</strong></td>
                 <td class="align-middle">
-                  {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2"><i class="bi bi-facebook text-orange"></i></a>{% endif %}
-                  {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2"><i class="bi bi-twitter-x text-mango"></i></a>{% endif %}
-                  {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank" class="me-2"><i class="bi bi-instagram text-coffee"></i></a>{% endif %}
+                  {% if business.facebook_url %}<a href="{{ business.facebook_url }}" target="_blank" class="me-2" aria-label="Facebook Link"><i class="bi bi-facebook text-orange"></i></a>{% endif %}
+                  {% if business.x_twitter_url %}<a href="{{ business.x_twitter_url }}" target="_blank" class="me-2" aria-label="Twitter Link"><i class="bi bi-twitter-x text-mango"></i></a>{% endif %}
+                  {% if business.instagram_url %}<a href="{{ business.instagram_url }}" target="_blank" class="me-2" aria-label="Instagram Link"><i class="bi bi-instagram text-coffee"></i></a>{% endif %}
                 </td>
               </tr>
               {% endif %}
@@ -92,7 +92,7 @@
     <div class="col-md-6">
       <div class="card shadow-sm h-100">
         <div class="card-body p-0">
-          <h5 class="card-title ms-3 my-3">Location</h5> 
+          <h2 class="card-title ms-3 my-3 h5">Location</h2>
           <div id="public-map"></div>
         </div>
       </div>
@@ -103,7 +103,7 @@
     <div class="col-12">
       <div class="card shadow-sm">
         <div class="card-body p-0">
-          <h5 class="card-title ms-3 my-3">Description & Services</h5>
+          <h2 class="card-title ms-3 my-3 h5">Description & Services</h2>
           <div class="table-responsive">
             <table id="description-services-table" class="table table-sm table-striped table-hover mb-0">
             <tbody>
@@ -130,12 +130,17 @@
                 <td class="align-middle ps-3"><i class="bi bi-check-circle fs-5 me-2 text-success"></i><strong>Verification Status:</strong></td>
                 <td class="align-middle">
                     {% if business.verified_by_wheelers %}
-                    <span class="text-success fw-bold">
-                        ✅ Verified by Wheelers
-                    </span>
+                    <div class="mt-1 mb-3">
+                      <div class="mb-1 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block">
+                        <span class="fw-bold">
+                          <i class="bi bi-check-circle-fill pe-2"></i>
+                          Verified by Wheelers
+                        </span>
+                      </div>
+                    </div>
                     {% elif user_request_approved %}
                     <a href="{% url 'wheeler_verification_form' business.id %}" 
-                        class="btn btn-success fs-6 fw-semibold box-shadow" style="white-space: normal;">
+                        class="btn btn-green fs-6 fw-semibold box-shadow" style="white-space: normal;">
                         📝 Please verify the accessibility of this business
                     </a>
                     {% elif user_has_requested %}
@@ -167,7 +172,7 @@
     <div class="col-12 {% if business.opening_hours and opening_hours_dict %}col-sm-6{% endif %}">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
-          <h5 class="card-title mb-3">Accessibility Features</h5>
+          <h2 class="card-title mb-3 h5">Accessibility Features</h2>
           <div>
             {% if business.accessibility_features.all %}
               {% for feature in business.accessibility_features.all %}
@@ -185,7 +190,7 @@
     <div class="col-12 col-sm-6">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h3 class="card-title ms-3 my-3">Opening Hours</h3>
+          <h2 class="card-title ms-3 my-3 h5">Opening Hours</h2>
           {% if business.opening_hours and opening_hours_dict %}
             <div class="table-responsive">
               <table class="table table-sm table-striped table-hover mb-0" id="opening-hours-table-dashboard">
