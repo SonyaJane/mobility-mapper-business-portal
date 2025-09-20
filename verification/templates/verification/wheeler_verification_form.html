@@ -70,7 +70,7 @@
             </td>
             <td class="text-center align-middle w-49">
               <div class="feature-photo-wrapper" data-feature="{{ feature.pk }}">
-                <button type="button" class="btn btn-orange-outline btn-sm feature-photo-btn" data-feature="{{ feature.pk }}">
+                <button type="button" class="btn btn-orange-outline btn-sm feature-photo-btn" data-feature="{{ feature.pk }}" aria-label="Upload photo of {{ feature.name }}">
                   <i class="bi bi-camera"></i>
                 </button>
                 <input type="file" name="feature_photo_{{ feature.pk }}" accept="image/*" class="feature-photo-input d-none" data-feature="{{ feature.pk }}">
@@ -102,7 +102,7 @@
             </td>
             <td class="text-center align-middle w-49">
               <div class="feature-photo-wrapper" data-feature="{{ feature.pk }}">
-                <button type="button" class="btn btn-orange-outline btn-sm feature-photo-btn" data-feature="{{ feature.pk }}">
+                <button type="button" class="btn btn-orange-outline btn-sm feature-photo-btn" data-feature="{{ feature.pk }}" aria-label="Upload photo of {{ feature.name }}">
                   <i class="bi bi-camera"></i>
                 </button>
                 <input type="file" name="feature_photo_{{ feature.pk }}" accept="image/*" class="feature-photo-input d-none" data-feature="{{ feature.pk }}">
@@ -143,14 +143,14 @@
       <label class="fw-bold p-2">Upload a photo of yourself at <span class="fw-bold text-orange">{{ business.business_name }}</span>. 
         This will help us verify that you were there.</label>
       <div class="p-1">
-        <input type="file" name="selfie" accept="image/*" class="form-control" required>
+        <input type="file" name="selfie" accept="image/*" class="form-control" aria-label="Upload a photo of yourself" required>
       </div>
     </div>
 
     <div class="mb-3 border-custom">
       <div class="fw-bold p-2">Please upload any additional photos you took at <span class="fw-bold text-orange">{{ business.business_name }}</span> that you have not already uploaded:</div>
       <div class="p-1">
-        <input type="file" name="photos" multiple class="form-control">
+        <input type="file" name="photos" multiple aria-label="Upload additional photos" class="form-control">
       </div>
     </div>
 
