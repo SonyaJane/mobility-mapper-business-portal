@@ -896,6 +896,10 @@ in the website are easy to read and accessible. See reports in the table below:
 
 ### Lighthouse Reports
 
+Improvements made based on Lighthouse reports:
+- Navbar: Darkened active link colour for better contrast.
+- Landing page: Changed header from h5 to h2 and added h5 class instead for better semantic structure.
+
 <table>
   <thead>
     <tr>
