@@ -90,11 +90,11 @@
                 </li>
                 {% endif %}
                 <li class="nav-item mb-2">
-                  <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_logout' %} active{% endif %}" href="{% url 'account_logout' %}">Sign Out</a>
                 </li>
               {% else %}
                 <li class="nav-item mb-2">
-                  <a class="nav-link{% if request.resolver_match.url_name == 'account_login' %} active{% endif %}" href="{% url 'account_login' %}">Login</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_login' %} active{% endif %}" href="{% url 'account_login' %}">Sign In</a>
                 </li>
                 <li class="nav-item mb-2">
                   <a class="nav-link{% if request.resolver_match.url_name == 'account_signup' %} active{% endif %}" href="{% url 'account_signup' %}">Sign Up</a>
@@ -119,32 +119,37 @@
             <ul class="navbar-nav ms-auto">
               {% if user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'account_dashboard' %}">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_dashboard' %} active{% endif %}" href="{% url 'account_dashboard' %}">
                     Personal Dashboard
                   </a>
                 </li>
                 {% if user.profile and user.profile.has_business %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'business_dashboard' %}">Business Dashboard</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'business_dashboard' %} active{% endif %}" href="{% url 'business_dashboard' %}">Business Dashboard</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'accessible_business_search' %}">Accessible Business Search</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'accessible_business_search' %} active{% endif %}" href="{% url 'accessible_business_search' %}">Accessible Business Search</a>
                 </li>
+                {% if show_wheeler_history %}
+                <li class="nav-item mb-2">
+                  <a class="nav-link{% if request.resolver_match.url_name == 'accessibility_verification_hub' %} active{% endif %}" href="{% url 'accessibility_verification_hub' %}">Accessibility Verification Hub</a>
+                </li>
+                {% endif %}
                 {% if not user.profile or not user.profile.has_business %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'register_business' %}">Register Your Business</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'register_business' %} active{% endif %}" href="{% url 'register_business' %}">Register Your Business</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_logout' %} active{% endif %}" href="{% url 'account_logout' %}">Sign Out</a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_login' %} active{% endif %}" href="{% url 'account_login' %}">Sign In</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                  <a class="nav-link{% if request.resolver_match.url_name == 'account_signup' %} active{% endif %}" href="{% url 'account_signup' %}">Sign Up</a>
                 </li>
               {% endif %}
               <li class="nav-item mb-2">

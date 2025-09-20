@@ -113,7 +113,8 @@ h5, .h5 {
 }
 
 .navbar-nav .nav-link.active {
-    color: #bd582c; /* Active menu link color */
+    color: var(--color-orange-4); /* Active menu link color */
+    font-weight: 600;
 }
 
 .navbar-toggler:focus {
@@ -150,6 +151,9 @@ h5, .h5 {
     letter-spacing: -0.6px;
     color: #bd582c;
     text-decoration: none;
+}
+.logo-font:hover {
+    color: var(--color-orange-3);
 }
 
 .underline-orange {

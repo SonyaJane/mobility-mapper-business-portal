@@ -905,10 +905,6 @@ in the website are easy to read and accessible. See reports in the table below:
   </thead>
   <tbody>
     <tr>
-      <td>Home</td>
-      <td><img src="/readme_files/lighthouse/home.png" alt="Lighthouse report Home page" style="width:400px;"></td>
-    </tr>
-    <tr>
       <td>Landing Page</td>
       <td><img src="/readme_files/lighthouse/landing_page.png" alt="Lighthouse report Landing Page page" style="width:400px;"></td>
     </tr>
