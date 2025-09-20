@@ -132,7 +132,7 @@
                   <a class="nav-link{% if request.resolver_match.url_name == 'accessible_business_search' %} active{% endif %}" href="{% url 'accessible_business_search' %}">Accessible Business Search</a>
                 </li>
                 {% if show_wheeler_history %}
-                <li class="nav-item mb-2">
+                <li class="nav-item">
                   <a class="nav-link{% if request.resolver_match.url_name == 'accessibility_verification_hub' %} active{% endif %}" href="{% url 'accessibility_verification_hub' %}">Accessibility Verification Hub</a>
                 </li>
                 {% endif %}

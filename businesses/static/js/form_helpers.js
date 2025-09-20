@@ -42,9 +42,9 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
     const div = document.createElement('div');
     div.className = 'input-group mb-1 period-row';
     div.innerHTML = `
-      <input type="time" class="form-control open-time" value="${open}">
+      <input type="time" class="form-control open-time" value="${open}" aria-label="Opening time">
       <span class="input-group-text">to</span>
-      <input type="time" class="form-control close-time" value="${close}">
+      <input type="time" class="form-control close-time" value="${close}" aria-label="Closing time">
       <button type="button" class="btn btn-sm btn-outline-danger remove-period-btn" title="Remove">&times;</button>
     `;
     div.querySelector('.remove-period-btn').onclick = () => div.remove();
