@@ -1,24 +1,20 @@
 # handles signals (webhooks) from Stripe when an event occurs
 # We specify URL the signals are sent to
 # The webhook handler determines what we want to given a particular event signal
-from django.http import HttpResponse
-from django.conf import settings
 import stripe
 
-from .models import Purchase
-from businesses.models import Business, MembershipTier
-import logging
-from .models import CheckoutCache
 from django.db import IntegrityError
+from django.http import HttpResponse
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
-logger = logging.getLogger(__name__)
-# from django.core.mail import send_mail
-# from django.template.loader import render_to_string
+from .models import Purchase, CheckoutCache
+from businesses.models import Business, MembershipTier
+
 #from django.conf import settings
 
-# from .models import Purchase
 # from accounts.models import UserProfile
-
 
 # import json
 # import time
@@ -34,22 +30,22 @@ class StripeWebHookHandler:
     def __init__(self, request):
         self.request = request
 
-    # def _send_confirmation_email(self, order):
-    #     """Send the user a confirmation email"""
-    #     cust_email = order.email
-    #     subject = render_to_string(
-    #         'checkout/confirmation_emails/confirmation_email_subject.txt',
-    #         {'order': order})
-    #     body = render_to_string(
-    #         'checkout/confirmation_emails/confirmation_email_body.txt',
-    #         {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-
-    #     send_mail(
-    #         subject,
-    #         body,
-    #         settings.DEFAULT_FROM_EMAIL,
-    #         [cust_email]
-    #     )
+    def _send_confirmation_email(self, purchase):
+        """Send the user a confirmation email"""
+        cust_email = purchase.email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            {'purchase': purchase})
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {'purchase': purchase, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+                    
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email]
+        )
 
     def handle_event(self, event):
         """

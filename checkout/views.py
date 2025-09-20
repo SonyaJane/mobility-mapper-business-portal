@@ -166,10 +166,6 @@ def payment_success(request, purchase_number):
     return render(request, template, context)
 
 
-def payment_failed(request):
-    return render(request, 'checkout/payment_failed.html')
-
-
 @require_POST
 @login_required
 def cache_checkout_data(request):

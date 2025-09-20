@@ -1,0 +1,38 @@
+Hello {{ purchase.full_name }}!
+
+This is a confirmation of your purchase at Mobility Mapper. Your purchase and billing information is shown below.
+
+
+{% if purchase.purchase_type == 'membership' and purchase.membership_tier %}
+Purchase Type: {{ purchase.membership_tier.get_tier_display }} {{ purchase.get_purchase_type_display|lcfirst }} 
+{% else %}
+{{ purchase.get_purchase_type_display }}
+{% endif %}
+
+Reference Number: {{ purchase.purchase_number }}
+Purchase Date: {{ purchase.created_at|date:"F j, Y" }}
+
+Purchase Amount: £{{ purchase.amount }}
+
+Your order will be shipped to {{ order.street_address1 }} in {{ order.town_or_city }}, {{ order.country }}.
+
+We've got your phone number on file as {{ purchase.phone_number }},
+and your address as
+{{ purchase.street_address1 }}
+{% if purchase.street_address2 %}
+{{ purchase.street_address2 }}
+{% endif %}
+{{ purchase.town_or_city }}
+{% if purchase.county %}
+{{ purchase.county }}
+{% endif %}
+{{ purchase.postcode }}
+{{ purchase.country }}.
+
+If you have any questions, feel free to contact us at {{ contact_email }}.
+
+Thank you for your purchase.
+
+Sincerely,
+
+Mobility Mapper
