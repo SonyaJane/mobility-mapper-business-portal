@@ -92,6 +92,8 @@ class CustomSignupForm(SignupForm):
         username = self.cleaned_data.get('username', '').strip()
         if not username:
             raise ValidationError("Username is required.")
+        if len(username) < 5:
+            raise forms.ValidationError("Username must be at least 5 characters long.")
         if User.objects.filter(username__iexact=username).exists():
             raise ValidationError("This username is already taken.")
         return username
