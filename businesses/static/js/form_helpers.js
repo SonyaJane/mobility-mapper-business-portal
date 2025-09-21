@@ -83,9 +83,7 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
           const open = div.querySelector('.open-time').value;
           const close = div.querySelector('.close-time').value;
           if (open && close) addPeriod(nextContainer, open, close);
-        });
-        const nextCb = next.querySelector('.closed-checkbox');
-        nextCb.checked = closedCb.checked; nextCb.dispatchEvent(new Event('change'));
+        });        
       }
     };
   });
