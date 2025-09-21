@@ -26,13 +26,17 @@ class StripeWebHookHandler:
     def _send_confirmation_email(self, purchase):
         """Send the user a confirmation email"""
         cust_email = purchase.email
+        print(f'cust_email: {cust_email}')
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
             {'purchase': purchase})
+        print(f'subject: {subject}')
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'purchase': purchase, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-                    
+        print(f'body: {body}')
+        print(f'from_email: {settings.DEFAULT_FROM_EMAIL}')
+        
         send_mail(
             subject,
             body,
