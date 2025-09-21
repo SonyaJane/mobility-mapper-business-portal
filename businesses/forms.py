@@ -113,11 +113,10 @@ class BusinessRegistrationForm(forms.ModelForm):
     )
     # Use FileField so we can validate extension/MIME first in clean_logo
     logo = forms.FileField(
-        required=False,
         widget=forms.ClearableFileInput(attrs={'accept': 'image/png,image/jpeg,image/webp'}),
-        error_messages={
-            'invalid': 'Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.'
-        }
+        label='Business Logo',
+        help_text='The image must be in PNG, JPEG, or WEBP format, square, and no larger than 5MB.',
+        required=False,
     )
 
     class Meta:

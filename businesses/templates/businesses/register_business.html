@@ -58,17 +58,7 @@
 
     {% csrf_token %}
     {{ form.media }} 
-    
-    {% comment %} Logo {% endcomment %}
-    <div class="mb-3">
-      <label for="{{ id_for_logo }}" class="form-label">
-        Logo
-        <br>
-        The image must be in PNG, JPEG, or WEBP format, square, and no larger than 5MB.
-      </label>
-      <input type="file" name="{{ form.logo.html_name }}" class="form-control" accept="image/*" id="{{ form.logo.id_for_label }}">
-      {{ form.logo|as_crispy_field }}
-    </div>
+  
 
     <!-- Other Form Fields -->
     {% for field in form.visible_fields %}
