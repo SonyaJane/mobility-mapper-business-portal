@@ -37,7 +37,8 @@ class StripeWebHookHandler:
             subject,
             body,
             settings.DEFAULT_FROM_EMAIL,
-            [cust_email]
+            [cust_email],
+            fail_silently=False
         )
 
     def handle_event(self, event):
@@ -121,6 +122,8 @@ class StripeWebHookHandler:
             if purchase_type == 'verification':
                 business.wheeler_verification_requested = True
                 business.save()
+                
+            self._send_confirmation_email(purchase)
 
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
