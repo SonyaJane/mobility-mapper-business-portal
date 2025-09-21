@@ -19,22 +19,6 @@ export function initChoices(selector, options) {
 }
 
 /**
- * Toggles the visibility of the "Other" category input field
- * based on whether the "__other__" option is selected in the categories dropdown.
- */
-export function initOtherCategoryToggle(selectSelector, inputSelector) {
-  const catSelect = document.querySelector(selectSelector);
-  const otherField = document.querySelector(inputSelector);
-  if (!catSelect || !otherField) return;
-  function toggleOther() {
-    const values = Array.from(catSelect.selectedOptions).map(o => o.value);
-    otherField.style.display = values.includes('__other__') ? 'block' : 'none';
-  }
-  catSelect.addEventListener('change', toggleOther);
-  toggleOther();
-}
-
-/**
  * Enables auto-resizing for all textareas matching the selector.
  */
 export function initAutoResize(textareaSelector) {

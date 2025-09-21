@@ -72,7 +72,7 @@
       <label for="id_categories" class="form-label">
         Business Categories*
         <br>
-        <span class="form-text">Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</span>
+        <span class="form-text">Select the categories that describe your business.</span>
       </label>
       {% regroup form.fields.categories.queryset by group_description as grouped_categories %}
       <select name="categories" id="id_categories" class="form-select mb-3" multiple size="8">
@@ -85,20 +85,7 @@
           </optgroup>
           {% endif %}
         {% endfor %}
-        <optgroup label="Other">
-          {% for group in grouped_categories %}
-            {% if not group.grouper %}
-              {% for category in group.list %}
-                <option value="{{ category.pk }}" {% if category.pk|stringformat:'s' in selected_categories %}selected{% endif %}>{{ category.name }}</option>
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-          <option value="__other__" {% if '__other__' in selected_categories %}selected{% endif %}>Other</option>
-        </optgroup>
       </select>
-      <div id="other-category-field" class="mb-3" style="display: none;">
-        {{ form.other_category|as_crispy_field }}
-      </div>
     </div>
 
     <!-- Accessibility Features -->
