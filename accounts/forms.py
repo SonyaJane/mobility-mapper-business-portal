@@ -68,6 +68,7 @@ class CustomSignupForm(SignupForm):
     )
     photo = forms.FileField(
         label='Profile Photo',
+        help_text='The image must be in PNG, JPEG, or WEBP format, square, and no larger than 5MB.',
         required=False,
         widget=forms.ClearableFileInput(attrs={'accept': 'image/png,image/jpeg,image/webp'}),
         error_messages={
@@ -109,16 +110,6 @@ class CustomSignupForm(SignupForm):
         photo = self.cleaned_data.get('photo')
         if not photo:
             return photo
-
-        name = getattr(photo, 'name', '') or ''
-        content_type = getattr(photo, 'content_type', '') or ''
-        allowed_exts = ('.png', '.jpg', '.jpeg', '.webp')
-        allowed_mimes = ('image/png', 'image/jpeg', 'image/webp')
-
-        if name and not name.lower().endswith(allowed_exts):
-            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
-        if content_type and content_type not in allowed_mimes:
-            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
 
         return validate_profile_photo(photo, purpose="profile photo")
 

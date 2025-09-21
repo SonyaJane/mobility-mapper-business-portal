@@ -64,5 +64,8 @@
 {% endblock content %}
 
 {% block extra_js %}
+  <script>
+  var validateUsernameUrl = "{% url 'validate_username' %}";
+  </script>
   <script src="{% static 'js/signup.js' %}"></script>
 {% endblock %}

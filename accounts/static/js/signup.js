@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const val = this.value.trim();
         if (!val) { feedback.textContent = ''; return; }
         timer = setTimeout(() => {
-        fetch("{% url 'validate_username' %}?username=" + encodeURIComponent(val))
+        fetch(validateUsernameUrl + "?username=" + encodeURIComponent(val))
             .then(r => r.json())
             .then(data => {
                 feedback.textContent = data.available ? 'Username is available.' : 'Username is already taken.';

@@ -11,7 +11,7 @@ class UserProfileInline(admin.StackedInline):
     """
     model = UserProfile
     can_delete = False
-    verbose_name_plural = 'Profile'
+    verbose_name_plural = 'Profiles'
     fk_name = 'user'
 
 
@@ -21,8 +21,9 @@ class UserAdmin(HijackUserAdminMixin, DefaultUserAdmin):
     """
     inlines = (UserProfileInline,)
     # show profile fields in user list
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_wheeler', 'has_business')
-
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_wheeler', 'has_business', 'date_joined')
+    ordering = ('-date_joined', 'username')
+    
     def get_hijack_user(self, obj):
         """
         This enables admin users to "hijack" (log in as) another user.

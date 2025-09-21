@@ -20,17 +20,17 @@
 The following user stories outline the key functionalities and features of the Mobility Mapper Business Portal. Each story includes specific acceptance criteria to ensure that the implementation meets user needs and expectations.
 
 1. **Create an account**  
-   As a User I want to register an account so that I can access all portal features.  
+   As a User I want to create an account so that I can access all portal features.  
 
     **Acceptance Criteria**
-    - The user can access a registration page from the home page or navigation bar.
+    - The user can access a registration page from the home page by clicking the "Get Started" button, or "Sign Up" in the navigation bar.
     - The registration form collects first name, last name, email (with confirmation), username, password (with confirmation), and allows the user to specify if they are a business owner and/or a wheeler.
     - The form includes fields for country, county (if applicable), age group, and optional profile photo upload.
     - Password fields enforce strong password requirements and confirmation.
     - Helpful validation and error messages are shown inline for each field.
     - If the user already has an account, a clear link is provided to the sign-in page.
-    - After submitting the form, users are prompted to verify their email address via a confirmation link before logging in.
-    - Upon successful registration and login, users are directed to their personal dashboard.
+    - After submitting the form, users are prompted to verify their email address via a confirmation link that is emailed to them before logging in.
+    - Upon successful registration, users are automatically logged in and directed to their personal dashboard.
 
 2. **Edit my profile**  
    As a User, I want to be able to update my personal details, change my password, and manage my profile photo so that my account information is always current.
@@ -373,21 +373,12 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Welcome headline | "Welcome to the Mobility Mapper Business Portal" is displayed prominently | Pass |
 | Motivational tagline | "Join us in making the UK more accessible—one business at a time." is visible | Pass |
 | Call to action buttons (Not logged in) | "Get Started", "Sign In", and "Contact Us" buttons appear for unauthenticated users and work as expected | Pass |
-| Call to action buttons (Logged in) | "Personal Dashboard", "Business Dashboard" (for business owners), and "Contact Us" buttons appear for authenticated users and work as expected | Pass |
+| Call to action buttons (Logged in, wheelers) | "Personal Dashboard", "Search for Accessible Businesses", and "Contact Us" buttons appear and work as expected | Pass |
+| Call to action buttons (Logged in, business users) | "Personal Dashboard", "Register Business" or "Business Dashboard", and "Contact Us" buttons appear and work as expected | Pass |
 | Register Your Business card | Card is visible with title and description | Pass |
 | Get Verified card | Card is visible with title and description | Pass |
 | Search Accessible Places card | Card is visible with title and description | Pass |
 | Testimonial blockquote | User testimonial is visible at the bottom of the page | Pass |
-| Responsive layout | Layout adapts correctly to all screen sizes (desktop, tablet, mobile) | Pass |
-| Accessibility: Heading structure | Headings are in logical order for screen readers | Pass |
-| Accessibility: Alt text | All images (including hero) have descriptive alt text | Pass |
-| Accessibility: Keyboard navigation | All interactive elements are reachable and usable via keyboard | Pass |
-| Accessibility: ARIA roles | ARIA roles and labels are present where needed | Pass |
-| Flash messages | Success/error/info messages display at the top of the page and are dismissible | Pass |
-| Navigation bar visibility | Navigation bar is visible and functional for all users | Pass |
-| Hamburger menu (mobile) | Hamburger menu appears and toggles navigation links on mobile | Pass |
-| Footer | Footer is present, contains correct links, and is accessible | Pass |
-| Conditional content | Content updates correctly based on authentication state (e.g., different CTAs for logged in/out) | Pass |
 
 
 **Sign Up Page**
@@ -395,8 +386,22 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
 | Registration form is visible | Form is centered in a card and clearly labeled "Sign Up" | Pass |
-| Responsive layout | Form and card display correctly on all screen sizes | Pass |
-
+| Required fields validation | Submitting with missing required fields shows inline error messages or focuses in on the invalid field | Pass |
+| First name field | First name field is present and required | Pass |
+| Last name field | Last name field is present and required | Pass |
+| Email confirmation field | Email confirmation field is present and must match email | Pass |
+| Username field | Username field is present, required, and validated for uniqueness and greater than 5 characters | Pass |
+| Business owner/wheeler options | User must select if they are a business owner and/or wheeler | Pass |
+| Country and county fields | Country dropdown present and required; county field appears for UK | Pass |
+| Age group selection | Age group dropdown is present and required | Pass |
+| Profile photo upload | User can upload a profile photo; invalid files are rejected; file type and size restrictions are clearly communicated; image remains if errors occur elsewhere in form | Pass |
+| Password confirmation field | Password confirmation field is present and must match password | Pass |
+| Password strength validation | Weak passwords are rejected with a clear error message | Pass |
+| CSRF protection | Form includes CSRF token | Pass |
+| Account existence check | Attempting to register with an existing email results in an email saying an account already exists | Pass |
+| Link to sign-in page | Clear link to sign-in page for existing users | Pass   |
+| Email verification | User receives a verification email after registering | Pass |
+| Successful registration redirect | User is redirected to dashboard after successful registration | Pass |
 
 **Personal Dashboard Page**
 
