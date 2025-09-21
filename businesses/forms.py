@@ -58,7 +58,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         required=False,
         label="Business Hours",
         widget=forms.Textarea(attrs={
-            'placeholder': 'e.g. Mon-Fri 9am-5pm; Sat 10am-2pm; Sun closed',
             'class': 'auto-resize',
             'rows': 3
         })

@@ -90,6 +90,7 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
 
   table.closest('form').addEventListener('submit', () => {
     const data = {};
+    let hasAnyPeriods = false;
     rows.forEach(row => {
       const day = row.dataset.day;
       const periods = [];
@@ -98,8 +99,16 @@ export function initOpeningHours(tableSelector, hiddenFieldSelector) {
         const close = div.querySelector('.close-time').value;
         if (open && close) periods.push({ start: open, end: close });
       });
-      data[day] = periods;
+      if (periods.length) {
+        hasAnyPeriods = true;
+        data[day] = periods; // Only add days with periods
+      }
+      // Do not add days with no periods
     });
-    openingHoursField.value = JSON.stringify(data);
+    if (hasAnyPeriods) {
+      openingHoursField.value = JSON.stringify(data);
+    } else {
+      openingHoursField.value = '';
+    }
   });
 }

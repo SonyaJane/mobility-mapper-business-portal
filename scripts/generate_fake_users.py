@@ -388,9 +388,13 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
                     ]
                 else:
                     opening_hours_dict[day] = [{"start": "09:00", "end": "17:00"}]
-            else:
-                opening_hours_dict[day] = []
-        opening_hours = json.dumps(opening_hours_dict)
+            # else: do not add the day at all
+
+        # Only save JSON if at least one day has hours, else save empty string
+        if opening_hours_dict:
+            opening_hours = json.dumps(opening_hours_dict)
+        else:
+            opening_hours = ''
     # Choose 1 category most of the time, 2 occasionally
     if random.random() < 0.8:
         categories = [random.choice(category_choices)]
