@@ -1,3 +1,4 @@
+{% load text_filters %}
 Hello {{ purchase.full_name }}!
 
 This is a confirmation of your purchase at Mobility Mapper. Your purchase and billing information is shown below.
