@@ -401,7 +401,21 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Account existence check | Attempting to register with an existing email results in an email saying an account already exists | Pass |
 | Link to sign-in page | Clear link to sign-in page for existing users | Pass   |
 | Email verification | User receives a verification email after registering | Pass |
-| Successful registration redirect | User is redirected to dashboard after successful registration | Pass |
+| Successful registration redirect | User is redirected to signin page after successful registration, and a success message is displayed | Pass |
+
+**Sign In Page**
+| Feature | Outcome | Pass/Fail |
+|---|---|---|
+| Sign-in form is visible | Form is centered in a card and clearly labeled "Sign In" | Pass |
+| Required fields validation | Submitting with missing required fields shows inline error messages or focuses in on the invalid field | Pass |
+| Email/username field | Field is present and required | Pass |
+| Password field | Field is present and required | Pass |
+| Remember me checkbox | Checkbox is present and works as expected | Pass |
+| CSRF protection | Form includes CSRF token | Pass |
+| Forgot password link | Link to reset password page is present and works as expected | Pass |
+| Link to sign-up page | Clear link to sign-up page for new users | Pass |
+| Invalid credentials handling | Incorrect email/username or password shows a clear error message | Pass |
+| Successful sign-in redirect | Wheelers are redirected to their personal dashboard after successful sign-in, and business owners are redirected to their business dashboard | Pass |
 
 **Personal Dashboard Page**
 
@@ -425,25 +439,24 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Page heading | "Register Your Accessible Business" heading is visible at the top | Pass |
 | Introductory text | Explains the importance of complete listings and public visibility | Pass |
 | Verified by Wheelers badge preview | Badge is shown with icon and label | Pass |
-| Error summary | Validation errors are shown in a dismissible alert at the top of the form | Pass |
-| CSRF token | Present in the form for security | Pass |
-| Business name, address, contact fields | Present, required, and validated | Pass |
-| Website and description fields | Present and validated | Pass |
+| Business name and address fields | Present, required, and validated | Pass |
+| Public and contact phone fields | Present and validated | Pass |
+| Website and public email fields | Present and validated | Pass |
+| Social media links fields | Present and validated | Pass |
+| Description and services fields | Present | Pass |
+| Logo upload | Allows PNG, JPEG, or WEBP, square, max 5MB; file input is present and works | Pass |
+| Location map | Interactive map allows setting and previewing business location | Pass |
 | Categories multi-select | Grouped dropdown, allows multiple selections, "Other" option triggers custom input | Pass |
 | Other category field | Appears dynamically when "Other" is selected | Pass |
 | Accessibility features multi-select | Dropdown allows multiple selections, enhanced with Choices.js | Pass |
 | Opening hours widget | Table allows setting multiple periods per day, copy to next day, and dynamic updates | Pass |
-| Special offers field | Present and validated | Pass |
 | Membership tier selection | Cards for Free, Standard, Premium; only one can be selected; keyboard accessible | Pass |
 | Tier benefits and price | Each card displays tier name, benefits, and price | Pass |
 | Selected tier is highlighted | Selected card is visually distinct (border and shadow) | Pass |
-| Register button | Present, submits the form, and shows loading state | Pass |
+| Register button | Present, submits the form | Pass |
 | After submission (Free tier) | Redirects to Business Dashboard with confirmation | Pass |
 | After submission (Paid tier) | Redirects to secure checkout page | Pass |
-| Accessibility: Keyboard navigation | All fields, dropdowns, and cards are accessible via keyboard | Pass |
-| Accessibility: ARIA labels and roles | Present on form fields, cards, and buttons | Pass |
-| Inline validation | Errors shown next to fields if invalid or missing | Pass |
-| Responsive layout | Form and cards display correctly on all screen sizes | Pass |
+| CSRF token | Present in the form for security | Pass |
 | JavaScript enhancements | Dynamic field visibility, opening hours, and membership tier selection work as expected | Pass |
 
 

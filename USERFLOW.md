@@ -6,15 +6,15 @@ b) Click the "Get Started" button, or in the menu click "Sign Up", to create an 
 <img src="./readme_files/user_flow/get_started.png" alt="Get Started Button" width="120"/>
 c) Complete the registration form.
 d) A confirmation email will be sent to the provided email address, click the link to verify the email.
-e) After successful registration, you are automatically signed in.
+e) After successful registration, you see a success message (toast) and are redirected to the Sign In page.
 
 ## 2. Sign In
 
-a) If you already have an account, you can log in directly using your email and password.
+a) Sign in using your username or email, and password.
 b) If you forget your password, you can use the "Forgot Password" feature to reset it via email.
-c) Upon login, you are redirected to your personal dashboard.
+c) Upon login, you are redirected to the business dashboard where you are invited to register your business. CLick the "Register Business" button to proceed.
 
-### 2. Register a Business
+## 3. Register a Business
 - After logging in, the user is prompted to register their business.
 - The user fills out the business registration form, including:
   - Business name, address, contact details

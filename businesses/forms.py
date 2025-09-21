@@ -20,7 +20,6 @@ class BusinessRegistrationForm(forms.ModelForm):
     - Provides custom widgets and help text for business fields.
     - Validates and parses location input as a GEOS Point.
     - Validates uploaded logo file type and delegates further checks to a centralised validator.
-    - Handles 'Other' category creation and assignment.
     - Ensures at least one category or an 'Other' category is provided.
     """
     public_phone = forms.CharField(
@@ -90,14 +89,8 @@ class BusinessRegistrationForm(forms.ModelForm):
         queryset=None,  # Set in __init__
         widget=forms.SelectMultiple,
         label="Business Categories*",
-        help_text="Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.",
+        help_text="Select the categories that describe your business.",
         required=False
-    )
-    other_category = forms.CharField(
-        required=False,
-        label="Other Category*",
-        help_text="If your category isn't listed, type it here and it will be added to our database.",
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter a new category here'})
     )
     accessibility_features = forms.ModelMultipleChoiceField(
         queryset=None,  # Set in __init__
@@ -133,7 +126,6 @@ class BusinessRegistrationForm(forms.ModelForm):
             'x_twitter_url',
             'instagram_url',
             'categories',
-            'other_category',
             'accessibility_features',
             'description',
             'services_offered',
@@ -176,14 +168,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         # purchase categories by group and name so grouping works correctly
         self.fields['categories'].queryset = Category.objects.all().order_by('group_description', 'name')
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
-        
-        # Remove '__other__' from POST data before validation
-        if hasattr(self.data, 'copy'):
-            data = self.data.copy()
-            if hasattr(data, 'getlist'):
-                categories = [v for v in data.getlist('categories') if v != '__other__']
-                data.setlist('categories', categories)
-            self.data = data
 
     def clean_location(self):
         """
@@ -229,40 +213,17 @@ class BusinessRegistrationForm(forms.ModelForm):
         Ensures at least one category or an 'Other' category is provided.
         Removes any special '__other__' marker from posted category values.
         """
-        # Remove the special '__other__' marker from posted category values
-        raw = self.data.getlist('categories') if hasattr(self.data, 'getlist') else self.data.get('categories', [])
-        # Ensure we have a list
-        if isinstance(raw, str):
-            raw = [raw]
-        selected_ids = [val for val in raw if val != '__other__']
-        # Convert to Category instances
-        categories = Category.objects.filter(pk__in=selected_ids)
-        # If no real categories and no other_category provided, error
-        other = self.data.get('other_category', '').strip()
-        if not categories and not other:
-            raise forms.ValidationError('Select at least one category or enter an Other category.')
+        categories = self.cleaned_data.get('categories')
+        if not categories or not categories.exists():
+            raise forms.ValidationError('Select at least one category.')
         return categories
 
     def save(self, commit=True):
         """
         Saves the business instance and its many-to-many relationships.
-        Handles creation and assignment of a new 'Other' category if provided.
         """
         # Save instance and m2m, then handle 'Other' category
         instance = super().save(commit=False)
-        if commit:
-            instance.save()
-            # Save m2m relationships for categories and accessibility_features
-            self.save_m2m()
-            # Handle 'Other' entry by adding new Category
-            other_cat = self.cleaned_data.get('other_category')
-            if other_cat:
-                slug = slugify(other_cat)
-                category, created = Category.objects.get_or_create(
-                    code=slug,
-                    defaults={'name': other_cat}
-                )
-                instance.categories.add(category)
         return instance
 
 
