@@ -60,8 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    initOtherCategoryToggle('#id_categories', '#other-category-field');
-
     initAutoResize('textarea.auto-resize');
 
     initOpeningHours('#opening-hours-table', '#id_opening_hours');
