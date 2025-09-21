@@ -3,14 +3,13 @@
  *
  * Handles dynamic interactivity for the Edit Business page:
  * - Initialises Choices.js for accessibility features and categories dropdowns.
- * - Toggles the "Other" category field based on selection.
  * - Enables auto-resizing for textareas.
  * - Initialises the opening hours widget.
  *
  * All logic is executed after DOMContentLoaded to ensure elements are present.
  */
 
-import { initChoices, initOtherCategoryToggle, initAutoResize, initOpeningHours } from './form_helpers.js';
+import { initChoices, initAutoResize, initOpeningHours } from './form_helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialise shared form helpers
@@ -27,9 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     placeholder: true,
     placeholderValue: 'Select business categories'
   });
-
-  // Toggle other category field
-  initOtherCategoryToggle('#id_categories', '#other-category-field');
 
   // Auto-resize textareas
   initAutoResize('textarea.auto-resize');
