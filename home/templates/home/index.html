@@ -35,11 +35,11 @@
 
                 {% comment %} Logged in {% endcomment %}
                 {% if user.is_authenticated %}
-                    <a href="{% url 'account_dashboard' %}" class="btn btn-red-outline btn-lg">Personal Dashboard</a>``                
+                    <a href="{% url 'account_dashboard' %}" class="btn btn-green-outline btn-lg">Personal Dashboard</a>              
                     {% comment %} Business user {% endcomment %}
                     {% if user.has_business %}
                         {% if user.has_registered_business %}
-                        <a href="{% url 'business_dashboard' %}" class="btn btn-green-outline btn-lg">Business Dashboard</a>
+                        <a href="{% url 'business_dashboard' %}" class="btn btn-coffee-outline btn-lg">Business Dashboard</a>
                         {% else %}
                         <a href="{% url 'business_register' %}" class="btn btn-coffee-outline btn-lg">Register Business</a>
                         {% endif %}
