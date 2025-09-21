@@ -176,6 +176,14 @@ class BusinessRegistrationForm(forms.ModelForm):
         # purchase categories by group and name so grouping works correctly
         self.fields['categories'].queryset = Category.objects.all().order_by('group_description', 'name')
         self.fields['accessibility_features'].queryset = AccessibilityFeature.objects.all()
+        
+        # Remove '__other__' from POST data before validation
+        if hasattr(self.data, 'copy'):
+            data = self.data.copy()
+            if hasattr(data, 'getlist'):
+                categories = [v for v in data.getlist('categories') if v != '__other__']
+                data.setlist('categories', categories)
+            self.data = data
 
     def clean_location(self):
         """
