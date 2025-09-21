@@ -20,7 +20,6 @@ class BusinessRegistrationForm(forms.ModelForm):
     - Provides custom widgets and help text for business fields.
     - Validates and parses location input as a GEOS Point.
     - Validates uploaded logo file type and delegates further checks to a centralised validator.
-    - Ensures at least one category or an 'Other' category is provided.
     """
     public_phone = forms.CharField(
         required=False,
@@ -193,25 +192,13 @@ class BusinessRegistrationForm(forms.ModelForm):
         if not logo:
             return logo
 
-        # Early extension/content-type check to give a clear "wrong file type" error for SVG
-        name = getattr(logo, 'name', '') or ''
-        content_type = getattr(logo, 'content_type', '') or ''
-        allowed_exts = ('.png', '.jpg', '.jpeg', '.webp')
-        allowed_mimes = ('image/png', 'image/jpeg', 'image/webp')
-
-        if name and not name.lower().endswith(allowed_exts):
-            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
-        if content_type and content_type not in allowed_mimes:
-            raise ValidationError("Please upload a PNG, JPEG or WEBP image. SVG or other formats are not allowed.")
-
         # Delegate to centralised validator (verify/reopen + size/dimension checks)
         validate_logo(logo, purpose="logo")
         return logo
 
     def clean_categories(self):
         """
-        Ensures at least one category or an 'Other' category is provided.
-        Removes any special '__other__' marker from posted category values.
+        Ensures at least one category is provided.
         """
         categories = self.cleaned_data.get('categories')
         if not categories or not categories.exists():
@@ -222,7 +209,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         """
         Saves the business instance and its many-to-many relationships.
         """
-        # Save instance and m2m, then handle 'Other' category
         instance = super().save(commit=False)
         return instance
 

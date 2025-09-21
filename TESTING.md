@@ -446,8 +446,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Description and services fields | Present | Pass |
 | Logo upload | Allows PNG, JPEG, or WEBP, square, max 5MB; file input is present and works | Pass |
 | Location map | Interactive map allows setting and previewing business location | Pass |
-| Categories multi-select | Grouped dropdown, allows multiple selections, "Other" option triggers custom input | Pass |
-| Other category field | Appears dynamically when "Other" is selected | Pass |
+| Categories multi-select | Grouped dropdown, allows multiple selections, enhanced with Choices.js | Pass |
 | Accessibility features multi-select | Dropdown allows multiple selections, enhanced with Choices.js | Pass |
 | Opening hours widget | Table allows setting multiple periods per day, copy to next day, and dynamic updates | Pass |
 | Membership tier selection | Cards for Free, Standard, Premium; only one can be selected; keyboard accessible | Pass |
@@ -457,7 +456,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | After submission (Free tier) | Redirects to Business Dashboard with confirmation | Pass |
 | After submission (Paid tier) | Redirects to secure checkout page | Pass |
 | CSRF token | Present in the form for security | Pass |
-| JavaScript enhancements | Dynamic field visibility, opening hours, and membership tier selection work as expected | Pass |
+| JavaScript enhancements | Opening hours and membership tier selection work as expected | Pass |
 
 
 **Business Dashboard Page**
@@ -466,7 +465,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 |---|---|---|
 | Business logo | Displays uploaded logo or placeholder if not set | Pass |
 | Business name and dashboard label | Business name and "Dashboard" label shown prominently | Pass |
-| Owner’s name | Owner’s first and last name displayed in details table | Pass |
+| Owner's name | Owner's first and last name displayed in details table | Pass |
 | Categories | All assigned categories listed; prompt and link to add if none | Pass |
 | Address | Full address shown; prompt and link to add if missing | Pass |
 | Website | Website link shown and opens in new tab; prompt and link to add if missing | Pass |
@@ -474,11 +473,11 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Public phone | Phone number shown; prompt and link to add if missing | Pass |
 | Private phone | Private phone shown; prompt and link to add if missing | Pass |
 | Social media links | Facebook, Twitter/X, Instagram icons shown if set; prompt and link to add if none | Pass |
-| Location map | Interactive map displays business location | Pass |
-| Description | Description shown; prompt and link to add if missing | Pass |
+| Location map | Interactive map displays business location with marker | Pass |
+| Description and Services | Description shown; prompt and link to add if missing | Pass |
 | Services offered | Services listed; prompt and link to add if missing | Pass |
 | Special offers | Special offers shown; prompt and link to add if missing | Pass |
-| Accessibility features | All features shown as badges; prompt and link to add if none | Pass |
+| Accessibility features | All features shown as badges | Pass |
 | Opening hours | Table displays hours for each day; prompt and link to add if missing | Pass |
 | Membership tier | Current tier (Free, Standard, Premium) shown with tailored message and upgrade/view buttons | Pass |
 | Verification status | Shows "Verified by Wheelers" badge, "Verification in progress/requested" alert, or button to request verification | Pass |

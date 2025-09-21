@@ -12,23 +12,24 @@ e) After successful registration, you see a success message (toast) and are redi
 
 a) Sign in using your username or email, and password.
 b) If you forget your password, you can use the "Forgot Password" feature to reset it via email.
-c) Upon login, you are redirected to the business dashboard where you are invited to register your business. CLick the "Register Business" button to proceed.
+c) Upon login, you are redirected to the business dashboard where you are invited to register your business. Click the "Register Business" button to proceed.
 
 ## 3. Register a Business
-- After logging in, the user is prompted to register their business.
-- The user fills out the business registration form, including:
-  - Business name, address, contact details
-  - Categories and accessibility features
-  - Uploading a logo and describing services/offers
-  - Selecting a membership tier (Free, Standard, Premium)
-  - Setting opening hours and location on the map
+a) After signing in, you are invited to register your business. Click the "Register Business" button to proceed.
+b) You are taken to the business registration form.
+c) Fill out the business registration form. Fields with asterisks (*) are mandatory.
+d) Click the Register button to submit the form.
+e) If the form is invalid, error messages are displayed at the top of the form.
+f) If the form is valid:    
+- If the free membership tier is selected, the business is created, and you are redirected to the business dashboard with a success message.  
+- If a paid membership tier is selected, you are redirected to the checkout page to complete the payment.  
 
-### 3. Membership Selection & Payment
+## 4. Membership Selection & Payment
 - If a paid membership tier is selected, the user is directed to the checkout page.
 - The user enters payment details and completes the purchase.
 - Upon successful payment, the business is upgraded to the selected tier.
 
-### 4. Business Dashboard
+## 5. Business Dashboard
 - The user is redirected to their business dashboard.
 - Here, they can:
   - View and edit business details

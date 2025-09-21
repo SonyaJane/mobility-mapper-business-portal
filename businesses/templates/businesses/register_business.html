@@ -62,7 +62,7 @@
 
     <!-- Other Form Fields -->
     {% for field in form.visible_fields %}
-      {% if field.name != 'categories' and field.name != 'other_category' and field.name != 'accessibility_features' and field.name != 'membership_tier' and field.name != 'opening_hours' and field.name != 'special_offers' %}
+      {% if field.name != 'categories' and field.name and field.name != 'accessibility_features' and field.name != 'membership_tier' and field.name != 'opening_hours' and field.name != 'special_offers' %}
         {{ field|as_crispy_field }}
       {% endif %}
     {% endfor %}
