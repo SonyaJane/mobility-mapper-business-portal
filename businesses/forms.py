@@ -153,6 +153,12 @@ class BusinessRegistrationForm(forms.ModelForm):
         configures category and accessibility feature querysets, and ensures location is required.
         """
         super().__init__(*args, **kwargs)
+        
+        # Make address fields required
+        self.fields['street_address1'].required = True
+        self.fields['town_or_city'].required = True
+        self.fields['county'].required = True
+        self.fields['postcode'].required = True
 
         # only configure membership_tier if it still exists
         if 'membership_tier' in self.fields:
