@@ -70,7 +70,7 @@
     <!-- Categories (grouped multi-select dropdown) -->
     <div class="mb-3">
       <label for="id_categories" class="form-label">
-        Business Categories
+        Business Categories*
         <br>
         <span class="form-text">Select the categories that describe your business. If yours isn't listed, choose 'Other' and enter it below.</span>
       </label>
@@ -103,7 +103,7 @@
 
     <!-- Accessibility Features -->
     <div class="mb-3">
-      <label for="id_accessibility_features" class="form-label">Accessibility Features</label>
+      <label for="id_accessibility_features" class="form-label">Accessibility Features*</label>
       <select name="accessibility_features" id="id_accessibility_features" class="form-select" multiple size="8">
         {% for feature in form.fields.accessibility_features.queryset %}
           <option value="{{ feature.pk }}" {% if form.accessibility_features.value and feature.pk|stringformat:'s' in form.accessibility_features.value %}selected{% endif %}>{{ feature.name }}</option>

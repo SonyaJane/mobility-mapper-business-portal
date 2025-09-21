@@ -107,7 +107,7 @@ class BusinessRegistrationForm(forms.ModelForm):
     )
     location = forms.CharField(
         widget=MapLibrePointWidget(),
-        label="Business Location*",
+        label="Business Location",
         help_text="Find your business location on the map, zoom in for accuracy, and then click directly on your building or area to place a marker.",
         required=True,
     )
