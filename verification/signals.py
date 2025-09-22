@@ -1,17 +1,24 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import WheelerVerification
 
+# Store the old value before saving
+@receiver(pre_save, sender=WheelerVerification)
+def store_old_approved(sender, instance, **kwargs):
+    if instance.pk:
+        old = sender.objects.get(pk=instance.pk)
+        instance._old_approved = old.approved
+    else:
+        instance._old_approved = False
+
 @receiver(post_save, sender=WheelerVerification)
 def send_approval_email(sender, instance, created, **kwargs):
     print(f"Post-save signal received for WheelerVerification id={instance.id}, created={created}")
-    # Only send if not just created, and approved is now True, and was previously False
-    if not created:
-        # Get the previous value from the database
-        old = sender.objects.get(pk=instance.pk)
-        if not old.approved and instance.approved:
+    # Only send if not just created, and approved changed from False to True
+    if not created and hasattr(instance, '_old_approved'):
+        if not instance._old_approved and instance.approved:
             subject = f"Your verification for {instance.business.business_name} has been approved!"
             message = (
                 f"Dear {instance.wheeler.get_full_name() or instance.wheeler.username},\n"
@@ -23,9 +30,6 @@ def send_approval_email(sender, instance, created, **kwargs):
                 "The Mobility Mapper Team"
             )
             print(f"Sending approval email to {instance.wheeler.email}")
-            print(f"Subject: {subject}")
-            print(f"Message: {message}")
-            print(f"From: {settings.DEFAULT_FROM_EMAIL}")
             send_mail(
                 subject,
                 message,
