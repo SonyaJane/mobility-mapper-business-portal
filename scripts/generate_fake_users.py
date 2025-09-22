@@ -498,7 +498,6 @@ for ver in wheeler_verifications:
             'wheeler': ver['fields']['wheeler'],
             'requested_at': date_time,
             'approved': True,
-            'reviewed': True,
             'approved_at': date_time
         }
     })
