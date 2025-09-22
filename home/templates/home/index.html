@@ -41,7 +41,7 @@
                         {% if user.has_registered_business %}
                         <a href="{% url 'business_dashboard' %}" class="btn btn-coffee-outline btn-lg">Business Dashboard</a>
                         {% else %}
-                        <a href="{% url 'business_register' %}" class="btn btn-coffee-outline btn-lg">Register Business</a>
+                        <a href="{% url 'register_business' %}" class="btn btn-coffee-outline btn-lg">Register Business</a>
                         {% endif %}
                     {% comment %} Wheeler {% endcomment %}
                     {% else %}
