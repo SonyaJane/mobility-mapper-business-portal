@@ -26,7 +26,7 @@ class CustomSignupForm(SignupForm):
         max_length=150, 
         required=True, 
         label='Choose a username', 
-        help_text='Must contain least 5 characters. Letters, digits, and ./_ only.'
+        help_text='Must contain least 5 characters. Letters, digits, and . _ only.'
     )
     has_business = forms.TypedChoiceField(
         choices=[('True', 'Yes'), ('False', 'No')],

@@ -33,6 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
             feedback.classList.add('text-danger');
             return;
         }
+        if (val.length < 5) {
+            feedback.textContent = 'Username must be at least 5 characters long.';
+            feedback.classList.remove('text-success');
+            feedback.classList.add('text-danger');
+            return;
+        }
         timer = setTimeout(() => {
             fetch(validateUsernameUrl + "?username=" + encodeURIComponent(val))
                 .then(r => r.json())
