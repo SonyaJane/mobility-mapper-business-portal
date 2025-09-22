@@ -19,11 +19,15 @@ class CustomSignupForm(SignupForm):
     Handles conditional requirements (e.g., mobility devices when 'is_wheeler' is true)
     and synchronizes data into the related UserProfile on save.
     """
-    confirm_email = forms.EmailField(max_length=254, required=True, label='Confirm Email Address')
     first_name = forms.CharField(max_length=30, required=True, label='First Name')
     last_name = forms.CharField(max_length=30, required=True, label='Last Name')
-    username = forms.CharField(max_length=150, required=True, label='Choose a username')
-
+    confirm_email = forms.EmailField(max_length=254, required=True, label='Confirm Email Address')
+    username = forms.CharField(
+        max_length=150, 
+        required=True, 
+        label='Choose a username', 
+        help_text='Must contain least 5 characters. Letters, digits, and ./_ only.'
+    )
     has_business = forms.TypedChoiceField(
         choices=[('True', 'Yes'), ('False', 'No')],
         coerce=lambda x: x == 'True',
@@ -82,6 +86,9 @@ class CustomSignupForm(SignupForm):
         'country', 'county', 'age_group', 'photo',
         'password1', 'password2'
     ]
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].label = 'Choose a username*'
 
     def clean_username(self):
         """
