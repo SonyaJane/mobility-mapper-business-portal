@@ -25,15 +25,22 @@ document.addEventListener('DOMContentLoaded', function() {
     usernameInput.addEventListener('input', function() {
         clearTimeout(timer);
         const val = this.value.trim();
+        // Only allow letters, numbers, dots, and underscores
         if (!val) { feedback.textContent = ''; return; }
+        if (!/^[\w.]+$/.test(val)) {
+            feedback.textContent = 'Username can only contain letters, numbers, dots, or underscores.';
+            feedback.classList.remove('text-success');
+            feedback.classList.add('text-danger');
+            return;
+        }
         timer = setTimeout(() => {
-        fetch(validateUsernameUrl + "?username=" + encodeURIComponent(val))
-            .then(r => r.json())
-            .then(data => {
-                feedback.textContent = data.available ? 'Username is available.' : 'Username is already taken.';
-                feedback.classList.toggle('text-success', data.available);
-                feedback.classList.toggle('text-danger', !data.available);
-            });
+            fetch(validateUsernameUrl + "?username=" + encodeURIComponent(val))
+                .then(r => r.json())
+                .then(data => {
+                    feedback.textContent = data.available ? 'Username is available.' : 'Username is already taken.';
+                    feedback.classList.toggle('text-success', data.available);
+                    feedback.classList.toggle('text-danger', !data.available);
+                });
         }, 300);
     });
 
