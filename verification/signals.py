@@ -6,6 +6,7 @@ from .models import WheelerVerification
 
 @receiver(post_save, sender=WheelerVerification)
 def send_approval_email(sender, instance, created, **kwargs):
+    print(f"Post-save signal received for WheelerVerification id={instance.id}, created={created}")
     # Only send if not just created, and approved is now True, and was previously False
     if not created:
         # Get the previous value from the database
@@ -21,6 +22,10 @@ def send_approval_email(sender, instance, created, **kwargs):
                 "Best regards,\n"
                 "The Mobility Mapper Team"
             )
+            print(f"Sending approval email to {instance.wheeler.email}")
+            print(f"Subject: {subject}")
+            print(f"Message: {message}")
+            print(f"From: {settings.DEFAULT_FROM_EMAIL}")
             send_mail(
                 subject,
                 message,
