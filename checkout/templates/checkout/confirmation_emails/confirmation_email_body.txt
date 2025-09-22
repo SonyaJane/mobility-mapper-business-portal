@@ -11,17 +11,13 @@ Purchase Type: {{ purchase.get_purchase_type_display }}
 Reference Number: {{ purchase.purchase_number }}
 Purchase Date: {{ purchase.created_at|date:"j F Y" }}
 Purchase Amount: £{{ purchase.amount }}
+
 Billing address:
 {{ purchase.street_address1 }}
-{% if purchase.street_address2 %}
-{{ purchase.street_address2 }}
-{% endif %}
+{% if purchase.street_address2 %}{{ purchase.street_address2 }}{% endif %}
 {{ purchase.town_or_city }}
-{% if purchase.county %}
-{{ purchase.county }}
-{% endif %}
+{% if purchase.county %}{{ purchase.county }}{% endif %}
 {{ purchase.postcode }}
-{{ purchase.country }}.
 
 If you have any questions, feel free to contact us at {{ contact_email }}.
 

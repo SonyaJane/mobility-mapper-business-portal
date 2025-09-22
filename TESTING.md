@@ -404,6 +404,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Successful registration redirect | User is redirected to signin page after successful registration, and a success message is displayed | Pass |
 
 **Sign In Page**
+
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
 | Sign-in form is visible | Form is centered in a card and clearly labeled "Sign In" | Pass |
@@ -478,14 +479,13 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Services offered | Services listed; prompt and link to add if missing | Pass |
 | Special offers | Special offers shown; prompt and link to add if missing | Pass |
 | Accessibility features | All features shown as badges | Pass |
-| Opening hours | Table displays hours for each day; prompt and link to add if missing | Pass |
-| Membership tier | Current tier (Free, Standard, Premium) shown with tailored message and upgrade/view buttons | Pass |
-| Verification status | Shows "Verified by Wheelers" badge, "Verification in progress/requested" alert, or button to request verification | Pass |
+| Opening hours | Table displays hours for each day the business is open; prompt and link to add if missing | Pass |
+| Membership tier | Current tier (Free, Standard, Premium) shown with tailored message and 'Explore Plans' and 'View Current Membership' buttons; buttons function as expected | Pass |
+| Verification status | Shows "Verified by Wheelers" badge, "Verification requested", or button to request verification | Pass |
 | Verification reports | List of completed reports with links to view each; message if none yet | Pass |
 | Edit Business button | Present and links to edit page | Pass |
-| Delete Business button | Present and links to delete confirmation | Pass |
+| Delete Business button | Present and opens 'are you sure' modal | Pass |
 | No business registered state | Message and "Register Now" button shown if user has no business | Pass |
-| Responsive layout | All cards, tables, and buttons display correctly on all screen sizes | Pass |
 | Flash messages | Success/error/info messages display at the top of the page and are dismissible | Pass |
 | Dynamic content | All prompts, links, and actions update based on business data and membership tier | Pass |
 
@@ -496,26 +496,27 @@ Logout button | Logs user out and redirects to home/login page | Pass
 |---|---|---|
 | Page heading | "Edit your business" heading is visible at the top | Pass |
 | Introductory text | Explains public visibility and importance of complete listings | Pass |
-| Error summary | Validation errors are shown in a dismissible alert at the top of the form | Pass |
-| CSRF token | Present in the form for security | Pass |
-| Business logo preview | Current logo is displayed if set; placeholder if not | Pass |
-| Upload new logo | Allows PNG, JPEG, or WEBP, square, max 5MB; file input is present and works | Pass |
+| Business logo preview | Current logo is displayed if set | Pass |
 | Delete logo option | Checkbox to delete current logo without replacing is present and works | Pass |
-| Business name, address, contact fields | Present, pre-filled, required, and validated | Pass |
-| Website and description fields | Present, pre-filled, and validated | Pass |
-| Categories multi-select | Grouped dropdown, allows multiple selections, "Other" option triggers custom input | Pass |
-| Other category field | Appears dynamically when "Other" is selected | Pass |
+| Change logo | Allows PNG, JPEG, or WEBP, square, max 5MB; file input is present and works | Pass |
+| Error message shown if user tried to both delete logo and upload new one | Pass |
+| All fields pre-filled | All business fields are pre-filled with current data for editing | Pass |
+| Business name and address fields | Present, required, and validated | Pass |
+| Public and contact phone fields | Present and validated | Pass |
+| Website and public email fields | Present and validated | Pass |
+| Social media links fields | Present and validated | Pass |
+| Description and services fields | Present | Pass |
+| Location map | Interactive map allows setting and previewing business location | Pass |
+| Categories multi-select | Grouped dropdown, allows multiple selections, enhanced with Choices.js | Pass |
 | Accessibility features multi-select | Dropdown allows multiple selections, enhanced with Choices.js | Pass |
 | Opening hours widget | Table allows setting multiple periods per day, copy to next day, and dynamic updates | Pass |
-| Special offers field | Present, pre-filled, and validated | Pass |
-| All fields pre-filled | All business fields are pre-filled with current data for editing | Pass |
-| Inline validation | Errors shown next to fields if invalid or missing | Pass |
-| Save Changes button | Present, submits the form, and shows loading state | Pass |
+| Save Changes button | Present, submits the form | Pass |
 | Cancel button | Present, returns user to dashboard without saving | Pass |
 | Delete Business button | Opens confirmation modal; modal contains cancel and confirm delete actions | Pass |
-| Responsive layout | Form and cards display correctly on all screen sizes | Pass |
-| JavaScript enhancements | Dynamic field visibility, opening hours, and category selection work as expected | Pass |
+| JavaScript enhancements | Opening hours, and category selection work as expected | Pass |
 | After submission | Redirects to Business Dashboard with confirmation message | Pass |
+| Error summary | Validation errors are shown at the top of the form | Pass |
+| CSRF token | Present in the form for security | Pass |
 
 
 **View Existing Membership Page**
@@ -584,14 +585,12 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Badge value explanation | Explains the value of the badge for building trust with customers | Pass |
 | How it works section | Describes the verification workflow and tracking from the Business Dashboard | Pass |
 | In-progress badge preview | Shows the badge that appears in search results while verification is pending | Pass |
-| Reward explanation | Explains the reward for wheelers (e.g., £10 Amazon voucher) | Pass |
+| Reward explanation | Explains the reward for wheelers (£10 Amazon voucher) | Pass |
 | Application process explanation | Explains that only verified wheelers can apply and all reports are checked for accuracy | Pass |
-| Request Verification form | Secure form with CSRF protection is present | Pass |
 | Request Verification button | Prominent button submits the verification request | Pass |
-| Return to Dashboard button | Present and returns user to the Business Dashboard | Pass |
+| Return to Dashboard button | Present, and returns user to the Business Dashboard without requesting verification | Pass |
 | Success/error feedback | Confirmation or error messages are displayed after submission | Pass |
 | Responsive layout | Page and all sections adapt correctly to all screen sizes | Pass |
-
 
 **Accessibility Verification Application Page**
 
@@ -688,7 +687,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Navigation links | Buttons/links to return to the Accessibility Verification Hub or Business Dashboard are present | Pass |
 
 
-**Business Listing Details Page**
+**Business Details Page**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -712,28 +711,24 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Responsive layout | All cards, tables, and content adapt correctly to all screen sizes | Pass |
 
 
-**Checkout Flow**
+**Checkout Page**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
 | Page heading | "Checkout" heading is visible at the top | Pass |
 | Purchase summary | Clearly displays whether the user is purchasing a membership tier or requesting wheeler verification | Pass |
-| Membership tier display | Selected membership tier and its benefits are shown; user can change tier before payment | Pass |
-| Verification purchase display | If purchasing verification, shows plan, cost (free for Premium), and summary | Pass |
+| Membership tier display | For membership purchases, selected membership tier and its benefits are shown; user can change tier before payment | Pass |
+| Verification purchase display | If purchasing verification, shows cost and summary | Pass |
 | Amount display | Amount to be charged is clearly shown and updates if tier is changed | Pass |
-| Contact details form | Collects full name, email, and phone number; all fields required and validated | Pass |
-| Billing address form | Collects street address, city, county, and postcode; all fields required and validated | Pass |
-| Payment details form | Stripe Elements card input is present, secure, and validated in real time | Pass |
-| Charge warning | Clearly states if verification is free or the exact amount to be charged | Pass |
-| Submit button | Labeled "Complete Payment" or "Request Verification (no charge)" as appropriate; submits the form | Pass |
+| Contact details card | Collects full name, email, and phone number; all fields required and validated | Pass |
+| Billing address card | Collects street address, city, county, and postcode; all fields required and validated | Pass |
+| Payment details card | Stripe Elements card input is present, secure, and validated in real time | Pass |
+| Charge warning | Clearly states the exact amount to be charged above the Complete Payment button | Pass |
+| Submit button | Labeled "Complete Payment" or "Request Verification" as appropriate; submits the form | Pass |
 | Cancel button | Opens confirmation modal to cancel checkout and return to dashboard | Pass |
 | Loading overlay | Spinner appears during payment processing to prevent duplicate submissions | Pass |
 | Error handling | Inline validation errors for each field; Stripe errors shown above payment form | Pass |
 | Success feedback | On successful payment, user is redirected to a confirmation page and receives an email receipt | Pass |
-| PaymentIntent integration | Stripe PaymentIntent is used for secure, PCI-compliant processing | Pass |
-| Real-time updates | Membership/verification status updates in dashboard after payment | Pass |
-| Responsive layout | All sections and forms display correctly on all screen sizes | Pass |
-
 
 **Payment Success Page**
 
@@ -741,7 +736,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 |---|---|---|
 | Page heading | "Payment Successful" heading is visible at the top | Pass |
 | Confirmation message | Thanks the user for their payment and informs them a confirmation email will be sent to their provided email address | Pass |
-| Purchase summary card | Card displays all relevant purchase details | Pass |
+| Purchase and Billing information card | Card displays all relevant purchase details | Pass |
 | Purchase type | Shows whether the payment was for a Membership Upgrade or Verification Request, and the specific membership tier if applicable | Pass |
 | Purchase amount | Amount paid is displayed in GBP | Pass |
 | Reference number | Unique transaction reference number is shown | Pass |
