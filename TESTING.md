@@ -408,7 +408,6 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
 | Sign-in form is visible | Form is centered in a card and clearly labeled "Sign In" | Pass |
-| Required fields validation | Submitting with missing required fields shows inline error messages or focuses in on the invalid field | Pass |
 | Email/username field | Field is present and required | Pass |
 | Password field | Field is present and required | Pass |
 | Remember me checkbox | Checkbox is present and works as expected | Pass |
@@ -420,17 +419,51 @@ Logout button | Logs user out and redirects to home/login page | Pass
 
 **Personal Dashboard Page**
 
-| Feature | Outcome | Pass/Fail |
-|---|---|---|
-| Responsive layout | Dashboard adapts to all screen sizes (desktop, tablet, mobile) | Pass |
+| Feature                | Outcome                                                                                   | Pass/Fail |
+|------------------------|------------------------------------------------------------------------------------------|-----------|
+| Page heading           | "Personal Dashboard" heading is visible at the top of the page                           | Pass      |
+| Profile photo          | Displays uploaded profile photo or placeholder if not set                                 | Pass      |
+| User's name            | User's first and last name are displayed prominently                                     | Pass      |
+| Username               | Username is shown in the profile details table                                           | Pass      |
+| Email address          | Email is shown in the profile details table                                              | Pass      |
+| Country, county, age   | Country, county, and age group are shown                                           | Pass      |
+| Mobility devices       | Mobility devices device are shown if user is a wheeler                       | Pass      |
+| Business link          | Business name is shown and links to Business Dashboard if user has a business            | Pass      |
+| Edit Profile button    | Present and links to Edit Profile page                                                   | Pass      |
+| Change Password button | Present and links to Change Password page                                                | Pass      |
+| Register Business      | Button appears if user is a business owner but has not registered a business             | Pass      |
+| Accessibility Hub      | Button appears if user is a wheeler or has verification activity                         | Pass      |
+| Approved verifications | List of businesses user is approved to verify, with Start Verification and View buttons  | Pass      |
+| Pending applications   | List of businesses user has applied to verify, with Cancel and View buttons              | Pass      |
+| Verification info      | Card explains verification process and links to Accessible Business Search                | Pass      |
+| Responsive layout      | All cards, tables, and content adapt correctly to all screen sizes                       | Pass      |
+| Flash messages         | Success/error/info messages display at the top and are dismissible                       | Pass      |
+
 
 **Edit Profile Page**
 
-| Feature | Outcome | Pass/Fail |
-|---|---|---|
-| Page heading | "Edit Profile" heading is visible at the top of the form | Pass |
-| Cancel button | Present, returns user to dashboard without saving | Pass |
-| Responsive layout | Form and card display correctly on all screen sizes | Pass |
+| Feature                    | Outcome                                                                                         | Pass/Fail |
+|----------------------------|------------------------------------------------------------------------------------------------|-----------|
+| Page heading               | "Edit Profile" heading is visible at the top of the page                                       | Pass      |
+| Form pre-filled            | All fields are pre-filled with the user's current information                                  | Pass      |
+| First/last name fields     | Present, required, and editable                                                                | Pass      |
+| Email field                | Present, required, and editable                                                                | Pass      |
+| Country and county fields  | Country dropdown present; county field appears for UK and is required                          | Pass      |
+| Age group field            | Dropdown present and required                                                                  | Pass      |
+| Profile photo section      | Current photo is shown if present                                                              | Pass      |
+| Profile photo upload       | User can upload or remove a profile photo; invalid files are rejected                | Pass      |
+| Remove photo option        | Checkbox to remove current photo is present and works                                          | Pass      |
+| Business owner/wheeler     | User can update business owner and wheeler status; mobility device type field appears and disappears as appropriate; required if wheeler button is selected | Pass |
+| Mobility devices           | Multi-select for mobility devices appears if wheeler is selected; "Other" input works          | Pass      |
+| Inline validation          | Errors are shown next to fields if invalid or missing                                          | Pass      |
+| CSRF protection            | Form includes CSRF token                                                                       | Pass      |
+| Accessibility              | All fields and buttons are accessible via keyboard and screen readers                          | Pass      |
+| Save Changes button        | Present, submits the form, and updates the profile                                             | Pass      |
+| Cancel button              | Present, returns user to dashboard without saving                                              | Pass      |
+| Success feedback           | Confirmation message is shown after saving changes                                             | Pass      |
+| Error summary              | Validation errors are shown at the top of the form if present                                  | Pass      |
+| Responsive layout          | Form and content adapt correctly to all screen sizes                                           | Pass      |
+
 
 
 **Business Registration Page**

@@ -26,7 +26,7 @@ class CustomSignupForm(SignupForm):
         max_length=150, 
         required=True, 
         label='Choose a username', 
-        help_text='Must contain least 5 characters. Letters, digits, and . _ only.'
+        help_text='Must contain least 5 characters. Letters, numbers, dots and underscores only.'
     )
     has_business = forms.TypedChoiceField(
         choices=[('True', 'Yes'), ('False', 'No')],
@@ -290,16 +290,23 @@ class UserProfileForm(forms.ModelForm):
     def clean(self):
         """
         Perform cross-field validation for mobility devices:
+        - If user is a wheeler, at least one device is required.
         - If 'Other' device is selected, require a description in 'mobility_devices_other'.
-        - Only applies validation if at least one device is selected.
-        - Adds an error to 'mobility_devices_other' if required and missing.
         - Returns cleaned data after adding any field errors.
         """
         cleaned = super().clean()
+        is_wheeler = cleaned.get('is_wheeler')
         devices = cleaned.get('mobility_devices') or []
         other_desc = (cleaned.get('mobility_devices_other') or '').strip()
-        if any(getattr(d, 'code', '').lower() == 'other' for d in devices) and not other_desc:
+
+        # Require at least one device if is_wheeler is True
+        if is_wheeler and (not devices or len(devices) == 0):
+            self.add_error('mobility_devices', 'Please select at least one mobility device.')
+
+        # Require description if 'Other' is selected
+        if devices and any(getattr(d, 'code', '').lower() == 'other' for d in devices) and not other_desc:
             self.add_error('mobility_devices_other', 'Please specify your other mobility device.')
+
         return cleaned
 
     def save(self, commit=True):

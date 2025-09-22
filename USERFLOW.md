@@ -6,16 +6,18 @@ b) Click the "Get Started" button, or in the menu click "Sign Up", to create an 
 <img src="./readme_files/user_flow/get_started.png" alt="Get Started Button" width="120"/>
 c) Complete the registration form:
 - Starred fields (*) are mandatory.
-- Choose a username - you will use this to sign in. It must be unique and contain only letters, numbers, dots, or underscores.
+- Choose a username - you will use this to sign in. It must be at least 5 characters long and contain only letters, numbers, dots, or underscores. Dynamic help text is provided.
 - For the question "Do you own or manage a business?" select 'yes'.
 - For the question "Do you use a wheeled mobility device?" select 'no'.
-- 
+d) Click the "Sign Up" button to submit the form.
+e) If the form is invalid, error messages are displayed at the top of the form.
 f) A confirmation email will be sent to the provided email address, click the link to verify the email.
-g) After successful registration, you see a success message (toast) and are redirected to the Sign In page.
+g) After successful registration are redirected to the Verify Email page with a message to check your email for the confirmation link.
+h) After clicking the link in the email, you are automatically signed in and redirected to your Personal Dashboard with a success message confirming that your email has been verified.
 
 ## 2. Sign In
 
-a) Sign in using your username or email, and password.
+a) If you are not already signed in, please sign in using your username or email, and password.
 b) If you forget your password, you can use the "Forgot Password" feature to reset it via email.
 c) Upon login, you are redirected to the business dashboard where you are invited to register your business. Click the "Register Business" button to proceed.
 
@@ -75,10 +77,33 @@ g) Ensure the payment details are correct
 h) Enter your payment information and click the Complete Payment button to complete the purchase. A message is shown above the 'Complete Payment' button confirming how much you will be charged for the verification.
 i) A spinner is shown on a semi-transparent overlay while the payment is processed, indicating that the payment is being processed, and preventing user interaction with the page.
 j) Upon successful payment, you are redirected to a Payment Success page confirming that your payment has been received. You are also sent a confirmation email.
+h) In the Accessibility Verification section of your Business Dashboard (bottom), you can see a Verification Requested badge indicating that the request is being processed.
+<img src="./readme_files/user_flow/verification_requested_badge.png" alt="Verification Requested Badge" width="300"/>
+
+## 9. Verification Process
+
 
 
 # Typical User Flow for a Wheeler
 
 ## 1. Registration and Sign In
 Follow the same steps as for a Business user, but select the "Wheeler" account type during registration.
+When you sign in, you are redirected to the Personal Dashboard.
 
+## 2. Personal Dashboard
+a) The Personal Dashboard your profile information, including your name, username, email, county, mobility device(s), and profile photo.
+b) Under Account Actions, there are buttons to edit your profile, and change your password.
+c) At the bottom of the dashboard, there is a section about Wheeler Accessibility Verification explaining the process and a button to take you to the Accessible Business Search page.
+c) First, try editing the profile information by clicking the "Edit Profile" button.
+d) You are taken to the Edit Profile form.
+
+## 3. Edit Profile
+a) Update any details as needed. The form is similar to the sign up form but pre-filled with existing data.
+b) Your profile photo is displayed in the form, and you can either remove or change it (or leave it as is).
+c) Click the "Save Changes" button to submit the form. (You can also cancel to return to the dashboard without saving changes)
+d) If the form is invalid, error messages are displayed at the top of the form.
+e) If the form is valid, your profile details are updated, and you are redirected back to the personal dashboard with a success message.
+
+## 4. Search for Accessible Businesses
+a) From the Personal Dashboard, click the "Find Accessible Businesses" button to go to the Accessible Business Search page. You can also navigate to this page from the main menu.
+b) On the search page, you can filter businesses by county and/or type of mobility device
