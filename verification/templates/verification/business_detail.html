@@ -47,10 +47,10 @@
                   {% endif %}
                 </td>
               </tr>
-              {% if business.address %}
+              {% if business.street_address1 %}
               <tr>
                   <td class="align-middle ps-3"><i class="bi bi-geo-alt fs-5 me-2 text-brown"></i><strong>Address:</strong></td>
-                  <td class="align-middle">{{ business.address }}</td>
+                  <td class="align-middle">{{ business.street_address1 }}{% if business.street_address2 %}, {{ business.street_address2 }}{% endif %}, {{ business.town_or_city }}, {{ business.county }}, {{ business.postcode }}</td>
               </tr>
               {% endif %}
               {% if business.website %}
