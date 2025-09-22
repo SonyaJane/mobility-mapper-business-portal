@@ -416,9 +416,9 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
             "location": point_wkt,
             # Split address into components
             "street_address1": fake.street_address(),
-            "street_address2": fake.secondary_address() if hasattr(fake, 'secondary_address') else '',
+            "street_address2": fake.secondary_address() if hasattr(fake, 'secondary_address') and random.random() < 0.5 else '',
             "town_or_city": fake.city(),
-            "county": fake.county() if hasattr(fake, 'county') else '',
+            "county": fake.county(),
             "postcode": fake.postcode(),
             "accessibility_features": features_for_this,
             "logo": logo_path,

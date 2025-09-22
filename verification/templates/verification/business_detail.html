@@ -50,7 +50,7 @@
               {% if business.street_address1 %}
               <tr>
                   <td class="align-middle ps-3"><i class="bi bi-geo-alt fs-5 me-2 text-brown"></i><strong>Address:</strong></td>
-                  <td class="align-middle">{{ business.street_address1 }}{% if business.street_address2 %}, {{ business.street_address2 }}{% endif %}, {{ business.town_or_city }}, {{ business.county }}, {{ business.postcode }}</td>
+                  <td class="align-middle pe-3">{{ business.street_address1 }}{% if business.street_address2 %}, {{ business.street_address2 }}{% endif %}, {{ business.town_or_city }}, {{ business.county }}, {{ business.postcode }}</td>
               </tr>
               {% endif %}
               {% if business.website %}
@@ -169,7 +169,7 @@
   <div class="row mb-3 g-3 d-flex align-items-stretch">  
     
     <!-- Accessibility Features Card -->
-    <div class="col-12 {% if business.opening_hours and opening_hours_dict %}col-sm-6{% endif %}">
+    <div class="col-12">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
           <h2 class="card-title mb-3 h5">Accessibility Features</h2>

@@ -365,7 +365,7 @@ Accessibility: Color contrast | All text and UI elements meet WCAG AA contrast r
 Logout button | Logs user out and redirects to home/login page | Pass
 
 
-**Home Page**
+**Home**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -381,7 +381,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Testimonial blockquote | User testimonial is visible at the bottom of the page | Pass |
 
 
-**Sign Up Page**
+**Sign Up**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -403,7 +403,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Email verification | User receives a verification email after registering | Pass |
 | Successful registration redirect | User is redirected to signin page after successful registration, and a success message is displayed | Pass |
 
-**Sign In Page**
+**Sign In**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -417,7 +417,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Invalid credentials handling | Incorrect email/username or password shows a clear error message | Pass |
 | Successful sign-in redirect | Wheelers are redirected to their personal dashboard after successful sign-in, and business owners are redirected to their business dashboard | Pass |
 
-**Personal Dashboard Page**
+**Personal Dashboard**
 
 | Feature                | Outcome                                                                                   | Pass/Fail |
 |------------------------|------------------------------------------------------------------------------------------|-----------|
@@ -440,7 +440,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Flash messages         | Success/error/info messages display at the top and are dismissible                       | Pass      |
 
 
-**Edit Profile Page**
+**Edit Profile**
 
 | Feature                    | Outcome                                                                                         | Pass/Fail |
 |----------------------------|------------------------------------------------------------------------------------------------|-----------|
@@ -463,7 +463,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Responsive layout          | Form and content adapt correctly to all screen sizes                                           | Pass      |
 
 
-**Business Registration Page**
+**Business Registration**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -490,7 +490,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | JavaScript enhancements | Opening hours and membership tier selection work as expected | Pass |
 
 
-**Business Dashboard Page**
+**Business Dashboard**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -520,7 +520,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Dynamic content | All prompts, links, and actions update based on business data and membership tier | Pass |
 
 
-**Edit Business Page**
+**Edit Business**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -549,7 +549,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | CSRF token | Present in the form for security | Pass |
 
 
-**View Existing Membership Page**
+**View Existing Membership**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -562,7 +562,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Responsive layout | Page and content adapt correctly to all screen sizes | Pass |
 
 
-**Upgrade Membership Page**
+**Upgrade Membership**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -579,32 +579,35 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Responsive layout | Page and cards adapt correctly to all screen sizes | Pass |
 
 
-**Accessible Business Search & Map Page**
+**Accessible Business Search**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
-| Page heading | "Accessible Businesses" heading is visible at the top | Pass |
-| Text search input | Present, allows searching by business name, category, or location | Pass |
-| Search button | Present, runs search on click or enter | Pass |
+| Text search input | Present, with placeholder "Find accessible businesses", allows searching by business name, category, location, or tags (see Category model, tags attribute) | Pass |
+| Filter by map | Zooming or panning the map updates the results list to only show businesses within the current map bounds | Pass |
+| Page loads with all businesses | On initial load, all businesses are shown in the results list and on the map. In the list, businesses are sorted by tier (Premium, Standard, Free), but randomised within each tier | Pass |
+| Automatic search (desktop) | Search runs automatically as user types on desktop screens | Pass |
+| Search button (mobile) | Present on mobile screens only, runs search on click or enter | Pass |
 | Clear search button | Present, clears the search input and resets results | Pass |
-| Accessibility features filter | Multi-select dropdown lists all features; users can select multiple filters | Pass |
-| Clear filters button | Present, clears all selected accessibility features | Pass |
-| Map display | Interactive map (MapLibre GL JS) shows business locations as markers | Pass |
-| Map markers | Clicking a marker shows a popup with business details and "Show more info" link | Pass |
+| Accessibility features filter | Multi-select dropdown lists all features; users can select multiple features; can search for features by name by typing in the input field | Pass |
+| Clear features button | Present when features filter is applied, clears all selected accessibility features | Pass |
+| Clear individual feature | Each selected feature has a small "x" to remove it from the filter | Pass |
+| Results list | Responsive list displays businesses matching search and filters | Pass |
+| Loading spinner | Spinner appears during search/filter operations | Pass |
+| No results message | Clear message shown if no businesses match the search/filter criteria | Pass |
+| Business details in list | Each result shows name, categories, address, accessibility badges, and verification status (no badge is shown if not verified, nor requested verification) | Pass |
+| Membership tier ordering | Results are ordered by membership tier (Premium, Standard, Free), randomised within each tier | Pass |
+| Accordion for details | Clicking a business expands accordion with full details (features, website, contact, description, services, offers, hours) | Pass |
+| Membership dependent details | Social media links, email address, business logo, description, special offers are shown based on business membership tier (standard and premium shows all, free hides) | Pass |
+| Verification badge | Businesses requesting verification show a badge that can be clicked by wheelers | Pass |
+| Map display | Interactive map (MapLibre GL JS) shows business locations as markers; shown on left of results list on desktop, can be toggled on mobile | Pass |
+| Map markers | Clicking a marker shows a popup with business details, and on mobile screens "Show more info" link; turns orange when the accordion is open on desktop screens | Pass |
+| Info overlay (mobile) | Detailed business info appears in overlay when "Show more info" link is clicked | Pass |
 | Show list view button (mobile) | Present, toggles to results list on mobile | Pass |
 | Show map view button (mobile) | Present, toggles back to map view on mobile | Pass |
-| Info overlay (mobile) | Detailed business info appears in overlay when marker is clicked | Pass |
-| Results list | Responsive list displays businesses matching search and filters | Pass |
-| Business details in list | Each result shows name, categories, address, accessibility badges, and verification status | Pass |
-| Membership tier ordering | Results are ordered by membership tier (Premium, Standard, Free), randomized within each tier | Pass |
-| Accordion for details | Clicking a business expands accordion with full details (features, website, contact, description, services, offers, hours) | Pass |
-| Verification badge | Businesses requesting verification show a badge and call-to-action for wheelers | Pass |
-| Real-time updates | Results update instantly as user types or changes filters | Pass |
-| Loading spinner | Spinner appears during search/filter operations | Pass |
-| Error handling | Clear messages shown if no results found or search fails | Pass |
-| Conditional content | Results and actions update based on user authentication and role (e.g., apply to verify for wheelers) | Pass |
 
-**Request Wheeler Verification Page**
+
+**Request Wheeler Verification**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -622,27 +625,25 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Success/error feedback | Confirmation or error messages are displayed after submission | Pass |
 | Responsive layout | Page and all sections adapt correctly to all screen sizes | Pass |
 
-**Accessibility Verification Application Page**
+**Accessibility Verification Application**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
 | Page heading | "Accessibility Verification" heading is visible at the top | Pass |
-| Success/info/error messages | Any feedback messages are displayed at the top of the page | Pass |
-| Business name and address | Business name and full address are shown in a highlighted section | Pass |
+| Business name and address | Business name and full address are shown on the first two lines | Pass |
 | Accessibility features badges | All features specified by the business are listed as visually distinct badges | Pass |
 | Badge preview | "Verified by Wheelers" badge is shown with icon and label | Pass |
 | Verification process explanation | Explains that three independent verifications are required for the badge | Pass |
 | Badge value explanation | Describes the value of the badge for customers in search results | Pass |
 | Wheeler responsibilities list | Clearly lists all requirements for wheelers (visit, photos, report, selfie) | Pass |
 | Reward explanation | States the reward (e.g., £10 Amazon voucher) for each completed and approved verification | Pass |
-| Application form | Secure form with CSRF protection is present | Pass |
 | Confirm Application button | Prominent button submits the application | Pass |
 | Cancel button | Present, returns user to the business search page | Pass |
-| Feedback after submission | Success or error messages are shown after form submission | Pass |
+| After submission | Redirected to the Application Submitted page | Pass |
 | Responsive layout | Page and all sections adapt correctly to all screen sizes | Pass |
 
 
-**Accessibility Verification Application Submitted Page**
+**Accessibility Verification Application Submitted**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -655,7 +656,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Responsive layout | Page and all sections adapt correctly to all screen sizes | Pass |
 
 
-**Accessibility Verification Hub Page**
+**Accessibility Verification Hub**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -663,17 +664,17 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Introductory text | Welcome message explains the purpose of the hub | Pass |
 | Verification requests table | Table lists all verification requests made by the user | Pass |
 | Business name column | Each row shows the business name with a direct link to business details | Pass |
-| Request status column | Status (Submitted, Approved, Rejected) is shown with colored badges | Pass |
+| Request status column | Status (Submitted, Approved) is shown with colored badges | Pass |
 | Date requested column | Date the request was made is displayed in readable format | Pass |
 | Date approved column | Date of approval is shown, or "Waiting for approval" if not yet approved | Pass |
 | Verification report status column | Status (Not Submitted, Submitted, Approved) is shown with badges | Pass |
 | Actions column | Context-sensitive buttons: "Submit Verification", "View Report", or "Cancel Request" | Pass |
 | Cancel request modal | Modal confirmation appears when cancelling a request | Pass |
-| No requests state | Info alert is shown if the user has not made any verification requests | Pass |
+| No requests state | Message is shown if the user has not made any verification requests; button to find businesses to verify via the search page is present | Pass |
 | Table responsiveness | Table is scrollable and responsive on all screen sizes | Pass |
 
 
-**Accessibility Verification Form Page**
+**Accessibility Verification Form**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -681,51 +682,50 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Business name and address | Business name and full address are displayed for reference | Pass |
 | Anonymity notice | Message clarifies responses are anonymous and not shared with the business | Pass |
 | Confirmed features section | Lists all claimed accessibility features; each can be ticked to confirm and has a photo upload button | Pass |
-| Feature photo upload | For each confirmed feature, user can upload a photo, see instant preview, and remove/replace it | Pass |
+| Feature photo upload | For each confirmed feature, user must upload a photo; can see instant preview; can remove/replace it | Pass |
 | Additional features section | Lists other possible features; user can tick and upload photos for any observed | Pass |
-| Additional feature photo upload | For each additional feature, user can upload a photo, see preview, and remove/replace it | Pass |
+| Additional feature photo upload | For each additional feature, user must upload a photo, see preview, and remove/replace it | Pass |
 | Mobility device selection | User must select which mobility device was used during the visit | Pass |
 | Selfie upload | User must upload a photo of themselves at the business location (required) | Pass |
-| Additional photos upload | User can upload extra photos not already linked to features | Pass |
+| Additional photos upload | User can upload multiple extra photos not already linked to features | Pass |
 | Comments section | Textarea for user to write a brief report about their accessibility experience | Pass |
 | Inline validation | Errors are shown next to fields or in a prominent alert area if required fields are missing | Pass |
-| Server-side error summary | Validation errors are shown in a dismissible alert at the top of the form | Pass |
+| Server-side error summary | Validation errors are shown at the top of the form | Pass |
 | CSRF token | Present in the form for security | Pass |
 | Submit button | Clearly labeled, submits the form, and shows loading state | Pass |
-| Success feedback | User is redirected to a confirmation page after successful submission | Pass |
+| Success feedback | User is redirected to their dashboard after successful submission, and a success message toast is displayed | Pass |
+| Email confirmation | User receives an email confirming receipt of their verification report | Pass |
 | JavaScript enhancements | Dynamic photo previews, removal, and validation work as expected | Pass |
 
 
-**Accessibility Verification Report Page**
+**Accessibility Verification Report**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
-| Page heading | "Accessibility Verification Report" heading is visible at the top | Pass |
-| Business name | Business name is displayed prominently in the header section | Pass |
-| Wheeler name (if permitted) | Wheeler’s name is shown if allowed, with note that it is only visible to the wheeler | Pass |
+| Page heading | "Verification of the accessibility features of <Business Name>" heading is visible at the top | Pass |
+| Wheeler name | Only visible to the wheeler | Pass |
 | Address visited | Full business address is shown in a dedicated card | Pass |
 | Date of verification | Date is displayed in a readable format | Pass |
-| Mobility device used | Device used during the visit is shown, or "Not provided" if missing | Pass |
+| Mobility device used | Device used during the visit is shown | Pass |
 | Accessibility features confirmed | List of all features confirmed by the wheeler is shown | Pass |
 | Additional features found | List of any extra features observed and reported is shown | Pass |
 | Feature photos carousel | Carousel displays all photos linked to specific features, each labeled with the feature name | Pass |
 | Other photos carousel | Carousel displays any additional photos submitted, with navigation controls | Pass |
 | No photos fallback | Message shown if no photos were submitted in a section | Pass |
-| Wheeler’s comments | Written comments and observations are displayed in a styled container | Pass |
+| Wheelers comments | Written comments and observations are displayed in a styled container | Pass |
 | Responsive layout | All cards, carousels, and content adapt correctly to all screen sizes | Pass |
 | Alt text for images | All images include descriptive alt text for screen readers | Pass |
-| Navigation links | Buttons/links to return to the Accessibility Verification Hub or Business Dashboard are present | Pass |
 
 
-**Business Details Page**
+**Business Details**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
 | Page heading | "Business Details" heading is visible at the top | Pass |
 | Business logo | Logo is displayed if set; placeholder if not | Pass |
 | Business name | Business name is shown prominently in the header | Pass |
-| Categories | All assigned categories are listed; "None" if not set | Pass |
-| Address | Full address is shown if available | Pass |
+| Categories | All assigned categories are listed | Pass |
+| Address | Full address is shown | Pass |
 | Website | Website link is shown and opens in a new tab if set | Pass |
 | Public email | Email is shown as a mailto link if set | Pass |
 | Public phone | Phone number is shown as a tel link if set | Pass |
@@ -734,14 +734,14 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Description | Description is shown if set | Pass |
 | Services offered | Services are listed if set | Pass |
 | Special offers | Special offers are shown if set | Pass |
-| Verification status | Shows "Verified by Wheelers" badge, "Verification in progress/requested" alert, or application button based on status | Pass |
-| Accessibility features | All features are shown as badges; "None" if not set | Pass |
-| Opening hours | Table displays hours for each day; "Closed" or "No hours set" as appropriate | Pass |
+| Verification status | Shows "Verified by Wheelers" badge, "Verification requested", or "Please verify the accessibility of this business" based on status | Pass |
+| Accessibility features | All features are shown as badges | Pass |
+| Opening hours | Table displays hours for each day they are open | Pass |
 | Context-sensitive actions | Shows apply/verify/report buttons or status messages based on user and business state | Pass |
 | Responsive layout | All cards, tables, and content adapt correctly to all screen sizes | Pass |
 
 
-**Checkout Page**
+**Checkout**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -760,7 +760,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Error handling | Inline validation errors for each field; Stripe errors shown above payment form | Pass |
 | Success feedback | On successful payment, user is redirected to a confirmation page and receives an email receipt | Pass |
 
-**Payment Success Page**
+**Payment Success**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -779,7 +779,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Responsive layout | Page and all sections adapt correctly to all screen sizes | Pass |
 
 
-**Contact Page**
+**Contact**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
@@ -798,7 +798,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Responsive layout | Form and container display correctly on all screen sizes | Pass |
 
 
-**Error Handling Page**
+**Error Handling**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|

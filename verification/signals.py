@@ -7,7 +7,7 @@ from .models import WheelerVerification
 # Store the old value before saving
 @receiver(pre_save, sender=WheelerVerification)
 def store_old_approved(sender, instance, **kwargs):
-    if instance.pk:
+    if instance.pk and sender.objects.filter(pk=instance.pk).exists():
         old = sender.objects.get(pk=instance.pk)
         instance._old_approved = old.approved
     else:
