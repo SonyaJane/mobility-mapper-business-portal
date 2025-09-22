@@ -4,9 +4,10 @@ from datetime import timedelta
 from decimal import Decimal
 from urllib.parse import urlencode
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.mail import mail_admins
+from django.core.mail import mail_admins, send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_GET
@@ -408,10 +409,30 @@ def wheeler_verification_form(request, pk):
                 business.save()
             # Debug statement (optional)
             _ = [(p.id, p.feature_id, p.image.name) for p in verification.photos.all()]
+            
+            # Send an email to the user confirming submission
+            subject = f"Thank you for verifying {business.business_name} on Mobility Mapper"
+            message = (
+                f"Dear {request.user.get_full_name() or request.user.username},\n\n"
+                f"Thank you for submitting your accessibility verification for {business.business_name}.\n"
+                "Your contribution helps make our community more accessible!\n\n"
+                "We will review your submission and notify you once it has been approved.\n\n"
+                "Best regards,\n"
+                "The Mobility Mapper Team"
+            )
+            recipient_list = [request.user.email]
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                recipient_list,
+                fail_silently=False,
+            )
             messages.success(request, "Thank you for verifying this business! Please check your email for confirmation.")
             return redirect('account_dashboard')
     else:
         form = WheelerVerificationForm(business=business)
+
     return render(request, 'verification/wheeler_verification_form.html', {
         'form': form,
         'business': business,
