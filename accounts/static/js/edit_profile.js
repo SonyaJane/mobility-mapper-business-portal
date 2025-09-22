@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
             otherField.style.display = 'block';
         } else {
             otherField.style.display = 'none';
-            if (otherInput) otherInput.value = '';
         }
     }
 
@@ -66,8 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             devicesField.style.display = 'none';
             otherField.style.display = 'none';
             devicesField.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-            const otherInput = otherField.querySelector('input[name="mobility_devices_other"]');
-            if (otherInput) otherInput.value = '';
         }
     }
 

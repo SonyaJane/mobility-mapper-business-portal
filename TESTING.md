@@ -454,16 +454,13 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Profile photo upload       | User can upload or remove a profile photo; invalid files are rejected                | Pass      |
 | Remove photo option        | Checkbox to remove current photo is present and works                                          | Pass      |
 | Business owner/wheeler     | User can update business owner and wheeler status; mobility device type field appears and disappears as appropriate; required if wheeler button is selected | Pass |
-| Mobility devices           | Multi-select for mobility devices appears if wheeler is selected; "Other" input works          | Pass      |
-| Inline validation          | Errors are shown next to fields if invalid or missing                                          | Pass      |
+| Mobility devices           | Multi-select for mobility devices appears if wheeler is selected; "Other" input works and is pre-filled with existing data | Pass      |
 | CSRF protection            | Form includes CSRF token                                                                       | Pass      |
-| Accessibility              | All fields and buttons are accessible via keyboard and screen readers                          | Pass      |
 | Save Changes button        | Present, submits the form, and updates the profile                                             | Pass      |
 | Cancel button              | Present, returns user to dashboard without saving                                              | Pass      |
 | Success feedback           | Confirmation message is shown after saving changes                                             | Pass      |
 | Error summary              | Validation errors are shown at the top of the form if present                                  | Pass      |
 | Responsive layout          | Form and content adapt correctly to all screen sizes                                           | Pass      |
-
 
 
 **Business Registration Page**
