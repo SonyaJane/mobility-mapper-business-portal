@@ -256,10 +256,11 @@ class UserProfileForm(forms.ModelForm):
         if user is not None:
             self.fields['first_name'].initial = getattr(user, 'first_name', '')
             self.fields['last_name'].initial = getattr(user, 'last_name', '')
+        # Always set initial for 'mobility_devices_other'
+        self.fields['mobility_devices_other'].initial = self.instance.mobility_devices_other or ''
         if getattr(self.instance, 'pk', None) and user is not None:
             self.fields['country'].initial = self.instance.country
             self.fields['mobility_devices'].initial = list(self.instance.mobility_devices.values_list('pk', flat=True))
-            self.fields['mobility_devices_other'].initial = self.instance.mobility_devices_other or ''
             self.fields['has_business'].initial = 'True' if self.instance.has_business else 'False'
             self.fields['is_wheeler'].initial = 'True' if self.instance.is_wheeler else 'False'
 
