@@ -21,12 +21,12 @@ def send_approval_email(sender, instance, created, **kwargs):
         if not instance._old_approved and instance.approved:
             subject = f"Your verification for {instance.business.business_name} has been approved!"
             message = (
-                f"Dear {instance.wheeler.get_full_name() or instance.wheeler.username},\n"
-                f"Congratulations! Your accessibility verification for {instance.business.business_name} has been approved.\n"
-                f"You can view the verification report on the Accessibility Verification Hub.\n"
-                f"You will soon receive a £10 Amazon gift card as a token of appreciation.\n"
-                "Thank you for helping make our community more accessible!\n"
-                "Best regards,\n"
+                f"Dear {instance.wheeler.get_full_name() or instance.wheeler.username},\n\n"
+                f"Congratulations! Your accessibility verification for {instance.business.business_name} has been approved.\n\n"
+                f"You can view the verification report on the Accessibility Verification Hub.\n\n"
+                f"You will soon receive a £10 Amazon gift card as a token of appreciation.\n\n"
+                "Thank you for helping make our community more accessible!\n\n"
+                "Best regards,\n\n"
                 "The Mobility Mapper Team"
             )
             print(f"Sending approval email to {instance.wheeler.email}")
@@ -50,7 +50,7 @@ def send_approval_email(sender, instance, created, **kwargs):
             )
             biz_subject = f"Your business has received its {verification_count}{suffix} accessibility verification!"
             biz_message = (
-                f"Dear {instance.business.business_owner.get_full_name() or instance.business.business_owner.username},\n\n"
+                f"Dear {instance.business.business_owner.user.get_full_name() or instance.business.business_owner.user.username},\n\n"
                 f"Your business, {instance.business.business_name}, has just received its {verification_count} accessibility verification from a user of a wheeled mobility device.\n"
                 "You can view all verification reports in your business dashboard.\n\n"
             )
@@ -61,8 +61,8 @@ def send_approval_email(sender, instance, created, **kwargs):
                     "This badge is visible on your business dashboard and in the business search results.\n\n"
                 )
             biz_message += (
-                "Thank you for supporting accessibility in your community!\n"
-                "Best regards,\n"
+                "Thank you for supporting accessibility in your community!\n\n"
+                "Best regards,\n\n"
                 "The Mobility Mapper Team"
             )
             print(f"Sending verification count email to {instance.business.business_owner.email}")
