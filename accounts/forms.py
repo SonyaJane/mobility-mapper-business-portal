@@ -88,7 +88,7 @@ class CustomSignupForm(SignupForm):
     ]
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].label = 'Choose a username*'
+        self.fields['username'].label = 'Choose a username'
 
     def clean_username(self):
         """
