@@ -98,7 +98,7 @@ TEMPLATES = [
 
 SITE_ID = 1
 
-SITE_URL = "http://127.0.0.1:8000" 
+SITE_URL = "https://mm-business-portal-deed0db15d35.herokuapp.com/" 
 
 CSRF_TRUSTED_ORIGINS = [   
     "https://*.herokuapp.com",
