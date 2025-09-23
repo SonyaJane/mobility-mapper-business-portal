@@ -50,7 +50,7 @@ def send_approval_email(sender, instance, created, **kwargs):
             )
             biz_subject = f"Your business has received its {verification_count}{suffix} accessibility verification!"
             biz_message = (
-                f"Dear {instance.business.owner.get_full_name() or instance.business.owner.username},\n\n"
+                f"Dear {instance.business.business_owner.get_full_name() or instance.business.business_owner.username},\n\n"
                 f"Your business, {instance.business.business_name}, has just received its {verification_count} accessibility verification from a user of a wheeled mobility device.\n"
                 "You can view all verification reports in your business dashboard.\n\n"
             )
@@ -65,11 +65,11 @@ def send_approval_email(sender, instance, created, **kwargs):
                 "Best regards,\n"
                 "The Mobility Mapper Team"
             )
-            print(f"Sending verification count email to {instance.business.owner.email}")
+            print(f"Sending verification count email to {instance.business.business_owner.email}")
             send_mail(
                 biz_subject,
                 biz_message,
                 settings.DEFAULT_FROM_EMAIL,
-                [instance.business.owner.email],
+                [instance.business.business_owner.email],
                 fail_silently=False,
             )
