@@ -54,7 +54,7 @@ def business_detail(request, pk):
 
     Returns the rendered business detail template or redirects if unauthorized.
     """
-    business = get_object_or_404(Business, pk=pk, is_approved=True)
+    business = get_object_or_404(Business, pk=pk)
     profile = getattr(request.user, 'profile', None)
 
     # Restrict access: Only allow wheelers who have applied, been approved, or have verified
@@ -298,7 +298,7 @@ def application_submitted(request, pk):
 
     Returns the confirmation page or redirects if invalid.
     """
-    business = get_object_or_404(Business, pk=pk, is_approved=True)
+    business = get_object_or_404(Business, pk=pk)
     profile = getattr(request.user, 'profile', None)
     if not request.user.is_authenticated or not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can view this page.")
