@@ -328,8 +328,10 @@ class UserProfileForm(forms.ModelForm):
             profile.photo = None
 
         # update profile fields from form data
-        profile.has_business = self.cleaned_data.get('has_business', False)
-        profile.is_wheeler = self.cleaned_data.get('is_wheeler', False)
+        # Ensure booleans are saved correctly
+        profile.has_business = bool(self.cleaned_data.get('has_business'))
+        profile.is_wheeler = bool(self.cleaned_data.get('is_wheeler'))
+        # country is required, so default to empty string if not provided
         profile.country = self.cleaned_data.get('country') or ''
         profile.county = self.cleaned_data.get('county') or None
         profile.age_group = self.cleaned_data.get('age_group') or None
