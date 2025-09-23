@@ -51,7 +51,7 @@ def send_approval_email(sender, instance, created, **kwargs):
             biz_subject = f"Your business has received its {verification_count}{suffix} accessibility verification!"
             biz_message = (
                 f"Dear {instance.business.business_owner.user.get_full_name() or instance.business.business_owner.user.username},\n\n"
-                f"Your business, {instance.business.business_name}, has just received its {verification_count} accessibility verification from a user of a wheeled mobility device.\n"
+                f"Your business, {instance.business.business_name}, has just received its {verification_count}{suffix} accessibility verification from a user of a wheeled mobility device.\n"
                 "You can view all verification reports in your business dashboard.\n\n"
             )
             # Add badge info if it's the 3rd verification
