@@ -218,13 +218,9 @@
                     <tr>
                       <td class="px-3 pe-sm-2"><strong>{{ day }}</strong></td>
                       <td class="px-4 px-sm-2">
-                        {% if info %}
-                          {% for period in info %}
-                            <span>{{ period.start|format_time }} - {{ period.end|format_time }}</span>{% if not forloop.last %}<br>{% endif %}
-                          {% endfor %}
-                        {% else %}
-                          <span class="text-muted">Closed</span>
-                        {% endif %}
+                      {% for period in info %}
+                        <span>{{ period.start|format_time }} - {{ period.end|format_time }}</span>{% if not forloop.last %}<br>{% endif %}
+                      {% endfor %}
                       </td>
                     </tr>
                   {% endfor %}

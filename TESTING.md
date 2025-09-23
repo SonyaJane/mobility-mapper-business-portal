@@ -737,7 +737,6 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Verification status | Shows "Verified by Wheelers" badge, "Verification requested", or "Please verify the accessibility of this business" based on status | Pass |
 | Accessibility features | All features are shown as badges | Pass |
 | Opening hours | Table displays hours for each day they are open | Pass |
-| Context-sensitive actions | Shows apply/verify/report buttons or status messages based on user and business state | Pass |
 | Responsive layout | All cards, tables, and content adapt correctly to all screen sizes | Pass |
 
 
