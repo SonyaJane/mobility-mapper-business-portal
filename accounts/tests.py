@@ -473,6 +473,7 @@ class UserProfileFormTests(TestCase):
             'age_group': self.age_group.id,
             'has_business': 'True',
             'is_wheeler': 'True',
+            'mobility_devices': [self.mobility_device.id],
             'mobility_devices_other': '',
         })
         self.assertTrue(form.is_valid())
@@ -911,6 +912,7 @@ class EditProfileViewTests(TestCase):
             'age_group': self.age_group.id,
             'is_wheeler': 'True',
             'has_business': 'True',
+            'mobility_devices': [self.mobility_device.id],
         }
         response = self.client.post(reverse('edit_profile'), data)
         self.user.refresh_from_db()
@@ -936,6 +938,7 @@ class EditProfileViewTests(TestCase):
             'age_group': self.age_group.id,
             'is_wheeler': 'True',
             'has_business': 'True',
+            'mobility_devices': [self.mobility_device.id],
         }
         response = self.client.post(reverse('edit_profile'), data)
         self.user.refresh_from_db()
