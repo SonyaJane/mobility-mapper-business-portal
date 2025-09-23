@@ -169,7 +169,7 @@
   <div class="row mb-3 g-3 d-flex align-items-stretch">  
     
     <!-- Accessibility Features Card -->
-    <div class="col-12">
+    <div class="col-12 {% if business.opening_hours and opening_hours_dict %}col-sm-6{% endif %}">
       <div class="card shadow-sm h-100 p-3">
         <div class="card-body">
           <h2 class="card-title mb-3 h5">Accessibility Features</h2>
@@ -180,8 +180,6 @@
               {% endfor %}
             {% else %}None{% endif %}
           </div>
-
-
         </div>
       </div>
     </div>
@@ -193,19 +191,15 @@
           <h2 class="card-title ms-3 my-3 h5">Opening Hours</h2>
           {% if business.opening_hours and opening_hours_dict %}
             <div class="table-responsive">
-              <table class="table table-sm table-striped table-hover mb-0" id="opening-hours-table-dashboard">
+              <table class="table table-sm table-striped table-hover mb-0 opening-hours-table-dashboard">
                 <tbody>
                   {% for day, info in opening_hours_dict.items %}
                     <tr>
                       <td class="px-3 pe-sm-2"><strong>{{ day }}</strong></td>
                       <td class="px-4 px-sm-2">
-                        {% if info %}
-                          {% for period in info %}
-                            <span>{{ period.start|format_time }} - {{ period.end|format_time }}</span>{% if not forloop.last %}<br>{% endif %}
-                          {% endfor %}
-                        {% else %}
-                          <span class="text-muted">Closed</span>
-                        {% endif %}
+                      {% for period in info %}
+                        <span>{{ period.start|format_time }} - {{ period.end|format_time }}</span>{% if not forloop.last %}<br>{% endif %}
+                      {% endfor %}
                       </td>
                     </tr>
                   {% endfor %}
