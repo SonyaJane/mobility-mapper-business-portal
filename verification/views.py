@@ -240,7 +240,7 @@ def wheeler_verification_application(request, pk):
 
     Returns the form page (GET) or redirects after submission/duplicate detection.
     """
-    business = get_object_or_404(Business, pk=pk, is_approved=True)
+    business = get_object_or_404(Business, pk=pk)
     profile = getattr(request.user, 'profile', None)
     if not request.user.is_authenticated or not profile or not profile.is_wheeler:
         messages.error(request, "Only verified Wheelers can request to verify a business.")
