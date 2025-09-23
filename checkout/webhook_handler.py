@@ -42,7 +42,7 @@ class StripeWebHookHandler:
             body,
             settings.DEFAULT_FROM_EMAIL,
             [cust_email],
-            fail_silently=False
+            fail_silently=True
         )
 
     def handle_event(self, event):

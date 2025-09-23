@@ -426,7 +426,7 @@ def wheeler_verification_form(request, pk):
                 message,
                 settings.DEFAULT_FROM_EMAIL,
                 recipient_list,
-                fail_silently=False,
+                fail_silently=True,
             )
             messages.success(request, "Thank you for verifying this business! Please check your email for confirmation.")
             return redirect('account_dashboard')

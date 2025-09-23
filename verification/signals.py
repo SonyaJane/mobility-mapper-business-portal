@@ -35,7 +35,7 @@ def send_approval_email(sender, instance, created, **kwargs):
                 message,
                 settings.DEFAULT_FROM_EMAIL,
                 [instance.wheeler.email],
-                fail_silently=False,
+                fail_silently=True,
             )
             
             # Email to business for nth verification
@@ -74,5 +74,5 @@ def send_approval_email(sender, instance, created, **kwargs):
                 biz_message,
                 settings.DEFAULT_FROM_EMAIL,
                 [instance.business.business_owner.user.email],
-                fail_silently=False,
+                fail_silently=True,
             )
