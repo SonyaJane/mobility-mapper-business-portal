@@ -438,8 +438,8 @@ class UserProfileFormTests(TestCase):
             'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
-            'has_business': True,
-            'is_wheeler': True,
+            'has_business': 'True',
+            'is_wheeler': 'True',
             'mobility_devices': [self.mobility_device.id],
         })
         self.assertTrue(form.is_valid())
@@ -458,8 +458,8 @@ class UserProfileFormTests(TestCase):
             'country': 'UK',
             'county': 'not_an_id',
             'age_group': self.age_group.id,
-            'has_business': True,
-            'is_wheeler': True,
+            'has_business': 'True',
+            'is_wheeler': 'True',
             'mobility_devices': [self.mobility_device.id],
         })
         self.assertFalse(form.is_valid())
@@ -471,8 +471,8 @@ class UserProfileFormTests(TestCase):
             'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
-            'has_business': True,
-            'is_wheeler': True,
+            'has_business': 'True',
+            'is_wheeler': 'True',
             'mobility_devices_other': '',
         })
         self.assertTrue(form.is_valid())
@@ -483,8 +483,8 @@ class UserProfileFormTests(TestCase):
             'country': 'UK',
             'county': self.county.id,
             'age_group': 'not_an_id',
-            'has_business': True,
-            'is_wheeler': True,
+            'has_business': 'True',
+            'is_wheeler': 'True',
         })
         self.assertFalse(form.is_valid())
         self.assertIn('age_group', form.errors)
@@ -494,8 +494,8 @@ class UserProfileFormTests(TestCase):
             'last_name': 'Case',
             'county': self.county.id,
             'age_group': self.age_group.id,
-            'has_business': True,
-            'is_wheeler': True,
+            'has_business': 'True',
+            'is_wheeler': 'True',
         })
         self.assertFalse(form.is_valid())
         self.assertIn('country', form.errors)
@@ -506,8 +506,8 @@ class UserProfileFormTests(TestCase):
             'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
-            'has_business': True,
-            'is_wheeler': True,
+            'has_business': 'True',
+            'is_wheeler': 'True',
             'mobility_devices': 'not_a_list',
         })
         self.assertFalse(form.is_valid())
@@ -782,8 +782,8 @@ class EditProfileViewTests(TestCase):
             'age_group': 9999,
             'mobility_devices': [9999],
             'mobility_devices_other': '',
-            'is_wheeler': False,
-            'has_business': False,
+            'is_wheeler':  'False',
+            'has_business':  'False',
         }
         response = self.client.post(reverse('edit_profile'), data)
         form = response.context['form']
@@ -942,7 +942,7 @@ class EditProfileViewTests(TestCase):
         self.user.profile.refresh_from_db()
         profile = self.user.profile
         self.assertTrue(profile.has_business)
-        # Set has_business False
+        # Set has_business  'False'
         data['has_business'] = 'False'
         response = self.client.post(reverse('edit_profile'), data)
         self.user.refresh_from_db()
