@@ -37,3 +37,39 @@ def send_approval_email(sender, instance, created, **kwargs):
                 [instance.wheeler.email],
                 fail_silently=False,
             )
+            
+            # Email to business for nth verification
+            verification_count = WheelerVerification.objects.filter(
+                business=instance.business, approved=True
+            ).count()
+            suffix = (
+                'st' if verification_count == 1 else
+                'nd' if verification_count == 2 else
+                'rd' if verification_count == 3 else
+                'th'
+            )
+            biz_subject = f"Your business has received its {verification_count}{suffix} accessibility verification!"
+            biz_message = (
+                f"Dear {instance.business.owner.get_full_name() or instance.business.owner.username},\n\n"
+                f"Your business, {instance.business.business_name}, has just received its {verification_count} accessibility verification from a user of a wheeled mobility device.\n"
+                "You can view all verification reports in your business dashboard.\n\n"
+            )
+            # Add badge info if it's the 3rd verification
+            if verification_count == 3:
+                biz_message += (
+                    "Since this is the 3rd verification, your business has now been awarded the Verified by Wheelers badge. "
+                    "This badge is visible on your business dashboard and in the business search results.\n\n"
+                )
+            biz_message += (
+                "Thank you for supporting accessibility in your community!\n"
+                "Best regards,\n"
+                "The Mobility Mapper Team"
+            )
+            print(f"Sending verification count email to {instance.business.owner.email}")
+            send_mail(
+                biz_subject,
+                biz_message,
+                settings.DEFAULT_FROM_EMAIL,
+                [instance.business.owner.email],
+                fail_silently=False,
+            )
