@@ -13,8 +13,20 @@ class WheelerVerification(models.Model):
     Links a business and a verifying user, with date and optional comments.
     Prevents duplicate verifications per business/user pair.
     """
-    business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='verifications')
-    wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verifications_made')
+    business = models.ForeignKey(
+        'businesses.Business',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='verifications'
+    )
+    wheeler = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True, 
+        on_delete=models.SET_NULL,
+        related_name='verifications_made'
+    )
     date_verified = models.DateTimeField(auto_now_add=True)
     comments = models.TextField()
     mobility_device = models.ForeignKey(
@@ -50,7 +62,12 @@ class WheelerVerificationPhoto(models.Model):
     """Represents a photo submitted by a Wheeler during the verification process.
     Each photo is linked to a specific verification and to an accessibility feature.
     """
-    verification = models.ForeignKey(WheelerVerification, on_delete=models.CASCADE, related_name='photos')
+    verification = models.ForeignKey(
+        WheelerVerification,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL, 
+        related_name='photos')
     image = models.ImageField(
         upload_to='mobility_mapper_business_portal/verification_photos/',
         max_length=255,
@@ -71,8 +88,18 @@ class WheelerVerificationPhoto(models.Model):
 
 class WheelerVerificationApplication(models.Model):
     """Tracks applications by wheelers to verify a business's accessibility."""
-    business = models.ForeignKey('businesses.Business', on_delete=models.CASCADE, related_name='verification_requests')
-    wheeler = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='verification_requests_made')
+    business = models.ForeignKey(
+        'businesses.Business', 
+        on_delete=models.SET_NULL, 
+        null=True,
+        blank=True,
+        related_name='verification_requests')
+    wheeler = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL, 
+        related_name='verification_requests_made')
     requested_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
     # Timestamp when the request was approved
