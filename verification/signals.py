@@ -65,11 +65,11 @@ def send_approval_email(sender, instance, created, **kwargs):
                 "Best regards,\n\n"
                 "The Mobility Mapper Team"
             )
-            print(f"Sending verification count email to {instance.business.business_owner.email}")
+            print(f"Sending verification count email to {instance.business.business_owner.user.email}")
             send_mail(
                 biz_subject,
                 biz_message,
                 settings.DEFAULT_FROM_EMAIL,
-                [instance.business.business_owner.email],
+                [instance.business.business_owner.user.email],
                 fail_silently=False,
             )
