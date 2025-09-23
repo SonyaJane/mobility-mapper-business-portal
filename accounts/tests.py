@@ -1,5 +1,8 @@
-"""Test suite for the accounts app covering forms, models, views, signals,
-context processors, template tags, and profile photo handling."""
+"""
+Test suite for the accounts app covering forms, models, views, signals,
+context processors, template tags, and profile photo handling.
+Run using python manage.py test accounts
+"""
 
 from io import BytesIO
 from PIL import Image
@@ -522,8 +525,8 @@ class UserProfileFormTests(TestCase):
             'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
-            'has_business': True,
-            'is_wheeler': True,
+            'has_business': 'True',
+            'is_wheeler': 'True',
             'mobility_devices': [self.mobility_device.id],
             'unexpected_field': 'surprise',
         })

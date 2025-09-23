@@ -697,6 +697,14 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Email confirmation | User receives an email confirming receipt of their verification report | Pass |
 | JavaScript enhancements | Dynamic photo previews, removal, and validation work as expected | Pass |
 
+**Accessibility Verification Approval**
+
+| Feature | Outcome | Pass/Fail |
+|---|---|---|
+| Email notification (Wheeler) | Wheeler receives an email when their verification report has been approved | Pass |
+| Email notification (Business) | Business owner receives an email when their business has been verified by a wheeler | Pass |
+| Business Dashboard update | Business dashboard shows updated verification status and badge if applicable | Pass |
+| Accessible Search Results listing | Shows verified badge in search results | Pass |
 
 **Accessibility Verification Report**
 
@@ -716,11 +724,12 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Responsive layout | All cards, carousels, and content adapt correctly to all screen sizes | Pass |
 | Alt text for images | All images include descriptive alt text for screen readers | Pass |
 
-
 **Business Details**
 
 | Feature | Outcome | Pass/Fail |
 |---|---|---|
+| Page visibility | Page is accessible only to wheelers confirming accessibility of a business | Pass |
+| Link to page | Link to the page is available in the verification request table in the Accessibility Verification Hub, and on the Wheeler's dashboard (prior to verification) | Pass |
 | Page heading | "Business Details" heading is visible at the top | Pass |
 | Business logo | Logo is displayed if set; placeholder if not | Pass |
 | Business name | Business name is shown prominently in the header | Pass |
@@ -784,18 +793,15 @@ Logout button | Logs user out and redirects to home/login page | Pass
 |---|---|---|
 | Page heading | "Contact Us" heading is visible at the top | Pass |
 | Introductory text | Explains how to get in touch and what the form is for | Pass |
-| Name field | Present, required, and validated | Pass |
-| Email field | Present, required, validated, and must be a valid email address | Pass |
-| Subject field | Present, required, and validated | Pass |
+| Name field | Prefilled for logged-in users, required, and validated | Pass |
+| Email field | Prefilled for logged-in users, Present, required, validated, and must be a valid email address | Pass |
 | Message field | Present, required, and validated | Pass |
 | CSRF token | Present in the form for security | Pass |
 | Inline validation | Errors are shown next to fields if invalid or missing | Pass |
-| Error summary | Validation errors are shown in a dismissible alert at the top of the form | Pass |
 | Send button | Clearly labeled, submits the form, and shows loading state | Pass |
 | Success feedback | Confirmation message is shown after successful submission | Pass |
 | Email delivery | Form submission sends an email to the admin address configured in settings | Pass |
 | Responsive layout | Form and container display correctly on all screen sizes | Pass |
-
 
 **Error Handling**
 
@@ -813,9 +819,17 @@ Logout button | Logs user out and redirects to home/login page | Pass
 
 ## Automated Tests for the Accounts App
 
-`accounts/tests.py` implements a comprehensive suite of automated tests to ensure the reliability, correctness, and security of the accounts app. These tests cover the following key areas:
+`accounts/tests.py` implements a comprehensive suite of automated tests to ensure the reliability, correctness, and security of the accounts app. 
 
-## Test Coverage Table
+To run the tests, use the following command:
+
+```bash
+pytest accounts/tests.py
+```
+
+These tests cover the following key areas:
+
+### Test Coverage Table
 
 | Area / Feature                        | Test Description                                                                                   | Test Class / Method(s)                              |
 |---------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------|
