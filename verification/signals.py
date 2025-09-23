@@ -56,6 +56,9 @@ def send_approval_email(sender, instance, created, **kwargs):
             )
             # Add badge info if it's the 3rd verification
             if verification_count == 3:
+                # set business as verified
+                instance.business.is_verified = True
+                instance.business.save()                
                 biz_message += (
                     "Since this is the 3rd verification, your business has now been awarded the Verified by Wheelers badge. "
                     "This badge is visible on your business dashboard and in the business search results.\n\n"
