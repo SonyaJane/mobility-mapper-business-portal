@@ -55,7 +55,8 @@ class WheelerVerification(models.Model):
 
     def __str__(self):
         """String representation showing who verified which business and when."""
-        return f"{self.wheeler} verified {self.business.business_name} on {self.date_verified.strftime('%Y-%m-%d')}"
+        business_name = self.business.business_name if self.business else "[deleted business]"
+        return f"{self.wheeler} verified {business_name} on {self.date_verified.strftime('%Y-%m-%d')}"
 
 
 class WheelerVerificationPhoto(models.Model):
