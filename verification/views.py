@@ -202,22 +202,22 @@ def accessibility_verification_hub(request):
     if not profile or (not profile.is_wheeler and not is_superuser):
         messages.error(request, "Only verified Wheelers can view their accessibility verification hub.")
         return redirect('home')
-    requests = WheelerVerificationApplication.objects.filter(wheeler=request.user).order_by('-requested_at')
+    applications = WheelerVerificationApplication.objects.filter(wheeler=request.user).order_by('-requested_at')
     verification_status = {}
     verification_approved = {}
     verification_id_map = {}
-    for req in requests:
-        verification = WheelerVerification.objects.filter(business=req.business, wheeler=req.wheeler).first()
+    for app in applications:
+        verification = WheelerVerification.objects.filter(business=app.business, wheeler=app.wheeler).first()
         if verification:
-            verification_status[req.id] = True
-            verification_approved[req.id] = verification.approved
-            verification_id_map[req.id] = verification.id
+            verification_status[app.id] = True
+            verification_approved[app.id] = verification.approved
+            verification_id_map[app.id] = verification.id
         else:
-            verification_status[req.id] = False
-            verification_approved[req.id] = False
-            verification_id_map[req.id] = None
+            verification_status[app.id] = False
+            verification_approved[app.id] = False
+            verification_id_map[app.id] = None
     return render(request, 'verification/accessibility_verification_hub.html', {
-        'requests': requests,
+        'applications': applications,
         'verification_status': verification_status,
         'verification_approved': verification_approved,
         'verification_id_map': verification_id_map,

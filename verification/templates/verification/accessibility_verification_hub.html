@@ -5,80 +5,80 @@
   <div class="p-2">
 
     <h4 class="my-3 underline-orange align-self-start">Accessibility Verification Hub</h4>
-    {% if requests %}
+    {% if applications %}
     <p class="mb-3">Welcome to the Accessibility Verification Hub, where you can manage your accessibility verification applications and reports.</p>
     <div class="table-responsive h-100 w-100" style="overflow:auto;">
       <table class="table table-bordered">
         <thead>
           <tr>
             <th class="align-middle text-nowrap">Business</th>
-            <th class="align-middle text-nowrap">Request Status</th>
-            <th class="align-middle text-nowrap">Date Requested</th>
-            <th class="align-middle text-nowrap">Date Request Approved</th>
+            <th class="align-middle text-nowrap">Application Status</th>
+            <th class="align-middle text-nowrap">Date Applied</th>
+            <th class="align-middle text-nowrap">Date Application Approved</th>
             <th class="align-middle text-nowrap">Verification Report Status</th>
             <th class="align-middle text-nowrap">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {% for req in requests %}
+          {% for app in applications %}
           <tr>
-            <td><a href="{% url 'business_detail' req.business.id %}" class="text-orange">{{ req.business.business_name }}</a></td>
+            <td><a href="{% url 'business_detail' app.business.id %}" class="text-orange">{{ app.business.business_name }}</a></td>
             <td>
-              {% if req.approved %}
+              {% if app.approved %}
                 <span class="badge bg-success">Approved</span>
-              {% elif req.reviewed %}
+              {% elif app.reviewed %}
                 <span class="badge bg-danger">Rejected</span>
               {% else %}
                 <span class="badge bg-warning text-dark">Submitted</span>
               {% endif %}
             </td>
-            <td>{{ req.requested_at|date:"j F Y" }}</td>
+            <td>{{ app.requested_at|date:"j F Y" }}</td>
             <td>
-              {% if req.approved_at %}
-                {{ req.approved_at|date:"j F Y" }}
+              {% if app.approved_at %}
+                {{ app.approved_at|date:"j F Y" }}
               {% else %}
                 <span class="text-muted">Waiting for approval</span>
               {% endif %}
             </td>
             <td>
-              {% with submitted=verification_status|get_item:req.id approved=verification_approved|get_item:req.id %}
-                {% if req.approved and submitted and approved %}
+              {% with submitted=verification_status|get_item:app.id approved=verification_approved|get_item:app.id %}
+                {% if app.approved and submitted and approved %}
                   <span class="badge bg-success">Approved</span>
-                {% elif req.approved and submitted %}
+                {% elif app.approved and submitted %}
                   <span class="badge bg-info">Submitted</span>
-                {% elif req.approved %}
+                {% elif app.approved %}
                   <span class="badge bg-secondary">Not Submitted</span>
                 {% endif %}
               {% endwith %}
             </td>
             <td>
-              {% with submitted=verification_status|get_item:req.id %}
+              {% with submitted=verification_status|get_item:app.id %}
                 {% if submitted %}
-                  <a href="{% url 'verification_report' verification_id_map|get_item:req.id %}" class="btn btn-sm btn-green-outline">View Report</a>
-                {% elif req.approved %}
-                  <a href="{% url 'wheeler_verification_form' req.business.id %}" class="btn btn-sm btn-green">Submit Verification</a>
+                  <a href="{% url 'verification_report' verification_id_map|get_item:app.id %}" class="btn btn-sm btn-green-outline">View Report</a>
+                {% elif app.approved %}
+                  <a href="{% url 'wheeler_verification_form' app.business.id %}" class="btn btn-sm btn-green">Submit Verification</a>
                 {% else %}
-                  <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelModal-{{ req.id }}">
-                    Cancel Request
+                  <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cancelModal-{{ app.id }}">
+                    Cancel Application
                   </button>
                 {% endif %}
               {% endwith %}
             </td>
           </tr>
           <!-- Cancel Confirmation Modal -->
-          <div class="modal fade" id="cancelModal-{{ req.id }}" tabindex="-1" aria-labelledby="cancelModalLabel-{{ req.id }}" aria-hidden="true">
+          <div class="modal fade" id="cancelModal-{{ app.id }}" tabindex="-1" aria-labelledby="cancelModalLabel-{{ app.id }}" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="cancelModalLabel-{{ req.id }}">Cancel Verification Request</h5>
+                  <h5 class="modal-title" id="cancelModalLabel-{{ app.id }}">Cancel Verification Application</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  Are you sure you want to cancel your request to verify {{ req.business.business_name }}?
+                  Are you sure you want to cancel your application to verify {{ app.business.business_name }}?
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Keep It</button>
-                  <a href="{% url 'cancel_wheeler_verification_application' req.business.id %}" class="btn btn-danger">Yes, Cancel</a>
+                  <a href="{% url 'cancel_wheeler_verification_application' app.business.id %}" class="btn btn-danger">Yes, Cancel</a>
                 </div>
               </div>
             </div>
@@ -88,7 +88,7 @@
       </table>
     </div>
     {% else %}
-    <p>You have not made any verification requests yet.</p>
+    <p>You have not applied to verify any businesses.</p>
     <p>Please visit the <a href="{% url 'accessible_business_search' %}" class="text-orange">Accessible Business Search page</a> to find businesses looking for verification.</p>
     <a href="{% url 'accessible_business_search' %}" class="btn btn-green my-2">Go to Accessible Business Search</a>
     {% endif %}
