@@ -42,7 +42,7 @@ export default function renderResultsList(businesses) {
             if (biz.postcode) addressParts.push(biz.postcode);
             let address = addressParts.length ? `<div class="mb-1">${addressParts.join(', ')}</div>` : '';
             let logo = biz.logo ? `<img src="${biz.logo}" alt="${biz.business_name} Logo" class="business-logo-img me-2">` : '';
-            let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<div class="mt-2 px-2 py-1 btn-green-outline rounded d-inline-block"><span class="fw-bold"><i class="bi bi-check-circle-fill pe-2"></i>Verified by Wheelers</span></div>` : '';
+            let verified = (biz.is_wheeler_verified === true || biz.is_wheeler_verified === 'true' || biz.is_wheeler_verified === 1 || biz.is_wheeler_verified === '1') ? `<div class="mt-2 px-2 py-1 btn-green-outline-no-hover rounded d-inline-block"><span class="fw-bold"><i class="bi bi-check-circle-fill pe-2"></i>Verified by Wheelers</span></div>` : '';
             // Badge for businesses that have requested verification (only for verified wheelers)
             let requestedBadge = (typeof isVerifiedWheeler !== 'undefined' && isVerifiedWheeler && biz.wheeler_verification_requested) ?
                 `<a href="/verification/${biz.id}/wheeler-verification-application/" 
