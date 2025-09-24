@@ -115,7 +115,8 @@ class WheelerVerificationApplication(models.Model):
 
     def __str__(self):
         status = 'Approved' if self.approved else 'Pending'
-        return f"Request by {self.wheeler} for {self.business.business_name} ({status})"
+        business_name = self.business.business_name if self.business else "[deleted business]"
+        return f"Request by {self.wheeler} for {business_name} ({status})"
 
     class Meta:
         # Prevent duplicate requests for the same business/wheeler pair at the DB level
