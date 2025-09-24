@@ -145,12 +145,19 @@ class CustomSignupForm(SignupForm):
     def save(self, request):
         """
         Persist the User and associated UserProfile:
+        - validates the profile photo if provided.
         - Updates core User fields (first_name, last_name, email).
         - Creates or updates the related UserProfile.
         - Conditionally assigns mobility devices and 'other' text only if is_wheeler is true.
         - Saves optional photo if provided.
         Returns the saved User instance.
         """
+        # Validate photo before user creation
+        photo = self.cleaned_data.get('photo')
+        if photo:
+            validated_photo = validate_profile_photo(photo, purpose="profile photo")
+            self.cleaned_data['photo'] = validated_photo
+
         user = super().save(request)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
