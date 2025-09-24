@@ -30,7 +30,7 @@ The following user stories outline the key functionalities and features of the M
     - The user can access a registration page from the landing page by clicking the "Get Started" button, or "Sign Up" in the navigation bar.
     - The registration form collects first name, last name, email (with confirmation), username, password (with confirmation), and allows the user to specify if they are a business owner and/or a wheeler.
     - The username field enforces uniqueness and allows only letters, numbers, underscores, and periods.
-    - The form includes fields for country, county (if applicable), age group, and optional profile photo upload.
+    - The form includes fields for county, age group, and optional profile photo upload.
     - Password fields enforce strong password requirements and confirmation.
     - Helpful validation and error messages are shown inline for each field.
     - If the user already has an account, a clear link is provided to the sign-in page.
@@ -38,16 +38,15 @@ The following user stories outline the key functionalities and features of the M
     - Upon successful registration, users are automatically logged in and directed to their personal dashboard.
 <br>
 
-2. **Edit my profile**  
+1. **Edit my profile**  
    As a User, I want to be able to update my personal details, change my password, and manage my profile photo so that my account information is always current.
 
    <br>
 
     **Acceptance Criteria**
     - The user can access the Edit Profile page from their dashboard or navigation menu.
-    - The Edit Profile form is pre-filled with the user's current information, including first name, last name, country, county (if applicable), age group, and profile photo.
+    - The Edit Profile form is pre-filled with the user's current information, including first name, last name, county, age group, and profile photo.
     - The user can upload a new profile photo (PNG, JPEG, or WEBP, square, max 5MB), preview it before saving, or remove their existing photo.
-    - The user can update their country, and if the UK is selected, the county field dynamically appears.
     - The user can indicate if they are a business owner and/or a wheeler; if "wheeler" is selected, a dynamic section appears for selecting one or more mobility devices, with an "Other" option for custom input.
     - All fields include validation and clear error messages.
     - The form uses CSRF protection and is fully accessible via keyboard and screen readers.
@@ -56,7 +55,7 @@ The following user stories outline the key functionalities and features of the M
     - All updates are immediately reflected in the user's profile and used throughout the portal (e.g., profile photo in navbar, updated details in verification reports).
 <br>
 
-3. **Contact support**  
+1. **Contact support**  
    As a User, I want to contact the Mobility Mapper team for help, feedback, or suggestions, so that I can get assistance or share my ideas.
     <br>
 
@@ -72,7 +71,7 @@ The following user stories outline the key functionalities and features of the M
     - The user can easily return to the previous page or dashboard after submitting the form.
 <br>
 
-4. **Register a business**  
+1. **Register a business**  
 As a Business Owner, I want to register my business so that it can be listed on the Mobility Mapper platform, found by wheelers, and managed through my dashboard.
     <br>
 
@@ -95,7 +94,7 @@ As a Business Owner, I want to register my business so that it can be listed on 
     - The new business appears in the accessible business search and on the map, with visibility and details determined by the selected membership
 <br>
 
-5. **View and manage dashboard and membership status**  
+1. **View and manage dashboard and membership status**  
 As a Business Owner, I want to access a dashboard showing my business details, membership status, payment history, and verification progress, so I can manage everything in one place.
     <br>
 
@@ -115,7 +114,7 @@ As a Business Owner, I want to access a dashboard showing my business details, m
     - All actions are protected by authentication to ensure only the business owner can view and manage their own dashboard and membership.
 <br>
 
-6. **Manage business details**  
+1. **Manage business details**  
 As a Business Owner, I want to add, edit, or remove my business details, including address, categories, accessibility features, opening hours, and special offers, so that my information is always accurate and up to date.
 
     <br>
@@ -136,7 +135,7 @@ As a Business Owner, I want to add, edit, or remove my business details, includi
     - All updates are immediately reflected in the business search, map, and dashboard.
 <br>
 
-7. **Manage membership tier**  
+1. **Manage membership tier**  
 As a Business Owner, I want to be able to view and upgrade my membership tier so I can unlock more features and increase my business’s visibility in search results.
     <br>
 
@@ -153,7 +152,7 @@ As a Business Owner, I want to be able to view and upgrade my membership tier so
     - All membership actions are protected by authentication to ensure only the business owner can manage their membership.
 <br>
 
-8. **Request accessibility verification**  
+1. **Request accessibility verification**  
     As a Business Owner, I want to request independent verification of my business’s accessibility features by verified wheelers, so I can earn a "Verified by Wheelers" badge and attract more customers.
     <br>
 
@@ -169,7 +168,7 @@ As a Business Owner, I want to be able to view and upgrade my membership tier so
     - The process and all interactive elements are fully accessible via keyboard and screen
 <br>
 
-9. **Track verification progress and reports**  
+1. **Track verification progress and reports**  
     As a Business Owner, I want to view the status of my verification request and access completed verification reports, so I can see detailed feedback.
     <br>
 
@@ -186,7 +185,7 @@ As a Business Owner, I want to be able to view and upgrade my membership tier so
     - All information is presented in a clear, accessible format, with responsive design for all devices.
 <br>
 
-10. **Make secure payments**  
+1.  **Make secure payments**  
     As a Business Owner, I want to pay for memberships or verification fees securely online using Stripe, and receive receipts and payment confirmations.
     <br>
 
@@ -203,7 +202,7 @@ As a Business Owner, I want to be able to view and upgrade my membership tier so
     - Failed or cancelled payments display clear error messages and allow the user to retry or return to the dashboard without changes.
 <br>
 
-11. **Search for accessible businesses**  
+1.  **Search for accessible businesses**  
     As a Wheeler, I want to search for accessible businesses using a search bar, filter by accessibility features, and restrict my search to a certain area on an interactive map, so I can find suitable venues in my area.
     <br>
 
@@ -231,7 +230,7 @@ As a Business Owner, I want to be able to view and upgrade my membership tier so
     - Clear messages are shown if no results are found or if there is a problem with the search.
 <br>
 
-12. **Apply to verify accessible businesses**  
+1.  **Apply to verify accessible businesses**  
     As a Wheeler, I want to apply to verify businesses so I can contribute to the community and earn rewards.
     <br>
 
@@ -247,7 +246,7 @@ As a Business Owner, I want to be able to view and upgrade my membership tier so
     - All actions and forms are fully accessible via keyboard and screen readers, with appropriate ARIA labels and semantic HTML.
 <br>
 
-13. **Track and manage verification applications**  
+1.  **Track and manage verification applications**  
     As a Wheeler, I want to view my verification applications, links to report forms and business details, and submitted reports in a dedicated hub, so I can plan my visits and manage my activity.
     <br>
 
@@ -267,7 +266,7 @@ As a Business Owner, I want to be able to view and upgrade my membership tier so
     - A clear message is displayed if the user has not made any verification applications yet.
 <br>
 
-14. **Submit on-site verification reports**  
+1.  **Submit on-site verification reports**  
     As a Wheeler, I want to submit detailed verification reports while visiting a business, including notes, accessibility feature confirmations, and photo evidence linked to specific features.
     <br>
 
@@ -360,7 +359,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Email confirmation field | Email confirmation field is present and must match email | Pass |
 | Username field | Username field is present, required, and validated for uniqueness and greater than 5 characters | Pass |
 | Business owner/wheeler options | User must select if they are a business owner and/or wheeler | Pass |
-| Country and county fields | Country dropdown present and required; county field appears for UK | Pass |
+| County field | Dropdown for county is present | Pass |
 | Age group selection | Age group dropdown is present and required | Pass |
 | Profile photo upload | User can upload a profile photo; invalid files are rejected; file type and size restrictions are clearly communicated; image remains if errors occur elsewhere in form | Pass |
 | Password confirmation field | Password confirmation field is present and must match password | Pass |
@@ -394,7 +393,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | User's name            | User's first and last name are displayed prominently                                     | Pass      |
 | Username               | Username is shown in the profile details table                                           | Pass      |
 | Email address          | Email is shown in the profile details table                                              | Pass      |
-| Country, county, age   | Country, county, and age group are shown                                           | Pass      |
+| County, age   | County, and age group are shown                                           | Pass      |
 | Mobility devices       | Mobility devices device are shown if user is a wheeler                       | Pass      |
 | Business link          | Business name is shown and links to Business Dashboard if user has a business            | Pass      |
 | Edit Profile button    | Present and links to Edit Profile page                                                   | Pass      |
@@ -416,7 +415,7 @@ Logout button | Logs user out and redirects to home/login page | Pass
 | Form pre-filled            | All fields are pre-filled with the user's current information                                  | Pass      |
 | First/last name fields     | Present, required, and editable                                                                | Pass      |
 | Email field                | Present, required, and editable                                                                | Pass      |
-| Country and county fields  | Country dropdown present; county field appears for UK and is required                          | Pass      |
+| County field  | County field present and is required                          | Pass      |
 | Age group field            | Dropdown present and required                                                                  | Pass      |
 | Profile photo section      | Current photo is shown if present                                                              | Pass      |
 | Profile photo upload       | User can upload or remove a profile photo; invalid files are rejected                | Pass      |
@@ -828,7 +827,7 @@ These tests cover the following key areas:
 |                                       | Uploading a valid profile photo works                                                             | `EditProfileViewTests.test_edit_profile_photo_upload` |
 |                                       | Uploading an invalid photo file type shows error                                                  | `EditProfileViewTests.test_edit_profile_invalid_photo_upload` |
 |                                       | Uploading a non-image file as photo returns validation error                                      | `EditProfileViewTests.test_edit_profile_invalid_image_extension` |
-|                                       | Omitting required field (country) returns validation error                                        | `EditProfileViewTests.test_edit_profile_missing_required_field` |
+|                                       | Omitting required field (age group) returns validation error                                        | `EditProfileViewTests.test_edit_profile_missing_required_field` |
 |                                       | Changing only one field updates only that field                                                   | `EditProfileViewTests.test_edit_profile_change_single_field` |
 |                                       | Clearing all optional fields removes them from profile                                            | `EditProfileViewTests.test_edit_profile_remove_all_optional_fields` |
 |                                       | Toggling is_wheeler checkbox on and off                                                          | `EditProfileViewTests.test_edit_profile_set_and_unset_is_wheeler` |

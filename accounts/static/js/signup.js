@@ -84,20 +84,4 @@ document.addEventListener('DOMContentLoaded', function() {
     devicesField.addEventListener('change', updateOtherVisibility);
     updateOtherVisibility();
 
-    // Show/hide county field based on country choice
-    const countrySelect = document.querySelector('select[name="country"]');
-    const countyDiv = document.getElementById('div_id_county');
-    function updateCountyVisibility() {
-        if (countrySelect && countyDiv) {
-            if (countrySelect.value === 'UK') {
-                countyDiv.style.display = 'block';
-            } else {
-                countyDiv.style.display = 'none';
-            }
-        }
-    }
-    if (countrySelect && countyDiv) {
-        countrySelect.addEventListener('change', updateCountyVisibility);
-        updateCountyVisibility();
-}
 });

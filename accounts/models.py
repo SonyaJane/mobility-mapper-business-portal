@@ -50,23 +50,13 @@ class MobilityDevice(models.Model):
 class UserProfile(models.Model):
     """
     Links additional profile information with each User via a one-to-one relationship.
-    Profile fields include country, county, photo, mobility device information,
+    Profile fields include county, photo, mobility device information,
     age group, and business-related flags.
     """
-    COUNTRY_CHOICES = (
-        ("UK", "United Kingdom"),
-        ("Other", "Other"),
-    )
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='profile',
-    )
-    country = models.CharField(
-        max_length=32,
-        choices=COUNTRY_CHOICES,
-        default="UK",
-        help_text="Country of residence."
     )
     county = models.ForeignKey(
         County,

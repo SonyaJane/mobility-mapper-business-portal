@@ -64,7 +64,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     Admin interface for the UserProfile model.
     """
     list_display = (
-        'user', 'email', 'country', 'county', 'is_wheeler', 'has_business',
+        'user', 'email', 'county', 'is_wheeler', 'has_business',
         'mobility_devices_list', 'age_group', 'created_at', 'updated_at'
     )
 

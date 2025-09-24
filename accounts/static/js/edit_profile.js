@@ -3,7 +3,6 @@
  *
  * Handles dynamic interactivity for the Edit Profile page:
  * - Shows or hides the "Other" mobility device field based on checkbox selection.
- * - Toggles county field visibility based on selected country.
  * 
  * All logic is executed after DOMContentLoaded to ensure elements are present.
  */
@@ -29,29 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (devicesField) {
         devicesField.addEventListener('change', updateOtherField);
         updateOtherField();
-    }
-
-    const countryContainer = document.getElementById('country-field');
-    const countyContainer = document.getElementById('county-field');
-    
-    function updateCountyField() {
-        // Toggles county visibility based on country selection
-        if (!countryContainer || !countyContainer) return;
-        const select = countryContainer.querySelector('select[name="country"]');
-        if (select.value === 'Other') {
-            countyContainer.style.display = 'none';
-            const countySelect = countyContainer.querySelector('select[name="county"]');
-            if (countySelect) countySelect.value = '';
-        } else {
-            countyContainer.style.display = 'block';
-        }
-    }
-
-    const select = countryContainer.querySelector('select[name="country"]');
-    
-    if (select) {
-        select.addEventListener('change', updateCountyField);
-        updateCountyField();
     }
     
     function updateDevicesVisibility() {

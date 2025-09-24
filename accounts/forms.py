@@ -14,7 +14,7 @@ class CustomSignupForm(SignupForm):
     - Name, username, and email confirmation
     - Business ownership and wheeler status
     - Mobility devices (multi-select + 'other' text)
-    - Location (country, county) and age group
+    - Location (county) and age group
     - Optional profile photo with validation
     Handles conditional requirements (e.g., mobility devices when 'is_wheeler' is true)
     and synchronizes data into the related UserProfile on save.
@@ -52,12 +52,6 @@ class CustomSignupForm(SignupForm):
         label='Please specify other mobility device',
         widget=forms.TextInput(attrs={'placeholder': 'Specify other device'})
     )
-    country = forms.ChoiceField(
-        choices=UserProfile.COUNTRY_CHOICES,
-        initial='UK',
-        label='Country',
-        required=True
-    )
     county = forms.ModelChoiceField(
         queryset=County.objects.all(),
         label='County',
@@ -83,7 +77,7 @@ class CustomSignupForm(SignupForm):
         'first_name', 'last_name', 
         'email', 'confirm_email', 'username',
         'has_business', 'is_wheeler', 'mobility_devices', 'mobility_devices_other',
-        'country', 'county', 'age_group', 'photo',
+        'county', 'age_group', 'photo',
         'password1', 'password2'
     ]
     def __init__(self, *args, **kwargs):
@@ -172,7 +166,6 @@ class CustomSignupForm(SignupForm):
         else:
             profile.mobility_devices.clear()
             profile.mobility_devices_other = ''
-        profile.country = self.cleaned_data.get('country')
         profile.county = self.cleaned_data.get('county')
         profile.age_group = self.cleaned_data.get('age_group')
         photo = self.cleaned_data.get('photo')
@@ -200,12 +193,6 @@ class UserProfileForm(forms.ModelForm):
         queryset=AgeGroup.objects.all(),
         required=True,
         empty_label=None
-    )
-    country = forms.ChoiceField(
-        choices=UserProfile.COUNTRY_CHOICES,
-        initial='UK',
-        label='Country',
-        required=True
     )
     mobility_devices = forms.ModelMultipleChoiceField(
         queryset=MobilityDevice.objects.all(),
@@ -248,7 +235,7 @@ class UserProfileForm(forms.ModelForm):
         fields = [
             'first_name', 'last_name', 'has_business', 'is_wheeler',
             'mobility_devices', 'mobility_devices_other',
-            'country', 'county', 'age_group', 'photo'
+            'county', 'age_group', 'photo'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -265,7 +252,6 @@ class UserProfileForm(forms.ModelForm):
             self.fields['last_name'].initial = getattr(user, 'last_name', '')
         print("Prefilling mobility_devices_other with:", repr(self.instance.mobility_devices_other))
         if getattr(self.instance, 'pk', None) and user is not None:
-            self.fields['country'].initial = self.instance.country
             self.fields['mobility_devices'].initial = list(self.instance.mobility_devices.values_list('pk', flat=True))
             self.fields['mobility_devices_other'].initial = self.instance.mobility_devices_other or ''
             self.fields['has_business'].initial = 'True' if self.instance.has_business else 'False'
@@ -337,8 +323,6 @@ class UserProfileForm(forms.ModelForm):
         # update profile fields from form data
         profile.has_business = self.cleaned_data.get('has_business', False)
         profile.is_wheeler = self.cleaned_data.get('is_wheeler', False)
-        # country is required, so default to empty string if not provided
-        profile.country = self.cleaned_data.get('country') or ''
         profile.county = self.cleaned_data.get('county') or None
         profile.age_group = self.cleaned_data.get('age_group') or None
         # only set mobility devices if user is a wheeler

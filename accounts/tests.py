@@ -88,7 +88,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Sign',
             'last_name': 'Up',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -118,7 +117,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Sign',
             'last_name': 'Up',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -139,7 +137,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Dupe',
             'last_name': 'User',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -159,7 +156,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Photo',
             'last_name': 'User',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -191,7 +187,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Sign',
             'last_name': 'Up',
-            'country': 'UK',
             'county': county.id,
             'age_group': age_group.id,
             'has_business': 'False',
@@ -207,7 +202,6 @@ class CustomSignupFormTests(TestCase):
             'password1': 'StrongPass123!',
             'password2': 'StrongPass123!',
             'last_name': 'Up',
-            'country': 'UK',
             'county': county.id,
             'age_group': age_group.id,
             'has_business': 'False',
@@ -224,7 +218,6 @@ class CustomSignupFormTests(TestCase):
             'password1': 'StrongPass123!',
             'password2': 'StrongPass123!',
             'first_name': 'Sign',
-            'country': 'UK',
             'county': county.id,
             'age_group': age_group.id,
             'has_business': 'False',
@@ -242,7 +235,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Sign',
             'last_name': 'Up',
-            'country': 'UK',
             'age_group': age_group.id,
             'has_business': 'False',
             'is_wheeler': 'True',
@@ -259,7 +251,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Sign',
             'last_name': 'Up',
-            'country': 'UK',
             'county': county.id,
             'has_business': 'False',
             'is_wheeler': 'True',
@@ -280,7 +271,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Business',
             'last_name': 'User',
-            'country': 'UK',
             'county': county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -297,7 +287,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Incomplete',
             'last_name': 'User',
-            'country': 'UK',
             'county': county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -315,7 +304,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'NoCountyMob',
             'last_name': 'User',
-            'country': 'UK',
             'county': '999',  # Non-existent county ID
             'age_group': '36-45',
             'has_business': 'True',
@@ -335,7 +323,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'Incomplete',
             'last_name': 'User',
-            'country': 'UK',
             'county': county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -354,7 +341,6 @@ class CustomSignupFormTests(TestCase):
             'password2': 'StrongPass123!',
             'first_name': 'NoWheeler',
             'last_name': 'User',
-            'country': 'UK',
             'county': county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -435,7 +421,6 @@ class UserProfileFormTests(TestCase):
         form = UserProfileForm(data={
             'first_name': 'Test',
             'last_name': 'User',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -455,7 +440,6 @@ class UserProfileFormTests(TestCase):
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
-            'country': 'UK',
             'county': 'not_an_id',
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -468,7 +452,6 @@ class UserProfileFormTests(TestCase):
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -481,7 +464,6 @@ class UserProfileFormTests(TestCase):
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': 'not_an_id',
             'has_business': 'True',
@@ -499,12 +481,10 @@ class UserProfileFormTests(TestCase):
             'is_wheeler': 'True',
         })
         self.assertFalse(form.is_valid())
-        self.assertIn('country', form.errors)
 
         form = UserProfileForm(data={
             'first_name': 'Edge',
             'last_name': 'Case',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -518,12 +498,10 @@ class UserProfileFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('first_name', form.errors)
         self.assertIn('last_name', form.errors)
-        self.assertIn('country', form.errors)
 
         form = UserProfileForm(data={
             'first_name': 'Test',
             'last_name': 'User',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -619,7 +597,6 @@ class EditProfileViewTests(TestCase):
         self.assertIn('csrfmiddlewaretoken', content)
         self.assertIn('first_name', content)
         self.assertIn('last_name', content)
-        self.assertIn('country', content)
         self.assertIn('county', content)
         self.assertIn('has_business', content)
         self.assertIn('is_wheeler', content)
@@ -639,7 +616,6 @@ class EditProfileViewTests(TestCase):
         self.client.post(reverse('edit_profile'), {
             'first_name': 'Hacker',
             'last_name': 'User',
-            'country': self.county.id,
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -655,7 +631,6 @@ class EditProfileViewTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Edit',
             'last_name': 'Post',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -672,14 +647,12 @@ class EditProfileViewTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': '',
             'last_name': '',
-            'country': '',
             'county': '',
             'age_group': '',
         })
         form = response.context['form']
         self.assertIn('first_name', form.errors)
         self.assertIn('last_name', form.errors)
-        self.assertIn('country', form.errors)
         self.assertIn('age_group', form.errors)
         self.assertIn('has_business', form.errors)
         self.assertIn('is_wheeler', form.errors)
@@ -694,7 +667,6 @@ class EditProfileViewTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Edit',
             'last_name': 'MultiDevice',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -709,12 +681,10 @@ class EditProfileViewTests(TestCase):
         """Posting unchanged data should not alter stored profile values."""
         self.client.login(username='edituser', password='testpass123')
         profile = self.user.profile
-        profile.country = "UK"
         profile.save()
         data = {
             'first_name': self.user.first_name,
             'last_name': self.user.last_name,
-            'country': profile.country,
             'county': profile.county_id or '',
             'age_group': profile.age_group_id or '',
             'mobility_devices': [d.id for d in profile.mobility_devices.all()],
@@ -724,7 +694,6 @@ class EditProfileViewTests(TestCase):
         }
         self.client.post(reverse('edit_profile'), data)
         profile.refresh_from_db()
-        self.assertEqual(profile.country, "UK")
 
     def test_edit_profile_change_single_field(self):
         """Changing a subset of fields should only update those fields."""
@@ -733,7 +702,6 @@ class EditProfileViewTests(TestCase):
         data = {
             'first_name': 'Changed',
             'last_name': self.user.last_name,
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'mobility_devices': [self.mobility_device.id],
@@ -756,7 +724,6 @@ class EditProfileViewTests(TestCase):
         data = {
             'first_name': self.user.first_name,
             'last_name': self.user.last_name,
-            'country': 'UK',
             'county': county.id,
             'age_group': age_group.id,
             'mobility_devices': [device.id],
@@ -778,7 +745,6 @@ class EditProfileViewTests(TestCase):
         data = {
             'first_name': self.user.first_name,
             'last_name': self.user.last_name,
-            'country': 'UK',
             'county': 9999,
             'age_group': 9999,
             'mobility_devices': [9999],
@@ -801,7 +767,6 @@ class EditProfileViewTests(TestCase):
         self.client.post(reverse('edit_profile'), {
             'first_name': 'Remove',
             'last_name': 'Photo',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -822,7 +787,6 @@ class EditProfileViewTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Edit',
             'last_name': 'Photo',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -841,7 +805,6 @@ class EditProfileViewTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Edit',
             'last_name': 'BadPhoto',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'True',
@@ -858,7 +821,6 @@ class EditProfileViewTests(TestCase):
         self.client.login(username='edituser', password='testpass123')
         bad_file = SimpleUploadedFile("bad.txt", b"notanimage", content_type="text/plain")
         response = self.client.post(reverse('edit_profile'), {
-            'country': 'UK',
             'photo': bad_file,
         })
         form = response.context['form']
@@ -866,14 +828,14 @@ class EditProfileViewTests(TestCase):
         self.assertFormError(form, 'photo', 'Please upload a PNG, JPEG or WEBP profile photo. SVG or other formats are not allowed.')
 
     def test_edit_profile_missing_required_field(self):
-        # Purpose: Ensure that omitting a required field (country) in the edit profile form returns a validation error.
+        # Purpose: Ensure that omitting a required field (age group) in the edit profile form returns a validation error.
         self.client.login(username='edituser', password='testpass123')
         response = self.client.post(reverse('edit_profile'), {
-            # 'country' is omitted
+            # 'age_group' is omitted
         })
         form = response.context['form']
         self.assertFalse(form.is_valid())
-        self.assertFormError(form, 'country', 'This field is required.')
+        self.assertFormError(form, 'age_group', 'This field is required.')
 
     def test_edit_profile_remove_all_optional_fields(self):
         self.client.login(username='edituser', password='testpass123')
@@ -886,7 +848,6 @@ class EditProfileViewTests(TestCase):
         data = {
             'first_name': self.user.first_name,
             'last_name': self.user.last_name,
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'mobility_devices': [],
@@ -907,7 +868,6 @@ class EditProfileViewTests(TestCase):
         data = {
             'first_name': self.user.first_name,
             'last_name': self.user.last_name,
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'is_wheeler': 'True',
@@ -933,7 +893,6 @@ class EditProfileViewTests(TestCase):
         data = {
             'first_name': self.user.first_name,
             'last_name': self.user.last_name,
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'is_wheeler': 'True',
@@ -999,7 +958,6 @@ class ProfilePhotoTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Edit',
             'last_name': 'Photo',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -1019,7 +977,6 @@ class ProfilePhotoTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Remove',
             'last_name': 'Photo',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -1035,7 +992,6 @@ class ProfilePhotoTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Edit',
             'last_name': 'BadPhoto',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -1053,7 +1009,6 @@ class ProfilePhotoTests(TestCase):
         self.client.post(reverse('edit_profile'), {
             'first_name': 'Remove',
             'last_name': 'Photo',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -1066,7 +1021,6 @@ class ProfilePhotoTests(TestCase):
         self.client.post(reverse('edit_profile'), {
             'first_name': 'Reupload',
             'last_name': 'Photo',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -1082,7 +1036,6 @@ class ProfilePhotoTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Big',
             'last_name': 'File',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -1095,7 +1048,6 @@ class ProfilePhotoTests(TestCase):
         response = self.client.post(reverse('edit_profile'), {
             'first_name': 'Bad',
             'last_name': 'File',
-            'country': 'UK',
             'county': self.county.id,
             'age_group': self.age_group.id,
             'has_business': 'False',
@@ -1146,7 +1098,6 @@ class DashboardViewTests(TestCase):
         """Dashboard should display both core and optional profile information when present."""
         self.client.login(username='viewuser', password='testpass123')
         profile = self.user.profile
-        profile.country = "UK"
         county = County.objects.create(name='Testshire', label='Testshire')
         age_group = AgeGroup.objects.create(name='18-25', label='18 to 25')
         device = MobilityDevice.objects.create(name='manual_wheelchair', label='Manual wheelchair')

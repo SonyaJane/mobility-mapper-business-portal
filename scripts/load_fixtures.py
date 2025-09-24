@@ -45,7 +45,7 @@ def main():
             "u.email = EM; u.is_staff=True; u.is_superuser=True; u.set_password(PW); "
             "u.first_name=d.get('first_name', u.first_name); u.last_name=d.get('last_name', u.last_name); u.save(); "
             "from accounts.models import UserProfile; p,_=UserProfile.objects.get_or_create(user=u); pd=d['profile']; "
-            "p.photo=pd.get('photo',''); p.country=pd['country']; p.county=pd['county']; p.is_wheeler=pd['is_wheeler']; "
+            "p.photo=pd.get('photo',''); p.county=pd['county']; p.is_wheeler=pd['is_wheeler']; "
             "p.has_business=pd['has_business']; p.has_registered_business=pd['has_registered_business']; p.mobility_devices=pd['mobility_devices']; "
             "p.mobility_devices_other=pd['mobility_devices_other']; p.age_group=pd['age_group']; p.save(); "
             "from businesses.models import Business, MembershipTier; bd=d['business']; import django.contrib.gis.geos as geos; "
