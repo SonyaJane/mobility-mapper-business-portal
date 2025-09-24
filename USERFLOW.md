@@ -128,26 +128,27 @@ j) Upon successful payment, you are redirected to a Payment Success page confirm
 
 h) In the Accessibility Verification section of your Business Dashboard (bottom), you can see a Verification Requested badge indicating that the request is being processed.
 
-<img src="./readme_files/user_flow/verification_requested_badge.png" alt="Verification Requested Badge" width="300"/>
+<img src="./readme_files/user_flow/verification_requested_badge.png" alt="Verification Requested Badge" width="200"/>
 
 ## 9. Verification Process
 
-a) The verification process is explained below in the [Typical User Flow for a Wheeler](./USERFLOW.md#typical-user-flow-for-a-wheeler).
-Once a Wheeler has verified your business's accessibility features, you will receive an email notification, and 
+The verification process is explained below in the [Typical User Flow for a Wheeler](./USERFLOW.md#typical-user-flow-for-a-wheeler).
+
+Once a Wheeler has verified your business's accessibility features, you will receive an email notification, and you will see the verification report listed in the Accessibility Verification section of your Business Dashboard. When you have revceived three verified reports, you will be awarded a Verified badge that is displayed on your business listing in the search results, and on your business dashboard.
 
 # Typical User Flow for a Wheeler
 
 ## 1. Registration and Sign In
-Follow the same steps as for a Business user, but select the "Wheeler" account type during registration.
+Follow the same steps as for a Business user, but select 'yes' for the question "Do you use a wheeled mobility device?" during registration.
 When you sign in, you are redirected to the Personal Dashboard.
 
 ## 2. Personal Dashboard
 
-a) The Personal Dashboard your profile information, including your name, username, email, county, mobility device(s), and profile photo.
+a) The Personal Dashboard displays your profile information, including your name, username, email, county, mobility device(s), and profile photo.
 
 b) Under Account Actions, there are buttons to edit your profile, and change your password.
 
-c) At the bottom of the dashboard, there is a section about Wheeler Accessibility Verification explaining the process and a button to take you to the Accessible Business Search page.
+c) At the bottom of the dashboard, there is a section about Wheeler Accessibility Verification, which explains the process and includes a button to take you to the Accessible Business Search page.
 
 d) First, try editing the profile information by clicking the "Edit Profile" button.
 
@@ -166,39 +167,41 @@ d) If the form is invalid, error messages are displayed at the top of the form.
 e) If the form is valid, your profile details are updated, and you are redirected back to the personal dashboard with a success message.
 
 ## 4. Search for Accessible Businesses
-a) From the Personal Dashboard, click the "Find Accessible Businesses" button to go to the Accessible Business Search page. You can also navigate to this page from the main menu.
+a) In the Personal Dashboard, click the "Find Accessible Businesses" button to go to the Accessible Business Search page. You can also navigate to this page from the main menu.
 
 b) If you are on a desktop or tablet device, a map is displayed on the left side of the screen, and the search results are displayed on the right side. On mobile devices, only the map is shown initially. 
 
 c) On desktop, on initial load, all businesses are shown in the results list and on the map. In the list, businesses are always sorted by tier (Premium, Standard, Free), but randomised within each tier.
 
-c) At the top (left) of the search page on a mobile (desktop), there is a search bar where you can enter keywords to search for businesses. This allows searching by business name, category, or tags (see the business category fixtures)[./businesses/fixtures/business_categories.json] for examples of categories and tags.
+d) At the top (left) of the search page on a mobile (desktop), there is a search bar where you can enter keywords to search for businesses. This allows searching by business name, category, or tags [see the business category fixtures](/businesses/fixtures/business_categories.json) for examples of categories and tags.
 
-d) Try typing 'food' in the search bar. On desktop, the results update automatically as you type. On mobile, you need to click the search button (magnifying glass icon) to run the search.
+e) Try typing 'food' in the search bar. On desktop, the results update automatically as you type. On mobile, you need to click the search button (magnifying glass icon) to run the search.
 
-e) On mobile (desktop), the results list (updates to) shows businesses matching the search term. The map also updates to show only the markers for the matching businesses.
+f) On mobile (desktop), the results list (updates to) shows businesses matching the search term. The map also updates to show only the markers for the matching businesses.
 
-f) On mobile, you can toggle between the map view and the results list view using the buttons below the search bar.
+g) On mobile, you can toggle between the map view and the results list view using the buttons below the search bar.
 
-g) Clear the search term by clicking the "x" button in the search bar. The results reset to show all businesses.
+h) Clear the search term by clicking the "x" button in the search bar. The results reset to show all businesses.
 
-h) Try filtering businesses by location by zooming and/or panning the map. On mobile, you will need to switch to map view first. The results list updates to show only businesses within the current map bounds.
+i) Try filtering businesses by location by zooming and/or panning the map. On mobile, you will need to switch to map view first. The results list updates to show only businesses within the current map bounds.
 
-i) Now try filtering businesses by accessibility features using the dropdowns above the results list. Tap or click in the dropdown, and scroll down to see the available options. You can select multiple features. The results list updates to show only businesses matching the selected features. Try selecting 'Ramp' for example.
+j) Now try filtering businesses by accessibility features using the dropdowns above the results list. Tap or click in the dropdown, and scroll down to see the available options. You can select multiple features. The results list updates to show only businesses matching the selected features. Try selecting 'Ramp' for example.
 
-j) You can clear all selected features by clicking the X button, or remove individual features by clicking the small "x" next to each selected feature.
+k) You can clear all selected features by clicking the X button, or remove individual features by clicking the small "x" next to each selected feature.
 
-k) You can combine search terms, map bounds, and accessibility features to narrow down the results.
+l) You can combine search terms, map bounds, and accessibility features to narrow down the results.
 
-l) The results list shows each business's name, categories, address, and a badge if their accessibility features have been verified by wheelers. Businesses that have requested verification show a badge that can be clicked by wheelers to apply to verify their features. This is something we will try out in a later step.
+m) The results list shows each business's name, categories, address, and a badge if their accessibility features have been verified by wheelers. Businesses that have requested verification show a badge that can be clicked by wheelers to apply to verify their features. This is something we will try out in a later step.
 
-m) Now try clicking on a business in the results list. The business accordion expands to show full details, including accessibility features, website, phone number, and opening hours. Businesses on paid membership plans can also display additional information such as description, services, special offers, social media links, and a logo. Note that when the accordion is open, the corresponding marker on the map turns orange on desktop screens.
+n) Now try clicking on a business in the results list. The business accordion expands to show full details, including accessibility features, website, phone number, and opening hours. Businesses on paid membership plans can also display additional information such as description, services, special offers, social media links, and a logo. Note that when the accordion is open, the corresponding marker on the map turns orange on desktop screens.
 
-n) Next, try clicking on a business marker on the map. A popup appears showing the business name, categories, address, and accessibility badges. On mobile, there is also a "Show more info" link that you can click to see the full business details in an overlay.
+o) Next, try clicking on a business marker on the map. A popup appears showing the business name, categories, address, and accessibility badges. On mobile, there is also a "Show more info" link that you can click to see the full business details in an overlay.
 
 ## 5. Apply to Verify a Business
 
-a) In the search results list, find a business that has requested verification (look for the badge in the results list or popup). Click the badge to apply to verify their accessibility features. You are taken to the Accessibility Verification page for that business.
+a) In the search results list, find a business that has requested verification (look for the green badge, shown below, in the results list or popup). Click the badge to apply to verify their accessibility features. You are taken to the Accessibility Verification page for that business.
+
+<img src="./readme_files/features/search_results_verification_badge.png" alt="Apply to Verify Button" width="300px"/>
 
 b) On the Accessibility Verification page, review the business details and accessibility features. Click Confirm Application to submit your application to verify the business.
 
@@ -217,27 +220,27 @@ d) In the Verification Hub, and on your personal dashboard, you can link to the 
 
 ## 7. Applicaition Approval
 
-a) If you are testing this platform as a Code Institute assessor, please approve your application now before proceeding to the next step. If you are testing as a regular user, you will need to wait for an admin to approve your applications. Log into Django admin with the superuser account provided, then click on "Wheeler werifications applications" in the sidebar. Find your the business you applied to in the list, click it to open the detail view, then check the "Approved" box and save.
+a) If you are testing this platform as a Code Institute assessor, please approve your application now before proceeding to the next step. If you are testing as a regular user, you will need to wait for an admin to approve your applications. Log into Django admin with the superuser account provided, then click on "Wheeler werifications applications" in the sidebar. Find the business you applied to in the list, click it to open the detail view, then check the "Approved" box and save.
 
 b) Once your application is approved, you will receive an email notification. You can then refresh the Accessibility Verification Hub to see your approved application. Click the green "Submit Verification" button to proceed to the verification form. We ask that wheelers complete the form while at the business premises.
 
 ## 8. Complete the Verification Form
 
-a) On the Verification Form page, check you are at the right address and business. Complete the form by selecting the accessibility features you observed, and uploading a photo for each one.
+a) On the Verification Form page, check you are at the right address and business. Complete the form by selecting the accessibility features you observed, and upload a photo for each one you ticked.
 
 b) Then look to see if there are any additional features you observed that are not listed. If so, check them and upload a photo for each one.
 
-c) Select the mobility device you are currently using at the premises from the dropdown.
+c) Select the mobility device you are currently using at the premises.
 
 d) Take a selfie photo at the business premises and upload it. This is to verify that you visited the business.
 
-e) Upload any additional photos you took that may be helpful. You can upload multiple photos at once by selecting multiple files in the file dialog using Ctrl (Windows) or Command (Mac) while selecting files.
+e) Upload any additional photos you took that may be helpful for your report. You can upload multiple photos at once by selecting multiple files in the file dialog by holding down Ctrl (Windows) or Command (Mac) while selecting files.
 
 f) Finally, write a brief report of your visit in the text area provided.
 
 g) Click the "Submit Verification" button to submit the form.
 
-h) If the form is invalid, error messages are displayed next to the relevant fields and at the top of the form.
+h) If the form is invalid, error messages are displayed next to the relevant fields or at the top of the form.
 
 i) If the form is valid, you are redirected to your personal dashboard. A success message is displayed, and you are sent a confirmation email.
 

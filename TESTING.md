@@ -10,6 +10,7 @@
 
 - [Testing User Stories](#testing-user-stories)
 - [Manual Testing](#manual-testing)
+- [Automated Tests for the Accounts App](#automated-tests-for-the-accounts-app)
 - [Code Validation](#code-validation)
 - [Accessibility](#accessibility)
 - [Tools Testing](#tools-testing)
@@ -20,138 +21,83 @@
 The following user stories outline the key functionalities and features of the Mobility Mapper Business Portal. Each story includes specific acceptance criteria to ensure that the implementation meets user needs and expectations.
 
 1. **Create an account**  
-   As a User I want to create an account so that I can access all portal features.  
+
+    As a User I want to create an account so that I can access all portal features.  
+
+    <br>
 
     **Acceptance Criteria**
-    - The user can access a registration page from the home page by clicking the "Get Started" button, or "Sign Up" in the navigation bar.
+    - The user can access a registration page from the landing page by clicking the "Get Started" button, or "Sign Up" in the navigation bar.
     - The registration form collects first name, last name, email (with confirmation), username, password (with confirmation), and allows the user to specify if they are a business owner and/or a wheeler.
+    - The username field enforces uniqueness and allows only letters, numbers, underscores, and periods.
     - The form includes fields for country, county (if applicable), age group, and optional profile photo upload.
     - Password fields enforce strong password requirements and confirmation.
     - Helpful validation and error messages are shown inline for each field.
     - If the user already has an account, a clear link is provided to the sign-in page.
     - After submitting the form, users are prompted to verify their email address via a confirmation link that is emailed to them before logging in.
     - Upon successful registration, users are automatically logged in and directed to their personal dashboard.
+<br>
 
 2. **Edit my profile**  
    As a User, I want to be able to update my personal details, change my password, and manage my profile photo so that my account information is always current.
 
-    **Acceptance Criteria**
-    As a User, I want to be able to update my personal details, change my password, and manage my profile photo so that my account information is always current.  
+   <br>
+
     **Acceptance Criteria**
     - The user can access the Edit Profile page from their dashboard or navigation menu.
     - The Edit Profile form is pre-filled with the user's current information, including first name, last name, country, county (if applicable), age group, and profile photo.
     - The user can upload a new profile photo (PNG, JPEG, or WEBP, square, max 5MB), preview it before saving, or remove their existing photo.
-    - The user can update their country, and if a relevant country is selected, the county field dynamically appears.
+    - The user can update their country, and if the UK is selected, the county field dynamically appears.
     - The user can indicate if they are a business owner and/or a wheeler; if "wheeler" is selected, a dynamic section appears for selecting one or more mobility devices, with an "Other" option for custom input.
-    - All fields include inline validation and clear error messages.
+    - All fields include validation and clear error messages.
     - The form uses CSRF protection and is fully accessible via keyboard and screen readers.
     - After saving changes, the user is redirected to their dashboard with a confirmation message.
     - The user can access a separate Change Password page from the Edit Profile or dashboard, where they can securely update their password with strong validation and receive feedback on success or errors.
     - All updates are immediately reflected in the user's profile and used throughout the portal (e.g., profile photo in navbar, updated details in verification reports).
+<br>
 
 3. **Contact support**  
-   As a User, I want to contact the Mobility Mapper team for help, feedback, or suggestions.
+   As a User, I want to contact the Mobility Mapper team for help, feedback, or suggestions, so that I can get assistance or share my ideas.
+    <br>
 
     **Acceptance Criteria**
     - The user can access the contact/support form from the home page and from the navigation bar on any page.
-    - The contact form includes fields for name, email address, subject, and message.
-    - All fields include inline validation and clear error messages if required fields are missing or invalid.
+    - The contact form includes fields for name, email address, and message.
+    - The name field is pre-filled with the user's first and last name if they are logged in.
+    - The email field is pre-filled with the user's registered email address if they are logged in
+    - All fields include validation and clear error messages if required fields are missing or invalid.
     - The form uses CSRF protection and is fully accessible via keyboard and screen readers.
-    - Upon successful submission, the user sees a confirmation message indicating their request has been received.
+    - Upon successful submission, the user sees a confirmation message, and receives an email indicating their request has been received.
     - The support request is sent to the admin email address configured in the project settings.
     - The user can easily return to the previous page or dashboard after submitting the form.
+<br>
 
 4. **Register a business**  
 As a Business Owner, I want to register my business so that it can be listed on the Mobility Mapper platform, found by wheelers, and managed through my dashboard.
+    <br>
 
     **Acceptance Criteria**
     - The business owner can access the Register Business page from their dashboard or navigation menu.
     - The registration form collects all required business information, including:
-    - Business name, address (with map location), contact details, website, and description.
-    - Selection of one or more business categories from a grouped multi-select dropdown, with an "Other" option for custom categories.
-    - Selection of accessibility features from a multi-select dropdown.
-    - Opening hours, set using an interactive widget that allows multiple periods per day and easy copying between days.
-    - Special offers for wheelers (optional).
-    - Choice of membership tier (Free, Standard, Premium) via visually distinct cards, each showing tier benefits and price.
-    - The map allows the owner to set and preview the business location.
-    - All form fields include inline validation and clear error messages.
+      - Business name, address, contact details, website, and description.
+      - The map allows the owner to set and preview the business location.
+      - Selection of one or more business categories from a grouped multi-select dropdown.
+      - Selection of accessibility features from a multi-select dropdown.
+      - Opening hours, set using an interactive widget that allows multiple periods per day and easy copying between days.
+      - Special offers for wheelers.
+      - Choice of membership tier (Free, Standard, Premium) via visually distinct cards, each showing tier benefits and price.
+    - Business categories and accessibility features are enhanced with Choices.js for multi-select, easy removal, and search, with clear placeholder text.
+    - All form fields include validation and clear error messages.
     - The form uses CSRF protection and is fully accessible via keyboard and screen readers.
     - Guidance is provided on how to complete each section and why accurate information is important.
     - After successful submission, if the business owner selects a Free membership tier, they are redirected to their Business Dashboard, where they can manage their listing, request verification, and upgrade membership.  
     - If the business owner selects a paid membership tier (Standard or Premium), they are directed to the secure checkout page to complete payment before gaining full access to their Business Dashboard and premium features.
     - The new business appears in the accessible business search and on the map, with visibility and details determined by the selected membership
+<br>
 
-
-5. **Manage business details**  
-As a Business Owner, I want to add, edit, or remove my business details, including address, categories, accessibility features, opening hours, and special offers, so that my information is always accurate and up to date.
-
-    **Acceptance Criteria**
-    - The business owner can access the Edit Business page from their dashboard.
-    - All business fields are pre-filled with the current data, allowing for quick edits to name, address (with map location), contact details, website, description, and special offers.
-    - Business categories and accessibility features are enhanced with Choices.js for multi-select, easy removal, and search, with clear placeholder text.
-    - An "Other" category field dynamically appears if selected, allowing custom category input.
-    - Accessibility features can be updated at any time, with visually distinct badges shown for each selected feature.
-    - The opening hours widget allows for intuitive editing of hours, including multiple periods per day and easy copying between days.
-    - Textareas for description and services auto-resize as the user types for better usability.
-    - All form fields include inline validation and clear error messages.
-    - The form uses CSRF protection and is fully accessible via keyboard and screen readers.
-    - The page provides guidance on how to complete each section and encourages accurate, complete information for better visibility.
-    - After saving changes, the business owner is redirected to the Business Dashboard with a confirmation message.
-    - The business owner can delete their business listing, with a confirmation prompt to prevent accidental deletion.
-    - All updates are immediately reflected in the business search, map, and dashboard.
-
-6. **Manage membership tier**  
-As a Business Owner, I want to be able to view and upgrade my membership tier so I can unlock more features and increase my business’s visibility in search results.
-
-    **Acceptance Criteria**
-    - The business owner can access the View Existing Membership and Upgrade Membership pages from their Business Dashboard.
-    - The current membership tier (Free, Standard, or Premium) is clearly displayed, along with a summary of included benefits and the renewal date.
-    - All available upgrade options are presented in visually distinct cards, each showing the tier name, benefits, and annual price.
-    - The business owner can select a new tier and is shown a summary of the changes and any additional features unlocked.
-    - If an upgrade is selected, the user is directed to a secure Stripe-powered checkout page to complete payment.
-    - Payment forms include inline validation, error handling, and a loading spinner during processing.
-    - Upon successful payment, the membership tier is immediately updated and reflected in the Business Dashboard and business search results.
-    - The business owner receives an email confirmation and receipt for the payment.
-    - If the business owner cancels the upgrade process, no changes are made and they are returned to the dashboard.
-    - All membership actions are protected by authentication to ensure only the business owner can manage their membership.
-
-
-7. **Request accessibility verification**  
-As a Business Owner, I want to request independent verification of my business’s accessibility features by verified wheelers, so I can earn a "Verified by Wheelers" badge and attract more customers.
-
-    **Acceptance Criteria**
-    - The business owner can access the Request Wheeler Verification page from their Business Dashboard.
-    - The page clearly explains the verification process, including the number of required reports, the value of the badge, and the cost (if any) based on membership tier.
-    - The cost of verification is displayed, and if payment is required, the user is directed to the secure checkout page after submitting the request.
-    - The page shows a preview of the "Verified by Wheelers" badge and describes its benefits.
-    - The business owner submits a secure form (with CSRF protection) to request verification.
-    - After submission, the business’s listing in search results is updated to show that verification has been requested, and eligible wheelers can apply to verify.
-    - The business owner can track the status of their verification request and view all submitted reports from their Business Dashboard.
-    - The business owner receives an email notification confirming the request and any payment.
-    - The process and all interactive elements are fully accessible via keyboard and screen
-
-
-8. **Track verification progress and reports**  
-As a Business Owner, I want to view the status of my verification request and access completed verification reports, so I can see detailed feedback.
-
-    **Acceptance Criteria**
-    - The business owner can access verification status and reports from their Business Dashboard.
-    - The dashboard displays a clear status for each verification request (e.g., Not Requested, Requested, In Progress, Verified).
-    - For each verification request, the business owner can see:
-    - The number of completed verification reports.
-    - The date each verification completed.
-    - The business owner can view each completed verification report in detail, including:
-    - Confirmed and additional accessibility features.
-    - Photos and evidence submitted by the wheeler.
-    - The wheeler’s comments and feedback.
-    - The dashboard updates automatically as new reports are submitted or statuses change.
-    - If a business is fully verified (three independent reports approved), a "Verified by Wheelers" badge is displayed on the dashboard and business listing.
-    - All information is presented in a clear, accessible format, with responsive design for all devices.
-    - The business owner receives email notifications when a new report is submitted or when their business achieves verified
-
-
-9. **View and manage dashboard and membership status**  
+5. **View and manage dashboard and membership status**  
 As a Business Owner, I want to access a dashboard showing my business details, membership status, payment history, and verification progress, so I can manage everything in one place.
+    <br>
 
     **Acceptance Criteria**
     - The business owner can access their dashboard immediately after logging in or from the navigation menu at any time.
@@ -160,22 +106,93 @@ As a Business Owner, I want to access a dashboard showing my business details, m
     - A map showing the business location.
     - Current membership tier (Free, Standard, Premium), with a summary of benefits and renewal date.
     - Prominent buttons to view, upgrade, or renew membership.
-    - Payment history, including past membership and verification payments, with downloadable receipts.
-    - Verification status for each business, including the number of completed and pending reports, and a "Verified by Wheelers" badge if achieved.
+    - Verification status, including the completed reports, and a "Verified by Wheelers" badge if achieved.
     - Links to view detailed verification reports.
     - Action buttons to edit or delete the business listing.
     - All information is presented in a clear, accessible, and responsive layout.
     - The dashboard updates in real time as business details, membership status, or verification progress change.
     - The business owner receives notifications (in-app or by email) for important actions, such as successful payments, verification status updates, and membership changes.
     - All actions are protected by authentication to ensure only the business owner can view and manage their own dashboard and membership.
+<br>
 
+6. **Manage business details**  
+As a Business Owner, I want to add, edit, or remove my business details, including address, categories, accessibility features, opening hours, and special offers, so that my information is always accurate and up to date.
 
-10. **Make secure payments**  
-As a Business Owner, I want to pay for memberships or verification fees securely online using Stripe, and receive receipts and payment confirmations.
+    <br>
 
     **Acceptance Criteria**
-    - The business owner is directed to a secure checkout page when upgrading to a paid membership tier or requesting a paid verification.
-    - The checkout page clearly displays the selected membership tier or verification request, the price, and a summary of included benefits.
+    - The business owner can access the Edit Business page from their dashboard.
+    - All business fields are pre-filled with the current data, allowing for quick edits to name, address, contact details, website, description, and special offers.
+    - The map allows the owner to update and preview the business location.
+    - Business categories and accessibility features are enhanced with Choices.js for multi-select, easy removal, and search, with clear placeholder text.
+    - Accessibility features can be updated at any time, with visually distinct badges shown for each selected feature.
+    - The opening hours widget allows for intuitive editing of hours, including multiple periods per day and easy copying between days.
+    - Textareas for description and services auto-resize as the user types for better usability.
+    - All form fields include validation and clear error messages.
+    - The form uses CSRF protection and is fully accessible via keyboard and screen readers.
+    - The page provides guidance on how to complete each section and encourages accurate, complete information for better visibility.
+    - After saving changes, the business owner is redirected to the Business Dashboard with a confirmation message.
+    - The business owner can delete their business listing, with a confirmation prompt to prevent accidental deletion.
+    - All updates are immediately reflected in the business search, map, and dashboard.
+<br>
+
+7. **Manage membership tier**  
+As a Business Owner, I want to be able to view and upgrade my membership tier so I can unlock more features and increase my business’s visibility in search results.
+    <br>
+
+    **Acceptance Criteria**
+    - The business owner can access the View Existing Membership and Upgrade Membership pages from their Business Dashboard.
+    - The current membership tier (Free, Standard, or Premium) is clearly displayed, along with a summary of included benefits and the renewal date.
+    - All available upgrade options are presented in visually distinct cards, each showing the tier name, benefits, and annual price.
+    - The business owner can select a new tier to upgrade.
+    - If an upgrade is selected, the user is directed to a secure Stripe-powered checkout page to complete payment.
+    - Payment forms include inline validation, error handling, and a loading spinner during processing.
+    - Upon successful payment, the membership tier is immediately updated and reflected in the Business Dashboard and business search results.
+    - The business owner receives an email confirmation and receipt for the payment.
+    - If the business owner cancels the upgrade process, no changes are made and they are returned to the dashboard.
+    - All membership actions are protected by authentication to ensure only the business owner can manage their membership.
+<br>
+
+8. **Request accessibility verification**  
+    As a Business Owner, I want to request independent verification of my business’s accessibility features by verified wheelers, so I can earn a "Verified by Wheelers" badge and attract more customers.
+    <br>
+
+    **Acceptance Criteria**
+    - The business owner can access the Request Wheeler Verification page from their Business Dashboard.
+    - The page clearly explains the verification process, including the number of required reports, the value of the badge, and the cost (if any) based on membership tier.
+    - The page shows a preview of the "Verified by Wheelers" badge and describes its benefits.
+    - The business owner submits a secure form (with CSRF protection) to request verification.
+    - If payment is required, the user is directed to the secure checkout page after submitting the request.
+    - The business owner receives an email notification confirming the request and any payment.
+    - After payment (if necessary), the business’s listing in search results is updated to show that verification has been requested, and eligible wheelers can apply to verify from the business search listing.
+    - The business owner can track the status of their verification request and view all submitted reports from their Business Dashboard.
+    - The process and all interactive elements are fully accessible via keyboard and screen
+<br>
+
+9. **Track verification progress and reports**  
+    As a Business Owner, I want to view the status of my verification request and access completed verification reports, so I can see detailed feedback.
+    <br>
+
+    **Acceptance Criteria**
+    - The business owner can access verification status and reports from their Business Dashboard.
+    - The business owener receives an email notification when a new verification report has been both submitted and approved.
+    - The business owner can view each completed verification report in detail, including:
+      - Confirmed and additional accessibility features.
+      - Photos and evidence submitted by the wheeler.
+      - The wheeler’s comments and feedback.
+    - The dashboard updates automatically as reports are approved or statuses change.
+    - If a business is fully verified (three independent reports approved), a "Verified by Wheelers" badge is displayed on the dashboard and business listing.
+    - The business owner receives email notifications when their business achieves verified
+    - All information is presented in a clear, accessible format, with responsive design for all devices.
+<br>
+
+10. **Make secure payments**  
+    As a Business Owner, I want to pay for memberships or verification fees securely online using Stripe, and receive receipts and payment confirmations.
+    <br>
+
+    **Acceptance Criteria**
+    - The business owner is directed to a secure checkout page when buying or upgrading to a paid membership tier, or requesting a paid verification.
+    - The checkout page clearly displays the selected membership tier or verification request, and the price.
     - The payment form collects all required billing details and uses Stripe Elements for secure, PCI-compliant card entry.
     - All form fields include inline validation and clear error messages.
     - A loading spinner or overlay is shown during payment processing to prevent duplicate submissions.
@@ -184,143 +201,94 @@ As a Business Owner, I want to pay for memberships or verification fees securely
     - Payment status and membership/verification updates are immediately reflected in the Business Dashboard.
     - All payment actions are protected by authentication to ensure only the business owner can make payments for their own business.
     - Failed or cancelled payments display clear error messages and allow the user to retry or return to the dashboard without changes.
-
+<br>
 
 11. **Search for accessible businesses**  
-As a Wheeler, I want to search for accessible businesses using filters, categories, accessibility features, and an interactive map, so I can find suitable venues in my area.
+    As a Wheeler, I want to search for accessible businesses using a search bar, filter by accessibility features, and restrict my search to a certain area on an interactive map, so I can find suitable venues in my area.
+    <br>
 
     **Acceptance Criteria**
-    - The user can access the Accessible Business Search & Map page from the dashboard or navigation menu.
+    - The user can access the Accessible Business Search page from the dashboard or navigation menu.
     - The search panel allows users to:
-    - Enter free-text queries to find businesses by name, category, or location.
-    - Filter results by multiple accessibility features using a dynamic multi-select dropdown.
-    - Instantly clear search terms or filters with dedicated buttons.
-    - The interactive map (powered by MapLibre GL JS and Ordnance Survey tiles) displays business locations as clickable markers.
-    - Clicking a marker shows a popup with business details and a "Show more info" link.
-    - On mobile, detailed business info appears in a swipeable overlay.
+      - Enter free-text queries to find businesses by name, category, or tag.
+      - Filter results by multiple accessibility features using a dynamic multi-select dropdown.
+      - Instantly clear search terms or filters with dedicated buttons.
+      - The interactive map (powered by MapLibre GL JS and Ordnance Survey tiles) allows users to pan and zoom to define their search area.
     - Search results are filtered based on the current map view: only businesses visible within the map’s bounds are shown in the results list.
     - Results are shown as a responsive list:
-    - Each business displays its name, categories, address, accessibility features, and verification status.
-    - The visibility of certain details (e.g., contact info, website, special offers) depends on the business’s membership tier.
-    - The order of businesses is determined by membership tier (Premium first, then Standard, then Free), but results are randomized within each tier.
-    - Businesses requesting verification show a badge for wheelers to apply and earn a reward.
-    - Clicking a business expands an accordion with full details.
+      - Each business displays its name, categories, address, accessibility features, and verification status.
+      - Clicking a business expands an accordion with full details.
+      - The visibility of certain details (e.g., contact info, website, special offers, logo) depends on the business’s membership tier.
+      - The order of businesses is determined by membership tier (Premium first, then Standard, then Free), but results are randomised within each tier.
+    - The map displays business locations as clickable markers.
+    - Clicking a marker shows a popup with business details and a "Show more info" link on mobile, which shows detailed business info in a swipeable overlay.
+    - Businesses requesting verification show a badge for wheelers to click to apply and earn a reward.
     - The interface is fully responsive:
-    - On desktop, the map and results list are shown side-by-side.
-    - On mobile, users can toggle between map view and list view.
-    - Search results update in real time as users type or adjust filters, with a loading spinner for feedback.
+      - On desktop, the map and results list are shown side-by-side.
+      - On mobile, users can toggle between map view and list view.
+    - Search results update in real time as users type (on desktop) or adjust filters, with a loading spinner for feedback.
     - All actions are accessible via keyboard and screen readers, with ARIA labels and semantic HTML.
     - Clear messages are shown if no results are found or if there is a problem with the search.
+<br>
 
-
-
-
-12. **View detailed business listings and verification status**  
-   As a User, I want to see comprehensive business listings, including accessibility features, opening hours, verification badges, and membership tier, so I can make informed choices.
-
-    **Acceptance Criteria**
-    - The user can access a detailed business listing page by clicking on a business in the search results, map, or dashboard.
-    - The business detail page displays:
-    - Business name, logo, and categories.
-    - Full address and an interactive map showing the business location.
-    - Contact details, website, and social media links (visibility depends on membership tier).
-    - Description, services offered, and any special offers for wheelers.
-    - A list of all accessibility features as visually distinct badges.
-    - Opening hours in a clear, responsive table, including closed days and multiple periods per day if set.
-    - The current verification status, with a "Verified by Wheelers" badge if achieved, or a badge indicating verification is in progress or requested.
-    - Membership tier (Free, Standard, Premium) is displayed, with higher tiers showing more details.
-    - For wheelers, context-sensitive actions are shown (e.g., apply to verify, start verification, or view submitted report).
-    - All information is presented in a clear, accessible, and responsive layout.
-    - The page is fully accessible via keyboard and screen readers, with semantic HTML and ARIA labels.
-    - If any information is missing, prompts or messages are shown to encourage business owners to complete their listing.
-
-
-13. **Apply to verify accessible businesses**  
-As a Wheeler, I want to browse available verification requests, apply to verify businesses, and receive approval so I can contribute to the community and earn rewards.
+12. **Apply to verify accessible businesses**  
+    As a Wheeler, I want to apply to verify businesses so I can contribute to the community and earn rewards.
+    <br>
 
     **Acceptance Criteria**
-    - The wheeler can access a list of businesses requesting verification from the Accessibility Verification Hub or directly from the business search results.
-    - Each business requesting verification is clearly marked with a badge and a call-to-action for eligible wheelers.
-    - The wheeler can view business details before applying, including accessibility features, address, and verification reward.
-    - The application process is initiated by clicking an "Apply to Verify" button, which opens a confirmation modal or page.
-    - The application form is pre-filled with relevant information and uses CSRF protection.
+    - The wheeler can find businesses requesting verification from the business search results.
+    - Each business requesting verification is clearly marked with a call-to-action badge for wheelers.
+    - The wheeler can view the accessibility features, address, and verification reward before applying.
+    - The application process is initiated by clicking an "Apply to Verify" button, which opens a page.
     - Upon submitting the application, the wheeler receives a confirmation message and is redirected to the Accessibility Verification Hub.
     - The application status is updated in real time and visible in the hub (e.g., Pending, Approved, or Rejected).
-    - The wheeler receives an email notification when their application is approved or rejected.
+    - The wheeler receives an email notification when their application is approved.
     - Only approved wheelers can access the verification form for the business.
     - All actions and forms are fully accessible via keyboard and screen readers, with appropriate ARIA labels and semantic HTML.
+<br>
 
-
-14. **Track and manage verification applications**  
-    As a Wheeler, I want to view the status of my verification applications and see which businesses I am approved to verify, so I can plan my visits and manage my activity.
+13. **Track and manage verification applications**  
+    As a Wheeler, I want to view my verification applications, links to report forms and business details, and submitted reports in a dedicated hub, so I can plan my visits and manage my activity.
+    <br>
 
     **Acceptance Criteria**
-    - The wheeler can access the Accessibility Verification Hub from the dashboard or navigation menu.
-    - The hub displays a table or list of all verification applications submitted by the user, including:
-    - Business name (with a link to business details)
-    - Application status (e.g., Pending, Approved, Rejected), shown with clear badges or labels
-    - Date of application and, if approved, date of approval
-    - Status of the verification report (Not Submitted, Submitted, Approved)
-    - For each approved application, a prominent button or link is provided to access and complete the verification form for that business.
-    - For pending applications, the user can see the current status and has the option to cancel the application if desired.
-    - For submitted reports, the user can view the details of their report and its approval status.
+    - The wheeler can access the Accessibility Verification Hub from their personal dashboard or navigation menu.
+    - The hub displays a table of all verification applications submitted by the user, including:
+      - Business name (with a link to business details)
+      - Application status (e.g., Pending, Approved, Rejected), shown with clear badges or labels
+      - Date of application and, if approved, date of approval
+      - Status of the verification report (Not Submitted, Submitted, Approved)
+      - For each approved application, a prominent button or link is provided to access and complete the verification form for that business.
+      - For pending applications, the user can see the current status and has the option to cancel the application if desired.
+      - For submitted reports, the user can view their report and its approval status.
     - The interface is fully responsive and accessible, with keyboard navigation and screen reader support.
     - The hub updates in real time as application statuses change or reports are submitted.
-    - The wheeler receives email notifications when their application is approved or rejected, and when their report is approved.
-    - Clear messages are displayed if the user has not made any verification applications yet.
+    - The wheeler receives email notifications when their application or report is approved.
+    - A clear message is displayed if the user has not made any verification applications yet.
+<br>
 
-15. **Submit on-site verification reports**  
+14. **Submit on-site verification reports**  
     As a Wheeler, I want to submit detailed verification reports while visiting a business, including notes, accessibility feature confirmations, and photo evidence linked to specific features.
+    <br>
 
     **Acceptance Criteria**
     - Only approved wheelers can access the Accessibility Verification Form for a business they have been assigned to verify.
     - The form displays the business name, address, and a summary of claimed accessibility features.
     - For each claimed feature, the wheeler can:
-    - Confirm the feature is present by ticking a checkbox.
-    - Upload a photo as evidence for each confirmed feature, with instant preview and the ability to remove or replace the photo.
+      - Confirm the feature is present by ticking a checkbox.
+      - Upload a photo as evidence for each confirmed feature, with instant preview and the ability to remove or replace the photo.
     - The form includes a section for additional features not claimed by the business, allowing wheelers to confirm and upload photos for any extra features observed.
     - The wheeler must select the mobility device used during the visit.
     - The form requires a selfie at the business location for verification purposes (not shared publicly).
     - Additional photos can be uploaded for any other relevant evidence.
     - A comments section allows the wheeler to provide a brief written report about their experience and observations.
-    - All fields include inline validation and clear error messages.
+    - All fields include validation and clear error messages.
     - The form uses CSRF protection and is fully accessible via keyboard and screen readers.
-    - Upon successful submission, the wheeler is redirected to a confirmation page and receives an email notification.
+    - Upon successful submission, the wheeler is redirected to a confirmation page.
     - The submitted report is visible in the Accessibility Verification Hub and to the business owner after admin approval.
+    - The wheeler receives an email notification when their report is approved.
     - The wheeler receives a reward (e.g., a £10 Amazon voucher) for each completed and approved verification report.
-
-
-16. **Track my verification history and activity**  
-    As a Wheeler, I want to view my verification applications, links to report forms and business details, submitted reports, and earned rewards in a dedicated hub.
-
-    **Acceptance Criteria**
-    - The wheeler can access the Accessibility Verification Hub to view their verification activity.
-    - The Accessibility Verification Hub displays a list or table of all verification applications, including:
-    - Business name (with a link to the business details page)
-    - Application status (Pending, Approved, Rejected)
-    - Direct links to start or continue a verification report for approved applications
-    - Submission status of each report (Not Submitted, Submitted, Approved)
-    - Date of application and, if applicable, date of approval and report submission
-    - For each submitted report, the wheeler can view the full report details, including confirmed features, photos, and comments.
-    - The hub displays the total number of completed verifications and the total rewards earned (e.g., Amazon vouchers).
-    - The interface is fully responsive and accessible, with keyboard navigation and screen reader support.
-    - The dashboard updates in real time as applications are approved, reports are submitted, or rewards are earned.
-    - Clear messages are displayed if the user has not made any verification applications or submitted any reports yet.
-
-
-17. **Receive clear feedback and error messages**  
-   As a User, I want to see clear success, error, and validation messages throughout the portal, so I always know the outcome of my actions.
-
-    **Acceptance Criteria**
-    - Success, error, and validation messages are displayed prominently at the top of the page or near the relevant form fields after any user action (e.g., form submission, payment, profile update).
-    - Inline validation messages appear next to fields with errors, clearly indicating what needs to be corrected.
-    - All feedback messages use accessible color contrast and ARIA roles to ensure they are announced by screen readers.
-    - Confirmation messages are shown after successful actions, such as registration, profile update, business submission, payment, or verification report submission.
-    - Error messages are clear, specific, and actionable, guiding the user on how to resolve issues (e.g., "This email is already in use," "Password is too short," "Payment failed, please try again").
-    - Loading spinners or overlays are shown during long-running actions (e.g., payment processing) to indicate progress and prevent duplicate submissions.
-    - If a user attempts to access a page or perform an action without the necessary permissions, a clear error or warning message is displayed.
-    - All feedback and error messages are fully responsive and accessible on all devices.
-
+<br>
 
 ## Manual Testing
 
@@ -920,11 +888,11 @@ The [W3C Markup Validator](https://validator.w3.org/) was used to validate the p
  
 W3C Markup Validator found the following errors for the business search page:
 
-<img src="readme_files/error_files/html_validator_error_1.png" alt="Search Page Validator Error" style="width:600px;">
+<img src="readme_files/error_files/html_validation_error_1.png" alt="Search Page Validator Error" style="width:600px;">
 
 This error is caused by the third-party JavaScript library Choices.js, which dynamically generates dropdowns and lists using <div> elements, but does not add the appropriate ARIA role attributes for accessibility.
 
-<img src="readme_files/error_files/html_validator_error_1.png" alt="Search Page Validator Error" style="width:600px;">
+<img src="readme_files/error_files/html_validation_error_1.png" alt="Search Page Validator Error" style="width:600px;">
 
 This error was solved by changing the id to a class, as the copening hours table is being rendered for each business.
 
@@ -1074,3 +1042,13 @@ Note that the 96% score for the Accessible Business Search, Business Dashboard p
 
 
 ## Tools Testing
+
+### [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
+
+Chrome DevTools was used during the development process to test, explore and modify HTML elements and CSS styles used in the project.
+
+### Responsiveness
+
+* [Am I Responsive?](http://ami.responsivedesign.is/#) was used to check responsiveness of the site pages across different devices.
+
+* Chrome DevTools was used to test responsiveness on different screen sizes during the development process.
