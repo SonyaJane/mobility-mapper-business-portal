@@ -84,7 +84,8 @@ class WheelerVerificationPhoto(models.Model):
 
     def __str__(self):
         feat = self.feature.name if self.feature else 'General'
-        return f"Photo ({feat}) for verification {self.verification.id} uploaded at {self.uploaded_at}"
+        verification_id = self.verification.id if self.verification else 'Unknown'
+        return f"Photo ({feat}) for verification {verification_id} uploaded at {self.uploaded_at}"
 
 
 class WheelerVerificationApplication(models.Model):
