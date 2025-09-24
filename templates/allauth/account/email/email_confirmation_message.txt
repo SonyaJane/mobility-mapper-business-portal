@@ -1,15 +1,8 @@
 {% extends "account/email/base_message.txt" %}
 {% load account %}
 {% load i18n %}
-
-{% block content %}
-{% autoescape off %}
-{% user_display user as user_display %}
-{% blocktranslate with site_name=current_site.name site_domain=current_site.domain first_name=user.first_name last_name=user.last_name %}
-You have received this email because {{ first_name }} {{ last_name }} has used this email address to register an account on {{ site_domain }}.
-{% endblocktranslate %}
-{% blocktranslate %}
-To confirm this is correct, go to {{ activate_url }}
+{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktranslate with site_name=current_site.name site_domain=current_site.domain first_name=user.first_name last_name=user.last_name %}You have received this email because {{ first_name }} {{ last_name }} has used this email address to register an account on {{ site_domain }}.
+{% endblocktranslate %}{% blocktranslate %}To confirm this is correct, go to {{ activate_url }}
 {% endblocktranslate %}
 {% endautoescape %}
 {% endblock content %}
