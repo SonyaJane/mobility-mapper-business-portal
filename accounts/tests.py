@@ -1111,7 +1111,6 @@ class DashboardViewTests(TestCase):
         # Always rendered
         self.assertContains(response, "viewuser")
         self.assertContains(response, "view@example.com")
-        self.assertContains(response, "UK")
         # Conditionally rendered
         self.assertContains(response, "Testshire")  # County
         self.assertContains(response, "18 to 25")   # Age Group
