@@ -14,8 +14,8 @@ Purchase Amount: £{{ purchase.amount }}
 
 Billing address:
 {{ purchase.street_address1 }}
-{% if purchase.street_address2 %}{{ purchase.street_address2 }}{% endif %}
-{{ purchase.town_or_city }}
+{% if purchase.street_address2 %}{{ purchase.street_address2 }}
+{% endif %}{{ purchase.town_or_city }}
 {% if purchase.county %}{{ purchase.county }}{% endif %}
 {{ purchase.postcode }}
 
