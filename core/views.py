@@ -15,7 +15,7 @@ def proxy_os_tile(request, z, x, y):
     if z > max_zoom:
         z = min(int(z), max_zoom)
 
-    api_key = settings.OS_MAPS_API_KEY    
+    api_key = settings.OS_MAPS_API_KEY
     tile_url = f"https://api.os.uk/maps/raster/v1/zxy/Road_3857/{z}/{x}/{y}.png?key={api_key}"
 
     response = requests.get(tile_url)

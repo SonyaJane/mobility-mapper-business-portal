@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 def index(request):
     """
     Returns the index page with context for business/wheeler dashboard buttons.

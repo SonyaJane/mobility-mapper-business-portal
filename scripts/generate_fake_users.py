@@ -39,14 +39,13 @@ from faker import Faker
 from datetime import timezone
 from django.contrib.auth.hashers import make_password
 from shapely.geometry import shape, Point
+from accounts.models import County, AgeGroup, MobilityDevice
+from businesses.models import Category, AccessibilityFeature, MembershipTier, TIER_CHOICES
 
 # Ensure project root is on PYTHONPATH and Django is set up before importing models
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
-
-from accounts.models import County, AgeGroup, MobilityDevice
-from businesses.models import Category, AccessibilityFeature, MembershipTier, TIER_CHOICES
 
 fake = Faker("en_GB")
 
@@ -81,7 +80,7 @@ photo_files = all_photo_files[:10]
 # Reserve next 36 profile photos for business users
 business_photo_files = all_photo_files[10:46]
 # Create 20 fake wheeler user instances:
-# first 10 use profile photo filenames as names, 
+# first 10 use profile photo filenames as names,
 # next 10 have random names and no profile photo
 for i in range(20):
     print(i)
@@ -101,7 +100,7 @@ for i in range(20):
     else:
         photo_path = ''
         first_name = fake.first_name()
-        last_name = fake.last_name()                
+        last_name = fake.last_name()
         # Ensure name combo is unique
         name_combo = (first_name, last_name)
         while name_combo in used_name_combos:
@@ -110,10 +109,10 @@ for i in range(20):
             name_combo = (first_name, last_name)
         used_name_combos.add(name_combo)
         username = f"{first_name.lower()}_{last_name.lower()}".rstrip('_')
-    
+
     # derive email from username
     email = f"{username}@example.com"
-    
+
     # random password
     password = make_password("testpass123")
 
@@ -137,8 +136,8 @@ for i in range(20):
     }
     # Append user to users list
     users.append(user)
-    
-    ### user profile instances ###
+
+    # user profile instances
     # Assign 1 or 2 mobility devices to wheeler users (devices is a list of PKs)
     devices = random.sample(MOBILITY_DEVICES, k=random.randint(1, 2))
     # Never populate mobility_devices_other in generated fixtures — keep empty.
@@ -166,7 +165,7 @@ for i in range(20):
     profiles.append(profile)
     user_profiles_without_business.append(user_pk)
 
-# Generate 100 fake business users 
+# Generate 100 fake business users
 # (is_wheeler=False, has_business=True, mobility_device=None)
 for i in range(100):
     print('i=', i)
@@ -194,11 +193,11 @@ for i in range(100):
             used_name_combos.add(name_combo)
             used_usernames.add(username)
             break
-    
+
     # derive email from username
     email = f"{username}@example.com"
     password = make_password("testpass123")
-    user_pk = i + 21 # we already have 20 users
+    user_pk = i + 21  # we already have 20 users
     user = {
         "model": "auth.user",
         "pk": user_pk,
@@ -220,7 +219,7 @@ for i in range(100):
         photo_path = f"mobility_mapper_business_portal/profile_photos/{biz_fname}"
     else:
         photo_path = ''
-    
+
     # Generate timestamps so updated_at is after created_at and both before now
     user_created_at = fake.date_time_this_year(tzinfo=timezone.utc)
     user_updated_at = fake.date_time_between(start_date=user_created_at, end_date="now", tzinfo=timezone.utc)
@@ -286,7 +285,7 @@ category_choices = list(Category.objects.values_list('pk', flat=True))
 # get all accessibility feature IDs
 accessibility_choices = list(AccessibilityFeature.objects.values_list('pk', flat=True))
 
- # Get all membership tier IDs
+# Get all membership tier IDs
 tier_choices = [c[0] for c in TIER_CHOICES]
 
 # Get all membership tier PKs (assume at least one exists)
@@ -320,7 +319,7 @@ for idx, owner_pk in enumerate(user_profiles_with_business):
     else:
         website = ''
     # Social media URLs
-    if random.random() < 0.6:            
+    if random.random() < 0.6:
         facebook_url = f"https://facebook.com/{fake.slug()}"
     else:
         facebook_url = ''
@@ -579,7 +578,7 @@ for ver in wheeler_verifications:
             }
         })
         photo_pk += 1
-        
+
 fixture.extend(photo_fixtures)
 
 # --- PATCH: Generate Purchase fixtures for paid memberships ---
@@ -713,6 +712,7 @@ for obj in fixture:
             app_model_fixtures[app][model_name] = []
         app_model_fixtures[app][model_name].append(obj)
 
+
 # Write fixtures to their respective app/model fixtures folders
 def write_fixture(app_name, model_name, data):
     if not data:
@@ -727,6 +727,7 @@ def write_fixture(app_name, model_name, data):
     with open(path, "w") as f_out:
         json.dump(data, f_out, indent=2)
     print(f"Fixture file '{path}' created.")
+
 
 for app, models in app_model_fixtures.items():
     for model_name, data in models.items():

@@ -12,10 +12,11 @@ TIER_CHOICES = [
     ('standard', 'Standard'),
     ('premium', 'Premium'),
 ]
-    
+
+
 class MembershipTier(models.Model):
     """
-    Represents a membership tier for businesses, including tier type (free, standard or premium), 
+    Represents a membership tier for businesses, including tier type (free, standard or premium),
     annual membership price, and verification price.
     """
     tier = models.CharField(max_length=20, choices=TIER_CHOICES, default='free')
@@ -48,7 +49,7 @@ class Category(models.Model):
     group_code = models.CharField(max_length=30, blank=True, null=True, help_text="Group code for category grouping (e.g. 'retail', 'food_drink')")
     group_description = models.CharField(max_length=200, blank=True, null=True, help_text="Description of the group (e.g. 'Retail', 'Food & Drink')")
     tags = models.JSONField(default=list, blank=True)
-    
+
     def __str__(self):
         return f"{self.name} ({self.group_description})" if self.group_description else self.name
 

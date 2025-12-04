@@ -51,7 +51,7 @@ class BusinessAdmin(admin.ModelAdmin):
     def wheeler_verification_count(self, obj):
         """
         Returns the number of Wheeler verifications for the business.
-        """        
+        """
         return obj.verifications.count()
     wheeler_verification_count.short_description = "Wheeler Verifications"
 

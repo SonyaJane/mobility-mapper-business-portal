@@ -7,6 +7,7 @@ from django.db import models
 from businesses.models import AccessibilityFeature
 from accounts.models import MobilityDevice
 
+
 class WheelerVerification(models.Model):
     """
     Represents a verification of a business by a Wheeler (user).
@@ -23,7 +24,7 @@ class WheelerVerification(models.Model):
     wheeler = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
-        blank=True, 
+        blank=True,
         on_delete=models.SET_NULL,
         related_name='verifications_made'
     )
@@ -67,7 +68,7 @@ class WheelerVerificationPhoto(models.Model):
         WheelerVerification,
         null=True,
         blank=True,
-        on_delete=models.SET_NULL, 
+        on_delete=models.SET_NULL,
         related_name='photos')
     image = models.ImageField(
         upload_to='mobility_mapper_business_portal/verification_photos/',
@@ -91,16 +92,16 @@ class WheelerVerificationPhoto(models.Model):
 class WheelerVerificationApplication(models.Model):
     """Tracks applications by wheelers to verify a business's accessibility."""
     business = models.ForeignKey(
-        'businesses.Business', 
+        'businesses.Business',
         on_delete=models.SET_NULL, 
         null=True,
         blank=True,
         related_name='verification_requests')
     wheeler = models.ForeignKey(
-        settings.AUTH_USER_MODEL, 
+        settings.AUTH_USER_MODEL,
         null=True,
         blank=True,
-        on_delete=models.SET_NULL, 
+        on_delete=models.SET_NULL,
         related_name='verification_requests_made')
     requested_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)

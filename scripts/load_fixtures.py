@@ -5,15 +5,15 @@ import sys
 import os
 import json
 import re
+import env  # loads environment variables from env.py
 
 # Import env.py to set environment variables
 # (ensure env.py is on the PYTHONPATH)
 project_root = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 sys.path.insert(0, project_root)
-import env  # loads environment variables from env.py
+
 
 # This script runs the Django management commands to flush and load fixtures in sequence.
-
 def main():
     # Load superuser defaults JSON first
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -58,6 +58,7 @@ def main():
     for cmd in commands:
         print(f"Running: {' '.join(cmd)}")
         subprocess.run(cmd, check=True)
+
 
 if __name__ == '__main__':
     main()

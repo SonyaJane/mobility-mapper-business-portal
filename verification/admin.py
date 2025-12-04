@@ -15,7 +15,6 @@ class WheelerVerificationAdmin(admin.ModelAdmin):
     list_filter = ('date_verified', 'approved')
     actions = ['approve_verifications']
 
-
     class WheelerVerificationPhotoInline(admin.TabularInline):
         """
         Inline admin for WheelerVerificationPhoto.

@@ -18,7 +18,7 @@ class StripeWebHookHandler:
         Handle Stripe webhooks
         For each type of webhook, we have a different method to handle it
     """
-    # assign the request as an attribute of the class so we can 
+    # assign the request as an attribute of the class so we can
     # access any attributes of the request coming from Stripe.
     def __init__(self, request):
         self.request = request
@@ -36,7 +36,7 @@ class StripeWebHookHandler:
             {'purchase': purchase, 'contact_email': settings.DEFAULT_FROM_EMAIL})
         print(f'body: {body}')
         print(f'from_email: {settings.DEFAULT_FROM_EMAIL}')
-        
+
         send_mail(
             subject,
             body,
@@ -101,7 +101,7 @@ class StripeWebHookHandler:
             except IntegrityError:
                 # concurrent create raced us; re-fetch the purchase
                 purchase = Purchase.objects.filter(stripe_payment_intent_id=pid).first()
-            
+
         # Update existing purchase status and payload
         if purchase:
             purchase.status = 'completed'
@@ -126,7 +126,7 @@ class StripeWebHookHandler:
             if purchase_type == 'verification':
                 business.wheeler_verification_requested = True
                 business.save()
-                
+
             self._send_confirmation_email(purchase)
 
         return HttpResponse(

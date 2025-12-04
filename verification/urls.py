@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [    
+urlpatterns = [
     path('<int:pk>/wheeler-verification-application/', views.wheeler_verification_application, name='wheeler_verification_application'),
     path('application-submitted/<int:pk>/', views.application_submitted, name='application_submitted'),
     path('<int:pk>/request-wheeler-verification/', views.request_wheeler_verification, name='request_wheeler_verification'),

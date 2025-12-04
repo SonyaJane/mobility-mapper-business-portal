@@ -20,7 +20,7 @@ STRIPE_CURRENCY = 'gbp'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -34,20 +34,20 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'hijack.contrib.admin',  # Hijack admin integration
     'hijack',  # Hijack app for user session management
-    
+
     # allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'django.contrib.sites',
-    
+
     # Cloudinary for media storage
     'cloudinary',
-    
+
     # Crispy forms for better form rendering
     'crispy_forms',
     'crispy_bootstrap5',
-    
+
     # Custom apps
     'core',
     'home',
@@ -98,9 +98,9 @@ TEMPLATES = [
 
 SITE_ID = 1
 
-SITE_URL = "https://mm-business-portal-deed0db15d35.herokuapp.com/" 
+SITE_URL = "https://mm-business-portal-deed0db15d35.herokuapp.com/"
 
-CSRF_TRUSTED_ORIGINS = [   
+CSRF_TRUSTED_ORIGINS = [
     "https://*.herokuapp.com",
     "http://127.0.0.1:8000"
 ]
@@ -111,7 +111,7 @@ ROOT_URLCONF = 'config.urls'
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-    
+
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
@@ -220,7 +220,7 @@ ADMINS = [
         os.environ.get("ADMIN_EMAIL"),
     ),
 ]
-    
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

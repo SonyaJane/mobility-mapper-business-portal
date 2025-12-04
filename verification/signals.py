@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import WheelerVerification
 
+
 # Store the old value before saving
 @receiver(pre_save, sender=WheelerVerification)
 def store_old_approved(sender, instance, **kwargs):
@@ -12,6 +13,7 @@ def store_old_approved(sender, instance, **kwargs):
         instance._old_approved = old.approved
     else:
         instance._old_approved = False
+
 
 @receiver(post_save, sender=WheelerVerification)
 def send_approval_email(sender, instance, created, **kwargs):
@@ -37,7 +39,7 @@ def send_approval_email(sender, instance, created, **kwargs):
                 [instance.wheeler.email],
                 fail_silently=True,
             )
-            
+
             # Email to business for nth verification
             verification_count = WheelerVerification.objects.filter(
                 business=instance.business, approved=True
@@ -58,7 +60,7 @@ def send_approval_email(sender, instance, created, **kwargs):
             if verification_count == 3:
                 # set business as verified
                 instance.business.is_verified = True
-                instance.business.save()                
+                instance.business.save()
                 biz_message += (
                     "Since this is the 3rd verification, your business has now been awarded the Verified by Wheelers badge. "
                     "This badge is visible on your business dashboard and in the business search results.\n\n"

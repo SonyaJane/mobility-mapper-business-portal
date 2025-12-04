@@ -36,7 +36,7 @@ def checkout(request, business_id):
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     # Set the currency of the checkout session
     currency = settings.STRIPE_CURRENCY
-    
+
     # Get the business object and make sure the user owns it
     business = get_object_or_404(Business, pk=business_id, business_owner=request.user.profile)
 
@@ -117,11 +117,11 @@ def checkout(request, business_id):
         else:
             # verification purchase
             # Get the existing membership tier object
-            membership_tier = business.membership_tier  
+            membership_tier = business.membership_tier
             # get the price and convert to pence
             amount = int((membership_tier.verification_price) * 100)
 
-        # prepare initial form data        
+        # prepare initial form data
         purchase_form = PurchaseForm(initial={
             'membership_tier': membership_tier.id if membership_tier else None,
             'full_name': f"{request.user.first_name} {request.user.last_name}".strip(),
@@ -172,7 +172,7 @@ def payment_success(request, purchase_number):
     - Renders the payment success template with purchase details.
     """
     # get the purchase and make sure it belongs to the user
-    purchase= get_object_or_404(Purchase, purchase_number = purchase_number, user=request.user)
+    purchase = get_object_or_404(Purchase, purchase_number=purchase_number, user=request.user)
     template = 'checkout/payment_success.html'
     context = {
         'purchase': purchase,

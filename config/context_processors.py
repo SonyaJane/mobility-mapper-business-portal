@@ -1,11 +1,13 @@
 from django.conf import settings
 from verification.models import WheelerVerificationApplication, WheelerVerification
 
+
 def os_api_key(request):
     return {
         'OS_MAPS_API_KEY': settings.OS_MAPS_API_KEY
     }
-    
+
+
 def wheeler_history(request):
     """
     Expose a flag to show Wheeler Verification History link for verified Wheelers
