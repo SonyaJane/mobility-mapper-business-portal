@@ -75,6 +75,8 @@ card.addEventListener('change', event => {
             <span>${event.error.message}</span>
         `;
         errorDiv.innerHTML = html;
+    } else { // clear errors
+        errorDiv.textContent = '';
     }
 });
 
