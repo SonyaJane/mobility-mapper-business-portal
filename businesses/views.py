@@ -466,6 +466,7 @@ def cancel_membership(request):
         messages.error(request, "No business found to cancel membership for.")
     return redirect('business_dashboard')
 
+
 @login_required
 def view_existing_membership(request):
     """
